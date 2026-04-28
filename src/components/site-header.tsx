@@ -13,13 +13,16 @@ const nav = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-zinc-200/70 bg-white/80 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/70">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+    <header className="sticky top-0 z-40 border-b bg-white/80 backdrop-blur dark:bg-zinc-950/70" style={{ borderColor: "var(--border)" }}>
+      <div className="obd-container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link
             href="/"
-            className="text-sm font-semibold tracking-tight text-zinc-950 dark:text-zinc-50"
+            className="flex items-center gap-2 text-sm font-semibold tracking-tight text-zinc-950 dark:text-zinc-50"
           >
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full text-white" style={{ background: "linear-gradient(135deg, var(--brand), var(--brand-2))" }}>
+              O
+            </span>
             Odoo Bangladesh
           </Link>
           <nav className="hidden items-center gap-4 md:flex">
@@ -27,7 +30,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white"
+                className="rounded-full px-3 py-1 text-sm text-zinc-700 hover:bg-zinc-50 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white"
               >
                 {item.label}
               </Link>
@@ -37,13 +40,15 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <Link
             href="/contact"
-            className="rounded-full border border-zinc-200 px-3 py-1.5 text-sm text-zinc-900 hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-900"
+            className="rounded-full px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-zinc-50 dark:text-zinc-100 dark:hover:bg-zinc-900"
+            style={{ border: "1px solid var(--border)" }}
           >
             Request consultation
           </Link>
           <Link
             href="/training"
-            className="rounded-full bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100"
+            className="rounded-full px-4 py-2 text-sm font-medium text-white shadow-sm"
+            style={{ background: "linear-gradient(135deg, var(--brand), var(--brand-2))" }}
           >
             Explore training
           </Link>

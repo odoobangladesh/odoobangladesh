@@ -26,7 +26,7 @@ export function NewsletterCard() {
   }
 
   return (
-    <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+    <div className="obd-card p-6">
       <div className="text-sm font-semibold">Newsletter</div>
       <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
         Get community-first updates: Odoo learning resources, training events,
@@ -39,12 +39,14 @@ export function NewsletterCard() {
           required
           type="email"
           placeholder="you@example.com"
-          className="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm outline-none ring-0 focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:border-zinc-600"
+          className="w-full rounded-xl bg-white px-3 py-2 text-sm outline-none ring-0 dark:bg-zinc-950"
+          style={{ border: "1px solid var(--border)" }}
         />
         <button
-          className="rounded-xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-60 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100"
+          className="rounded-xl px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
           disabled={status === "loading"}
           type="submit"
+          style={{ background: "linear-gradient(135deg, var(--brand), var(--brand-2))" }}
         >
           Subscribe
         </button>

@@ -4,6 +4,11 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --brand: #7c3aed;
+  --brand-2: #a855f7;
+  --surface: #ffffff;
+  --surface-2: #fafafa;
+  --border: rgba(24, 24, 27, 0.12);
 }
 
 @theme inline {
@@ -17,10 +22,64 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --brand: #a78bfa;
+    --brand-2: #c084fc;
+    --surface: #0a0a0a;
+    --surface-2: #0f0f12;
+    --border: rgba(244, 244, 245, 0.14);
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+.obd-container {
+  @apply mx-auto max-w-6xl px-4;
+}
+
+.obd-card {
+  @apply rounded-2xl border bg-white shadow-sm dark:bg-zinc-950;
+  border-color: var(--border);
+}
+
+.obd-btn {
+  @apply inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition;
+}
+
+.obd-btn-primary {
+  @apply text-white shadow-sm;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+}
+
+.obd-btn-primary:hover {
+  filter: brightness(0.98);
+}
+
+.obd-btn-outline {
+  @apply bg-transparent text-zinc-900 hover:bg-zinc-50 dark:text-zinc-100 dark:hover:bg-zinc-900;
+  border: 1px solid var(--border);
+}
+
+.obd-badge {
+  @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--brand) 8%, transparent);
+}
+
+.obd-hero {
+  background:
+    radial-gradient(800px 400px at 20% 10%, color-mix(in oklab, var(--brand) 20%, transparent), transparent 60%),
+    radial-gradient(800px 400px at 80% 0%, color-mix(in oklab, var(--brand-2) 22%, transparent), transparent 60%),
+    linear-gradient(to bottom, color-mix(in oklab, var(--brand) 6%, white), white 70%);
+}
+
+@media (prefers-color-scheme: dark) {
+  .obd-hero {
+    background:
+      radial-gradient(800px 400px at 20% 10%, color-mix(in oklab, var(--brand) 22%, transparent), transparent 60%),
+      radial-gradient(800px 400px at 80% 0%, color-mix(in oklab, var(--brand-2) 26%, transparent), transparent 60%),
+      linear-gradient(to bottom, color-mix(in oklab, var(--brand) 7%, black), #0a0a0a 70%);
+  }
 }

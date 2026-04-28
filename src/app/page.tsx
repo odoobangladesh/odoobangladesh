@@ -4,13 +4,15 @@ import { SeoSectionCard } from "@/components/seo-section-card";
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+    <div className="obd-hero">
+      <div className="obd-container py-12 md:py-16">
       <section className="grid gap-10 md:grid-cols-12 md:items-center">
         <div className="md:col-span-7">
-          <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
-            Independent Odoo community portal for Bangladesh
-          </p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
+          <div className="flex flex-wrap gap-2">
+            <span className="obd-badge">Independent community portal</span>
+            <span className="obd-badge">Not affiliated with Odoo S.A.</span>
+          </div>
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-6xl">
             Learn, explore & connect with the Odoo ecosystem in Bangladesh.
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">
@@ -21,19 +23,19 @@ export default function Home() {
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/learning-center"
-              className="inline-flex items-center justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100"
+              className="obd-btn obd-btn-primary"
             >
               Explore resources
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-900"
+              className="obd-btn obd-btn-outline"
             >
               Request ERP consultation
             </Link>
             <Link
               href="/training"
-              className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-900"
+              className="obd-btn obd-btn-outline"
             >
               Explore training programs
             </Link>
@@ -98,6 +100,7 @@ export default function Home() {
           </Link>
         </div>
       </section>
+      </div>
     </div>
   );
 }
