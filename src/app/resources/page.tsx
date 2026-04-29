@@ -3,22 +3,22 @@ import { buildMetadata } from "@/lib/seo";
 import { listDocs } from "@/lib/content";
 
 export const metadata = buildMetadata({
-  title: "Odoo vs Other ERP Comparisons",
+  title: "Odoo Resources (Bangladesh)",
   description:
-    "Neutral ERP comparisons for Bangladesh: Odoo vs ERPNext, Odoo vs SAP Business One, Odoo vs Microsoft Dynamics 365, and more.",
-  pathname: "/comparisons",
+    "Free resources for Odoo and ERP projects in Bangladesh: checklists, syllabuses, guides, and learning roadmaps.",
+  pathname: "/resources",
 });
 
-export default function ComparisonsIndexPage() {
-  const docs = listDocs("comparisons");
+export default function ResourcesIndexPage() {
+  const docs = listDocs("resources");
 
   return (
     <div className="ob-container ob-section">
       <div className="max-w-3xl">
-        <h1 className="ob-h1">ERP Comparisons</h1>
+        <h1 className="ob-h1">Resources</h1>
         <p className="ob-lead mt-4">
-          Community-written, neutral comparisons to help you shortlist an ERP in Bangladesh. No
-          “vendor wars” — just trade-offs.
+          Downloadable checklists and learning material to help you plan and execute Odoo ERP
+          projects in Bangladesh.
         </p>
       </div>
 
@@ -29,7 +29,7 @@ export default function ComparisonsIndexPage() {
             {d.description ? (
               <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">{d.description}</p>
             ) : null}
-            <div className="mt-4 text-sm font-medium">Compare →</div>
+            <div className="mt-4 text-sm font-medium">Open →</div>
           </Link>
         ))}
       </div>

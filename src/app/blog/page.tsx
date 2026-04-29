@@ -1,50 +1,40 @@
 import Link from "next/link";
-import { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import { listDocs } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Odoo Blog",
+export const metadata = buildMetadata({
+  title: "Odoo Blog (Bangladesh)",
   description:
-    "Community articles about Odoo ERP in Bangladesh: implementation guidance, module explainers, career paths, comparisons, and training roadmaps.",
-  alternates: { canonical: "/blog" },
-};
+    "Community-written guides on Odoo ERP, implementation, careers, and training in Bangladesh. Practical, neutral, and learning-focused.",
+  pathname: "/blog",
+});
 
-export default async function BlogIndexPage() {
-  const posts = (await listDocs("blog")).sort((a, b) =>
-    (b.date ?? "").localeCompare(a.date ?? ""),
-  );
+export default function BlogIndexPage() {
+  const posts = listDocs("blog");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight">Odoo Blog</h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          Neutral, Bangladesh-focused guides to help you learn Odoo, plan ERP
-          implementations, and build your career.
+    <div className="ob-container ob-section">
+      <div className="max-w-3xl">
+        <h1 className="ob-h1">Odoo Blog</h1>
+        <p className="ob-lead mt-4">
+          Guides on Odoo ERP in Bangladesh: implementation cost, module overviews, career roadmaps,
+          and neutral comparisons.
         </p>
       </div>
 
-      <div className="mt-8 grid gap-4 md:grid-cols-2">
+      <div className="mt-10 grid gap-4 md:grid-cols-2">
         {posts.map((p) => (
-          <Link
-            key={p.slug}
-            href={`/blog/${p.slug}`}
-            className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700"
-          >
-            <div className="text-sm font-semibold">{p.title}</div>
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-              {p.description}
-            </p>
-            {p.date ? (
-              <div className="mt-4 text-xs text-zinc-500">{p.date}</div>
+          <Link key={p.slug} href={p.canonicalPath} className="ob-card p-6 transition hover:shadow-md">
+            <div className="text-xs text-[color:var(--color-muted)]">
+              {p.minutes} min read{p.date ? ` · ${p.date}` : ""}
+            </div>
+            <div className="mt-2 text-lg font-semibold tracking-tight">{p.title}</div>
+            {p.description ? (
+              <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">{p.description}</p>
             ) : null}
+            <div className="mt-4 text-sm font-medium">Read →</div>
           </Link>
         ))}
-        {posts.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-zinc-300 p-6 text-sm text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
-            No posts yet. Add MDX files in <code>content/blog</code>.
-          </div>
-        ) : null}
       </div>
     </div>
   );

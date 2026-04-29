@@ -1,33 +1,39 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
-const schema = z.object({
-  name: z.string().min(1).max(120),
-  email: z.string().email(),
-  phone: z.string().max(60).optional().or(z.literal("")),
-  role: z.enum(["business", "professional", "student", "developer", "organization"]),
-  interest: z.enum([
-    "erp-assessment",
-    "implementation-guidance",
-    "talk-to-specialist",
-    "functional-training",
-    "technical-training",
-    "webinar",
-  ]),
-  message: z.string().max(5000).optional().or(z.literal("")),
-});
+type InquiryPayload = {
+  name: string;
+  email: string;
+  topic: string;
+  company?: string;
+  message: string;
+};
+
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
 export async function POST(req: Request) {
-  const json = await req.json().catch(() => null);
-  const parsed = schema.safeParse(json);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { ok: false, error: "Invalid payload" },
-      { status: 400 },
-    );
+  const body = (await req.json().catch(() => null)) as Partial<InquiryPayload> | null;
+  if (!body) return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
+
+  const name = String(body.name ?? "").trim();
+  const email = String(body.email ?? "").trim();
+  const topic = String(body.topic ?? "").trim();
+  const company = String(body.company ?? "").trim();
+  const message = String(body.message ?? "").trim();
+
+  if (!name || !email || !message) {
+    return NextResponse.json({ ok: false, error: "Missing required fields" }, { status: 400 });
+  }
+  if (!isValidEmail(email)) {
+    return NextResponse.json({ ok: false, error: "Invalid email" }, { status: 400 });
   }
 
-  // Placeholder: send email / store in DB / CRM later.
+  // TODO: Wire to email / CRM later (e.g., Postmark, Resend, HubSpot, Airtable).
+  // For now, we accept and return ok for development.
+  const record = { name, email, topic, company, message, ts: new Date().toISOString() };
+  console.log("[inquiry]", record);
+
   return NextResponse.json({ ok: true });
 }
 

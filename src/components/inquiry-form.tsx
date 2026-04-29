@@ -2,174 +2,129 @@
 
 import { useState } from "react";
 
-type Status = "idle" | "loading" | "success" | "error";
+type FormState = "idle" | "submitting" | "success" | "error";
 
 export function InquiryForm() {
-  const [status, setStatus] = useState<Status>("idle");
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    role: "business" as Role,
-    interest: "erp-assessment" as Interest,
-    message: "",
-  });
+  const [state, setState] = useState<FormState>("idle");
+  const [message, setMessage] = useState<string | null>(null);
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setStatus("loading");
+  async function onSubmit(formData: FormData) {
+    setState("submitting");
+    setMessage(null);
+
+    const payload = {
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      topic: String(formData.get("topic") ?? ""),
+      company: String(formData.get("company") ?? ""),
+      message: String(formData.get("message") ?? ""),
+    };
+
     try {
       const res = await fetch("/api/inquiry", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error("Request failed");
-      setStatus("success");
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        role: "business",
-        interest: "erp-assessment",
-        message: "",
-      });
-    } catch {
-      setStatus("error");
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+      if (!res.ok || !data?.ok) throw new Error(data?.error ?? "Request failed");
+      setState("success");
+      setMessage("Thanks — we received your inquiry. We’ll reply soon.");
+    } catch (e) {
+      setState("error");
+      setMessage(e instanceof Error ? e.message : "Something went wrong");
     }
   }
 
   return (
-    <form
-      className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950"
-      onSubmit={onSubmit}
-    >
-      <div className="text-sm font-semibold">Request consultation</div>
-      <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-        Share a bit of context so we can point you to the right resources and
-        next steps.
-      </p>
-
-      <div className="mt-5 grid gap-3">
-        <div className="grid gap-2 sm:grid-cols-2">
-          <label className="grid gap-1 text-sm">
-            <span className="text-zinc-700 dark:text-zinc-300">Name</span>
-            <input
-              className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:border-zinc-600"
-              value={form.name}
-              onChange={(e) => setForm((v) => ({ ...v, name: e.target.value }))}
-              required
-            />
-          </label>
-          <label className="grid gap-1 text-sm">
-            <span className="text-zinc-700 dark:text-zinc-300">Email</span>
-            <input
-              type="email"
-              className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:border-zinc-600"
-              value={form.email}
-              onChange={(e) =>
-                setForm((v) => ({ ...v, email: e.target.value }))
-              }
-              required
-            />
-          </label>
-        </div>
-
-        <div className="grid gap-2 sm:grid-cols-2">
-          <label className="grid gap-1 text-sm">
-            <span className="text-zinc-700 dark:text-zinc-300">
-              Phone (optional)
-            </span>
-            <input
-              className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:border-zinc-600"
-              value={form.phone}
-              onChange={(e) =>
-                setForm((v) => ({ ...v, phone: e.target.value }))
-              }
-              placeholder="+8801…"
-            />
-          </label>
-
-          <label className="grid gap-1 text-sm">
-            <span className="text-zinc-700 dark:text-zinc-300">You are</span>
-            <select
-              className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:border-zinc-600"
-              value={form.role}
-              onChange={(e) =>
-                setForm((v) => ({ ...v, role: e.target.value as Role }))
-              }
-            >
-              <option value="business">Business</option>
-              <option value="professional">ERP professional</option>
-              <option value="student">Student</option>
-              <option value="developer">Developer</option>
-              <option value="organization">Organization</option>
-            </select>
-          </label>
-        </div>
-
-        <label className="grid gap-1 text-sm">
-          <span className="text-zinc-700 dark:text-zinc-300">
-            What do you need?
-          </span>
-          <select
-            className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:border-zinc-600"
-            value={form.interest}
-            onChange={(e) =>
-              setForm((v) => ({ ...v, interest: e.target.value as Interest }))
-            }
-          >
-            <option value="erp-assessment">Free ERP assessment</option>
-            <option value="implementation-guidance">Implementation guidance</option>
-            <option value="talk-to-specialist">Talk to an Odoo specialist</option>
-            <option value="functional-training">Functional training</option>
-            <option value="technical-training">Technical training</option>
-            <option value="webinar">Webinar / workshop</option>
-          </select>
+    <form action={onSubmit} className="space-y-4">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="space-y-1">
+          <div className="text-sm font-medium">Name</div>
+          <input
+            name="name"
+            required
+            className="w-full rounded-[14px] border border-[color:var(--color-border)] bg-[color:var(--color-background)] px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[color:var(--color-brand)]/40"
+            placeholder="Your name"
+          />
         </label>
-
-        <label className="grid gap-1 text-sm">
-          <span className="text-zinc-700 dark:text-zinc-300">
-            Message (optional)
-          </span>
-          <textarea
-            className="min-h-28 rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:border-zinc-600"
-            value={form.message}
-            onChange={(e) =>
-              setForm((v) => ({ ...v, message: e.target.value }))
-            }
-            placeholder="Tell us about your industry, timeline, or learning goals."
+        <label className="space-y-1">
+          <div className="text-sm font-medium">Email</div>
+          <input
+            name="email"
+            type="email"
+            required
+            className="w-full rounded-[14px] border border-[color:var(--color-border)] bg-[color:var(--color-background)] px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[color:var(--color-brand)]/40"
+            placeholder="you@example.com"
           />
         </label>
       </div>
 
-      <button
-        className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-60 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100"
-        disabled={status === "loading"}
-        type="submit"
-      >
-        Submit
-      </button>
-      {status === "success" ? (
-        <p className="mt-3 text-xs text-zinc-600 dark:text-zinc-400">
-          Received. We’ll reply with resources and next steps.
-        </p>
-      ) : null}
-      {status === "error" ? (
-        <p className="mt-3 text-xs text-red-600 dark:text-red-400">
-          Something went wrong. Please try again.
-        </p>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="space-y-1">
+          <div className="text-sm font-medium">Topic</div>
+          <select
+            name="topic"
+            className="w-full rounded-[14px] border border-[color:var(--color-border)] bg-[color:var(--color-background)] px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[color:var(--color-brand)]/40"
+            defaultValue="erp"
+          >
+            <option value="erp">ERP consultation</option>
+            <option value="functional-training">Functional training</option>
+            <option value="technical-training">Technical training</option>
+            <option value="developer">Developer question</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+
+        <label className="space-y-1">
+          <div className="text-sm font-medium">Company / Role (optional)</div>
+          <input
+            name="company"
+            className="w-full rounded-[14px] border border-[color:var(--color-border)] bg-[color:var(--color-background)] px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[color:var(--color-brand)]/40"
+            placeholder="e.g., Garments SME / Student / Developer"
+          />
+        </label>
+      </div>
+
+      <label className="space-y-1">
+        <div className="text-sm font-medium">Message</div>
+        <textarea
+          name="message"
+          required
+          rows={6}
+          className="w-full resize-y rounded-[14px] border border-[color:var(--color-border)] bg-[color:var(--color-background)] px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[color:var(--color-brand)]/40"
+          placeholder="Tell us your goals, timeline, modules, and constraints."
+        />
+      </label>
+
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <button
+          type="submit"
+          className="ob-btn ob-btn-primary"
+          disabled={state === "submitting"}
+        >
+          {state === "submitting" ? "Sending…" : "Send inquiry"}
+        </button>
+        <div className="text-xs text-[color:var(--color-muted)]">
+          By sending, you agree to receive a reply related to your inquiry.
+        </div>
+      </div>
+
+      {message ? (
+        <div
+          className={[
+            "rounded-[14px] border p-3 text-sm",
+            state === "success"
+              ? "border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-900/40 dark:bg-emerald-900/20 dark:text-emerald-100"
+              : state === "error"
+                ? "border-rose-200 bg-rose-50 text-rose-900 dark:border-rose-900/40 dark:bg-rose-900/20 dark:text-rose-100"
+                : "border-[color:var(--color-border)]",
+          ].join(" ")}
+        >
+          {message}
+        </div>
       ) : null}
     </form>
   );
 }
-
-type Role = "business" | "professional" | "student" | "developer" | "organization";
-type Interest =
-  | "erp-assessment"
-  | "implementation-guidance"
-  | "talk-to-specialist"
-  | "functional-training"
-  | "technical-training"
-  | "webinar";
 

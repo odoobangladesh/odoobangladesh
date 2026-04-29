@@ -1,192 +1,231 @@
-# OdooBangladesh.com — Project blueprint
+# OdooBangladesh.com — Project Blueprint
 
-This repository powers **odoobangladesh.com**, a **neutral, community-driven** portal for the Odoo ecosystem in Bangladesh.
+## Goals (north star)
 
-It is intentionally **not** positioned as an agency/software company site. The site aims to rank via **topical authority + programmatic SEO**, while converting visitors through helpful resources, training pathways, and inquiry funnels.
+- **Community-first positioning**: independent portal, educational tone, not an agency.
+- **SEO-first architecture**: programmatic content + topical authority around “Odoo Bangladesh” queries.
+- **Lead generation**: subtle, contextual conversion elements (consultation, training, newsletter, downloads).
+- **Rebrandable UI**: theme tokens + placeholder branding that can be replaced later.
+
+---
 
 ## Homepage wireframe (recommended)
 
-- **Header**
-  - Primary nav: Blog, Learning Center, Modules, Industries, Comparisons, Training, Events, Forum
-  - Utility CTAs: Request consultation, Explore training
-- **Hero**
-  - Headline: “The Odoo Community Platform for Bangladesh”
-  - Subheadline: learning + implementation guidance + career support
-  - CTAs: Explore resources, Request ERP consultation, Explore training
-- **SEO sections (cards)**
-  - Odoo implementation guide
-  - Odoo modules directory
-  - Odoo for industries
-  - Odoo training pathways
-  - Odoo comparisons
-- **Trust blocks**
-  - “How to use this portal” (neutral)
-  - Community principles (no aggressive marketing)
-  - Success stories / workshop highlights (later)
-- **Lead capture**
-  - Newsletter signup
-  - Exit-intent “ERP checklist”
-  - Sticky mobile CTA
-  - WhatsApp quick chat
-- **Footer**
-  - Explore + Community links
-  - Disclaimer: not affiliated with Odoo S.A.
+1. **Sticky header**
+   - Logo (replaceable), navigation, “Request consultation” CTA
+2. **Hero**
+   - Headline + subheadline (community/education)
+   - Primary CTAs: Resources / Consultation / Training
+   - “Start here” card list (pillar links)
+3. **Story sections (alternating)**
+   - “Why Odoo in Bangladesh?” (pillars + trust)
+   - “How implementation works” (roadmap)
+   - “Training tracks” (functional vs technical)
+4. **SEO blocks**
+   - Modules grid
+   - Industries grid
+   - Comparisons grid
+5. **Trust elements**
+   - Stats counters (resources published, learners, workshops)
+   - Community highlights (contributors, workshop snapshots)
+6. **Conversion**
+   - “Free ERP assessment” CTA
+   - Newsletter block
+7. **Footer**
+   - Multi-column internal links (silos), contact, downloads
 
-## SEO silo structure (topic clusters)
+---
 
-### Pillar pages (high authority)
-- `/learning-center` (pillar hub)
-- `/implementation-guide` (pillar)
-- `/pricing-guide` (pillar)
-- `/training` (pillar)
-- `/odoo-career-guide` (pillar)
-- `/comparisons` (pillar)
-- `/modules` (pillar)
-- `/industries` (pillar)
+## SEO silo structure (programmatic SEO)
 
-### Programmatic clusters (scale)
+### Pillars
 
-- **Modules**
-  - `/modules/{module}`: accounting, inventory, purchase, sales, crm, mrp, hr, payroll, pos, project…
-  - Internal links to:
-    - relevant industry pages
-    - training topic pages (functional + technical)
-    - implementation guide sections
+- `/blog` (educational articles)
+- `/modules` (module directory)
+- `/industries` (industry pages)
+- `/comparisons` (Odoo vs X)
+- `/training` (training hub)
+- `/training/functional/*` (topic pages)
+- `/training/technical/*` (topic pages)
+- `/implementation-guide` (process + readiness)
+- `/pricing-guide` (neutral cost/pricing explanation)
+- `/resources` (downloads + checklists + syllabuses)
 
-- **Industries**
-  - `/industries/{industry}`: garments, manufacturing, retail, distribution, services, construction, education…
-  - Internal links to:
-    - module pages used most in that industry
-    - comparison pages (“best ERP for …” queries)
-    - case-style posts and checklists
+### Topic clusters (examples)
 
-- **Comparisons**
-  - `/comparisons/odoo-vs-{erp}` and additional long-tail:
-    - `/odoo-vs-erpnext`
-    - `/comparisons/odoo-vs-sap-business-one`
-    - `/comparisons/odoo-vs-dynamics-365` (future)
+- **Odoo ERP Bangladesh**
+  - Pillar: `/learning-center`
+  - Cluster: `/blog/what-is-odoo-erp`, `/implementation-guide`, `/modules/*`, `/industries/*`
+- **Odoo Training Bangladesh**
+  - Pillar: `/training`
+  - Cluster: `/odoo-functional-training`, `/odoo-technical-training`, `/training/functional/*`, `/training/technical/*`
+- **Best ERP in Bangladesh / Open Source ERP**
+  - Pillar: `/comparisons`
+  - Cluster: `/comparisons/odoo-vs-erpnext`, `/comparisons/odoo-vs-sap-business-one`, `/comparisons/odoo-vs-microsoft-dynamics-365`
 
-- **Training topics**
-  - `/training/functional/{topic}`: accounting, inventory, manufacturing, hr, pos…
-  - `/training/technical/{topic}`: module development, ORM, OWL, deployment, performance…
-
-- **Landing pages (keyword slugs)**
-  - `/odoo-accounting-bangladesh` → canonical content page
-  - `/odoo-for-garments-industry`
-  - `/odoo-technical-training`, `/odoo-functional-training`
-
-## Internal linking strategy (rules)
-
-- Every **module page** links to:
-  - at least 2 related modules
-  - at least 1 industry page
-  - at least 1 training topic page
+### Internal linking rules (recommended)
 
 - Every **industry page** links to:
-  - 3–6 core module pages
-  - 1 comparison page
-  - 1 implementation checklist/resource
+  - 3–6 relevant **module pages**
+  - 1–2 relevant **comparison pages**
+  - Implementation guide + checklist resource
+- Every **module page** links to:
+  - 2–5 industries
+  - 1 implementation section
+  - Relevant training topic pages
+- Every **training topic page** links to:
+  - Track landing page
+  - Related modules
+  - Career guide (future)
+- Every **blog post** links to:
+  - 1 pillar hub (modules/industries/training/comparisons)
+  - 2–6 cluster pages
 
-- Every **comparison page** links to:
-  - relevant modules and industries
-  - pricing + implementation guidance
-  - decision checklist resource
+---
 
-## Schema markup (recommended)
+## Content model (current + future)
 
-- **Sitewide**
-  - `Organization` (community portal identity)
-  - `WebSite`
-- **Blog posts**
-  - `Article` / `BlogPosting`
-- **Training pages**
-  - `Course` (+ `Offer` if you later publish pricing)
-  - `Event` for webinars/workshops
-- **FAQ**
-  - `FAQPage`
-- **Directory pages**
-  - Optional: `ItemList` (Modules/Industries/Comparisons)
+### Current (simple, fast)
 
-## Database schema (recommended for future CMS)
+- **MDX files** under `content/*` with frontmatter:
+  - `title`, `description`, `date`, `tags`
+- Next.js generates static pages via `generateStaticParams`.
 
-If you move from MDX → CMS/DB later, a pragmatic starting schema:
+### Recommended CMS architecture (scalable)
 
-- `Post`
-  - `id`, `slug`, `title`, `description`, `body`, `publishedAt`, `updatedAt`, `tags[]`
-- `LandingPage`
-  - `id`, `slug`, `title`, `description`, `body`, `keywords[]`, `canonicalPath`
-- `Module`
-  - `id`, `slug`, `title`, `summary`, `body`, `tags[]`
-- `Industry`
-  - `id`, `slug`, `title`, `summary`, `body`
-- `Comparison`
-  - `id`, `slug`, `title`, `summary`, `body`, `erps[]`
-- `Course`
-  - `id`, `slug`, `type` (functional/technical), `title`, `summary`, `syllabus`, `level`, `durationWeeks`
-- `CourseTopic`
-  - `id`, `courseId`, `slug`, `title`, `body`, `order`
-- `Event`
-  - `id`, `slug`, `title`, `startsAt`, `endsAt`, `location`, `registrationUrl`, `recordingUrl`
-- `Lead`
-  - `id`, `type` (newsletter/inquiry/workshop), `name?`, `email`, `phone?`, `role?`, `interest?`, `message?`, `createdAt`
+Pick one of these based on constraints:
 
-## Recommended CMS architecture
+- **Headless CMS** (best for editorial workflow)
+  - Options: Strapi / Directus / Sanity / Contentful
+  - Store: posts, module pages, industry pages, comparisons, events, courses
+  - Benefits: roles, drafts, scheduled publishing
+- **Git-based CMS** (best for community contributions)
+  - Keep MDX in repo + use GitHub PR workflow
+  - Add a “content validation” CI step + preview deployments
 
-Two good paths:
+Hybrid approach:
 
-- **Phase 1 (current)**: MDX in repo for speed + programmatic SEO pages.
-- **Phase 2**: Headless CMS (Payload/Strapi/Sanity) for non-developer content editing.
-  - Keep slugs stable.
-  - Keep “collection” concept (blog/modules/industries/comparisons/training) unchanged.
+- Keep programmatic SEO pages (modules/industries/comparisons) in CMS
+- Keep blog + resources as MDX PR contributions
 
-## Course management architecture (future-proof)
+---
 
-- Store each course as a `Course` record with:
-  - batch schedule (calendar)
-  - syllabus file/MDX
-  - registration CTA destinations
-- Store each topic as `CourseTopic` for SEO long-tail pages.
-- Events link to:
-  - course
-  - topic
-  - webinar landing page
+## Database schema (recommended)
+
+If you add a DB (Postgres recommended), keep it minimal and privacy-conscious.
+
+### Tables (core)
+
+- `leads`
+  - `id` (uuid)
+  - `created_at`
+  - `source` (contact/newsletter/exit-intent/workshop)
+  - `name` (nullable)
+  - `email`
+  - `topic` (erp | functional-training | technical-training | developer | other)
+  - `company` (nullable)
+  - `message` (nullable)
+  - `utm_*` (nullable)
+
+- `events`
+  - `id`, `title`, `starts_at`, `ends_at`, `format`, `location`, `status`, `description`
+
+- `event_registrations`
+  - `id`, `event_id`, `name`, `email`, `phone` (optional), `created_at`
+
+### Training / Courses
+
+- `courses`
+  - `id`, `track` (functional|technical), `title`, `slug`, `summary`, `level`, `duration_weeks`
+- `course_topics`
+  - `id`, `course_id`, `title`, `slug`, `order`
+- `course_inquiries`
+  - `id`, `course_id` (nullable), `name`, `email`, `message`, `created_at`
+
+---
+
+## Course management architecture (recommended)
+
+### Phase 1 (static)
+
+- Track pages in Next.js with MDX topic pages.
+- Simple “inquiry form” posts to `/api/inquiry`.
+
+### Phase 2 (structured)
+
+- Store courses/topics/schedules in DB or CMS.
+- Render:
+  - `/training` (upcoming batches)
+  - `/training/*` (topic pages)
+  - `/events` (workshops + webinars)
+- Add calendar export (ICS) and “register” flows.
+
+---
 
 ## Content publishing workflow (recommended)
 
-- Write pillar pages first (implementation, pricing, career guide, learning center).
-- Then publish programmatic clusters weekly:
-  - 3 modules
-  - 2 industries
-  - 1 comparison
-  - 2 training topics
-- Every new page must include:
-  - internal links to at least 3 related pages
-  - one lead capture CTA (“checklist”, “workshop”, or “consultation”)
+### Git-based workflow
 
-## Conversion optimization ideas (community-friendly)
+- Contributors submit MDX via PR.
+- CI checks:
+  - frontmatter required fields
+  - internal links validity
+  - basic spelling/lint (optional)
+  - build succeeds
+- Preview deploy on PR.
+- Merge to publish.
 
-- Free ERP checklist resource (already present)
-- “Book a free career consultation” (training pages)
-- Webinar registrations (events page → registration form)
-- Newsletter with “no spam” promise (already present)
-- WhatsApp quick chat for urgent questions (already present)
+### Editorial workflow (CMS)
 
-## Community engagement strategy
+- Draft → Review → Scheduled publish
+- Auto-generate:
+  - sitemap updates
+  - internal linking suggestions
 
-- Monthly webinars with Q&A (record + publish as blog/resource)
-- Community forum (Phase 2+)
-- Contribution guidelines (“submit a resource”)
-- Student success stories and learning roadmaps
+---
 
-## Training funnel strategy
+## Conversion optimization ideas (non-salesy)
 
-- Top-of-funnel: topic pages + blog posts
-- Mid-funnel: syllabus downloads + webinar registrations
-- Bottom-funnel: inquiry form + WhatsApp + batch calendar
+- **Contextual CTAs**:
+  - Blog posts: “Download checklist” or “Request scope outline”
+  - Training pages: “Get syllabus” / “Join workshop”
+  - Comparisons: “Shortlist call” (neutral)
+- **Lead magnets**:
+  - ERP checklist
+  - Functional syllabus
+  - Technical syllabus
+  - “Career roadmap” PDF
+- **Trust**:
+  - Community workshop highlights
+  - Contributor profiles (future)
+  - Student success stories (future)
 
-## Scalability plan
+---
 
-- **Now**: MDX content + static generation.
-- **Next**: Add CMS + database for leads/events/courses.
-- **Later**: Community forum, partner directory, contributor profiles, localized Bangla content, and a public API for directories.
+## Community engagement strategy (recommended)
+
+- Monthly webinars (beginner + career + dev)
+- Community contributors program (badge + featured posts)
+- “Ask a question” inbox → convert to FAQ/blog posts
+- Eventually: forum/Discord integration
+
+---
+
+## UI component architecture (current structure)
+
+- Theme tokens in `src/app/globals.css` (CSS variables + Tailwind v4)
+- Reusable blocks in `src/components/*`
+  - header/footer
+  - inquiry + newsletter
+  - sticky CTA, WhatsApp, exit intent
+- Content system in `src/lib/content.ts` + MDX in `content/*`
+
+---
+
+## Future scalability plan
+
+- Add CMS + Postgres for structured content (events/courses/leads).
+- Add search (Meilisearch/Typesense) across MDX/CMS content.
+- Add programmatic “related content” module (rules + embeddings optional).
+- Add i18n (English + Bangla) once core SEO footprint is stable.
 

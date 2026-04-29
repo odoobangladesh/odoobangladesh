@@ -1,64 +1,47 @@
 import Link from "next/link";
-import { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Odoo Pricing Guide (Bangladesh)",
   description:
-    "Community pricing guide for Odoo in Bangladesh: what affects total cost including implementation, customization, hosting, training, and support.",
-  alternates: { canonical: "/pricing-guide" },
-};
+    "A neutral pricing guide for Odoo in Bangladesh: edition choice, hosting, implementation scope, customization, training, and support.",
+  pathname: "/pricing-guide",
+});
 
 export default function PricingGuidePage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">
-        Odoo pricing guide (Bangladesh)
-      </h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-        This is a neutral overview of what usually contributes to Odoo ERP total
-        cost. Exact cost depends on scope, complexity, and rollout approach.
-      </p>
-
-      <div className="prose prose-zinc mt-8 max-w-none dark:prose-invert">
-        <h2>What typically affects cost</h2>
-        <ul>
-          <li>Number of users and departments</li>
-          <li>Modules selected (Accounting, Inventory, Manufacturing, etc.)</li>
-          <li>Customization vs configuration</li>
-          <li>Integrations (eCommerce, logistics, payments, BI)</li>
-          <li>Data migration complexity</li>
-          <li>Hosting (cloud/on-prem), monitoring, backups</li>
-          <li>Training and change management</li>
-        </ul>
-
-        <h2>How to reduce risk</h2>
-        <ul>
-          <li>Start with a small v1 scope and measurable outcomes</li>
-          <li>Run a proof-of-concept for the hardest workflow</li>
-          <li>Use a checklist for UAT and go-live readiness</li>
-        </ul>
+    <div className="ob-container ob-section">
+      <div className="max-w-3xl">
+        <h1 className="ob-h1">Pricing guide</h1>
+        <p className="ob-lead mt-4">
+          A neutral overview of what typically impacts Odoo cost in Bangladesh — to help you plan
+          budget and scope.
+        </p>
       </div>
 
-      <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-        <div className="font-medium">Want a scope-based estimate?</div>
-        <p className="mt-1 text-zinc-600 dark:text-zinc-400">
-          Share your industry, departments, and timeline. We’ll respond with a
-          checklist-first approach and connect you to relevant specialists.
-        </p>
-        <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100"
-          >
-            Request consultation
-          </Link>
-          <Link
-            href="/resources/erp-checklist"
-            className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
-          >
-            Download checklist
-          </Link>
-        </div>
+      <div className="mt-10 grid gap-4 md:grid-cols-2">
+        {[
+          { t: "Edition choice", d: "Community vs Enterprise — features and trade-offs." },
+          { t: "Hosting", d: "Cloud vs on-prem vs managed hosting." },
+          { t: "Implementation scope", d: "Departments, workflows, and reporting requirements." },
+          { t: "Customization", d: "Minimize custom code; optimize processes first." },
+          { t: "Training", d: "Role-based training affects adoption and timeline." },
+          { t: "Support", d: "Post go-live monitoring, updates, and governance." },
+        ].map((x) => (
+          <div key={x.t} className="ob-card p-6">
+            <div className="text-lg font-semibold tracking-tight">{x.t}</div>
+            <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">{x.d}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-10 flex flex-wrap gap-3">
+        <Link href="/blog/odoo-implementation-cost-in-bangladesh" className="ob-btn ob-btn-secondary">
+          Implementation cost guide
+        </Link>
+        <Link href="/contact" className="ob-btn ob-btn-primary">
+          Request consultation
+        </Link>
       </div>
     </div>
   );

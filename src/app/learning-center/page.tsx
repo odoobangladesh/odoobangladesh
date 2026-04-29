@@ -1,96 +1,58 @@
 import Link from "next/link";
-import { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Odoo Learning Center (Bangladesh)",
+export const metadata = buildMetadata({
+  title: "Odoo Learning Center",
   description:
-    "Learning paths, resources, and guides for Odoo ERP in Bangladesh: functional pathway, technical pathway, implementation, pricing, and career guidance.",
-  alternates: { canonical: "/learning-center" },
-};
+    "A learning hub for Odoo in Bangladesh: beginner guides, implementation roadmap, module directory, and training tracks.",
+  pathname: "/learning-center",
+});
 
 export default function LearningCenterPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight">Learning Center</h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          A structured starting point for learning Odoo ERP in Bangladesh — for
-          businesses, professionals, students, and developers.
+    <div className="ob-container ob-section">
+      <div className="max-w-3xl">
+        <h1 className="ob-h1">Learning center</h1>
+        <p className="ob-lead mt-4">
+          Start from basics, then go deeper. This hub connects blogs, module pages, industry pages,
+          comparisons, and training topics.
         </p>
       </div>
 
-      <section className="mt-8 grid gap-4 md:grid-cols-2">
-        <Link
-          href="/training/functional"
-          className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700"
-        >
-          <div className="text-sm font-semibold">Functional pathway</div>
-          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-            Learn business process analysis, ERP implementation concepts, and
-            core modules like Sales, Inventory, and Accounting.
-          </p>
-        </Link>
+      <div className="mt-10 grid gap-4 md:grid-cols-2">
+        {[
+          { href: "/blog", title: "Blog", desc: "Guides on Odoo ERP in Bangladesh." },
+          { href: "/modules", title: "Modules", desc: "Explore module-by-module capability." },
+          { href: "/industries", title: "Industries", desc: "Industry-specific Odoo notes." },
+          { href: "/comparisons", title: "Comparisons", desc: "Neutral ERP shortlisting guides." },
+        ].map((c) => (
+          <Link key={c.href} href={c.href} className="ob-card p-6 transition hover:shadow-md">
+            <div className="text-lg font-semibold tracking-tight">{c.title}</div>
+            <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">{c.desc}</p>
+            <div className="mt-4 text-sm font-medium">Open →</div>
+          </Link>
+        ))}
+      </div>
 
-        <Link
-          href="/training/technical"
-          className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700"
-        >
-          <div className="text-sm font-semibold">Technical pathway</div>
-          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-            Learn Odoo development: Python, ORM, module development, XML/QWeb,
-            OWL, deployment, and performance.
-          </p>
-        </Link>
-      </section>
-
-      <section className="mt-10 grid gap-4 md:grid-cols-3">
-        <Link
-          href="/implementation-guide"
-          className="rounded-2xl border border-zinc-200 p-6 text-sm hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
-        >
-          <div className="font-medium">Implementation Guide</div>
-          <p className="mt-1 text-zinc-600 dark:text-zinc-400">
-            Scope, timeline, data, UAT, training, go-live, and common mistakes.
-          </p>
-        </Link>
-        <Link
-          href="/pricing-guide"
-          className="rounded-2xl border border-zinc-200 p-6 text-sm hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
-        >
-          <div className="font-medium">Pricing Guide</div>
-          <p className="mt-1 text-zinc-600 dark:text-zinc-400">
-            Understand cost components: licenses, implementation, customization,
-            hosting, and training.
-          </p>
-        </Link>
-        <Link
-          href="/odoo-career-guide"
-          className="rounded-2xl border border-zinc-200 p-6 text-sm hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
-        >
-          <div className="font-medium">Career Path Guide</div>
-          <p className="mt-1 text-zinc-600 dark:text-zinc-400">
-            Role map, skills checklist, portfolio ideas, and interview prep.
-          </p>
-        </Link>
-      </section>
-
-      <section className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-        <div className="text-sm font-semibold">Explore by topic</div>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          <Link className="underline underline-offset-4" href="/modules">
-            Odoo modules directory
-          </Link>
-          <Link className="underline underline-offset-4" href="/industries">
-            Odoo for industries (Bangladesh)
-          </Link>
-          <Link className="underline underline-offset-4" href="/comparisons">
-            Odoo vs other ERP comparisons
-          </Link>
-          <Link className="underline underline-offset-4" href="/resources/erp-checklist">
-            Free ERP checklist (Bangladesh)
-          </Link>
+      <div className="mt-10 ob-card p-8">
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <div className="text-lg font-semibold tracking-tight">Choose a track</div>
+            <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">
+              Functional consulting vs technical development — both have clear career paths in
+              Bangladesh.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Link href="/odoo-functional-training" className="ob-btn ob-btn-primary">
+              Functional track
+            </Link>
+            <Link href="/odoo-technical-training" className="ob-btn ob-btn-secondary">
+              Technical track
+            </Link>
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

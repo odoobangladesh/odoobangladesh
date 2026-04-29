@@ -1,12 +1,10 @@
-import { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDoc, listCollectionSlugs } from "@/lib/content";
-import { renderMdx } from "@/lib/mdx";
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+import { getDoc, importMdxBySlug, listDocs } from "@/lib/content";
 
 export async function generateStaticParams() {
-  const slugs = await listCollectionSlugs("comparisons");
-  return slugs.map((slug) => ({ slug }));
+  return listDocs("comparisons").map((d) => ({ slug: d.slug }));
 }
 
 export async function generateMetadata({
@@ -15,66 +13,34 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  try {
-    const doc = await getDoc("comparisons", slug);
-    return {
-      title: doc.title,
-      description: doc.description,
-      alternates: { canonical: `/comparisons/${slug}` },
-      keywords: doc.keywords,
-      openGraph: {
-        title: doc.title,
-        description: doc.description,
-        url: `/comparisons/${slug}`,
-        type: "article",
-      },
-    };
-  } catch {
-    return {};
-  }
+  const doc = getDoc("comparisons", slug);
+  if (!doc)
+    return buildMetadata({ title: "Not found", pathname: `/comparisons/${slug}`, noIndex: true });
+
+  return buildMetadata({
+    title: doc.title,
+    description: doc.description,
+    pathname: doc.canonicalPath,
+  });
 }
 
-export default async function ComparisonPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ComparisonPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  let doc: Awaited<ReturnType<typeof getDoc>>;
-  try {
-    doc = await getDoc("comparisons", slug);
-  } catch {
-    notFound();
-  }
+  const doc = getDoc("comparisons", slug);
+  if (!doc) notFound();
 
-  const content = await renderMdx(doc.body);
+  const mod = await importMdxBySlug("comparisons", slug);
+  const Content = mod.default;
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">{doc.title}</h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-        {doc.description}
-      </p>
-      <div className="prose prose-zinc mt-8 max-w-none dark:prose-invert">
-        {content}
-      </div>
-
-      <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-        <div className="font-medium">Decision support</div>
-        <div className="mt-3 grid gap-2">
-          <Link className="underline underline-offset-4" href="/implementation-guide">
-            Implementation guide
-          </Link>
-          <Link className="underline underline-offset-4" href="/pricing-guide">
-            Pricing guide (cost components)
-          </Link>
-          <Link className="underline underline-offset-4" href="/resources/erp-checklist">
-            ERP readiness checklist
-          </Link>
-          <Link className="underline underline-offset-4" href="/contact">
-            Talk to an Odoo specialist
-          </Link>
-        </div>
+    <div className="ob-container ob-section">
+      <div className="max-w-3xl">
+        <div className="text-sm text-[color:var(--color-muted)]">Comparison</div>
+        <h1 className="ob-h1 mt-3">{doc.title}</h1>
+        {doc.description ? <p className="ob-lead mt-4">{doc.description}</p> : null}
+        <article className="mt-10">
+          <Content />
+        </article>
       </div>
     </div>
   );

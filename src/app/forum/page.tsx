@@ -1,36 +1,30 @@
 import Link from "next/link";
-import { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Community Forum",
+export const metadata = buildMetadata({
+  title: "Community Forum (Coming Soon)",
   description:
-    "Community Q&A and discussions about Odoo ERP in Bangladesh. Ask questions, share resources, and learn together.",
-  alternates: { canonical: "/forum" },
-};
+    "A community forum for Odoo learners and professionals in Bangladesh. Coming soon — join the newsletter for updates.",
+  pathname: "/forum",
+  noIndex: true,
+});
 
 export default function ForumPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight">Community forum</h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          Forum features are planned. For now, you can submit your question via
-          the inquiry form and we’ll turn recurring questions into public
-          resources and FAQs.
+    <div className="ob-container ob-section">
+      <div className="max-w-3xl">
+        <h1 className="ob-h1">Community forum</h1>
+        <p className="ob-lead mt-4">
+          Coming soon. For now, use the contact page or subscribe to the newsletter to stay updated.
         </p>
       </div>
 
-      <div className="mt-8 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-        <div className="font-medium">Ask a question</div>
-        <p className="mt-1 text-zinc-600 dark:text-zinc-400">
-          Share your context (industry, module, Odoo version). We’ll respond
-          with resources first.
-        </p>
-        <Link
-          href="/contact"
-          className="mt-4 inline-flex items-center justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100"
-        >
-          Submit a question
+      <div className="mt-10 flex flex-wrap gap-3">
+        <Link href="/newsletter" className="ob-btn ob-btn-primary">
+          Newsletter
+        </Link>
+        <Link href="/contact" className="ob-btn ob-btn-secondary">
+          Contact
         </Link>
       </div>
     </div>

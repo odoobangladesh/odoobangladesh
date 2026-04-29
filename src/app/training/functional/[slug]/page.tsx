@@ -1,11 +1,10 @@
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getDoc, listCollectionSlugs } from "@/lib/content";
-import { renderMdx } from "@/lib/mdx";
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+import { getDoc, importMdxBySlug, listDocs } from "@/lib/content";
 
 export async function generateStaticParams() {
-  const slugs = await listCollectionSlugs("training-functional");
-  return slugs.map((slug) => ({ slug }));
+  return listDocs("training-functional").map((d) => ({ slug: d.slug }));
 }
 
 export async function generateMetadata({
@@ -14,41 +13,38 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  try {
-    const doc = await getDoc("training-functional", slug);
-    return {
-      title: doc.title,
-      description: doc.description,
-      alternates: { canonical: `/training/functional/${slug}` },
-      keywords: doc.keywords,
-    };
-  } catch {
-    return {};
-  }
+  const doc = getDoc("training-functional", slug);
+  if (!doc)
+    return buildMetadata({
+      title: "Not found",
+      pathname: `/training/functional/${slug}`,
+      noIndex: true,
+    });
+
+  return buildMetadata({
+    title: doc.title,
+    description: doc.description,
+    pathname: doc.canonicalPath,
+  });
 }
 
-export default async function FunctionalTopicPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function FunctionalTopicPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  let doc: Awaited<ReturnType<typeof getDoc>>;
-  try {
-    doc = await getDoc("training-functional", slug);
-  } catch {
-    notFound();
-  }
+  const doc = getDoc("training-functional", slug);
+  if (!doc) notFound();
 
-  const content = await renderMdx(doc.body);
+  const mod = await importMdxBySlug("training-functional", slug);
+  const Content = mod.default;
+
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">{doc.title}</h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-        {doc.description}
-      </p>
-      <div className="prose prose-zinc mt-8 max-w-none dark:prose-invert">
-        {content}
+    <div className="ob-container ob-section">
+      <div className="max-w-3xl">
+        <div className="text-sm text-[color:var(--color-muted)]">Functional training</div>
+        <h1 className="ob-h1 mt-3">{doc.title}</h1>
+        {doc.description ? <p className="ob-lead mt-4">{doc.description}</p> : null}
+        <article className="mt-10">
+          <Content />
+        </article>
       </div>
     </div>
   );

@@ -1,21 +1,18 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
-const schema = z.object({
-  email: z.string().email(),
-});
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
 export async function POST(req: Request) {
-  const json = await req.json().catch(() => null);
-  const parsed = schema.safeParse(json);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { ok: false, error: "Invalid email" },
-      { status: 400 },
-    );
-  }
+  const body = (await req.json().catch(() => null)) as { email?: string } | null;
+  const email = String(body?.email ?? "").trim();
+  if (!email) return NextResponse.json({ ok: false, error: "Email is required" }, { status: 400 });
+  if (!isValidEmail(email))
+    return NextResponse.json({ ok: false, error: "Invalid email" }, { status: 400 });
 
-  // Placeholder: store in DB / Mailchimp / Brevo later.
+  // TODO: Wire to an email service / database later.
+  console.log("[newsletter]", { email, ts: new Date().toISOString() });
   return NextResponse.json({ ok: true });
 }
 

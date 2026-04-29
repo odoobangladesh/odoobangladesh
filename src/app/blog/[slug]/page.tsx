@@ -1,11 +1,10 @@
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getDoc, listCollectionSlugs } from "@/lib/content";
-import { renderMdx } from "@/lib/mdx";
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+import { getDoc, importMdxBySlug, listDocs } from "@/lib/content";
 
 export async function generateStaticParams() {
-  const slugs = await listCollectionSlugs("blog");
-  return slugs.map((slug) => ({ slug }));
+  return listDocs("blog").map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -14,23 +13,15 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  try {
-    const post = await getDoc("blog", slug);
-    return {
-      title: post.title,
-      description: post.description,
-      alternates: { canonical: `/blog/${slug}` },
-      keywords: post.keywords,
-      openGraph: {
-        title: post.title,
-        description: post.description,
-        url: `/blog/${slug}`,
-        type: "article",
-      },
-    };
-  } catch {
-    return {};
-  }
+  const doc = getDoc("blog", slug);
+  if (!doc) return buildMetadata({ title: "Not found", pathname: `/blog/${slug}`, noIndex: true });
+
+  return buildMetadata({
+    title: doc.title,
+    description: doc.description,
+    pathname: doc.canonicalPath,
+    ogType: "article",
+  });
 }
 
 export default async function BlogPostPage({
@@ -39,31 +30,25 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const doc = getDoc("blog", slug);
+  if (!doc) notFound();
 
-  let post: Awaited<ReturnType<typeof getDoc>>;
-  try {
-    post = await getDoc("blog", slug);
-  } catch {
-    notFound();
-  }
-
-  const content = await renderMdx(post.body);
+  const mod = await importMdxBySlug("blog", slug);
+  const Content = mod.default;
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-10">
-      <header>
-        <h1 className="text-3xl font-semibold tracking-tight">{post.title}</h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          {post.description}
-        </p>
-        {post.date ? (
-          <p className="mt-3 text-xs text-zinc-500">Updated: {post.date}</p>
-        ) : null}
-      </header>
-      <div className="prose prose-zinc mt-8 max-w-none dark:prose-invert">
-        {content}
+    <div className="ob-container ob-section">
+      <div className="max-w-3xl">
+        <div className="text-sm text-[color:var(--color-muted)]">
+          {doc.minutes} min read{doc.date ? ` · ${doc.date}` : ""}
+        </div>
+        <h1 className="ob-h1 mt-3">{doc.title}</h1>
+        {doc.description ? <p className="ob-lead mt-4">{doc.description}</p> : null}
+        <article className="mt-10">
+          <Content />
+        </article>
       </div>
-    </article>
+    </div>
   );
 }
 

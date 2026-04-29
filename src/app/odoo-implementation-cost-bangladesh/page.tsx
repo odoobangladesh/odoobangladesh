@@ -1,6 +1,0 @@
-import { redirect } from "next/navigation";
-
-export default function Page() {
-  redirect("/landings/odoo-implementation-cost-bangladesh");
-}
-

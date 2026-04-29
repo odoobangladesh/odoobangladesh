@@ -1,81 +1,74 @@
 import Link from "next/link";
-import { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Odoo Implementation Guide (Bangladesh)",
   description:
-    "A practical, community implementation guide for Odoo ERP in Bangladesh: scope, data, processes, timeline, UAT, training, and go-live.",
-  alternates: { canonical: "/implementation-guide" },
-};
+    "A neutral implementation guide for Odoo ERP projects in Bangladesh: discovery, scope, configuration, customization, UAT, training, and go-live.",
+  pathname: "/implementation-guide",
+});
 
 export default function ImplementationGuidePage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">
-        Odoo implementation guide (Bangladesh)
-      </h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-        A neutral guide to help teams plan an Odoo ERP implementation — from
-        discovery to go-live. Use this as a checklist for discussions with
-        internal stakeholders and external specialists.
-      </p>
-
-      <div className="prose prose-zinc mt-8 max-w-none dark:prose-invert">
-        <h2>Phase 1: Discovery and scope</h2>
-        <ul>
-          <li>Define success metrics (time, cost, accuracy, visibility)</li>
-          <li>List must-have workflows per department</li>
-          <li>Decide what’s out-of-scope for v1</li>
-        </ul>
-
-        <h2>Phase 2: Process mapping</h2>
-        <ul>
-          <li>Document “as-is” process and pain points</li>
-          <li>Design “to-be” process and approvals</li>
-          <li>Confirm reporting requirements</li>
-        </ul>
-
-        <h2>Phase 3: Data readiness</h2>
-        <ul>
-          <li>Identify master data owners (products, customers, COA)</li>
-          <li>Clean and standardize data early</li>
-          <li>Plan migration rounds (dry run → final)</li>
-        </ul>
-
-        <h2>Phase 4: Configuration and customization</h2>
-        <ul>
-          <li>Prefer configuration first, customize only when needed</li>
-          <li>Keep customizations documented and testable</li>
-          <li>Plan integrations (accounting, eCommerce, logistics)</li>
-        </ul>
-
-        <h2>Phase 5: Testing (UAT) and training</h2>
-        <ul>
-          <li>UAT scripts for your critical flows</li>
-          <li>Role-based training for end users</li>
-          <li>Admin training for system owners</li>
-        </ul>
-
-        <h2>Phase 6: Go-live and stabilization</h2>
-        <ul>
-          <li>Cutover checklist and rollback plan</li>
-          <li>Hypercare support window</li>
-          <li>Post go-live improvements roadmap</li>
-        </ul>
+    <div className="ob-container ob-section">
+      <div className="max-w-3xl">
+        <h1 className="ob-h1">Implementation guide</h1>
+        <p className="ob-lead mt-4">
+          A practical, neutral guide to implement Odoo ERP in Bangladesh — focused on scope clarity,
+          change management, and long-term maintainability.
+        </p>
       </div>
 
-      <div className="mt-10 grid gap-3 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-        <div className="font-medium">Helpful next steps</div>
-        <div className="grid gap-2">
-          <Link className="underline underline-offset-4" href="/resources/erp-checklist">
-            Download ERP readiness checklist
-          </Link>
-          <Link className="underline underline-offset-4" href="/modules">
-            Review module-by-module scope
-          </Link>
-          <Link className="underline underline-offset-4" href="/contact">
-            Request a free ERP assessment call
-          </Link>
+      <div className="mt-10 grid gap-4 lg:grid-cols-3">
+        {[
+          {
+            title: "1) Discovery & scope",
+            desc: "Define objectives, workflows, reports, and MVP scope.",
+          },
+          {
+            title: "2) Configuration first",
+            desc: "Use standard Odoo flows before customizing.",
+          },
+          {
+            title: "3) Data & migration",
+            desc: "Clean master data, map fields, validate imports.",
+          },
+          {
+            title: "4) Testing (UAT)",
+            desc: "Scenario-based tests with process owners and real data.",
+          },
+          {
+            title: "5) Training & rollout",
+            desc: "Champions, role-based training, and support plan.",
+          },
+          {
+            title: "6) Post go-live",
+            desc: "Monitor, iterate, document, and improve governance.",
+          },
+        ].map((s) => (
+          <div key={s.title} className="ob-card p-6">
+            <div className="text-lg font-semibold tracking-tight">{s.title}</div>
+            <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-10 ob-card p-8">
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <div className="text-lg font-semibold tracking-tight">Free tools</div>
+            <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">
+              Use the readiness checklist to align scope, data, roles, and timeline.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Link href="/resources/erp-checklist" className="ob-btn ob-btn-primary">
+              ERP checklist
+            </Link>
+            <Link href="/contact" className="ob-btn ob-btn-secondary">
+              Request consultation
+            </Link>
+          </div>
         </div>
       </div>
     </div>

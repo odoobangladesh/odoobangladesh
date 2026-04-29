@@ -1,57 +1,52 @@
 import Link from "next/link";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const nav = [
   { href: "/blog", label: "Blog" },
-  { href: "/learning-center", label: "Learning Center" },
   { href: "/modules", label: "Modules" },
-  { href: "/industries", label: "Industries" },
-  { href: "/comparisons", label: "Comparisons" },
+  { href: "/learning-center", label: "Learning" },
   { href: "/training", label: "Training" },
+  { href: "/comparisons", label: "Comparisons" },
+  { href: "/implementation-guide", label: "Implementation" },
   { href: "/events", label: "Events" },
-  { href: "/forum", label: "Forum" },
 ] as const;
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b bg-white/80 backdrop-blur dark:bg-zinc-950/70" style={{ borderColor: "var(--border)" }}>
-      <div className="obd-container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-6">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-sm font-semibold tracking-tight text-zinc-950 dark:text-zinc-50"
-          >
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full text-white" style={{ background: "linear-gradient(135deg, var(--brand), var(--brand-2))" }}>
-              O
+    <header className="sticky top-0 z-50 border-b border-[color:var(--color-border)] bg-[color:var(--color-background)]/80 backdrop-blur">
+      <div className="ob-container">
+        <div className="flex h-16 items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3">
+            <span className="relative grid h-8 w-8 place-items-center overflow-hidden rounded-xl border border-[color:var(--color-border)] bg-white shadow-sm">
+              <span className="text-[10px] font-semibold text-black">OB</span>
             </span>
-            Odoo Bangladesh
+            <span className="font-semibold tracking-tight">Odoo Bangladesh</span>
+            <span className="hidden text-sm text-[color:var(--color-muted)] md:inline">
+              Community portal
+            </span>
           </Link>
-          <nav className="hidden items-center gap-4 md:flex">
+
+          <nav className="hidden items-center gap-1 lg:flex">
             {nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-full px-3 py-1 text-sm text-zinc-700 hover:bg-zinc-50 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white"
+                className="rounded-full px-3 py-2 text-sm text-[color:var(--color-muted)] transition hover:bg-black/5 hover:text-[color:var(--color-foreground)] dark:hover:bg-white/10"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link
-            href="/contact"
-            className="rounded-full px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-zinc-50 dark:text-zinc-100 dark:hover:bg-zinc-900"
-            style={{ border: "1px solid var(--border)" }}
-          >
-            Request consultation
-          </Link>
-          <Link
-            href="/training"
-            className="rounded-full px-4 py-2 text-sm font-medium text-white shadow-sm"
-            style={{ background: "linear-gradient(135deg, var(--brand), var(--brand-2))" }}
-          >
-            Explore training
-          </Link>
+
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Link href="/contact" className="ob-btn ob-btn-secondary">
+              Request consultation
+            </Link>
+            <Link href="/training" className="ob-btn ob-btn-primary hidden sm:inline-flex">
+              Explore training
+            </Link>
+          </div>
         </div>
       </div>
     </header>

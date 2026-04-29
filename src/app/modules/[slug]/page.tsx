@@ -1,12 +1,10 @@
-import { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDoc, listCollectionSlugs } from "@/lib/content";
-import { renderMdx } from "@/lib/mdx";
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+import { getDoc, importMdxBySlug, listDocs } from "@/lib/content";
 
 export async function generateStaticParams() {
-  const slugs = await listCollectionSlugs("modules");
-  return slugs.map((slug) => ({ slug }));
+  return listDocs("modules").map((d) => ({ slug: d.slug }));
 }
 
 export async function generateMetadata({
@@ -15,60 +13,33 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  try {
-    const doc = await getDoc("modules", slug);
-    return {
-      title: doc.title,
-      description: doc.description,
-      alternates: { canonical: `/modules/${slug}` },
-      keywords: doc.keywords,
-    };
-  } catch {
-    return {};
-  }
+  const doc = getDoc("modules", slug);
+  if (!doc) return buildMetadata({ title: "Not found", pathname: `/modules/${slug}`, noIndex: true });
+
+  return buildMetadata({
+    title: doc.title,
+    description: doc.description,
+    pathname: doc.canonicalPath,
+  });
 }
 
-export default async function ModulePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ModulePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  let doc: Awaited<ReturnType<typeof getDoc>>;
-  try {
-    doc = await getDoc("modules", slug);
-  } catch {
-    notFound();
-  }
+  const doc = getDoc("modules", slug);
+  if (!doc) notFound();
 
-  const content = await renderMdx(doc.body);
+  const mod = await importMdxBySlug("modules", slug);
+  const Content = mod.default;
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">{doc.title}</h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-        {doc.description}
-      </p>
-      <div className="prose prose-zinc mt-8 max-w-none dark:prose-invert">
-        {content}
-      </div>
-
-      <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-        <div className="font-medium">Related next steps</div>
-        <div className="mt-3 grid gap-2">
-          <Link className="underline underline-offset-4" href="/implementation-guide">
-            Implementation guide
-          </Link>
-          <Link className="underline underline-offset-4" href="/training/functional">
-            Functional training pathway
-          </Link>
-          <Link className="underline underline-offset-4" href="/training/technical">
-            Technical training pathway
-          </Link>
-          <Link className="underline underline-offset-4" href="/contact">
-            Request consultation (community-led)
-          </Link>
-        </div>
+    <div className="ob-container ob-section">
+      <div className="max-w-3xl">
+        <div className="text-sm text-[color:var(--color-muted)]">Module</div>
+        <h1 className="ob-h1 mt-3">{doc.title}</h1>
+        {doc.description ? <p className="ob-lead mt-4">{doc.description}</p> : null}
+        <article className="mt-10">
+          <Content />
+        </article>
       </div>
     </div>
   );

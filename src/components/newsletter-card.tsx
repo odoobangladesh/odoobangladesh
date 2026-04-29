@@ -2,68 +2,65 @@
 
 import { useState } from "react";
 
-export function NewsletterCard() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle",
-  );
+type State = "idle" | "submitting" | "success" | "error";
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setStatus("loading");
+export function NewsletterCard() {
+  const [state, setState] = useState<State>("idle");
+  const [email, setEmail] = useState("");
+  const [note, setNote] = useState<string | null>(null);
+
+  async function submit() {
+    setState("submitting");
+    setNote(null);
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      if (!res.ok) throw new Error("Request failed");
-      setStatus("success");
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+      if (!res.ok || !data?.ok) throw new Error(data?.error ?? "Subscription failed");
+      setState("success");
+      setNote("Subscribed. Check your inbox for future updates.");
       setEmail("");
-    } catch {
-      setStatus("error");
+    } catch (e) {
+      setState("error");
+      setNote(e instanceof Error ? e.message : "Something went wrong");
     }
   }
 
   return (
-    <div className="obd-card p-6">
-      <div className="text-sm font-semibold">Newsletter</div>
-      <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-        Get community-first updates: Odoo learning resources, training events,
-        implementation checklists, and career guides.
+    <div className="ob-card p-6">
+      <div className="text-lg font-semibold tracking-tight">Subscribe</div>
+      <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">
+        Get new Odoo Bangladesh resources, comparisons, and training updates.
       </p>
-      <form className="mt-4 flex gap-2" onSubmit={onSubmit}>
+
+      <div className="mt-5 flex flex-col gap-3 sm:flex-row">
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
           type="email"
           placeholder="you@example.com"
-          className="w-full rounded-xl bg-white px-3 py-2 text-sm outline-none ring-0 dark:bg-zinc-950"
-          style={{ border: "1px solid var(--border)" }}
+          className="w-full flex-1 rounded-[14px] border border-[color:var(--color-border)] bg-[color:var(--color-background)] px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[color:var(--color-brand)]/40"
         />
         <button
-          className="rounded-xl px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
-          disabled={status === "loading"}
-          type="submit"
-          style={{ background: "linear-gradient(135deg, var(--brand), var(--brand-2))" }}
+          className="ob-btn ob-btn-primary"
+          onClick={submit}
+          disabled={state === "submitting" || !email}
+          type="button"
         >
-          Subscribe
+          {state === "submitting" ? "Subscribing…" : "Subscribe"}
         </button>
-      </form>
-      {status === "success" ? (
-        <p className="mt-3 text-xs text-zinc-600 dark:text-zinc-400">
-          Subscribed. Welcome to the community.
-        </p>
-      ) : null}
-      {status === "error" ? (
-        <p className="mt-3 text-xs text-red-600 dark:text-red-400">
-          Something went wrong. Please try again.
-        </p>
-      ) : null}
-      <p className="mt-4 text-xs text-zinc-500">
-        Unsubscribe anytime. We don’t sell your data.
-      </p>
+      </div>
+
+      {note ? (
+        <div className="mt-4 text-sm text-[color:var(--color-muted)]">{note}</div>
+      ) : (
+        <div className="mt-4 text-xs text-[color:var(--color-muted)]">
+          No spam. Unsubscribe any time.
+        </div>
+      )}
     </div>
   );
 }

@@ -1,70 +1,130 @@
-import "server-only";
-
-import fs from "node:fs/promises";
+import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import readingTime from "reading-time";
+
+export type ContentCollection =
+  | "blog"
+  | "modules"
+  | "industries"
+  | "comparisons"
+  | "landings"
+  | "resources"
+  | "training-functional"
+  | "training-technical";
 
 export type ContentDoc = {
+  collection: ContentCollection;
   slug: string;
   title: string;
-  description: string;
+  description?: string;
   date?: string;
   tags?: string[];
-  keywords?: string[];
-  canonical?: string;
-  image?: string;
-  draft?: boolean;
-  body: string;
+  canonicalPath: string;
+  minutes?: number;
 };
 
-const contentRoot = path.join(process.cwd(), "content");
+const CONTENT_ROOT = path.join(process.cwd(), "content");
 
-async function readDirSafe(dir: string) {
-  try {
-    return await fs.readdir(dir);
-  } catch {
-    return [];
+function collectionDir(collection: ContentCollection) {
+  switch (collection) {
+    case "training-functional":
+      return path.join(CONTENT_ROOT, "training-functional");
+    case "training-technical":
+      return path.join(CONTENT_ROOT, "training-technical");
+    default:
+      return path.join(CONTENT_ROOT, collection);
   }
 }
 
-export async function listCollectionSlugs(collection: string) {
-  const dir = path.join(contentRoot, collection);
-  const entries = await readDirSafe(dir);
-  return entries
+function canonicalBase(collection: ContentCollection) {
+  switch (collection) {
+    case "blog":
+      return "/blog";
+    case "modules":
+      return "/modules";
+    case "industries":
+      return "/industries";
+    case "comparisons":
+      return "/comparisons";
+    case "landings":
+      return "/landings";
+    case "resources":
+      return "/resources";
+    case "training-functional":
+      return "/training/functional";
+    case "training-technical":
+      return "/training/technical";
+  }
+}
+
+function listMdxFiles(dir: string) {
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
     .filter((f) => f.endsWith(".mdx"))
-    .map((f) => f.replace(/\.mdx$/, ""));
+    .sort();
 }
 
-export async function getDoc(collection: string, slug: string): Promise<ContentDoc> {
-  const file = path.join(contentRoot, collection, `${slug}.mdx`);
-  const raw = await fs.readFile(file, "utf8");
-  const parsed = matter(raw);
-  const data = parsed.data as Partial<ContentDoc>;
+export function listDocs(collection: ContentCollection): ContentDoc[] {
+  const dir = collectionDir(collection);
+  const base = canonicalBase(collection);
+  return listMdxFiles(dir).map((filename) => {
+    const slug = filename.replace(/\.mdx$/, "");
+    const filePath = path.join(dir, filename);
+    const raw = fs.readFileSync(filePath, "utf8");
+    const { data, content } = matter(raw);
+    const rt = readingTime(content);
 
-  return {
-    slug,
-    title: data.title ?? slugToTitle(slug),
-    description: data.description ?? "",
-    date: data.date,
-    tags: data.tags ?? [],
-    keywords: data.keywords ?? [],
-    canonical: data.canonical,
-    image: data.image,
-    draft: data.draft ?? false,
-    body: parsed.content,
-  };
+    const title = (data.title as string | undefined) ?? slugToTitle(slug);
+    const description = data.description as string | undefined;
+    const date = data.date as string | undefined;
+    const tags = Array.isArray(data.tags) ? (data.tags as string[]) : undefined;
+
+    return {
+      collection,
+      slug,
+      title,
+      description,
+      date,
+      tags,
+      canonicalPath: `${base}/${slug}`,
+      minutes: Math.max(1, Math.round(rt.minutes)),
+    };
+  });
 }
 
-export async function listDocs(collection: string): Promise<ContentDoc[]> {
-  const slugs = await listCollectionSlugs(collection);
-  const docs = await Promise.all(slugs.map((s) => getDoc(collection, s)));
-  return docs.filter((d) => !d.draft);
+export function getDoc(collection: ContentCollection, slug: string): ContentDoc | null {
+  const docs = listDocs(collection);
+  return docs.find((d) => d.slug === slug) ?? null;
+}
+
+export async function importMdxBySlug(collection: ContentCollection, slug: string) {
+  // Keep imports explicit per collection to preserve bundler analyzability.
+  switch (collection) {
+    case "blog":
+      return import(`../../content/blog/${slug}.mdx`);
+    case "modules":
+      return import(`../../content/modules/${slug}.mdx`);
+    case "industries":
+      return import(`../../content/industries/${slug}.mdx`);
+    case "comparisons":
+      return import(`../../content/comparisons/${slug}.mdx`);
+    case "landings":
+      return import(`../../content/landings/${slug}.mdx`);
+    case "resources":
+      return import(`../../content/resources/${slug}.mdx`);
+    case "training-functional":
+      return import(`../../content/training-functional/${slug}.mdx`);
+    case "training-technical":
+      return import(`../../content/training-technical/${slug}.mdx`);
+  }
 }
 
 function slugToTitle(slug: string) {
   return slug
     .split("-")
-    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+    .map((w) => (w.length ? w[0]!.toUpperCase() + w.slice(1) : w))
     .join(" ");
 }
 

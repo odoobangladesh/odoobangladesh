@@ -1,12 +1,4 @@
-## OdooBangladesh.com
-
-Community-driven, SEO-first Odoo portal for Bangladesh.
-
-- **Positioning**: independent community + learning hub (not an agency site)
-- **Stack**: Next.js App Router + Tailwind + MDX content collections
-- **Publishing model**: programmatic SEO via `content/*` collections
-
-See `docs/PROJECT_BLUEPRINT.md` for wireframe, SEO silos, schema recommendations, CMS/course architecture, and scaling plan.
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
@@ -24,18 +16,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Content publishing
-
-Add MDX files in:
-
-- `content/blog` → `/blog/[slug]`
-- `content/landings` → `/landings/[slug]` and keyword redirects like `/odoo-accounting-bangladesh`
-- `content/modules` → `/modules/[slug]`
-- `content/industries` → `/industries/[slug]`
-- `content/comparisons` → `/comparisons/[slug]` and short canonical URLs when configured
-- `content/training-functional` → `/training/functional/[slug]`
-- `content/training-technical` → `/training/technical/[slug]`
-- `content/resources` → `/resources/[slug]`
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 

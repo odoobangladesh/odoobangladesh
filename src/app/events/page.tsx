@@ -1,36 +1,57 @@
-import { Metadata } from "next";
 import Link from "next/link";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Events & Webinars",
   description:
-    "Community workshops and webinars for Odoo learners and professionals in Bangladesh. Register for upcoming sessions and access recordings.",
-  alternates: { canonical: "/events" },
-};
+    "Community events and webinars for Odoo learners in Bangladesh: free workshops, career sessions, module overviews, and implementation Q&A.",
+  pathname: "/events",
+});
 
 export default function EventsPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight">Events & webinars</h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          Upcoming community learning sessions will appear here. For now, use
-          the inquiry form to register interest and get notified.
+    <div className="ob-container ob-section">
+      <div className="max-w-3xl">
+        <h1 className="ob-h1">Events & webinars</h1>
+        <p className="ob-lead mt-4">
+          Community learning sessions for Odoo in Bangladesh. This section is designed to evolve
+          into a schedule + registration system.
         </p>
       </div>
-      <div className="mt-8 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-        <div className="text-sm font-semibold">Next steps</div>
-        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600 dark:text-zinc-400">
-          <li>Free workshop registration</li>
-          <li>Webinar announcements</li>
-          <li>Community learning events</li>
-        </ul>
-        <Link
-          href="/contact"
-          className="mt-5 inline-flex items-center justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100"
-        >
-          Register interest
-        </Link>
+
+      <div className="mt-10 grid gap-4 lg:grid-cols-3">
+        {[
+          { t: "Intro to Odoo ERP (Bangladesh)", d: "Free workshop for beginners." },
+          { t: "Functional consultant roadmap", d: "Skills, projects, and learning plan." },
+          { t: "Odoo module development basics", d: "Models, views, security, and packaging." },
+        ].map((e) => (
+          <div key={e.t} className="ob-card p-6">
+            <div className="text-sm text-[color:var(--color-muted)]">Sample event</div>
+            <div className="mt-2 text-lg font-semibold tracking-tight">{e.t}</div>
+            <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">{e.d}</p>
+            <div className="mt-4 text-xs text-[color:var(--color-muted)]">Registration: coming soon</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-10 ob-card p-8">
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <div className="text-lg font-semibold tracking-tight">Want to host a session?</div>
+            <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">
+              Propose a topic (functional or technical) and we’ll help structure it as a community
+              workshop.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Link href="/contact" className="ob-btn ob-btn-primary">
+              Propose an event
+            </Link>
+            <Link href="/newsletter" className="ob-btn ob-btn-secondary">
+              Get updates
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

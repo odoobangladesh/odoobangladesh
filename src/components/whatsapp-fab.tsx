@@ -1,20 +1,28 @@
 "use client";
 
-import { MessageCircle } from "lucide-react";
-import { siteConfig } from "@/lib/site";
+import Link from "next/link";
+import { useMemo } from "react";
 
 export function WhatsAppFab() {
+  const href = useMemo(() => {
+    const text = encodeURIComponent(
+      "Hi! I found OdooBangladesh.com and I have a question about Odoo implementation/training in Bangladesh."
+    );
+    // Placeholder number; replace later without changing component API.
+    return `https://wa.me/0000000000?text=${text}`;
+  }, []);
+
   return (
-    <a
-      href={siteConfig.social.whatsapp}
+    <Link
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-20 right-4 z-40 hidden items-center gap-2 rounded-full bg-emerald-600 px-4 py-3 text-sm font-medium text-white shadow-lg hover:bg-emerald-500 md:flex"
+      className="fixed bottom-20 right-4 z-50 grid h-12 w-12 place-items-center rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-background)] shadow-md transition hover:shadow-lg"
       aria-label="Chat on WhatsApp"
+      title="Chat on WhatsApp"
     >
-      <MessageCircle className="h-4 w-4" />
-      WhatsApp
-    </a>
+      <span className="text-sm font-semibold">WA</span>
+    </Link>
   );
 }
 

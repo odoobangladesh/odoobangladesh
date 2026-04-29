@@ -1,47 +1,37 @@
 import Link from "next/link";
-import { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import { listDocs } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Odoo Modules Directory (Bangladesh)",
+export const metadata = buildMetadata({
+  title: "Odoo Modules Directory",
   description:
-    "Browse Odoo ERP modules with Bangladesh-focused use cases, implementation notes, and learning resources.",
-  alternates: { canonical: "/modules" },
-};
+    "Explore Odoo modules with Bangladesh-focused notes: Accounting, Sales, CRM, Inventory, Purchase, Manufacturing, POS, and more.",
+  pathname: "/modules",
+});
 
-export default async function ModulesIndexPage() {
-  const modules = await listDocs("modules");
+export default function ModulesIndexPage() {
+  const modules = listDocs("modules");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight">
-          Odoo Modules Directory
-        </h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          Neutral module overviews for businesses and learners in Bangladesh,
-          with implementation considerations and learning pathways.
+    <div className="ob-container ob-section">
+      <div className="max-w-3xl">
+        <h1 className="ob-h1">Odoo Modules</h1>
+        <p className="ob-lead mt-4">
+          A community directory of Odoo modules — written for Bangladesh-based businesses and
+          learners. Start with the modules that match your scope.
         </p>
       </div>
 
-      <div className="mt-8 grid gap-4 md:grid-cols-2">
+      <div className="mt-10 grid gap-4 md:grid-cols-2">
         {modules.map((m) => (
-          <Link
-            key={m.slug}
-            href={`/modules/${m.slug}`}
-            className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700"
-          >
-            <div className="text-sm font-semibold">{m.title}</div>
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-              {m.description}
-            </p>
+          <Link key={m.slug} href={m.canonicalPath} className="ob-card p-6 transition hover:shadow-md">
+            <div className="text-lg font-semibold tracking-tight">{m.title}</div>
+            {m.description ? (
+              <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">{m.description}</p>
+            ) : null}
+            <div className="mt-4 text-sm font-medium">Open →</div>
           </Link>
         ))}
-        {modules.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-zinc-300 p-6 text-sm text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
-            Add MDX files in <code>content/modules</code>.
-          </div>
-        ) : null}
       </div>
     </div>
   );

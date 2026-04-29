@@ -1,41 +1,44 @@
-import { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import { InquiryForm } from "@/components/inquiry-form";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Contact / Inquiry",
   description:
-    "Request a community-led ERP assessment, implementation guidance, or training advice. We’ll connect you with the right Odoo resources and specialists.",
-  alternates: { canonical: "/contact" },
-};
+    "Request a neutral Odoo ERP consultation or training guidance in Bangladesh. Community portal — educational and resource-first.",
+  pathname: "/contact",
+});
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="grid gap-8 md:grid-cols-12">
-        <div className="md:col-span-6">
-          <h1 className="text-3xl font-semibold tracking-tight">
-            Contact / Inquiry
-          </h1>
-          <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-            This is a community portal. Use this form to request an ERP
-            assessment, ask about implementation planning, or explore training
-            pathways. We’ll respond with resources first, and connect you with
-            relevant specialists when appropriate.
+    <div className="ob-container ob-section">
+      <div className="grid gap-10 lg:grid-cols-2">
+        <div>
+          <h1 className="ob-h1">Contact</h1>
+          <p className="ob-lead mt-4">
+            This portal is community-driven and education-first. Send your question and we’ll reply
+            with practical next steps, resources, and a neutral scope outline (if you’re planning an
+            ERP project).
           </p>
 
-          <div className="mt-6 rounded-2xl border border-zinc-200 p-6 text-sm dark:border-zinc-800">
-            <div className="font-medium">What you can request</div>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-zinc-600 dark:text-zinc-400">
-              <li>Free ERP assessment checklist and planning call</li>
-              <li>Odoo implementation guidance (process + scope)</li>
-              <li>Talk to an Odoo specialist (functional/technical)</li>
-              <li>Training batch info + syllabus</li>
-              <li>Workshop/webinar registration</li>
+          <div className="mt-8 ob-card p-6">
+            <div className="text-sm font-semibold">Good inquiries include</div>
+            <ul className="mt-3 list-disc space-y-2 pl-6 text-sm text-[color:var(--color-muted)]">
+              <li>Industry + company size</li>
+              <li>Which modules you need (Sales/Inventory/Accounting/etc.)</li>
+              <li>Timeline and any constraints</li>
+              <li>Whether you want training (functional or technical)</li>
             </ul>
           </div>
         </div>
-        <div className="md:col-span-6">
-          <InquiryForm />
+
+        <div className="ob-card p-6">
+          <div className="text-lg font-semibold tracking-tight">Inquiry form</div>
+          <p className="mt-2 text-sm leading-6 text-[color:var(--color-muted)]">
+            We’ll respond by email. No spam.
+          </p>
+          <div className="mt-6">
+            <InquiryForm />
+          </div>
         </div>
       </div>
     </div>
