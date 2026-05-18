@@ -1,152 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand tokens (easy to rebrand later) */
-  --brand: 312 70% 52%; /* Odoo-inspired purple */
-  --brand-2: 224 85% 60%;
-  --brand-3: 160 84% 39%;
-
-  /* Core surfaces */
-  --bg: 0 0% 100%;
-  --fg: 222 22% 12%;
-  --muted: 218 14% 45%;
-  --border: 220 14% 92%;
-
-  /* Cards */
-  --card: 0 0% 100%;
-  --card-fg: 222 22% 12%;
-
-  /* Radii */
-  --radius-sm: 12px;
-  --radius-md: 16px;
-  --radius-lg: 22px;
-
-  /* Shadows (subtle, SaaS-like) */
-  --shadow-sm: 0 1px 1px hsl(222 22% 12% / 0.05), 0 1px 10px hsl(222 22% 12% / 0.06);
-  --shadow-md: 0 2px 2px hsl(222 22% 12% / 0.05), 0 14px 40px hsl(222 22% 12% / 0.10);
-  --shadow-lg: 0 3px 3px hsl(222 22% 12% / 0.06), 0 22px 70px hsl(222 22% 12% / 0.14);
-
-  /* Gradients */
-  --grad-hero: radial-gradient(1200px circle at 20% 20%, hsl(var(--brand) / 0.12), transparent 55%),
-    radial-gradient(900px circle at 80% 25%, hsl(var(--brand-2) / 0.10), transparent 55%),
-    radial-gradient(900px circle at 50% 80%, hsl(var(--brand-3) / 0.08), transparent 60%);
-
-  /* Legacy hooks */
-  --background: hsl(var(--bg));
-  --foreground: hsl(var(--fg));
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
 @theme inline {
-  --color-background: hsl(var(--bg));
-  --color-foreground: hsl(var(--fg));
-  --color-border: hsl(var(--border));
-  --color-muted: hsl(var(--muted));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-fg));
-  --color-brand: hsl(var(--brand));
-  --color-brand-2: hsl(var(--brand-2));
-  --color-brand-3: hsl(var(--brand-3));
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-html.dark {
-  --bg: 222 20% 8%;
-  --fg: 0 0% 98%;
-  --muted: 220 12% 70%;
-  --border: 220 12% 18%;
-  --card: 222 20% 10%;
-  --card-fg: 0 0% 98%;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
-  background: hsl(var(--bg));
-  color: hsl(var(--fg));
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
-    Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-}
-
-/* --- Layout primitives --- */
-.ob-container {
-  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
-}
-
-.ob-section {
-  @apply py-14 sm:py-20;
-}
-
-.ob-card {
-  background: hsl(var(--card));
-  color: hsl(var(--card-fg));
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-}
-
-/* --- Type scale (SaaS-like, elegant) --- */
-.ob-h1 {
-  @apply text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl;
-}
-.ob-h2 {
-  @apply text-balance text-3xl font-semibold tracking-tight sm:text-4xl;
-}
-.ob-h3 {
-  @apply text-balance text-xl font-semibold tracking-tight sm:text-2xl;
-}
-.ob-lead {
-  @apply text-pretty text-base leading-7 text-[color:var(--color-muted)] sm:text-lg;
-}
-
-/* --- Buttons --- */
-.ob-btn {
-  @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 py-3 text-sm font-medium transition;
-  box-shadow: 0 1px 0 hsl(222 22% 12% / 0.04);
-}
-.ob-btn:focus-visible {
-  outline: 2px solid hsl(var(--brand) / 0.6);
-  outline-offset: 2px;
-}
-.ob-btn-primary {
-  background: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--brand-2)));
-  color: white;
-}
-.ob-btn-primary:hover {
-  filter: brightness(1.02);
-  box-shadow: var(--shadow-md);
-}
-.ob-btn-secondary {
-  background: hsl(var(--card));
-  border: 1px solid hsl(var(--border));
-}
-.ob-btn-secondary:hover {
-  box-shadow: var(--shadow-sm);
-  border-color: hsl(var(--border) / 0.6);
-}
-.ob-btn-ghost {
-  @apply bg-transparent;
-  color: hsl(var(--fg));
-}
-.ob-btn-ghost:hover {
-  background: hsl(var(--fg) / 0.04);
-}
-
-/* --- Subtle animated background helper --- */
-.ob-hero-bg {
-  background: var(--grad-hero);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .ob-fade-up {
-    animation: obFadeUp 700ms ease-out both;
-  }
-  @keyframes obFadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
 }
