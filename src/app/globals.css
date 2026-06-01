@@ -2,25 +2,39 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1f2937;
+  --odoo-purple: #714b67;
+  --odoo-purple-dark: #5a3d52;
+  --odoo-magenta: #a24689;
+  --odoo-gray: #8f8f8f;
+  --odoo-teal: #00a09d;
+  --odoo-teal-dark: #008f8c;
+  --odoo-yellow: #f0c419;
+  --odoo-blue: #4dabf7;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-odoo-purple: var(--odoo-purple);
+  --color-odoo-purple-dark: var(--odoo-purple-dark);
+  --color-odoo-magenta: var(--odoo-magenta);
+  --color-odoo-gray: var(--odoo-gray);
+  --color-odoo-teal: var(--odoo-teal);
+  --color-odoo-teal-dark: var(--odoo-teal-dark);
+  --color-odoo-yellow: var(--odoo-yellow);
+  --color-odoo-blue: var(--odoo-blue);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-display);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), "Segoe UI", cursive, sans-serif;
+  font-weight: 600;
 }
