@@ -46,14 +46,14 @@ export default async function IndustryPage({
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <h1 className="text-3xl font-semibold tracking-tight">{doc.title}</h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+      <p className="mt-2 text-sm leading-6 text-zinc-600">
         {doc.description}
       </p>
-      <div className="prose prose-zinc mt-8 max-w-none dark:prose-invert">
+      <div className="prose prose-zinc mt-8 max-w-none">
         {content}
       </div>
 
-      <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+      <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm">
         <div className="font-medium">Related next steps</div>
         <div className="mt-3 grid gap-2">
           <Link className="underline underline-offset-4" href="/modules">

@@ -14,13 +14,13 @@ export default function ImplementationGuidePage() {
       <h1 className="text-3xl font-semibold tracking-tight">
         Odoo implementation guide (Bangladesh)
       </h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+      <p className="mt-2 text-sm leading-6 text-zinc-600">
         A neutral guide to help teams plan an Odoo ERP implementation — from
         discovery to go-live. Use this as a checklist for discussions with
         internal stakeholders and external specialists.
       </p>
 
-      <div className="prose prose-zinc mt-8 max-w-none dark:prose-invert">
+      <div className="prose prose-zinc mt-8 max-w-none">
         <h2>Phase 1: Discovery and scope</h2>
         <ul>
           <li>Define success metrics (time, cost, accuracy, visibility)</li>
@@ -64,7 +64,7 @@ export default function ImplementationGuidePage() {
         </ul>
       </div>
 
-      <div className="mt-10 grid gap-3 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+      <div className="mt-10 grid gap-3 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm">
         <div className="font-medium">Helpful next steps</div>
         <div className="grid gap-2">
           <Link className="underline underline-offset-4" href="/resources/erp-checklist">

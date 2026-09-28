@@ -14,12 +14,12 @@ export default function PricingGuidePage() {
       <h1 className="text-3xl font-semibold tracking-tight">
         Odoo pricing guide (Bangladesh)
       </h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+      <p className="mt-2 text-sm leading-6 text-zinc-600">
         This is a neutral overview of what usually contributes to Odoo ERP total
         cost. Exact cost depends on scope, complexity, and rollout approach.
       </p>
 
-      <div className="prose prose-zinc mt-8 max-w-none dark:prose-invert">
+      <div className="prose prose-zinc mt-8 max-w-none">
         <h2>What typically affects cost</h2>
         <ul>
           <li>Number of users and departments</li>
@@ -39,22 +39,22 @@ export default function PricingGuidePage() {
         </ul>
       </div>
 
-      <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+      <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm">
         <div className="font-medium">Want a scope-based estimate?</div>
-        <p className="mt-1 text-zinc-600 dark:text-zinc-400">
+        <p className="mt-1 text-zinc-600">
           Share your industry, departments, and timeline. We’ll respond with a
           checklist-first approach and connect you to relevant specialists.
         </p>
         <div className="mt-4 flex flex-col gap-2 sm:flex-row">
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100"
+            className="inline-flex items-center justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800"
           >
             Request consultation
           </Link>
           <Link
             href="/resources/erp-checklist"
-            className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
+            className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium hover:bg-zinc-50"
           >
             Download checklist
           </Link>

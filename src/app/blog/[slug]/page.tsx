@@ -53,14 +53,14 @@ export default async function BlogPostPage({
     <article className="mx-auto max-w-3xl px-4 py-10">
       <header>
         <h1 className="text-3xl font-semibold tracking-tight">{post.title}</h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+        <p className="mt-2 text-sm leading-6 text-zinc-600">
           {post.description}
         </p>
         {post.date ? (
           <p className="mt-3 text-xs text-zinc-500">Updated: {post.date}</p>
         ) : null}
       </header>
-      <div className="prose prose-zinc mt-8 max-w-none dark:prose-invert">
+      <div className="prose prose-zinc mt-8 max-w-none">
         {content}
       </div>
     </article>

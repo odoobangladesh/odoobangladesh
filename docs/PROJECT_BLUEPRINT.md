@@ -4,6 +4,15 @@ This repository powers **odoobangladesh.com**, a **neutral, community-driven** p
 
 It is intentionally **not** positioned as an agency/software company site. The site aims to rank via **topical authority + programmatic SEO**, while converting visitors through helpful resources, training pathways, and inquiry funnels.
 
+## Community positioning and visual identity
+
+Community independence is a product constraint, not only a footer line. Odoo S.A. owns the Odoo trademark, and this site must not look or read like an official Odoo property.
+
+- **Light theme only.** No dark mode, no `prefers-color-scheme: dark` styles, and no theme toggle. odoo.com is light-only; this portal stays light for the same reason.
+- **No official brand assets.** Do not use the Odoo logo, wordmark, or other Odoo S.A. brand files. A white page with dark text is enough. Do not restyle the site to imitate the corporate product UI.
+- **Name usage.** “Odoo” may appear in titles and body copy as the product being discussed. Pair it with a clear community identity (“Odoo Bangladesh”, “community portal”).
+- **Disclaimer.** Every page’s footer states that the site is not affiliated with Odoo S.A.
+
 ## Homepage wireframe (recommended)
 
 - **Header**

@@ -16,16 +16,16 @@ export default function ContactPage() {
           <h1 className="text-3xl font-semibold tracking-tight">
             Contact / Inquiry
           </h1>
-          <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-2 text-sm leading-6 text-zinc-600">
             This is a community portal. Use this form to request an ERP
             assessment, ask about implementation planning, or explore training
             pathways. We’ll respond with resources first, and connect you with
             relevant specialists when appropriate.
           </p>
 
-          <div className="mt-6 rounded-2xl border border-zinc-200 p-6 text-sm dark:border-zinc-800">
+          <div className="mt-6 rounded-2xl border border-zinc-200 p-6 text-sm">
             <div className="font-medium">What you can request</div>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-zinc-600 dark:text-zinc-400">
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-zinc-600">
               <li>Free ERP assessment checklist and planning call</li>
               <li>Odoo implementation guidance (process + scope)</li>
               <li>Talk to an Odoo specialist (functional/technical)</li>

@@ -54,7 +54,7 @@ export default function FaqPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(faqJsonLd)} />
 
       <h1 className="text-3xl font-semibold tracking-tight">FAQ</h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+      <p className="mt-2 text-sm leading-6 text-zinc-600">
         Common questions about Odoo ERP in Bangladesh, training pathways, and
         career planning.
       </p>
@@ -63,12 +63,12 @@ export default function FaqPage() {
         {faqs.map((f) => (
           <details
             key={f.q}
-            className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950"
+            className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm"
           >
             <summary className="cursor-pointer text-sm font-semibold">
               {f.q}
             </summary>
-            <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+            <p className="mt-3 text-sm leading-6 text-zinc-600">
               {f.a}
             </p>
           </details>

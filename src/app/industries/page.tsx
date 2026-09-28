@@ -18,7 +18,7 @@ export default async function IndustriesIndexPage() {
         <h1 className="text-3xl font-semibold tracking-tight">
           Odoo for Industries
         </h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+        <p className="mt-2 text-sm leading-6 text-zinc-600">
           Programmatic industry pages designed for topical authority and
           internal linking across modules, implementation guides, and training.
         </p>
@@ -29,16 +29,16 @@ export default async function IndustriesIndexPage() {
           <Link
             key={i.slug}
             href={`/industries/${i.slug}`}
-            className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700"
+            className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300"
           >
             <div className="text-sm font-semibold">{i.title}</div>
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="mt-2 text-sm text-zinc-600">
               {i.description}
             </p>
           </Link>
         ))}
         {industries.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-zinc-300 p-6 text-sm text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
+          <div className="rounded-2xl border border-dashed border-zinc-300 p-6 text-sm text-zinc-600">
             Add MDX files in <code>content/industries</code>.
           </div>
         ) : null}

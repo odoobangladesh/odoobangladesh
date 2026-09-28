@@ -7,13 +7,13 @@ export default function Home() {
     <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
       <section className="grid gap-10 md:grid-cols-12 md:items-center">
         <div className="md:col-span-7">
-          <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+          <p className="text-sm font-medium text-zinc-600">
             Independent Odoo community portal for Bangladesh
           </p>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
             Learn, explore & connect with the Odoo ecosystem in Bangladesh.
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 max-w-2xl text-lg leading-8 text-zinc-600">
             Guides for Odoo ERP implementation, module learning paths, career
             roadmaps, comparison articles, events, and training resources — built
             for businesses, professionals, developers, and learners.
@@ -21,34 +21,34 @@ export default function Home() {
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/learning-center"
-              className="inline-flex items-center justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100"
+              className="inline-flex items-center justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800"
             >
               Explore resources
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-900"
+              className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50"
             >
               Request ERP consultation
             </Link>
             <Link
               href="/training"
-              className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-900"
+              className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50"
             >
               Explore training programs
             </Link>
           </div>
-          <div className="mt-6 flex flex-wrap gap-2 text-xs text-zinc-600 dark:text-zinc-400">
-            <span className="rounded-full border border-zinc-200 px-3 py-1 dark:border-zinc-800">
+          <div className="mt-6 flex flex-wrap gap-2 text-xs text-zinc-600">
+            <span className="rounded-full border border-zinc-200 px-3 py-1">
               Odoo Bangladesh
             </span>
-            <span className="rounded-full border border-zinc-200 px-3 py-1 dark:border-zinc-800">
+            <span className="rounded-full border border-zinc-200 px-3 py-1">
               Odoo ERP Bangladesh
             </span>
-            <span className="rounded-full border border-zinc-200 px-3 py-1 dark:border-zinc-800">
+            <span className="rounded-full border border-zinc-200 px-3 py-1">
               Odoo functional training
             </span>
-            <span className="rounded-full border border-zinc-200 px-3 py-1 dark:border-zinc-800">
+            <span className="rounded-full border border-zinc-200 px-3 py-1">
               Odoo technical training
             </span>
           </div>
@@ -77,9 +77,9 @@ export default function Home() {
         />
       </section>
 
-      <section className="mt-14 rounded-2xl border border-zinc-200 p-6 dark:border-zinc-800">
+      <section className="mt-14 rounded-2xl border border-zinc-200 p-6">
         <h2 className="text-lg font-semibold">Popular Odoo pages</h2>
-        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="mt-1 text-sm text-zinc-600">
           Programmatic landing pages designed for topical authority and internal
           linking.
         </p>

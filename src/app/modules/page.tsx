@@ -18,7 +18,7 @@ export default async function ModulesIndexPage() {
         <h1 className="text-3xl font-semibold tracking-tight">
           Odoo Modules Directory
         </h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+        <p className="mt-2 text-sm leading-6 text-zinc-600">
           Neutral module overviews for businesses and learners in Bangladesh,
           with implementation considerations and learning pathways.
         </p>
@@ -29,16 +29,16 @@ export default async function ModulesIndexPage() {
           <Link
             key={m.slug}
             href={`/modules/${m.slug}`}
-            className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700"
+            className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300"
           >
             <div className="text-sm font-semibold">{m.title}</div>
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="mt-2 text-sm text-zinc-600">
               {m.description}
             </p>
           </Link>
         ))}
         {modules.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-zinc-300 p-6 text-sm text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
+          <div className="rounded-2xl border border-dashed border-zinc-300 p-6 text-sm text-zinc-600">
             Add MDX files in <code>content/modules</code>.
           </div>
         ) : null}

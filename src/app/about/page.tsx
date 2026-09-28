@@ -11,14 +11,14 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <h1 className="text-3xl font-semibold tracking-tight">About the community</h1>
-      <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+      <p className="mt-3 text-sm leading-6 text-zinc-600">
         Odoo Bangladesh is a community-driven, educational platform for people
         exploring Odoo ERP in Bangladesh — including businesses planning ERP
         adoption, functional consultants, developers, students, and career
         switchers.
       </p>
 
-      <div className="prose prose-zinc mt-8 max-w-none dark:prose-invert">
+      <div className="prose prose-zinc mt-8 max-w-none">
         <h2>What this portal is</h2>
         <ul>
           <li>A neutral knowledge hub for Odoo ERP concepts and workflows</li>
