@@ -10,7 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default async function TechnicalTrainingPage() {
-  const topics = await listDocs("training-technical");
+  const topics = (await listDocs("training-technical")).sort((a, b) =>
+    a.title.localeCompare(b.title),
+  );
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -62,7 +64,7 @@ export default async function TechnicalTrainingPage() {
           <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
             <div className="text-sm font-semibold">Technical topics</div>
             <p className="mt-1 text-sm text-zinc-600">
-              Topic landing pages (programmatic SEO).
+              Study one development area at a time.
             </p>
             <div className="mt-4 grid gap-2">
               {topics.map((t) => (

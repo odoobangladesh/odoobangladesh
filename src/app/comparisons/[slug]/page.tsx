@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { RelatedLinks } from "@/components/related-links";
 import { getDoc, listCollectionSlugs } from "@/lib/content";
 import { renderMdx } from "@/lib/mdx";
 
@@ -59,23 +59,7 @@ export default async function ComparisonPage({
         {content}
       </div>
 
-      <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm">
-        <div className="font-medium">Decision support</div>
-        <div className="mt-3 grid gap-2">
-          <Link className="underline underline-offset-4" href="/implementation-guide">
-            Implementation guide
-          </Link>
-          <Link className="underline underline-offset-4" href="/pricing-guide">
-            Pricing guide (cost components)
-          </Link>
-          <Link className="underline underline-offset-4" href="/resources/erp-checklist">
-            ERP readiness checklist
-          </Link>
-          <Link className="underline underline-offset-4" href="/contact">
-            Talk to an Odoo specialist
-          </Link>
-        </div>
-      </div>
+      <RelatedLinks title="Decision support" links={doc.related} />
     </div>
   );
 }

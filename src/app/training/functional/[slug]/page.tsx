@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { RelatedLinks } from "@/components/related-links";
 import { getDoc, listCollectionSlugs } from "@/lib/content";
 import { renderMdx } from "@/lib/mdx";
 
@@ -50,6 +51,7 @@ export default async function FunctionalTopicPage({
       <div className="prose prose-zinc mt-8 max-w-none">
         {content}
       </div>
+      <RelatedLinks title="Related" links={doc.related} />
     </div>
   );
 }

@@ -4,6 +4,11 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
 
+export type RelatedLink = {
+  href: string;
+  label: string;
+};
+
 export type ContentDoc = {
   slug: string;
   title: string;
@@ -14,6 +19,7 @@ export type ContentDoc = {
   canonical?: string;
   image?: string;
   draft?: boolean;
+  related: RelatedLink[];
   body: string;
 };
 
@@ -51,6 +57,7 @@ export async function getDoc(collection: string, slug: string): Promise<ContentD
     canonical: data.canonical,
     image: data.image,
     draft: data.draft ?? false,
+    related: readRelated(parsed.data.related),
     body: parsed.content,
   };
 }
@@ -59,6 +66,19 @@ export async function listDocs(collection: string): Promise<ContentDoc[]> {
   const slugs = await listCollectionSlugs(collection);
   const docs = await Promise.all(slugs.map((s) => getDoc(collection, s)));
   return docs.filter((d) => !d.draft);
+}
+
+function readRelated(value: unknown): RelatedLink[] {
+  if (!Array.isArray(value)) return [];
+
+  return value.flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const record = item as Record<string, unknown>;
+    const href = typeof record.href === "string" ? record.href : "";
+    const label = typeof record.label === "string" ? record.label.trim() : "";
+    if (!href.startsWith("/") || label.length === 0) return [];
+    return [{ href, label }];
+  });
 }
 
 function slugToTitle(slug: string) {

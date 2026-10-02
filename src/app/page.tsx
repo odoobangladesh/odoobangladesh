@@ -8,15 +8,15 @@ export default function Home() {
       <section className="grid gap-10 md:grid-cols-12 md:items-center">
         <div className="md:col-span-7">
           <p className="text-sm font-medium text-zinc-600">
-            Independent Odoo community portal for Bangladesh
+            Independent community portal. Not affiliated with Odoo S.A.
           </p>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
-            Learn, explore & connect with the Odoo ecosystem in Bangladesh.
+            The Odoo Community Platform for Bangladesh
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-zinc-600">
-            Guides for Odoo ERP implementation, module learning paths, career
-            roadmaps, comparison articles, events, and training resources — built
-            for businesses, professionals, developers, and learners.
+            Learning paths, implementation guidance, and career support for
+            businesses, professionals, developers, and learners exploring Odoo
+            in Bangladesh.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link
@@ -59,29 +59,91 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-14 grid gap-4 md:grid-cols-3">
+      <section className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <SeoSectionCard
-          title="Odoo ERP implementation in Bangladesh"
-          description="Implementation guide, planning checklist, timelines, and common pitfalls."
+          title="Odoo implementation guide"
+          description="Planning checklist, timelines, and common pitfalls for teams in Bangladesh."
           href="/implementation-guide"
-        />
-        <SeoSectionCard
-          title="Odoo training (functional & technical)"
-          description="Learning paths, batch calendar, syllabus downloads, and workshop registration."
-          href="/training"
         />
         <SeoSectionCard
           title="Odoo modules directory"
           description="Browse ERP modules with Bangladesh-focused use-cases and learning resources."
           href="/modules"
         />
+        <SeoSectionCard
+          title="Odoo for industries"
+          description="How garments, retail, distribution, services, and other sectors use Odoo."
+          href="/industries"
+        />
+        <SeoSectionCard
+          title="Odoo training pathways"
+          description="Functional and technical learning paths, syllabi, and workshop registration."
+          href="/training"
+        />
+        <SeoSectionCard
+          title="Odoo comparisons"
+          description="Neutral comparisons to shortlist Odoo against other ERP options."
+          href="/comparisons"
+        />
+      </section>
+
+      <section className="mt-14 grid gap-4 md:grid-cols-2">
+        <div className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <h2 className="text-lg font-semibold">How to use this portal</h2>
+          <p className="mt-2 text-sm leading-6 text-zinc-600">
+            A neutral reading order. Start with the topic, then decide whether
+            you need a person.
+          </p>
+          <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm leading-6 text-zinc-700">
+            <li>
+              <Link className="underline underline-offset-4" href="/learning-center">
+                Learning Center
+              </Link>{" "}
+              to pick a pathway.
+            </li>
+            <li>
+              <Link className="underline underline-offset-4" href="/modules">
+                Modules
+              </Link>{" "}
+              and{" "}
+              <Link className="underline underline-offset-4" href="/industries">
+                Industries
+              </Link>{" "}
+              to map Odoo to a business.
+            </li>
+            <li>
+              <Link className="underline underline-offset-4" href="/comparisons">
+                Comparisons
+              </Link>{" "}
+              to shortlist ERP options.
+            </li>
+            <li>
+              <Link className="underline underline-offset-4" href="/training">
+                Training
+              </Link>{" "}
+              to plan functional or technical skills.
+            </li>
+          </ol>
+        </div>
+        <div className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <h2 className="text-lg font-semibold">Community principles</h2>
+          <p className="mt-2 text-sm leading-6 text-zinc-600">
+            This site explains Odoo. It does not sell an implementation.
+          </p>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-zinc-700">
+            <li>Neutral guides, with no agency pitch and no aggressive marketing.</li>
+            <li>Resources come first. A consultation is optional.</li>
+            <li>Open to businesses, professionals, students, and developers.</li>
+            <li>Not affiliated with Odoo S.A.</li>
+          </ul>
+        </div>
       </section>
 
       <section className="mt-14 rounded-2xl border border-zinc-200 p-6">
         <h2 className="text-lg font-semibold">Popular Odoo pages</h2>
         <p className="mt-1 text-sm text-zinc-600">
-          Programmatic landing pages designed for topical authority and internal
-          linking.
+          Starting points for accounting, garments, ERP comparisons, and
+          functional training.
         </p>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           <Link className="underline underline-offset-4" href="/odoo-accounting-bangladesh">

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { RelatedLinks } from "@/components/related-links";
 import { getDoc, listCollectionSlugs } from "@/lib/content";
 import { renderMdx } from "@/lib/mdx";
 
@@ -53,23 +53,7 @@ export default async function ModulePage({
         {content}
       </div>
 
-      <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm">
-        <div className="font-medium">Related next steps</div>
-        <div className="mt-3 grid gap-2">
-          <Link className="underline underline-offset-4" href="/implementation-guide">
-            Implementation guide
-          </Link>
-          <Link className="underline underline-offset-4" href="/training/functional">
-            Functional training pathway
-          </Link>
-          <Link className="underline underline-offset-4" href="/training/technical">
-            Technical training pathway
-          </Link>
-          <Link className="underline underline-offset-4" href="/contact">
-            Request consultation (community-led)
-          </Link>
-        </div>
-      </div>
+      <RelatedLinks title="Related" links={doc.related} />
     </div>
   );
 }
