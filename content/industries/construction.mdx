@@ -1,36 +1,133 @@
 ---
-title: "Odoo for Construction in Bangladesh"
-description: "How construction teams use Odoo for projects, purchasing, site inventory, and progress billing."
+title: "Odoo for Construction in Bangladesh: Project Costing Guide"
+description: "How Bangladeshi construction firms use Odoo 17 to 19 for project costing, WIP, retention money, subcontractor bills, site inventory and progress billing."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Construction ERP Bangladesh
   - Odoo Construction Bangladesh
   - Odoo ERP Bangladesh
+  - construction project costing software
+  - retention money accounting Odoo
+  - site inventory management Bangladesh
+  - real estate developer ERP Dhaka
 related:
-  - label: "Project"
+  - label: "Project module"
     href: "/modules/project"
-  - label: "Purchase"
+  - label: "Purchase module"
     href: "/modules/purchase"
-  - label: "Inventory"
+  - label: "Inventory module"
     href: "/modules/inventory"
-  - label: "Accounting"
+  - label: "Accounting module"
     href: "/modules/accounting"
   - label: "Odoo vs SAP Business One"
     href: "/comparisons/odoo-vs-sap-business-one"
   - label: "ERP readiness checklist"
     href: "/resources/erp-checklist"
+  - label: "Implementation guide"
+    href: "/implementation-guide"
+faq:
+  - q: "Does Odoo have a dedicated construction module?"
+    a: "No. Construction in Odoo 17 to 19 is built from Project, Purchase, Inventory and Accounting with analytic accounts per site. Bill of quantities, progress measurement and retention are configuration and light customisation, or an OCA or partner add-on."
+  - q: "How is retention money handled in Odoo?"
+    a: "The usual approach is a separate retention receivable or payable account and a payment term or manual journal that moves 5 to 10 percent of each certified bill to retention. It is released by a later invoice or payment when the defect liability period ends."
+  - q: "Can Odoo track work in progress per project?"
+    a: "Yes, through analytic accounts. Every purchase, subcontractor bill, site material issue and labour cost posts to the project's analytic account, and WIP is the accumulated cost less what has been billed. Formal WIP journal entries at period end are a manual or scheduled step."
+  - q: "How do we manage site stores separately from the central warehouse?"
+    a: "Create one warehouse or location per site. Materials move from the central store or directly from the vendor to the site location, and site issues to work consume stock against the project. Cycle counts at sites catch leakage."
+  - q: "What does a construction rollout cost in Bangladesh?"
+    a: "A contractor or developer with 10 to 30 users and project costing customisation typically falls in the community-observed BDT 8 to 25 lakh range. Large firms with many concurrent sites and integrations can exceed that. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are ranges, not quotes."
 ---
 
-## Typical requirements
+Odoo 17 to 19 can run a Bangladeshi construction or real estate development business when you build it from Project, Purchase, Inventory and Accounting with an analytic account per site. That combination gives you project costing, work in progress (WIP) by site, subcontractor bills with VDS and TDS, site inventory separate from the central store, and progress billing against measured work. Odoo has no construction-specific module, so bill of quantities (BOQ), retention money and running-bill certification are configuration and light customisation. The approach works for contractors, developers and MEP firms alike, but only if the first release covers one live site end to end rather than every historical project.
 
-- A project per site or contract, with tasks people actually update
-- Purchase orders for subcontractors and materials
-- Site stock that is separate from the main warehouse
-- Invoices tied to a milestone or a measured progress step
+## Industry context in Bangladesh
 
-## Common modules
+Construction in Bangladesh spans apartment developers in Dhaka and Chattogram, contractors on government infrastructure (roads, bridges, buildings under LGED, RHD and PWD), industrial builders in Gazipur and Mirsarai, and the MEP and finishing subcontractors who work for all of them. Projects are organised around a BOQ, with running bills (interim payment certificates) submitted monthly against measured progress, a retention deduction of typically 5 to 10 percent held until the defect liability period ends, and a mobilisation advance recovered through later bills.
 
-Project, Purchase, Inventory, and Accounting. Start with one live site. Adding every historical project on day one hides data problems inside the import.
+Materials dominate cost: cement, steel, bricks, sand, tiles and fittings bought in bulk and delivered to site stores that are often far from the head office. Subcontractors are paid against their own running bills, with VDS and income tax deducted at source. Developers add land cost, customer instalment schedules and handover processes. The VAT position depends on the contract type: construction services carry VAT and many materials carry input VAT at 15 percent. Finance runs on a July to June fiscal year and must support bank audits for project finance.
 
-## A first release
+The typical software stack is Excel for BOQs and progress, Tally or a local package for accounts, and nothing for site stores. Odoo's appeal is a single project ledger that finance and site engineers both update.
 
-Write the as-is path from material request to vendor bill before configuring stages. The [implementation guide](/implementation-guide) is the planning sequence. The [project module](/modules/project) covers tasks and billing style.
+## Pain points Odoo is usually asked to solve
+
+- Project profitability is known only at completion, because costs sit in the general ledger without a site dimension.
+- Site stores leak. Materials are issued without a record and shortages are discovered at the next bulk purchase.
+- Subcontractor running bills are approved on paper and the retention and advance recovery are calculated by hand.
+- Progress billing to the client is reconstructed from the engineer's measurement book every month.
+- Purchase requests from site arrive by phone and are fulfilled without a budget check.
+- Retention receivable from clients is forgotten and never claimed.
+
+## Module map
+
+| Module | Why it matters for a Bangladeshi construction firm |
+|---|---|
+| [Project](/modules/project) | One project per site or contract, tasks per BOQ section or milestone, progress updates from site engineers, documents and photos attached. |
+| [Purchase](/modules/purchase) | Purchase requests from site, approvals against budget, bulk POs for cement and steel, subcontractor work orders as purchase orders, VDS and TDS on bills. |
+| [Inventory](/modules/inventory) | Central store plus a location per site, direct vendor-to-site receipts, site issues to work, returns and transfers between sites, cycle counts. |
+| [Accounting](/modules/accounting) | Analytic account per project for costing and WIP, retention receivable and payable, mobilisation advance recovery, Mushak 6.3 invoices, Mushak 9.1 return data, bank loan tracking. |
+| [Sales](/modules/sales) | Client contracts and progress invoices for contractors; apartment sales with instalment schedules for developers. |
+| [HR](/modules/hr) and [Payroll](/modules/payroll) | Site labour and staff, daily attendance, overtime at double rate, festival bonus; optional in release one. |
+
+Four to five modules is the right first scope. Payroll and the developer sales flow usually come in a second phase.
+
+## A worked example: a Gazipur factory building contractor
+
+Consider a hypothetical mid-size contractor based in Dhaka that is building a four-storey woven garment factory shed in Gazipur under a BDT 18 crore contract with 12 monthly running bills, 5 percent retention and a 10 percent mobilisation advance. The firm has 20 office users and three site engineers on the project. Here is a plausible Odoo 17 to 19 flow.
+
+**Setup.** Project GZ-04 is created with an analytic account of the same name. Tasks mirror the BOQ sections: piling, substructure, superstructure, roofing, electrical, finishing. The site store is a separate inventory location. Budget lines by BOQ section are loaded against the analytic account.
+
+**Procurement.** The site engineer raises a purchase request for 400 bags of cement and 20 tonnes of 60-grade rebar. Head office converts it to purchase orders with delivery to the Gazipur site location. The vendor bill posts with input VAT at 15 percent and VDS where the vendor's category requires it, and the cost lands on GZ-04.
+
+**Subcontractors.** The piling subcontractor is set up as a vendor with a purchase order for the piling package. Their first running bill of BDT 1.2 crore is entered as a vendor bill: 5 percent retention moves to a retention payable account, the advance recovery is deducted, VDS and income tax at source are withheld, and the net is paid by bank transfer.
+
+**Site stores.** Daily issues of cement and rebar to work are recorded as stock consumption against the project, so the site store balance and the cost to date are both current. A monthly cycle count at the site catches a 30-bag variance that is investigated the same week.
+
+**Progress billing.** At month end the engineer updates measured progress per BOQ task. Finance raises the running bill to the client as a sales invoice: BDT 1.6 crore of certified work, less 5 percent retention posted to retention receivable, less advance recovery, plus VAT as the contract requires, on a Mushak 6.3 layout.
+
+**Reporting.** The project profitability report shows cost to date, billed to date, WIP (cost not yet billed), retention held by the client, and margin against the BOQ budget. The owner reviews it monthly alongside the Mushak 9.1 figures.
+
+All values are illustrative. A developer would replace the client running bill with apartment instalment invoices; an MEP subcontractor would be on the other side of the retention entry.
+
+## Implementation checklist
+
+- Write the as-is path from material request to vendor bill before configuring any stage. See the [implementation guide](/implementation-guide#discovery).
+- Decide the project structure: one project per site, with tasks per BOQ section. Do not model every BOQ line as a task.
+- Create an analytic account per project and make it mandatory on purchases, bills and stock moves.
+- Agree the retention and advance recovery accounting with your auditor, and configure the accounts and payment terms before the first subcontractor bill.
+- Model site stores as locations and define who records issues to work. If nobody at site owns it, site inventory will not stay accurate.
+- Configure VDS and TDS rates by vendor category, VAT at 15 percent on materials and the contract VAT position on services, and the July to June fiscal year.
+- Load budget lines by BOQ section so purchase approvals can be checked against budget.
+- Start with one live site. Adding every historical project on day one hides data problems inside the import.
+- Plan connectivity for site engineers; a mobile-friendly task and purchase request screen is enough for release one.
+- Decide hosting and data residency with bank audit requirements in mind.
+
+If you are also looking at mid-market packages aimed at contractors, the [Odoo vs SAP Business One comparison](/comparisons/odoo-vs-sap-business-one) covers licensing and partner depth in Bangladesh.
+
+## Frequently asked questions
+
+### Does Odoo have a dedicated construction module?
+
+No. Construction in Odoo 17 to 19 is built from Project, Purchase, Inventory and Accounting with analytic accounts per site. Bill of quantities, progress measurement and retention are configuration and light customisation, or an OCA or partner add-on.
+
+### How is retention money handled in Odoo?
+
+The usual approach is a separate retention receivable or payable account and a payment term or manual journal that moves 5 to 10 percent of each certified bill to retention. It is released by a later invoice or payment when the defect liability period ends.
+
+### Can Odoo track work in progress per project?
+
+Yes, through analytic accounts. Every purchase, subcontractor bill, site material issue and labour cost posts to the project's analytic account, and WIP is the accumulated cost less what has been billed. Formal WIP journal entries at period end are a manual or scheduled step.
+
+### How do we manage site stores separately from the central warehouse?
+
+Create one warehouse or location per site. Materials move from the central store or directly from the vendor to the site location, and site issues to work consume stock against the project. Cycle counts at sites catch leakage.
+
+### What does a construction rollout cost in Bangladesh?
+
+A contractor or developer with 10 to 30 users and project costing customisation typically falls in the community-observed BDT 8 to 25 lakh range. Large firms with many concurrent sites and integrations can exceed that. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are ranges, not quotes.
+
+## Next step
+
+Take the [ERP readiness checklist](/resources/erp-checklist) to your project manager and your accountant and fill in the project structure, retention policy and site store ownership sections. Those three answers define most of a construction configuration. Odoo releases a new major version every October, so confirm which version you will deploy and how long it stays in support.

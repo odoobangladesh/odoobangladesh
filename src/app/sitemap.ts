@@ -1,158 +1,60 @@
 import type { MetadataRoute } from "next";
-import { listCollectionSlugs } from "@/lib/content";
+import { COLLECTION_META, listAllDocs } from "@/lib/content";
 import { siteConfig } from "@/lib/site";
+
+/**
+ * One entry per indexable URL (blueprint WS-A):
+ *  - static hubs and pillars with a fixed review date
+ *  - every published content doc at its canonical path, dated from frontmatter
+ * Legacy slugs that only redirect (/landings/*, /odoo-functional-training) are
+ * deliberately absent.
+ */
+
+// Bump when a static page is materially edited; never "now" at build time.
+const STATIC_REVIEWED = new Date("2026-10-14");
+
+const staticRoutes: { path: string; priority: number; changeFrequency: "weekly" | "monthly" }[] = [
+  { path: "/", priority: 1, changeFrequency: "weekly" },
+  { path: "/learning-center", priority: 0.9, changeFrequency: "weekly" },
+  { path: "/implementation-guide", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/pricing-guide", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/odoo-career-guide", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/training", priority: 0.9, changeFrequency: "weekly" },
+  { path: "/training/functional", priority: 0.9, changeFrequency: "weekly" },
+  { path: "/training/technical", priority: 0.9, changeFrequency: "weekly" },
+  { path: "/modules", priority: 0.8, changeFrequency: "weekly" },
+  { path: "/industries", priority: 0.8, changeFrequency: "weekly" },
+  { path: "/comparisons", priority: 0.8, changeFrequency: "weekly" },
+  { path: "/blog", priority: 0.8, changeFrequency: "weekly" },
+  { path: "/developer-resources", priority: 0.6, changeFrequency: "monthly" },
+  { path: "/partners", priority: 0.6, changeFrequency: "monthly" },
+  { path: "/events", priority: 0.7, changeFrequency: "weekly" },
+  { path: "/forum", priority: 0.5, changeFrequency: "monthly" },
+  { path: "/faq", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/about", priority: 0.5, changeFrequency: "monthly" },
+  { path: "/contact", priority: 0.8, changeFrequency: "monthly" },
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.siteUrl.replace(/\/$/, "");
-  const now = new Date();
+  const docs = await listAllDocs();
 
-  const [
-    blog,
-    landings,
-    modules,
-    industries,
-    comparisons,
-    trainingFunctional,
-    trainingTechnical,
-    resources,
-  ] = await Promise.all([
-    listCollectionSlugs("blog"),
-    listCollectionSlugs("landings"),
-    listCollectionSlugs("modules"),
-    listCollectionSlugs("industries"),
-    listCollectionSlugs("comparisons"),
-    listCollectionSlugs("training-functional"),
-    listCollectionSlugs("training-technical"),
-    listCollectionSlugs("resources"),
-  ]);
+  const statics: MetadataRoute.Sitemap = staticRoutes.map((r) => ({
+    url: `${base}${r.path}`,
+    lastModified: STATIC_REVIEWED,
+    changeFrequency: r.changeFrequency,
+    priority: r.priority,
+  }));
 
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${base}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
-    {
-      url: `${base}/about`,
-      lastModified: now,
+  const content: MetadataRoute.Sitemap = docs.map((doc) => {
+    const stamp = doc.updated ?? doc.date;
+    return {
+      url: `${base}${doc.path}`,
+      lastModified: stamp ? new Date(`${stamp}T00:00:00Z`) : STATIC_REVIEWED,
       changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${base}/blog`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/learning-center`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/modules`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/industries`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/comparisons`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/training`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${base}/training/functional`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${base}/training/technical`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${base}/events`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${base}/faq`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${base}/contact`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-  ];
+      priority: doc.canonical ? 0.8 : COLLECTION_META[doc.collection].priority,
+    };
+  });
 
-  const mdxRoutes: MetadataRoute.Sitemap = [
-    ...blog.map((s) => ({
-      url: `${base}/blog/${s}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-    ...landings.map((s) => ({
-      url: `${base}/landings/${s}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-    ...modules.map((s) => ({
-      url: `${base}/modules/${s}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-    ...industries.map((s) => ({
-      url: `${base}/industries/${s}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-    ...comparisons.map((s) => ({
-      url: `${base}/comparisons/${s}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-    ...trainingFunctional.map((s) => ({
-      url: `${base}/training/functional/${s}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-    ...trainingTechnical.map((s) => ({
-      url: `${base}/training/technical/${s}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-    ...resources.map((s) => ({
-      url: `${base}/resources/${s}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    })),
-  ];
-
-  return [...staticRoutes, ...mdxRoutes];
+  return [...statics, ...content];
 }
-

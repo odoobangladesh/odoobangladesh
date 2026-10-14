@@ -1,33 +1,108 @@
 ---
-title: "Odoo Functional Training: Inventory"
-description: "Functional topics for Odoo Inventory: locations, receipts, deliveries, replenishment, and traceability."
+title: "Odoo Inventory Functional Training in Bangladesh: Course Guide"
+description: "What Odoo Inventory functional training covers for Bangladesh: warehouses, receipts, deliveries, reordering, lots and serials, and stock valuation in BDT."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Functional Training
   - Odoo Inventory
   - Odoo Training Bangladesh
+  - Odoo warehouse management course
+  - Odoo stock valuation Bangladesh
+  - Odoo inventory training Dhaka
 related:
-  - label: "Inventory module"
-    href: "/modules/inventory"
-  - label: "Purchase module"
-    href: "/modules/purchase"
-  - label: "Odoo for distribution"
-    href: "/industries/distribution"
-  - label: "Implementation guide"
-    href: "/implementation-guide"
+  - label: "Previous topic: Accounting"
+    href: "/training/functional/accounting"
+  - label: "Next topic: Manufacturing"
+    href: "/training/functional/manufacturing"
   - label: "Functional syllabus"
     href: "/resources/functional-syllabus"
+  - label: "Inventory module"
+    href: "/modules/inventory"
+  - label: "Odoo for distribution"
+    href: "/industries/distribution"
+faq:
+  - q: "Is Inventory the same in Community and Enterprise?"
+    a: "The core is the same in Odoo 17 to 19: warehouses, locations, receipts, deliveries, lots and reordering rules. Barcode scanning with the mobile app, quality checks and the shipping connectors are Enterprise features."
+  - q: "Should I learn Purchase and Sales before Inventory?"
+    a: "You need to know how to confirm a purchase order and a sales order, because those create the receipts and deliveries you practise on. The batch covers that in the first session, so a separate course is not required."
+  - q: "How does stock valuation affect the accounts?"
+    a: "With automated valuation, every receipt and delivery posts a journal entry to the stock valuation account and the stock input or output account. The training shows you how to check that these match the chart of accounts from the Accounting topic."
+  - q: "Can Odoo handle a bonded warehouse?"
+    a: "Yes, with a separate warehouse or location and the right routes. Customs bond reporting still happens outside Odoo, but the quantities and values can be tracked per location so the bond register can be reconciled."
 ---
 
-This topic page is a learning checklist for functional consultants focusing on **Inventory**.
+Odoo Inventory functional training teaches you to set up warehouses, locations and operation types for a Bangladeshi trading or manufacturing company on Odoo 17 to 19, move stock through receipts, internal transfers and deliveries, keep it replenished with reordering rules, trace it with lots and serial numbers, and prove to the accounts team that the stock value in BDT on the balance sheet matches what is on the shelf. It is the second topic in the functional track, after [Accounting](/training/functional/accounting), because stock valuation only makes sense once you understand the journal entries it creates.
 
-## Learning checklist
+## Learning outcomes
 
-- Warehouses, locations, and picking types
-- Receipts from purchase orders and deliveries from sales orders
-- Reordering rules and replenishment
-- Lots, serial numbers, and traceability
-- How stock valuation hands off to accounting
+By the end of this topic you should be able to:
 
-## Practice
+- Create a warehouse with receipt, storage, quality and shipping locations and choose one-step, two-step or three-step routes.
+- Receive goods against a purchase order, handle partial receipts and backorders, and return goods to a supplier.
+- Deliver goods against a sales order, including partial deliveries and customer returns.
+- Configure reordering rules with minimum and maximum quantities and lead times, and run the replenishment report.
+- Track products by lot or serial number and produce a traceability report for an expiry date recall.
+- Set up standard, average or FIFO costing with automated valuation and explain the journal entries.
+- Run a cycle count, post an inventory adjustment and explain the variance.
 
-Walk one product from purchase receipt to delivery, then explain where the quantity and the value changed.
+## Prerequisites
+
+Complete the [Accounting](/training/functional/accounting) topic first, or at least know what a journal entry is. Read the [Inventory module](/modules/inventory) page. You should have seen a physical warehouse operate: how goods arrive, how a delivery challan is raised, and why the stock count never matches the register on the first attempt.
+
+## Syllabus outline
+
+| Session | Topic | Exercise |
+|---|---|---|
+| 1 | Warehouses, locations, operation types, routes | Build a two-warehouse company with a bonded location |
+| 2 | Products: types, units of measure, categories, costing method | Create 30 products with piece and carton units |
+| 3 | Receipts from purchase orders, backorders, supplier returns | Receive a partial shipment and close the backorder |
+| 4 | Deliveries from sales orders, delivery challan, customer returns | Deliver, return and re-deliver one order |
+| 5 | Reordering rules, replenishment, lead times, vendor pricelists | Set rules for 10 fast-moving products |
+| 6 | Lots, serial numbers, expiry dates, traceability | Run a recall for one lot across all customers |
+| 7 | Stock valuation, automated accounting, landed costs | Reconcile stock value with the balance sheet |
+| 8 | Inventory adjustments, cycle counts, reports and UAT | Count one location and post the variance |
+
+## Practice exercises
+
+**Exercise 1: Chittagong trading company with a bonded warehouse.** Consider the same Chittagong fastener importer from the Accounting topic. Create a main warehouse in Agrabad and a second warehouse at the bonded facility near the port. Set the bonded warehouse to two-step receipt (input then stock) so customs clearance can be recorded before goods become available. Create a route that moves cleared goods from the bonded warehouse to Agrabad with an internal transfer. Receive a container of 2,000 cartons of hex bolts against a purchase order priced in USD, with the landed cost of freight and customs duty in BDT applied to the receipt, and check the unit cost in BDT that Odoo computes.
+
+**Exercise 2: Backorders and returns.** Create a sales order for 500 cartons to a Narayanganj steel fabricator. Deliver 300, create a backorder for 200, then process a return of 20 damaged cartons. Check the stock on hand, the reserved quantity and the delivered quantity on the sales order after each step.
+
+**Exercise 3: Reordering rules with Chittagong lead times.** For the 10 fastest-moving products, set minimum and maximum quantities based on a hypothetical 60-day shipping lead time from the supplier in China plus 10 days for port clearance. Run the replenishment report and explain why one rule triggered an order that looks too large.
+
+**Exercise 4: Lot tracking for a Dhaka pharmacy distributor.** Switch to a second company: a distributor supplying pharmacies in Mirpur and Uttara. Enable lots with expiry dates on 5 products, receive two lots of paracetamol with different expiry dates, deliver using the first-expiry-first-out removal strategy, and run the traceability report to find every customer who received lot PCM-2026-07.
+
+**Exercise 5: Valuation check.** With average costing and automated valuation, pull the stock valuation report and the balance sheet. The two numbers should match. Introduce a manual inventory adjustment and show which journal entry it created and which account absorbed the loss.
+
+## Recommended order
+
+The previous topic is [Accounting](/training/functional/accounting). The next topic is [Manufacturing](/training/functional/manufacturing), which uses the locations, routes and valuation methods from this topic to consume components and receive finished goods. If your interest is retail, the [POS](/training/functional/pos) topic at the end of the track also depends on what you learn here.
+
+## Where it leads
+
+Inventory consultants are in demand with distributors, importers and the garments supply chain in Bangladesh, where stock is often the largest asset on the balance sheet and the least controlled. The [career guide functional track](/odoo-career-guide#functional) explains how inventory and manufacturing skills together qualify you for the larger factory implementations. The [distribution industry page](/industries/distribution) shows the kind of business where this topic is applied first.
+
+## Frequently asked questions
+
+### Is Inventory the same in Community and Enterprise?
+
+The core is the same in Odoo 17 to 19: warehouses, locations, receipts, deliveries, lots and reordering rules. Barcode scanning with the mobile app, quality checks and the shipping connectors are Enterprise features.
+
+### Should I learn Purchase and Sales before Inventory?
+
+You need to know how to confirm a purchase order and a sales order, because those create the receipts and deliveries you practise on. The batch covers that in the first session, so a separate course is not required.
+
+### How does stock valuation affect the accounts?
+
+With automated valuation, every receipt and delivery posts a journal entry to the stock valuation account and the stock input or output account. The training shows you how to check that these match the chart of accounts from the Accounting topic.
+
+### Can Odoo handle a bonded warehouse?
+
+Yes, with a separate warehouse or location and the right routes. Customs bond reporting still happens outside Odoo, but the quantities and values can be tracked per location so the bond register can be reconciled.
+
+## Next step
+
+Open the [functional syllabus](/resources/functional-syllabus) to see the full track, then visit the [training page](/training) for the next batch dates. Odoo releases a new major version every October, so confirm which version your batch uses.

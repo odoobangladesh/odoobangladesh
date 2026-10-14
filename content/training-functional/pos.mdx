@@ -1,33 +1,108 @@
 ---
-title: "Odoo Functional Training: Point of Sale"
-description: "Functional topics for Odoo Point of Sale: sessions, payments, multi-store setup, and inventory sync."
+title: "Odoo Point of Sale Functional Training in Bangladesh: Guide"
+description: "What Odoo POS functional training covers for Bangladesh shops: sessions, VAT-inclusive prices, bKash and card payments, offline mode and multi-store stock."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Functional Training
   - Odoo POS
   - Odoo Training Bangladesh
+  - Odoo point of sale course Dhaka
+  - Odoo pharmacy POS Bangladesh
+  - Odoo retail VAT inclusive pricing
 related:
-  - label: "Point of Sale module"
-    href: "/modules/pos"
-  - label: "Inventory module"
-    href: "/modules/inventory"
-  - label: "Odoo for retail"
-    href: "/industries/retail"
-  - label: "Functional training: Accounting"
-    href: "/training/functional/accounting"
+  - label: "Previous topic: HR"
+    href: "/training/functional/hr"
   - label: "Functional syllabus"
     href: "/resources/functional-syllabus"
+  - label: "Point of Sale module"
+    href: "/modules/pos"
+  - label: "Odoo for retail"
+    href: "/industries/retail"
+  - label: "Career guide: functional track"
+    href: "/odoo-career-guide#functional"
+faq:
+  - q: "Does Odoo POS work during load-shedding?"
+    a: "The POS screen keeps working offline in the browser once a session is open, and orders sync when the connection returns. A UPS for the counter PC and router is still needed, and the training covers what to check before relying on offline mode."
+  - q: "How do I show VAT-inclusive prices on the receipt?"
+    a: "Set the 15 percent VAT tax to be included in price and give products their shelf price. Odoo backs out the VAT on the receipt and in the accounting entry. The pharmacy exercise walks through this."
+  - q: "Can customers pay by bKash or Nagad at the counter?"
+    a: "Yes, as separate payment methods linked to their own journals. The cashier records the payment after the customer confirms the transfer. Integrated payment terminals in Odoo 17 to 19 cover a few global providers, so local wallets are usually recorded manually."
+  - q: "Is POS available in Community edition?"
+    a: "Yes, the core POS is in Community for Odoo 17 to 19. Restaurant floor plans, loyalty programmes and some hardware integrations are Enterprise. A single-shop pharmacy can run on Community."
 ---
 
-This topic page is a learning checklist for functional consultants focusing on **Point of Sale**.
+Odoo Point of Sale functional training teaches you to run a Bangladeshi shop or pharmacy counter on Odoo 17 to 19: open and close sessions with cash control, sell products with VAT-inclusive shelf prices and barcodes, accept cash, card, bKash and Nagad, keep selling during load-shedding and sync when the connection returns, update stock across several stores and post every session to accounting. It is the final topic in the functional track because it brings together the [Accounting](/training/functional/accounting) and [Inventory](/training/functional/inventory) topics in one place where mistakes are visible to the customer within seconds.
 
-## Learning checklist
+## Learning outcomes
 
-- POS sessions, opening cash, and closing
-- Products, barcodes, and pricelists at the counter
-- Payment methods and the posting to accounting
-- Multi-store setup and stock updates
-- Cashier permissions
+By the end of this topic you should be able to:
 
-## Practice
+- Configure a POS shop: products, categories, barcodes, pricelists, receipt layout and cashier access.
+- Open a session with opening cash, sell, refund, apply discounts, close the session and explain the cash difference.
+- Set up 15 percent VAT as included in price so receipts and journal entries show the right figures.
+- Create payment methods for cash, card, bKash, Nagad and Rocket, each posting to its own journal.
+- Prepare a counter for offline operation and verify what happens when the connection drops mid-sale.
+- Run two or more stores from one database with separate stock locations and session reports.
+- Trace a day's sales from the POS report to the journal entry to the bank reconciliation.
 
-Open a session, sell two products with different payment methods, close the session, and confirm stock and the accounting entry.
+## Prerequisites
+
+Complete the [Accounting](/training/functional/accounting) and [Inventory](/training/functional/inventory) topics. Read the [Point of Sale module](/modules/pos) page. Spend an hour behind a real counter if you can; the pace of a Dhaka pharmacy at 8 pm teaches more about POS design than any document.
+
+## Syllabus outline
+
+| Session | Topic | Exercise |
+|---|---|---|
+| 1 | POS configuration, products, categories, barcodes, receipt layout | Build a 100-product pharmacy catalogue |
+| 2 | Pricing: VAT-inclusive prices, pricelists, discounts, loyalty basics | Set shelf prices and verify the VAT split |
+| 3 | Sessions: opening cash, selling, refunds, closing, cash control | Run a full day and close with a BDT 120 difference |
+| 4 | Payment methods: cash, card, bKash, Nagad, Rocket; journals | Sell with three payment types and check the journals |
+| 5 | Offline mode, hardware, load-shedding and connectivity plan | Simulate a connection drop during a sale |
+| 6 | Multi-store: locations, stock sync, transfers between shops | Set up a second branch and transfer stock |
+| 7 | Accounting: session posting, reconciliation, Mushak 6.3 for POS | Reconcile one day across cash, card and bKash |
+| 8 | Cashier roles, reports, go-live checklist, UAT | Write the opening-day checklist |
+
+## Practice exercises
+
+**Exercise 1: Dhaka pharmacy with VAT-inclusive prices.** Consider a hypothetical pharmacy in Dhanmondi with two counters. Create 100 products including paracetamol 500 mg strips, an antibiotic requiring a prescription note, baby formula, and over-the-counter cosmetics. Set the 15 percent VAT tax as included in price. Give the paracetamol strip a shelf price of BDT 23 and the cosmetics item BDT 1,150. Sell both, print the receipt, and confirm that the receipt shows BDT 3 and BDT 150 of VAT respectively and that the journal entry splits revenue and VAT payable the same way. Then add a medicine category that is VAT-exempt and check that the receipt shows no VAT on those lines.
+
+**Exercise 2: A full session with a cash difference.** Open a session with BDT 5,000 opening cash. Record 20 sales: 12 cash, 5 card, 3 bKash. Process one refund. Close the session with a counted cash amount that is BDT 120 short. Explain where the difference is posted and who should approve it.
+
+**Exercise 3: Load-shedding at 7 pm.** Start a sale, disconnect the network, complete the sale and three more, then reconnect. Confirm all four orders synced and the stock moved. Write a one-page connectivity plan for the pharmacy: UPS runtime for the PC and router, a mobile hotspot as fallback, and the rule for when to stop selling.
+
+**Exercise 4: Second branch in Uttara.** Create a second POS with its own stock location. Transfer 50 strips of paracetamol from Dhanmondi to Uttara. Sell from both and run the sales report by shop. Check that the Uttara stock went down and Dhanmondi did not.
+
+**Exercise 5: Day-end reconciliation.** Post the closed sessions to accounting. Import a bank statement with the card settlement (net of a 1.5 percent merchant fee) and the bKash settlement (net of fee). Reconcile both and post the fees to the right expense accounts.
+
+## Recommended order
+
+The previous topic is [HR](/training/functional/hr). Point of Sale is the last topic in the functional track, so there is no next topic. Return to the [functional syllabus](/resources/functional-syllabus) to review the whole programme, then look at the consulting skills sessions on discovery, scope control and UAT.
+
+## Where it leads
+
+POS consultants work with pharmacies, grocery chains, fashion retailers and restaurants across Dhaka, Chittagong and Sylhet, often as the first module a retailer buys. The [career guide functional track](/odoo-career-guide#functional) explains how a POS specialist grows into a retail implementation lead by adding inventory, purchase and accounting depth. The [retail industry page](/industries/retail) describes the multi-store and load-shedding realities that shape every retail project here.
+
+## Frequently asked questions
+
+### Does Odoo POS work during load-shedding?
+
+The POS screen keeps working offline in the browser once a session is open, and orders sync when the connection returns. A UPS for the counter PC and router is still needed, and the training covers what to check before relying on offline mode.
+
+### How do I show VAT-inclusive prices on the receipt?
+
+Set the 15 percent VAT tax to be included in price and give products their shelf price. Odoo backs out the VAT on the receipt and in the accounting entry. The pharmacy exercise walks through this.
+
+### Can customers pay by bKash or Nagad at the counter?
+
+Yes, as separate payment methods linked to their own journals. The cashier records the payment after the customer confirms the transfer. Integrated payment terminals in Odoo 17 to 19 cover a few global providers, so local wallets are usually recorded manually.
+
+### Is POS available in Community edition?
+
+Yes, the core POS is in Community for Odoo 17 to 19. Restaurant floor plans, loyalty programmes and some hardware integrations are Enterprise. A single-shop pharmacy can run on Community.
+
+## Next step
+
+Download the [functional syllabus](/resources/functional-syllabus) to see the whole track, then check the [training page](/training) for the next batch dates. Odoo releases a new major version every October, so confirm the version your batch uses.

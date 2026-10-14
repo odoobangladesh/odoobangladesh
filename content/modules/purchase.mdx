@@ -1,31 +1,144 @@
 ---
-title: "Odoo Purchase Module"
-description: "Procurement workflows in Odoo: RFQs, vendor management, approvals, and integration with inventory and accounting."
+title: "Odoo Purchase Module in Bangladesh: RFQs, LC Imports and VDS"
+description: "How Odoo Purchase runs Bangladesh procurement: RFQs, vendor pricing, approvals, LC-based imports, landed costs with duty and AIT, and VDS/TDS on vendor bills."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Purchase
   - Purchase ERP Bangladesh
   - Odoo ERP Bangladesh
+  - procurement software Bangladesh
+  - Odoo LC import
+  - Odoo vendor bill VDS
+  - purchase approval workflow Odoo
 related:
   - label: "Inventory"
     href: "/modules/inventory"
   - label: "Accounting"
     href: "/modules/accounting"
+  - label: "Manufacturing"
+    href: "/modules/manufacturing"
   - label: "Odoo for garments"
     href: "/industries/garments"
+  - label: "Odoo for manufacturing"
+    href: "/industries/manufacturing"
   - label: "Functional training: Inventory"
     href: "/training/functional/inventory"
-  - label: "Implementation guide"
-    href: "/implementation-guide"
+  - label: "Implementation guide: process design"
+    href: "/implementation-guide#process"
+faq:
+  - q: "How do we track a letter of credit in Odoo Purchase?"
+    a: "Odoo has no LC object by default. Most companies add an LC number, bank, opening date and expiry as custom fields on the purchase order, track the LC margin and bank charges in Accounting, and use the receipt and landed cost to close the loop. A small custom LC module is a common partner add-on."
+  - q: "Can Odoo deduct VDS and TDS on vendor bills?"
+    a: "Yes. Configure negative withholding taxes on the purchase side that post to VDS and TDS payable accounts, and apply them through a fiscal position per vendor type so the right rate is picked automatically."
+  - q: "Does Odoo Purchase have multi-level approvals?"
+    a: "Community edition has a single approval threshold per company: orders above an amount need a manager to confirm. Multi-level or amount-tiered chains need the Enterprise Approvals app or an OCA module such as purchase_tier_validation."
+  - q: "Can we compare quotes from several suppliers?"
+    a: "Yes, with purchase agreements of type call for tender. You send RFQs to several vendors, enter their quotes, and confirm the best one, which cancels the rest."
+  - q: "How does three-way matching work?"
+    a: "Odoo compares the purchase order, the receipt and the vendor bill. With the bill control setting on received quantities, a bill can only be created for what has actually been received, and differences show on the order."
 ---
 
-## What it covers
+Odoo Purchase manages the path from a request for quotation to a confirmed purchase order, through receipt in [Inventory](/modules/inventory), to the vendor bill in [Accounting](/modules/accounting). For Bangladesh companies the module has to deal with letter of credit imports that take weeks and carry duty, advance income tax and agent fees; with local vendors whose bills attract VDS and TDS deductions; with approval controls that finance insists on; and with a vendor base where many suppliers do not issue proper Mushak invoices. This page explains what the module does in Odoo 17 to 19 and how Bangladesh teams usually configure it. A new major version ships every October, so check the current one.
 
-- RFQ → Purchase Order
-- Vendor prices and lead times
-- Approval workflow (if needed)
+## What the module does
 
-## Implementation notes
+- Requests for quotation sent by email or printed, converted to purchase orders on confirmation.
+- Vendor pricelists with price per quantity, lead time and validity, so reordering picks the right supplier.
+- Purchase agreements: blanket orders for recurring supply and calls for tender for quote comparison.
+- Approval threshold: orders above an amount need a purchase manager.
+- Receipt in Inventory with backorders for partial deliveries.
+- Vendor bills from the order with three-way matching (ordered, received, billed).
+- Landed costs for duty, freight and agent fees on imports.
+- Reporting: spend by vendor, product and category, price variance, delivery performance.
 
-- Define vendor master data standards
-- Align purchasing approvals with finance controls
-- Plan inbound receipt + quality checks (where relevant)
+## Key features in Odoo 17 to 19
+
+| Feature | Community | Enterprise |
+|---|---|---|
+| RFQ, PO, vendor pricelists | Yes | Yes |
+| Blanket orders and tenders | Yes | Yes |
+| Single approval threshold | Yes | Yes |
+| Multi-level approvals | OCA module | Approvals app |
+| Vendor bill OCR | No | Yes, paid credits |
+| Purchase dashboard with KPIs | Basic | Full |
+| Automatic reorder from stock rules | Yes | Yes |
+
+Odoo 17 improved the replenishment report so purchasers can see suggested orders by vendor and lead time. Odoo 18 refined vendor pricelists with discounts per line and date ranges. Odoo 19 continues the same model.
+
+## Bangladesh-specific considerations
+
+### LC-based imports
+
+An importer in Tejgaon buying machinery or raw material from China or India opens an LC through a local bank with a margin deposit. In Odoo, the purchase order holds the foreign currency price and expected date; custom fields carry the LC number, bank, opening date and expiry. The margin deposit and bank charges post in Accounting against the vendor or an LC-in-progress account. When goods clear Chattogram port, the receipt is recorded, and a landed cost document adds customs duty, supplementary duty, AIT, C&F agent fees, port charges and inland transport. Import VAT goes to VAT receivable, not to product cost; AIT goes to an advance tax asset. The vendor bill in foreign currency is then matched, and the exchange difference between LC rate and bill date posts automatically. Partial shipments are backorders on the same order.
+
+### Bonded imports for garments
+
+Export garments factories import fabric and trims duty-free against a utilisation declaration. The purchase order should reference the UD and the LC so the bond register in Inventory can tie consumption back to the import. See the [garments industry page](/industries/garments) for the BGMEA and bond context.
+
+### VDS and TDS on local vendor bills
+
+When a company pays a local supplier for goods or services, it must often deduct VAT at source and tax at source and deposit them with NBR. Model each as a withholding tax (negative amount on the purchase side) that posts to a VDS payable or TDS payable account, and attach it through a fiscal position per vendor category: contractors, suppliers of goods, professional services, rent. The vendor is paid net, the deduction certificate is issued from a custom report, and the monthly deposit clears the payable. Vendors without a BIN cannot issue a Mushak 6.3, which affects your input VAT claim; flag such vendors in the vendor master.
+
+### Approval controls
+
+Finance teams in Bangladesh often want tiered approvals: up to BDT 50,000 by the purchase officer, up to BDT 5 lakh by the manager, above that by a director. Community has one threshold; the Enterprise Approvals app or the OCA purchase_tier_validation module adds tiers. Decide the tiers during [process design](/implementation-guide#process) so the setup is a configuration, not a dispute after go-live.
+
+### Vendor master quality
+
+Many local suppliers trade under multiple names and change phone numbers. Set a vendor master standard: legal name as on trade licence, BIN, TIN, bank account, payment terms and category. Deduplicate before import. Vendor performance reports in Odoo are only as good as this data.
+
+### Manufacturing demand
+
+For factories, reordering rules and manufacturing orders create purchase demand automatically. The [manufacturing module](/modules/manufacturing) explains how component requirements turn into RFQs, which matters for plastics and pharma plants that buy resin and APIs on lead times of weeks.
+
+## Community vs Enterprise for purchase
+
+Community includes almost everything procurement teams need: RFQs, pricelists, agreements, the single approval threshold, three-way matching and landed costs. Enterprise adds the Approvals app for tiered sign-off, bill OCR, and the Documents app for attaching LC papers and customs documents in a structured way. A trading company with 5 users will be comfortable on Community with an OCA approval module. A factory with a purchase committee will want Approvals. Enterprise pricing is roughly USD 24.90 to 37.40 per user per month at Odoo's US list price, usually less at the regional price shown from Bangladesh; confirm Bangladesh pricing on odoo.com/pricing and see the [pricing guide](/pricing-guide#components).
+
+## Typical implementation steps
+
+1. Document the procurement process as it really runs: who raises a requisition, who approves, who opens the LC.
+2. Clean the vendor master to the standard above and import it.
+3. Configure vendor pricelists for the top 50 products by spend.
+4. Set up approval thresholds or tiers.
+5. Configure withholding taxes and fiscal positions for VDS and TDS.
+6. Add LC fields and the landed cost types for duty, AIT, freight and agent fees.
+7. Set bill control to received quantities and train accounts payable on three-way matching.
+8. Run one month of purchases in parallel with the old register, including one full import cycle.
+
+## Common mistakes
+
+- Creating the vendor bill at bill of lading date and the receipt at clearance date, which breaks matching.
+- Treating AIT and import VAT as product cost.
+- One withholding rate for all vendors.
+- Approvals configured after go-live, leaving a month of unapproved orders.
+- Purchase officers creating products on the fly, which corrupts the product master.
+
+## Frequently asked questions
+
+### How do we track a letter of credit in Odoo Purchase?
+
+Odoo has no LC object by default. Most companies add an LC number, bank, opening date and expiry as custom fields on the purchase order, track the LC margin and bank charges in Accounting, and use the receipt and landed cost to close the loop. A small custom LC module is a common partner add-on.
+
+### Can Odoo deduct VDS and TDS on vendor bills?
+
+Yes. Configure negative withholding taxes on the purchase side that post to VDS and TDS payable accounts, and apply them through a fiscal position per vendor type so the right rate is picked automatically.
+
+### Does Odoo Purchase have multi-level approvals?
+
+Community edition has a single approval threshold per company: orders above an amount need a manager to confirm. Multi-level or amount-tiered chains need the Enterprise Approvals app or an OCA module such as purchase_tier_validation.
+
+### Can we compare quotes from several suppliers?
+
+Yes, with purchase agreements of type call for tender. You send RFQs to several vendors, enter their quotes, and confirm the best one, which cancels the rest.
+
+### How does three-way matching work?
+
+Odoo compares the purchase order, the receipt and the vendor bill. With the bill control setting on received quantities, a bill can only be created for what has actually been received, and differences show on the order.
+
+## Next step
+
+The community [ERP readiness checklist](/resources/erp-checklist) has a procurement section covering vendor master, approvals, import costs and withholding; complete it before the first purchase workshop. Receipts and valuation are covered on the [inventory module](/modules/inventory) page, and hands-on practice with receipts, backorders and landed costs is part of the [inventory functional training](/training/functional/inventory). Manufacturers should also read [Odoo for manufacturing](/industries/manufacturing).

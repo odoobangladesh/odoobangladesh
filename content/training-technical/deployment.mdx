@@ -1,31 +1,133 @@
 ---
-title: "Odoo Technical Training: Deployment"
-description: "Deployment checklist for Odoo: environments, addons, database backups, and a safe release."
+title: "Odoo Deployment Training in Bangladesh: Docker, Odoo.sh and VPS"
+description: "What Odoo deployment training covers for Odoo 17 to 19: Odoo.sh versus Docker on a Bangladesh VPS or data centre, nginx, workers, backups and a safe release."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Technical Training
   - Odoo Deployment
   - Odoo Training Bangladesh
+  - Odoo Docker production setup
+  - Odoo hosting Bangladesh data centre
+  - Odoo.sh vs self-hosted
 related:
-  - label: "Technical training: module development"
-    href: "/training/technical/module-development"
-  - label: "Technical training: performance"
+  - label: "Previous topic: OWL"
+    href: "/training/technical/owl"
+  - label: "Next topic: Performance"
     href: "/training/technical/performance"
-  - label: "Implementation guide — go-live"
-    href: "/implementation-guide#go-live"
   - label: "Technical syllabus"
     href: "/resources/technical-syllabus"
+  - label: "Accounting module"
+    href: "/modules/accounting"
+  - label: "Implementation guide: go-live"
+    href: "/implementation-guide#go-live"
+faq:
+  - q: "Should a Bangladesh company use Odoo.sh or self-host?"
+    a: "Odoo.sh is simpler and includes staging, backups and monitoring, but data sits outside Bangladesh and the subscription is in USD. Self-hosting on a local VPS or data centre keeps data in the country and costs less per month, but your team owns backups, upgrades and security. The training shows both so you can advise either way."
+  - q: "What server size does a 20-user Odoo need?"
+    a: "As a community-observed starting point, 4 vCPU, 8 GB RAM and SSD storage runs Odoo 17 to 19 with PostgreSQL for 20 to 30 users. Add RAM before CPU when reports get slow. Measure before you buy a bigger machine."
+  - q: "How do I take a backup?"
+    a: "pg_dump of the database plus a copy of the filestore directory, both on a schedule, both copied off the server. The database manager backup zip does the same but is slower on large databases. Test a restore every month."
+  - q: "Is Community edition deployed differently from Enterprise?"
+    a: "The process is the same. Enterprise adds a second addons path for the enterprise repository and needs a subscription code in the database. Everything else, from nginx to workers, is identical."
 ---
 
-This topic page is a learning checklist for developers focusing on **deployment**.
+Odoo deployment training teaches you to move an Odoo 17 to 19 database and custom addons from a laptop to a production server and keep it running: choosing between Odoo.sh and self-hosted Docker on a Bangladesh VPS or a local data centre, building a Docker Compose stack with PostgreSQL, putting nginx in front as a reverse proxy with TLS, setting `workers`, `limit_memory_hard` and the other `odoo.conf` limits, scheduling backups of the database and filestore, keeping a staging environment, and writing a release procedure with a rollback. It follows the [OWL](/training/technical/owl) topic and feeds the [go-live section of the implementation guide](/implementation-guide#go-live).
 
-## Learning checklist
+## Learning outcomes
 
-- Separate development, staging, and production
-- Addon paths, dependencies, and a repeatable install
-- Database backups before every upgrade
-- What a release includes: code, data files, and a rollback
-- How deployment lines up with the go-live checklist
+By the end of this topic you should be able to:
 
-## Practice
+- Compare Odoo.sh, Odoo Online and self-hosting for a Bangladeshi client on cost, data residency, control and effort.
+- Write a Docker Compose file for Odoo and PostgreSQL with named volumes for the filestore and the database.
+- Configure `odoo.conf` for production: `workers`, `max_cron_threads`, `limit_memory_hard`, `limit_memory_soft`, `limit_time_cpu`, `limit_time_real`, `proxy_mode`, `list_db` and `admin_passwd`.
+- Set up nginx as a reverse proxy with HTTPS, long-polling or websocket forwarding on port 8072, and gzip.
+- Schedule `pg_dump` and filestore backups, copy them off the server and test a restore.
+- Maintain separate development, staging and production databases and promote an addon through them.
+- Write a release checklist: backup, deploy code, `-u` the module, smoke test, rollback plan.
 
-Write the steps to move one custom addon from a staging database to production, including the backup you take first.
+## Prerequisites
+
+Complete [module development](/training/technical/module-development); the addon you built there is what you deploy. Basic Linux command line, SSH and Git. Know what the [Accounting module](/modules/accounting) does, because the smoke test in session 8 posts an invoice.
+
+## Syllabus outline
+
+| Session | Topic | Exercise |
+|---|---|---|
+| 1 | Hosting options: Odoo.sh, Odoo Online, VPS, local data centre, data residency | Write a one-page recommendation for a client |
+| 2 | Docker Compose: Odoo image, PostgreSQL, volumes, addons mount | Bring up a stack on a fresh Ubuntu VM |
+| 3 | `odoo.conf` for production: workers, memory and time limits, proxy mode | Size the config for 4 vCPU and 8 GB |
+| 4 | nginx reverse proxy, TLS with Let's Encrypt, websocket on 8072 | Serve Odoo on a domain over HTTPS |
+| 5 | Backups: `pg_dump`, filestore, off-site copy, restore drill | Restore last night's backup to staging |
+| 6 | Environments: dev, staging, production; Git branches; secrets | Promote one addon from staging to production |
+| 7 | Updates: `-u`, minor version bumps, Enterprise subscription code | Apply a module update with downtime under 5 minutes |
+| 8 | Release procedure, rollback, monitoring, go-live rehearsal | Run a full release with a forced rollback |
+
+## Practice exercises
+
+**Exercise 1: Hosting recommendation.** Consider a hypothetical Chittagong trading company with 15 users that handles customs and bank data and prefers to keep it in Bangladesh. Compare Odoo.sh (USD subscription, servers abroad, staging and backups included) against a VPS from a Bangladeshi provider or a rack in a Dhaka data centre running Docker (BDT pricing, your team owns everything). Give a monthly cost range for each with assumptions, and a recommendation.
+
+**Exercise 2: Compose stack.** Bring up Odoo 17 to 19 and PostgreSQL 15 or 16 with this starting point, then mount the `bd_vat_mushak` addon and install it:
+
+```yaml
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: change_me
+      POSTGRES_DB: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  odoo:
+    image: odoo:17
+    depends_on: [db]
+    ports: ["127.0.0.1:8069:8069", "127.0.0.1:8072:8072"]
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+      - ./odoo.conf:/etc/odoo/odoo.conf
+volumes:
+  db-data:
+  odoo-data:
+```
+
+**Exercise 3: Production config.** Write an `odoo.conf` for a 4 vCPU, 8 GB server. A community-observed starting point is `workers = 5` (roughly two per CPU plus one), `max_cron_threads = 1`, `limit_memory_hard = 2684354560`, `limit_memory_soft = 2147483648`, `limit_time_cpu = 600`, `limit_time_real = 1200`, `proxy_mode = True`, `list_db = False` and a strong `admin_passwd`. Explain what happens when a worker crosses the hard limit and why Mushak 9.1 reports with large date ranges hit the time limit first.
+
+**Exercise 4: nginx and TLS.** Put nginx in front with a Let's Encrypt certificate, forward `/websocket` to port 8072, set `proxy_set_header X-Forwarded-Proto https`, and confirm that the chatter updates live. Note what breaks when `proxy_mode` is off.
+
+**Exercise 5: Backup and restore drill.** Schedule a nightly `pg_dump -Fc` and an rsync of the filestore to a second server or object storage. Restore both to staging and open a posted invoice to prove the attachment is there. Record how long the restore took and what the recovery point is.
+
+**Exercise 6: Release with rollback.** Deploy a new version of the addon to production: backup, pull code, run `odoo-bin -d prod -u bd_vat_mushak --stop-after-init`, restart, smoke test by posting one invoice. Then roll back on purpose by restoring the backup and the previous code, and time the whole cycle.
+
+## Recommended order
+
+The previous topic is [OWL](/training/technical/owl). The next and final topic is [performance](/training/technical/performance), which starts from the production server you built here and teaches you to measure before you tune.
+
+## Where it leads
+
+Deployment skills are what turn a developer into someone a Bangladeshi company trusts with its live system. Many local firms self-host because of cost and data residency, so a developer who can run Docker, nginx and PostgreSQL well is hard to replace. The [career guide technical track](/odoo-career-guide#technical) describes the technical lead role where deployment ownership is expected.
+
+## Frequently asked questions
+
+### Should a Bangladesh company use Odoo.sh or self-host?
+
+Odoo.sh is simpler and includes staging, backups and monitoring, but data sits outside Bangladesh and the subscription is in USD. Self-hosting on a local VPS or data centre keeps data in the country and costs less per month, but your team owns backups, upgrades and security. The training shows both so you can advise either way.
+
+### What server size does a 20-user Odoo need?
+
+As a community-observed starting point, 4 vCPU, 8 GB RAM and SSD storage runs Odoo 17 to 19 with PostgreSQL for 20 to 30 users. Add RAM before CPU when reports get slow. Measure before you buy a bigger machine.
+
+### How do I take a backup?
+
+pg_dump of the database plus a copy of the filestore directory, both on a schedule, both copied off the server. The database manager backup zip does the same but is slower on large databases. Test a restore every month.
+
+### Is Community edition deployed differently from Enterprise?
+
+The process is the same. Enterprise adds a second addons path for the enterprise repository and needs a subscription code in the database. Everything else, from nginx to workers, is identical.
+
+## Next step
+
+Read the [technical syllabus](/resources/technical-syllabus) for the full programme and check the [training page](/training) for the next batch. Odoo releases a new major version every October, so confirm the version before you deploy.

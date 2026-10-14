@@ -14,7 +14,7 @@ export default function LearningCenterPage() {
       <div className="max-w-2xl">
         <h1 className="text-3xl font-semibold tracking-tight">Learning Center</h1>
         <p className="mt-2 text-sm leading-6 text-zinc-600">
-          A structured starting point for learning Odoo ERP in Bangladesh — for
+          A structured starting point for learning Odoo ERP in Bangladesh: for
           businesses, professionals, students, and developers.
         </p>
       </div>

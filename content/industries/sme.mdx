@@ -1,33 +1,137 @@
 ---
-title: "Odoo for SMEs in Bangladesh"
-description: "A community guide to adopting Odoo for SMEs: start small, control scope, and scale by modules."
+title: "Odoo for SMEs in Bangladesh: Start Small, Scale by Module"
+description: "A community guide for Bangladeshi SMEs adopting Odoo 17 to 19: One App Free start, Community versus Enterprise, typical 5 to 20 user rollouts and BDT costs."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - SME ERP Bangladesh
   - Best ERP in Bangladesh
   - Odoo ERP Bangladesh
+  - Odoo for small business Bangladesh
+  - Odoo Community vs Enterprise
+  - Odoo One App Free
+  - ERP for trading company Dhaka
 related:
-  - label: "Sales"
+  - label: "Sales module"
     href: "/modules/sales"
-  - label: "Accounting"
+  - label: "Accounting module"
     href: "/modules/accounting"
-  - label: "Inventory"
+  - label: "Inventory module"
     href: "/modules/inventory"
-  - label: "CRM"
+  - label: "CRM module"
     href: "/modules/crm"
   - label: "Odoo vs ERPNext"
     href: "/comparisons/odoo-vs-erpnext"
   - label: "ERP readiness checklist"
     href: "/resources/erp-checklist"
+  - label: "Pricing guide"
+    href: "/pricing-guide"
+faq:
+  - q: "What is Odoo One App Free and is it useful for a Bangladeshi SME?"
+    a: "One App Free is Odoo's plan where a single app, such as Invoicing or CRM, is free for unlimited users on Odoo Online. It suits a start on one process. Adding a second app moves you to the paid Standard or Custom plan for all users."
+  - q: "Should an SME choose Odoo Community or Enterprise?"
+    a: "Community is free, self-hosted and covers sales, purchase, stock, basic invoicing and CRM. Enterprise adds full accounting reports, payroll, quality, the mobile app and Odoo hosting. If you need bank reconciliation, Bangla payslips and support, Enterprise or a partner-maintained Community build is the usual answer."
+  - q: "How many users does a typical SME rollout have?"
+    a: "The community most often sees 5 to 20 users: an owner, two or three accounts staff, a few sales and store users, and a manager or two. Three to six apps is the usual first scope."
+  - q: "What does an Odoo SME rollout cost in Bangladesh?"
+    a: "Community-observed ranges are BDT 3 to 8 lakh for 2 to 5 users and 3 to 6 apps, and BDT 8 to 25 lakh for 10 to 30 users with customisation. Licences on Enterprise are roughly USD 24.90 to 37.40 per user per month at Odoo's US list price; the regional price shown on odoo.com/pricing from Bangladesh is usually lower. These are ranges, not quotes."
+  - q: "Can we do it ourselves without a partner?"
+    a: "Small teams do self-implement on One App Free or Community for CRM or invoicing. Once accounting with VAT, VDS and Mushak reports is in scope, most SMEs bring in a partner or an experienced freelancer for configuration and the first month end."
 ---
 
-## Why SMEs choose Odoo
+For a small or medium enterprise in Bangladesh, Odoo 17 to 19 make sense when you start with one or two processes, keep the first 90 days tightly scoped, and add modules only after the first ones are stable. The usual pattern is 5 to 20 users across Sales, Accounting, Inventory and CRM, a first release in 8 to 14 weeks, and a community-observed cost of BDT 3 to 8 lakh for the smallest setups or BDT 8 to 25 lakh with customisation. The three decisions that matter most are which app goes first, whether you start on One App Free, Community or Enterprise, and who owns master data. This page walks through each with Bangladesh specifics: VAT at 15 percent, Mushak forms, bKash collections and the July to June fiscal year.
 
-- Modular: start with Sales/Accounting, expand later
-- Customizable: adapt workflows without changing the whole ERP
-- Strong ecosystem for training and talent
+## Industry context in Bangladesh
 
-## Practical checklist
+SMEs make up the bulk of registered businesses in Bangladesh: trading companies in Dhaka's Motijheel and Kawran Bazar, importers in Chattogram, light engineering workshops in Bogura and Jashore, agri-processors in Rajshahi and Rangpur, printing and packaging firms in Narayanganj, and service businesses everywhere. A typical SME has 20 to 200 staff, an owner who still approves most payments, and an accounts team of two or three people who prepare the VAT return and the bank paperwork.
 
-- Define scope for the first 90 days
-- Identify key reports stakeholders need
-- Clean master data early (customers, products, chart of accounts)
+Regulatory load is real even at this size. VAT registration brings Mushak 6.3 tax invoices, purchase and sales registers, and the Mushak 9.1 return, filed monthly or quarterly since the Finance Act 2026 and due within 15 days of the period end. Vendor payments carry VDS and TDS deductions. Payroll follows the Labour Act 2006 for festival bonus and, for larger SMEs, provident fund and gratuity. Banks want audited accounts on a July to June year before they extend working capital.
+
+The software starting point is almost always Tally or a local accounting package, Excel for stock and sales, and WhatsApp for everything else. Odoo is attractive because the owner can see sales, stock and receivables in one place, and because it can grow with the business without a second migration.
+
+## Pain points Odoo is usually asked to solve
+
+- Stock on the shelf does not match the stock in the spreadsheet, so sales promises what is not there.
+- Receivables are chased from memory, and credit is extended to customers who already owe too much.
+- VAT returns are reconstructed at period end from paper invoices.
+- The owner approves every payment by phone because there is no visibility into commitments.
+- Quotations, delivery challans and invoices are typed separately and do not match.
+- Reports exist only when the accountant has time to build them.
+
+## Module map
+
+| Module | Why it matters for a Bangladeshi SME |
+|---|---|
+| [Sales](/modules/sales) | Quotations, order confirmation, delivery challans, pricelists in BDT, customer credit limit warnings. |
+| [Accounting](/modules/accounting) | Mushak 6.3 invoices, VAT at 15 percent, VDS and TDS on vendor bills, Mushak 9.1 data, bank and bKash reconciliation, receivables ageing, July to June fiscal year. |
+| [Inventory](/modules/inventory) | On-hand and forecast stock, reorder rules, one or more warehouses, barcode receipts, stock valuation for the balance sheet. |
+| [CRM](/modules/crm) | Lead and follow-up tracking so sales does not depend on one person's memory. |
+| [Purchase](/modules/purchase) | Purchase orders, vendor price comparison, approval before commitment, three-way matching. |
+| [HR](/modules/hr) and [Payroll](/modules/payroll) | Phase two for most SMEs: attendance, leave, payroll with festival bonus and tax at source. |
+
+Three to five of these modules is the right first scope. The [modules directory](/modules) describes each in depth.
+
+## One App Free, Community or Enterprise
+
+**One App Free.** Odoo's free plan on Odoo Online gives one app, for example Invoicing or CRM, to unlimited users. It is a sensible way for a 3 to 5 person team to start, and the data carries forward if you later upgrade. The moment you install a second app, every user moves to the paid Standard or Custom plan. Hosting is on Odoo's servers abroad, which raises the data-residency question for some owners.
+
+**Community.** Free and open source, self-hosted on your own server or a local cloud. It covers sales, purchase, stock, CRM, basic invoicing and manufacturing orders. It lacks full accounting reports, bank synchronisation, payroll, quality, the mobile app and official support. Bangladeshi partners and freelancers commonly fill the gaps with OCA modules and local reports, but you pay for that work and for maintenance. Community is a good fit when you have a technical person on staff or a partner on retainer and want control over hosting. The [Odoo community page](/odoo-community-bangladesh) covers the local landscape.
+
+**Enterprise.** Paid per user per month, roughly USD 24.90 on Standard (Odoo Online hosting) and USD 37.40 on Custom (Odoo.sh or on-premise) at Odoo's US list price with yearly billing. That is up to about BDT 3,000 to 4,700 per user per month assuming BDT 120 to 125 per USD, so a 10-user team spends at most roughly BDT 3.6 to 5.6 lakh a year on licences. Odoo prices by region, and South Asian buyers usually see a lower regional USD price on odoo.com/pricing when visiting from Bangladesh, so treat these as an upper bound and confirm there; prices also change most years between January and April. Enterprise gives full accounting, payroll, support and upgrades, and most SMEs that need VAT-compliant accounting end up here or on a partner-maintained Community build. The [pricing guide](/pricing-guide#compare) lays out the components.
+
+## A worked example: a Tejgaon trading company
+
+Consider a hypothetical Dhaka trading company in Tejgaon that imports and distributes industrial fasteners, with 35 staff, 12 of whom will use the system: the owner, three accounts staff, four sales and two store staff, plus two managers. Turnover is around BDT 25 crore a year. They run Tally and Excel today. Here is a plausible Odoo 17 to 19 path.
+
+**Weeks 1 to 2: discovery.** The owner writes down the three reports he wants: stock by item, receivables by customer, and gross margin by product line. Master data is cleaned: 1,800 products reduced to 1,350 after merging duplicates, 420 customers with BIN numbers checked, and a chart of accounts agreed with the auditor.
+
+**Weeks 3 to 6: configuration.** Enterprise Standard is chosen for 12 users because the accounts team needs bank reconciliation and VAT reports. Sales, Inventory, Purchase and Accounting are installed. VAT at 15 percent, Mushak 6.3 invoice layout, VDS and TDS rules on vendor bills and the July to June fiscal year are set. Landed costs are configured for import duty and freight on each shipment from Chattogram port. A bKash journal and two bank journals are created.
+
+**Weeks 7 to 9: testing.** The team runs a full month of transactions in a test database: 120 sales orders, 30 purchase orders, one import shipment, and a month-end close with the Mushak 9.1 figures. Three report gaps are found and fixed, including a Bangla-language delivery challan.
+
+**Weeks 10 to 12: go-live.** Opening stock and open invoices are imported on 1 July to align with the fiscal year. Tally runs in parallel for one month for the accountant's comfort, then stops. By week 12 the owner checks receivables ageing on his phone each morning.
+
+Costs in this example would sit within the community-observed BDT 8 to 25 lakh range for configuration and data work, plus licences. It is illustrative, not a quote.
+
+## Implementation checklist
+
+- Pick one first process and one report the owner will look at daily. Resist installing every app.
+- Decide One App Free, Community or Enterprise before discovery, because it changes hosting and the partner you need.
+- Clean master data early: customers with BIN, products without duplicates, chart of accounts agreed with the auditor.
+- Configure VAT, Mushak 6.3, VDS, TDS and the fiscal year before the first live transaction.
+- Create a journal per collection channel: cash, each bank, bKash, Nagad.
+- Align go-live with the start of a month, ideally 1 July, so the first fiscal year is clean.
+- Run one full month end in a test database before go-live. See the [implementation guide](/implementation-guide#uat).
+- Name a data owner inside the company. A partner cannot keep master data clean for you.
+- Budget for training: two to three days for accounts, one day for sales and store staff. The [functional training](/training/functional) tracks are a starting point.
+- Decide hosting and backups in writing: local server, local cloud or Odoo Online, and who restores it when it fails.
+
+If you are also considering ERPNext, the [Odoo vs ERPNext comparison](/comparisons/odoo-vs-erpnext) covers the trade-offs for SMEs, and the [implementation cost blog post](/blog/odoo-implementation-cost-in-bangladesh) breaks down where the money goes.
+
+## Frequently asked questions
+
+### What is Odoo One App Free and is it useful for a Bangladeshi SME?
+
+One App Free is Odoo's plan where a single app, such as Invoicing or CRM, is free for unlimited users on Odoo Online. It suits a start on one process. Adding a second app moves you to the paid Standard or Custom plan for all users.
+
+### Should an SME choose Odoo Community or Enterprise?
+
+Community is free, self-hosted and covers sales, purchase, stock, basic invoicing and CRM. Enterprise adds full accounting reports, payroll, quality, the mobile app and Odoo hosting. If you need bank reconciliation, Bangla payslips and support, Enterprise or a partner-maintained Community build is the usual answer.
+
+### How many users does a typical SME rollout have?
+
+The community most often sees 5 to 20 users: an owner, two or three accounts staff, a few sales and store users, and a manager or two. Three to six apps is the usual first scope.
+
+### What does an Odoo SME rollout cost in Bangladesh?
+
+Community-observed ranges are BDT 3 to 8 lakh for 2 to 5 users and 3 to 6 apps, and BDT 8 to 25 lakh for 10 to 30 users with customisation. Licences on Enterprise are roughly USD 24.90 to 37.40 per user per month at Odoo's US list price; the regional price shown on odoo.com/pricing from Bangladesh is usually lower. These are ranges, not quotes.
+
+### Can we do it ourselves without a partner?
+
+Small teams do self-implement on One App Free or Community for CRM or invoicing. Once accounting with VAT, VDS and Mushak reports is in scope, most SMEs bring in a partner or an experienced freelancer for configuration and the first month end.
+
+## Next step
+
+Download the [ERP readiness checklist](/resources/erp-checklist) and work through it with your accountant in one sitting. It forces the three decisions on this page into writing: first process, edition, and data owner. Odoo releases a new major version every October, so check the current version before you fix your plan.

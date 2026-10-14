@@ -1,28 +1,108 @@
 ---
-title: "Odoo Functional Training: Accounting"
-description: "Functional topics for Odoo Accounting: setup strategy, workflows, reporting, and testing checklist."
+title: "Odoo Accounting Functional Training in Bangladesh: Course Guide"
+description: "What a functional consultant learns in Odoo Accounting training for Bangladesh: chart of accounts, 15 percent VAT, Mushak forms, reconciliation and reports."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Functional Training
   - Odoo Accounting
   - Odoo Training Bangladesh
+  - Odoo accounting course Dhaka
+  - Odoo VAT Mushak training
+  - Odoo chart of accounts Bangladesh
 related:
-  - label: "Accounting module"
-    href: "/modules/accounting"
-  - label: "Implementation guide — data readiness"
-    href: "/implementation-guide#data"
-  - label: "Functional training: Inventory"
+  - label: "Next topic: Inventory"
     href: "/training/functional/inventory"
   - label: "Functional syllabus"
     href: "/resources/functional-syllabus"
+  - label: "Accounting module"
+    href: "/modules/accounting"
+  - label: "Odoo accounting in Bangladesh"
+    href: "/odoo-accounting-bangladesh"
+  - label: "Career guide: functional track"
+    href: "/odoo-career-guide#functional"
+faq:
+  - q: "Do I need an accounting degree to take this topic?"
+    a: "No. You need to understand debits and credits, what a trial balance is, and how VAT works in Bangladesh. A commerce background or two years in an accounts department is enough."
+  - q: "Which Odoo version does the training cover?"
+    a: "Odoo 17 to 19. The accounting workflows are stable across these versions. Odoo releases a new major version every October, so check the version your batch uses before you start."
+  - q: "Does Odoo produce Mushak 6.3 and Mushak 9.1 out of the box?"
+    a: "No. The official l10n_bd localisation in Odoo 17 to 19 gives you a chart of accounts and VAT taxes from 0 to 15 percent, with the default set to 10 percent rather than 15, so change it after install. Mushak forms are usually added by a community module or a custom QWeb report, and the training shows you how to specify that requirement."
+  - q: "Can I practise on Community edition?"
+    a: "Partly. Community edition has invoicing but the full accounting application, bank reconciliation and financial reports are Enterprise features in Odoo 17 to 19. Most batches use a trial Enterprise database or Odoo Online for practice."
 ---
 
-This topic page is a learning checklist for functional consultants focusing on **Accounting**.
+Odoo Accounting functional training teaches you to configure and run the accounting application for a Bangladeshi company on Odoo 17 to 19: a chart of accounts that an NBR-registered business can live with, 15 percent VAT with Mushak 6.3 invoices, VDS and TDS withholding, a July to June fiscal year, bank and bKash reconciliation, and the month-end reports an owner or auditor asks for. It is the first topic in the functional track because every other module posts into accounting. Finish this page and you will know what the batch covers, what to prepare, and what to practise before moving to [Inventory](/training/functional/inventory).
 
-## Learning checklist
+## Learning outcomes
 
-- Chart of accounts planning
-- Taxes and fiscal positions
-- Invoicing and payment workflows
-- Bank reconciliation basics
-- Reporting and stakeholder requirements
+By the end of this topic you should be able to:
 
+- Design and import a chart of accounts that maps to the company's existing ledger and to Bangladesh financial statement formats.
+- Configure 15 percent VAT, zero-rated and exempt taxes, and the VDS and TDS withholding taxes used on supplier bills.
+- Set up a fiscal year that runs July to June, with lock dates for closed months.
+- Run the customer invoice to payment cycle and the vendor bill to payment cycle, including partial payments and credit notes.
+- Reconcile a bank statement, a bKash merchant statement and a petty cash box.
+- Produce a trial balance, profit and loss, balance sheet, aged receivables and a VAT summary that an accountant can tie back to Mushak 9.1.
+- Write a short UAT script for an accounting go-live.
+
+## Prerequisites
+
+You should be comfortable with double-entry bookkeeping and have read the [Accounting module](/modules/accounting) overview. Know what a Mushak 6.3 tax invoice looks like and why a VAT-registered buyer needs one. Basic spreadsheet skills matter because most configuration is imported from CSV. No Odoo experience is required.
+
+## Syllabus outline
+
+| Session | Topic | Exercise |
+|---|---|---|
+| 1 | Company setup, fiscal year July to June, BDT currency, lock dates | Create the company and set the first fiscal year |
+| 2 | Chart of accounts: structure, account types, import | Import a 120-line chart from CSV and fix the type errors |
+| 3 | Taxes: 15 percent VAT, zero-rated exports, exempt goods, VDS, TDS | Build the tax set and test one invoice of each kind |
+| 4 | Customer invoicing, Mushak 6.3 layout, credit notes, follow-ups | Issue, correct and collect three invoices |
+| 5 | Vendor bills, withholding at source, payment terms, bill approval | Book a bill with TDS and pay it in two instalments |
+| 6 | Bank, bKash and cash journals; statement import and reconciliation | Reconcile a month of mixed receipts |
+| 7 | Reporting: trial balance, P&L, balance sheet, VAT summary, aged partners | Produce the month-end pack and explain one variance |
+| 8 | Closing, audit trail, UAT script and data migration planning | Write a 20-step UAT script for a client |
+
+## Practice exercises
+
+Work through these with a trial database. They use hypothetical data, so change names freely.
+
+**Exercise 1: Chittagong trading company chart of accounts.** Consider a Chittagong importer of industrial fasteners, registered for VAT, with two bank accounts, a bKash merchant account and a bonded warehouse facility. Build a chart of accounts with: current assets split into cash, bank (Islami Bank and BRAC Bank), bKash, trade receivables and advance income tax; inventory; fixed assets with accumulated depreciation; VAT current account, VDS payable and TDS payable as separate liabilities; and revenue split between local sales and re-exports. Import it from CSV. Then check the balance sheet layout and fix any account that landed in the wrong group.
+
+**Exercise 2: Tax set with one invoice of each kind.** Create a 15 percent VAT sales tax, a 15 percent purchase tax, a zero-rated export tax and an exempt tax. Add a 5 percent VDS purchase withholding and a 3 percent TDS withholding as negative taxes on supplier bills. Issue a local sale of BDT 1,15,000 inclusive of VAT, an export sale of BDT 2,00,000 at zero rate, and book a supplier bill for BDT 50,000 of transport services with VDS and TDS deducted. Open the journal entries and confirm that the VAT, VDS and TDS liabilities are posted to the right accounts and that the supplier is owed the net amount.
+
+**Exercise 3: Mixed-month reconciliation.** Import a bank statement CSV with 25 lines: customer receipts, a bKash settlement, bank charges, a cheque bounce and a loan instalment. Reconcile every line. Create the reconciliation models for bank charges and bKash fees so the second month takes minutes instead of an hour.
+
+**Exercise 4: Month-end pack.** Produce the trial balance, P&L and balance sheet for the month, plus the tax report. Explain to a partner in two paragraphs why the VAT payable on the tax report may not match what the accountant will file on Mushak 9.1 (timing of input VAT claims, rebate rules, and transactions the accountant books outside Odoo).
+
+## Recommended order
+
+Accounting is the first topic in the functional track, so there is no previous topic. Start from the [functional syllabus](/resources/functional-syllabus) and come back here. The next topic is [Inventory](/training/functional/inventory), where you will see how receipts and deliveries create the stock journal entries you configured in session 2.
+
+## Where it leads
+
+Accounting is the topic interviewers probe most when hiring a functional consultant. Accounts teams in Dhaka and Chittagong need someone who can explain to them where their VAT went, and that person is you after this topic. The [career guide functional track](/odoo-career-guide#functional) describes the junior consultant to implementation lead path and the Bangladesh salary ranges the community has observed. Many trainees pair this topic with the [Inventory](/training/functional/inventory) and [POS](/training/functional/pos) topics to cover the full trading company cycle.
+
+## Frequently asked questions
+
+### Do I need an accounting degree to take this topic?
+
+No. You need to understand debits and credits, what a trial balance is, and how VAT works in Bangladesh. A commerce background or two years in an accounts department is enough.
+
+### Which Odoo version does the training cover?
+
+Odoo 17 to 19. The accounting workflows are stable across these versions. Odoo releases a new major version every October, so check the version your batch uses before you start.
+
+### Does Odoo produce Mushak 6.3 and Mushak 9.1 out of the box?
+
+No. The official l10n_bd localisation in Odoo 17 to 19 gives you a chart of accounts and VAT taxes from 0 to 15 percent, with the default set to 10 percent rather than 15, so change it after install. Mushak forms are usually added by a community module or a custom QWeb report, and the training shows you how to specify that requirement.
+
+### Can I practise on Community edition?
+
+Partly. Community edition has invoicing but the full accounting application, bank reconciliation and financial reports are Enterprise features in Odoo 17 to 19. Most batches use a trial Enterprise database or Odoo Online for practice.
+
+## Next step
+
+Download the [functional syllabus](/resources/functional-syllabus) to see how this topic fits the full 10 to 12 week programme, then check the [training page](/training) for the next batch dates and the community-run study groups.

@@ -1,31 +1,139 @@
 ---
-title: "Odoo CRM Module"
-description: "Lead and opportunity management in Odoo CRM: pipelines, activities, forecasting, and handoffs to sales."
+title: "Odoo CRM Module in Bangladesh: Pipelines, WhatsApp and Dealers"
+description: "How Odoo CRM manages leads, pipelines and follow-ups for Bangladesh sales teams that sell over WhatsApp and through dealer networks, and how to set it up."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo CRM
   - Odoo Bangladesh
   - ERP CRM Bangladesh
+  - Odoo WhatsApp integration
+  - CRM for dealer network Bangladesh
+  - Odoo lead management
 related:
   - label: "Sales"
     href: "/modules/sales"
   - label: "Accounting"
     href: "/modules/accounting"
+  - label: "Project"
+    href: "/modules/project"
   - label: "Odoo for services"
     href: "/industries/services"
+  - label: "Odoo for distribution"
+    href: "/industries/distribution"
   - label: "Technical training: module development"
     href: "/training/technical/module-development"
-  - label: "Implementation guide"
-    href: "/implementation-guide"
+  - label: "Implementation guide: configuration"
+    href: "/implementation-guide#configuration"
+faq:
+  - q: "Can Odoo CRM send and receive WhatsApp messages?"
+    a: "Odoo 17 and later include an official WhatsApp app in Enterprise that connects to the Meta Cloud API with templated messages and inbound replies. Community edition users rely on third-party connectors or log WhatsApp conversations manually as notes and activities."
+  - q: "Is Odoo CRM free?"
+    a: "Yes in two ways. Community edition includes CRM at no licence cost, and Odoo's One App Free plan lets you run CRM alone on Odoo Online. Once you add Sales or Accounting you move to a paid per-user plan, so confirm current Bangladesh pricing on odoo.com/pricing."
+  - q: "How do we manage a dealer network in Odoo CRM?"
+    a: "Model dealers as companies with sales team assignment, use a separate pipeline for dealer onboarding, and tag opportunities by district or territory. Dealer orders then flow through the Sales module rather than CRM."
+  - q: "Can field sales staff use Odoo CRM on a phone?"
+    a: "Yes. The Odoo mobile app and the responsive web interface work on Android with a 4G connection, and activities, calls and notes can be logged on the move. Offline use is limited, so plan for sync when connectivity returns."
 ---
 
-## What it covers
+Odoo CRM is the lead and opportunity pipeline that sits in front of the Sales module. It captures enquiries from your website, email, phone and, in Odoo 17 and later, WhatsApp, then moves them through stages you define until they become a quotation. For Bangladesh companies the practical questions are different from the generic brochure: how to capture WhatsApp conversations that are the main selling channel, how to track dealers and sub-dealers across 64 districts, and how to keep a sales team disciplined about updating a pipeline. This page covers Odoo 17 to 19; a new major version arrives every October, so check what your partner proposes to install.
 
-- Pipelines and stages
-- Activities and follow-ups
-- Simple forecasting and visibility
+## What the module does
 
-## Implementation notes
+CRM in Odoo organises prospects into a kanban pipeline. Each card is an opportunity with an expected revenue, a probability, a salesperson, a sales team and a next activity. Leads can be kept as a separate pre-qualification stage, or turned off so every enquiry becomes an opportunity straight away. The module also tracks lost reasons, so you learn why deals fail, and it feeds a reporting view that shows pipeline by stage, team, source and month.
 
-- Keep stages consistent across teams
-- Define qualification rules and fields
-- Align CRM reporting with sales performance metrics
+When an opportunity is won, a salesperson creates a quotation directly from it. That quotation lives in [Sales](/modules/sales), and once confirmed it reaches delivery and [Accounting](/modules/accounting). For a services firm the won opportunity can also create a project automatically; see the [Project](/modules/project) module.
+
+## Key features in Odoo 17 to 19
+
+- Pipeline stages per sales team, with drag and drop and automated probability from historical wins.
+- Activities: calls, meetings, emails and to-dos with due dates, visible on a shared calendar.
+- Lead capture from website forms, inbound email aliases and manual entry.
+- Lead scoring and assignment rules that distribute new leads by territory or product.
+- Lost reasons and win analysis.
+- Email templates and mass mailing links for follow-up campaigns.
+- Reporting: pipeline analysis, forecast by close date, activity analysis per salesperson.
+- WhatsApp app (Enterprise, Odoo 17 and later) with templated outbound messages and inbound replies attached to the opportunity.
+- VoIP and lead enrichment (Enterprise, paid credits).
+
+Odoo 18 refined the activity view and added richer forecast reporting; Odoo 19 continues the same model with interface changes rather than a new concept, so skills transfer across versions.
+
+## Bangladesh-specific considerations
+
+### WhatsApp-led selling
+
+In most Bangladesh SMEs the first contact is a WhatsApp message, not a web form. Two realistic setups exist. In Enterprise, connect the official WhatsApp app to a Meta Business account and a verified number; templated messages such as quotation reminders go out from Odoo and replies land on the opportunity. In Community, a salesperson logs the conversation summary as a note and schedules the next activity. The second option works if managers enforce it; the pipeline is only as good as the discipline behind it. Either way, decide who owns the company WhatsApp number and how conversations get assigned.
+
+### Dealer and distributor networks
+
+A consumer goods company selling through dealers in Bogura, Cumilla and Khulna needs CRM to track two things: dealer recruitment and dealer activity. Use one pipeline for onboarding new dealers (stages like contacted, visit done, trade licence received, credit approved) and tag each opportunity with the district. Once a dealer is live, orders belong in Sales with a credit limit, not in CRM. Sales teams can mirror regional structures, for example Dhaka North, Dhaka South, Chattogram and Rajshahi, so reports roll up by region. The [distribution industry page](/industries/distribution) covers the order side of this flow.
+
+### Language and data entry
+
+The Odoo interface supports Bangla as a user language, though translation coverage varies by version and some labels remain in English. Most Bangladesh sales teams run the interface in English and write notes in a mix of English and Bangla. That is fine for CRM. Where it matters is reporting: stage names, lost reasons and tags must be standardised in one language so filters work.
+
+### Connectivity and mobile use
+
+Field staff visiting clients in industrial areas like Gazipur or Savar often work from a phone on a 4G connection. The Odoo mobile app handles activity logging and opportunity updates well, but there is no true offline mode. Train staff to update the pipeline at the end of each visit rather than relying on memory at the end of the week.
+
+### Data protection
+
+Customer phone numbers and conversation histories are commercially sensitive. If you host on a local provider or on your own server to keep data in Bangladesh, document who can export contacts and restrict the export permission to a few users. Self-hosting questions are covered in the [deployment training topic](/training/technical/deployment).
+
+## Community vs Enterprise for CRM
+
+| Capability | Community | Enterprise |
+|---|---|---|
+| Pipelines, activities, reports | Yes | Yes |
+| Website lead forms and email aliases | Yes | Yes |
+| WhatsApp app | No (third-party connectors only) | Yes, Odoo 17 and later |
+| Lead enrichment and mining | No | Yes, with paid credits |
+| VoIP calling from the opportunity | No | Yes |
+| Marketing Automation | No | Yes |
+| Mobile app | Yes | Yes |
+
+For a 5-person sales team Community CRM is usually enough, and a Bangladesh developer can build a WhatsApp bridge with the [module development skills](/training/technical/module-development) taught in the technical track. For a 30-person team with regional managers, the Enterprise forecasting and WhatsApp features justify the licence of roughly USD 24.90 to 37.40 per user per month at Odoo's US list price, assuming roughly BDT 120 to 125 per USD, which puts a 30-user annual cost at up to BDT 11 to 17 lakh before implementation; the regional price shown from Bangladesh is usually lower. Confirm the current rate on odoo.com/pricing.
+
+## Typical implementation steps
+
+1. Map your real sales process on paper first: how an enquiry arrives, who qualifies it, what makes it a serious opportunity.
+2. Define stages (keep them to five to seven), lost reasons and tags. Agree them across teams; see the [configuration guidance](/implementation-guide#configuration).
+3. Create sales teams that match your reporting lines, not your org chart.
+4. Set up lead sources: website form, email alias, WhatsApp (Enterprise) or a manual channel.
+5. Import existing contacts and open deals from spreadsheets, with a cleaning pass for duplicate phone numbers.
+6. Configure the handover to Sales: quotation templates, default payment terms, who confirms.
+7. Train salespeople on activities, not just stages, and set a weekly pipeline review.
+
+A small company with three to six apps including CRM typically lands in the community-observed implementation range of BDT 3 to 8 lakh; CRM alone is a small share of that.
+
+## Common mistakes
+
+- Too many stages, so cards sit in "negotiation" for months and the forecast means nothing.
+- No required fields at qualification, which produces opportunities without a phone number or district.
+- Treating CRM as a contact list and never scheduling activities.
+- Letting each salesperson invent their own tags.
+- Running dealer orders through CRM instead of Sales, which hides credit exposure.
+
+## Frequently asked questions
+
+### Can Odoo CRM send and receive WhatsApp messages?
+
+Odoo 17 and later include an official WhatsApp app in Enterprise that connects to the Meta Cloud API with templated messages and inbound replies. Community edition users rely on third-party connectors or log WhatsApp conversations manually as notes and activities.
+
+### Is Odoo CRM free?
+
+Yes in two ways. Community edition includes CRM at no licence cost, and Odoo's One App Free plan lets you run CRM alone on Odoo Online. Once you add Sales or Accounting you move to a paid per-user plan, so confirm current Bangladesh pricing on odoo.com/pricing.
+
+### How do we manage a dealer network in Odoo CRM?
+
+Model dealers as companies with sales team assignment, use a separate pipeline for dealer onboarding, and tag opportunities by district or territory. Dealer orders then flow through the Sales module rather than CRM.
+
+### Can field sales staff use Odoo CRM on a phone?
+
+Yes. The Odoo mobile app and the responsive web interface work on Android with a 4G connection, and activities, calls and notes can be logged on the move. Offline use is limited, so plan for sync when connectivity returns.
+
+## Next step
+
+CRM is often the first app a Bangladesh company switches on, and the decisions you make here shape Sales and Accounting later. Download the community [ERP readiness checklist](/resources/erp-checklist) and use its sales and customer data sections to prepare before you configure a pipeline. If your business is services-led, read [Odoo for services](/industries/services) next.

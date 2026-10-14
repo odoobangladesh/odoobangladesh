@@ -1,10 +1,18 @@
 ---
-title: "Odoo HR Module"
-description: "Employees, departments, contracts, and time off in Odoo HR, and what to settle before a payroll discussion."
+title: "Odoo HR Module in Bangladesh: Employees, Leave and Labour Act"
+description: "What Odoo HR covers for Bangladesh employers: employee records, contracts, attendance and time off under the Labour Act 2006, and what to settle before payroll."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo HR
   - HR ERP Bangladesh
   - Odoo ERP Bangladesh
+  - Odoo Employees module
+  - Bangladesh Labour Act leave Odoo
+  - HRIS Bangladesh
+  - Odoo attendance
 related:
   - label: "Payroll"
     href: "/modules/payroll"
@@ -12,25 +20,117 @@ related:
     href: "/modules/project"
   - label: "Odoo for services"
     href: "/industries/services"
+  - label: "Odoo for garments"
+    href: "/industries/garments"
   - label: "Functional training: HR"
     href: "/training/functional/hr"
+  - label: "Implementation guide: data readiness"
+    href: "/implementation-guide#data"
   - label: "Career guide"
     href: "/odoo-career-guide"
+faq:
+  - q: "Does Odoo HR know Bangladesh Labour Act leave rules?"
+    a: "No. Odoo ships generic leave types. You configure casual leave, sick leave, annual or earned leave, festival holidays and maternity leave yourself, with accrual plans that mirror the Labour Act 2006 and your own policy."
+  - q: "Can Odoo handle maternity leave of 16 weeks?"
+    a: "Yes. Create a maternity leave type with a fixed allocation of 112 calendar days (16 weeks), restrict it by gender if your policy requires, and set it to paid so the payroll rule treats it as working days."
+  - q: "Which HR apps are free in Odoo Community?"
+    a: "Employees, Time Off, Attendances, Recruitment, Skills, Fleet and Expenses are all in Community. Appraisals, Referrals, Planning and Payroll are Enterprise apps."
+  - q: "Can Odoo connect to our fingerprint attendance machine?"
+    a: "Not natively. ZKTeco and similar devices export logs that can be imported, and several community connectors push punches into Odoo Attendances through the API. Budget for this integration separately."
+  - q: "Should we start with HR or Payroll?"
+    a: "HR first. Payroll reads contracts, working schedules and leave from HR, so an incomplete employee master will produce wrong payslips. Clean the people data, then begin a payroll pilot."
 ---
 
-## What it covers
+Odoo HR is the group of apps that hold the employee master: Employees, Contracts, Time Off, Attendances, Recruitment, Skills and Expenses. It is the record of who works for you, in which department, under which contract, with which working schedule and leave balance. For a Bangladesh employer the module matters for two reasons. It is where Labour Act 2006 entitlements such as earned leave, festival holidays and maternity leave are configured, and it is the foundation that [Payroll](/modules/payroll) reads from. Get the employee master right and payroll becomes a configuration job; get it wrong and every payslip needs manual correction. This page covers Odoo 17 to 19.
 
-- Employee records, departments, and job positions
-- Contracts and working schedules
-- Time off types and approvals
-- The employee data payroll will later rely on
+## What the module does
 
-## Implementation notes (Bangladesh)
+- Employee records: personal details, department, job position, manager, work location, bank account, national ID and emergency contact.
+- Contracts: start and end date, wage, working schedule, contract type (permanent, probation, contractual, casual) and status.
+- Working schedules: 48-hour weeks, shift calendars, Friday weekly holiday, and factory-specific rosters.
+- Time off: leave types, allocations, accrual plans, approvals and a company calendar.
+- Attendances: check-in and check-out, overtime calculation, and kiosk mode on a tablet.
+- Recruitment: job posts, applicant pipeline, interview stages and offer tracking.
+- Skills and resumes, employee documents, and departure management for leavers.
 
-- Agree which fields are required before importing people data
-- Separate HR approvals from payroll rules
-- Name who owns joiners, movers, and leavers
+## Key features in Odoo 17 to 19
 
-## Related reading
+Odoo 17 brought a redesigned employee form, accrual plans with carry-over rules, and an attendance kiosk that works on a cheap Android tablet. Odoo 18 added overtime tracking rules in Attendances and improved the time off dashboard. Odoo 19 merges contract fields more tightly into the employee record and continues the move toward a single "employee version" history. Across all three, the features that Bangladesh HR teams use most are accrual plans, multi-level leave approval, and the export of attendance to payroll inputs.
 
-Payroll is a different decision. Study the people record here first, then the [payroll module](/modules/payroll).
+| Feature | Why it matters in Bangladesh |
+|---|---|
+| Accrual plans | Earned leave accrues at one day per 18 days worked for factory workers under the Labour Act; the plan can mirror this |
+| Multiple working schedules | Garments factories run shifts; offices run a Sunday to Thursday week |
+| Attendance kiosk | Replaces paper registers at sites with no fingerprint device |
+| Contract types | Probation, permanent and casual workers have different benefit rules |
+| Departure wizard | Captures resignation date for gratuity and final settlement |
+
+## Bangladesh-specific considerations
+
+### Leave under the Labour Act 2006
+
+The Act sets minimums that differ by sector. Typical configuration for a factory: casual leave 10 days per year, sick leave 14 days per year with full pay, earned leave accrued at 1 day per 18 days worked for factories (1 per 22 for shops and establishments), 11 festival holidays, and maternity leave of 16 weeks (8 before and 8 after confinement) for workers with at least six months' service. Many offices offer more than the minimum. Each of these becomes a leave type in Odoo with its own allocation method: fixed yearly allocation for casual and sick leave, an accrual plan for earned leave, and a public holiday calendar for festivals. Record the Eid holidays each year as public holidays so they do not consume leave balances.
+
+### Working hours and overtime
+
+The Act limits regular work to 8 hours a day and 48 hours a week, with overtime paid at double the basic rate. Odoo Attendances in 18 and 19 can flag hours above the schedule as overtime; the double rate itself is a payroll rule. Configure the working schedule accurately, including the Friday weekly holiday, because the schedule also drives how leave days are counted.
+
+### Employee identity data
+
+Bangladesh employers collect the national ID number, TIN where the employee is a taxpayer, and often a bKash number for salary disbursement. Odoo has fields for identification number and bank account; add custom fields for TIN and MFS wallet rather than stuffing them into notes. Restrict who can read these fields. If data residency is a concern, self-host on a Bangladesh provider; the [deployment topic](/training/technical/deployment) explains the options.
+
+### Garments and compliance audits
+
+Buyers' social compliance audits in the garments sector ask for leave registers, overtime records and age verification. Odoo can produce these if attendance and leave are recorded consistently. See [Odoo for garments](/industries/garments) for the wider compliance picture, including BGMEA and EPZ contexts.
+
+### Bangla in HR documents
+
+Appointment letters and leave applications often go out in Bangla. Odoo's report engine handles Unicode Bangla once a suitable font such as Kalpurush or SolaimanLipi is installed on the server. Templates for letters are a small customisation.
+
+## Community vs Enterprise for HR
+
+Community edition includes Employees, Contracts, Time Off, Attendances, Recruitment, Skills, Fleet and Expenses. That covers the employee master and leave management fully. Enterprise adds Appraisals, Referrals, Planning (shift scheduling with a Gantt view), Documents for e-filing employee papers, and Payroll. For a 100-person services firm, Community HR plus a community payroll approach is common; for a 2,000-worker factory the Enterprise Planning and Payroll apps earn their licence of roughly USD 24.90 to 37.40 per user per month at Odoo's US list price (usually less at the regional price shown from Bangladesh), where only HR staff need named users, not every worker. Confirm Bangladesh pricing on odoo.com/pricing and read the [pricing guide](/pricing-guide#components) for how user counts work.
+
+## Typical implementation steps
+
+1. Agree the required fields for an employee record and who owns each one (HR, finance, line manager).
+2. Build departments, job positions and working schedules, including shift calendars.
+3. Configure leave types, accrual plans and the public holiday calendar for the current July to June year.
+4. Decide the attendance source: kiosk, fingerprint device import, or manual.
+5. Clean and import the employee master from spreadsheets, following the [data readiness steps](/implementation-guide#data).
+6. Set approval chains: line manager then HR for leave; HR only for contract changes.
+7. Train HR officers and managers, then run a month of attendance and leave before touching payroll.
+
+## Common mistakes
+
+- Importing employees without contracts, so leave accrual and payroll have no wage or schedule to read.
+- Using one leave type for everything and losing the audit trail the Labour Act requires.
+- Forgetting the Friday holiday in the working schedule, which miscounts leave.
+- Giving every manager full HR access instead of the manager role scoped to their team.
+- Starting payroll in the same week as HR go-live.
+
+## Frequently asked questions
+
+### Does Odoo HR know Bangladesh Labour Act leave rules?
+
+No. Odoo ships generic leave types. You configure casual leave, sick leave, annual or earned leave, festival holidays and maternity leave yourself, with accrual plans that mirror the Labour Act 2006 and your own policy.
+
+### Can Odoo handle maternity leave of 16 weeks?
+
+Yes. Create a maternity leave type with a fixed allocation of 112 calendar days (16 weeks), restrict it by gender if your policy requires, and set it to paid so the payroll rule treats it as working days.
+
+### Which HR apps are free in Odoo Community?
+
+Employees, Time Off, Attendances, Recruitment, Skills, Fleet and Expenses are all in Community. Appraisals, Referrals, Planning and Payroll are Enterprise apps.
+
+### Can Odoo connect to our fingerprint attendance machine?
+
+Not natively. ZKTeco and similar devices export logs that can be imported, and several community connectors push punches into Odoo Attendances through the API. Budget for this integration separately.
+
+### Should we start with HR or Payroll?
+
+HR first. Payroll reads contracts, working schedules and leave from HR, so an incomplete employee master will produce wrong payslips. Clean the people data, then begin a payroll pilot.
+
+## Next step
+
+Use the community [ERP readiness checklist](/resources/erp-checklist) to list the employee fields, leave policies and attendance sources you need before an HR workshop. When the employee master is clean, continue to the [payroll module](/modules/payroll). If you are weighing an Odoo HR career, the [career guide](/odoo-career-guide#functional) explains what functional consultants in this area do, and the [HR functional training](/training/functional/hr) covers the hands-on skills.

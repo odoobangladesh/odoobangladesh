@@ -1,25 +1,156 @@
 ---
-title: "Odoo for Garments Industry (Bangladesh)"
-description: "Community overview of how Odoo is used in garments and manufacturing operations: inventory, production planning, costing, and reporting."
+title: "Odoo for the Garments Industry in Bangladesh: A Practical Guide"
+description: "How Bangladesh garments factories use Odoo 17 to 19 for style and size variants, bonded warehouse tracking, MRP, costing, payroll and buyer reporting."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo for Garments Industry
   - Odoo Manufacturing Bangladesh
   - Odoo ERP Bangladesh
   - Odoo Bangladesh
+  - garments ERP Bangladesh
+  - RMG ERP software Bangladesh
+  - Odoo bonded warehouse
+  - apparel manufacturing ERP Dhaka
 canonical: "/odoo-for-garments-industry"
+related:
+  - label: "Industries overview"
+    href: "/industries"
+  - label: "Garments industry guide"
+    href: "/industries/garments"
+  - label: "Manufacturing module guide"
+    href: "/modules/manufacturing"
+  - label: "Inventory module guide"
+    href: "/modules/inventory"
+  - label: "Functional training: Manufacturing"
+    href: "/training/functional/manufacturing"
+  - label: "ERP readiness checklist"
+    href: "/resources/erp-checklist"
+faq:
+  - q: "Can Odoo handle garments style, colour and size variants?"
+    a: "Yes. Odoo product variants model a style with colour and size attributes, and Odoo 17 to 19 let a bill of materials apply to specific variants. Very large size and colour matrices work best with a matrix entry view, which is available in Enterprise and through community modules for Community edition."
+  - q: "Does Odoo support bonded warehouse and UD tracking?"
+    a: "Not out of the box. Odoo Inventory tracks lots and locations, and a bonded warehouse can be modelled as a separate location with lot-level tracking by UD or LC. The bond register and customs reporting formats are custom reports that experienced Bangladesh implementers add."
+  - q: "What does an Odoo garments implementation cost?"
+    a: "Community-observed ranges for a garments or manufacturing rollout with MRP, Quality and integrations are BDT 25 lakh to 1 crore plus, over 6 to 12 months. A cutting-and-sewing unit with simpler needs may fit the mid-size range of BDT 8 to 25 lakh. These are ranges, not quotes."
+  - q: "Can Odoo run payroll for several thousand workers under the Labour Act?"
+    a: "Odoo Payroll handles salary rules for basic, house rent, medical, overtime at double the basic rate, festival bonus, provident fund and gratuity once configured. For thousands of workers, attendance device integration and performance tuning are part of the project."
+  - q: "Should a garments factory use Community or Enterprise?"
+    a: "Factories that need Quality, PLM, Maintenance and Studio often prefer Enterprise. Factories with a strong technical partner run Community with OCA modules to avoid per-user licence fees for hundreds of shop floor users. Both approaches are in use in Bangladesh."
 ---
 
-Bangladesh’s garments sector often needs **traceable inventory**, **production planning**, **quality checks**, and **real-time reporting**. Odoo can be configured to support these workflows through Manufacturing, Inventory, Quality, Purchase, and Accounting.
+Odoo fits Bangladesh garments factories when it is configured for the industry's specific needs: style, colour and size variants, order-based bills of materials, bonded warehouse and UD or LC-based material tracking, cutting and sewing work orders, costing per style, buyer compliance reporting, and payroll for hundreds or thousands of workers under the Labour Act 2006. Odoo 17 to 19 provide the Manufacturing, Inventory, Quality, Purchase, Accounting and Payroll apps to do this; the garments-specific layers are added during implementation. Community-observed costs for a full garments rollout run from BDT 25 lakh to 1 crore plus, with simpler units fitting the BDT 8 to 25 lakh mid-size range. This page explains what works, what needs building and how to plan.
 
-## Typical use-cases
+## Why garments factories look at Odoo
 
-- Raw materials to finished goods tracking
-- Work orders and production scheduling
-- Costing, wastage tracking, and compliance reporting
+Most Bangladesh RMG units run a patchwork: a merchandising tracker in Excel, a locally built production software, Tally for accounts, a separate payroll package and a bond register maintained by hand for customs. Buyers increasingly ask for traceability, capacity data and compliance evidence that the patchwork cannot produce without days of manual work.
 
-## What to explore next
+Odoo's attraction is one database across merchandising, store, cutting, sewing, finishing, shipping and finance, with open source licensing that keeps per-user cost under control for large shop floors. The caveat is that garments is a demanding manufacturing environment, and Odoo needs careful configuration and some custom work to serve it well. See the [garments industry guide](/industries/garments) for the broader context and the [manufacturing module guide](/modules/manufacturing) for MRP features.
 
-- Implementation guide
-- Odoo Manufacturing learning path
-- Inventory and barcode best practices
+## Module map for a garments factory
 
+| Business area | Odoo app | What it covers | Garments-specific work needed |
+|---|---|---|---|
+| Merchandising and orders | Sales, CRM | Buyer, style, PO, delivery dates, price per piece | Style master with buyer references, order sheet report, packing list formats |
+| Raw material sourcing | Purchase | Fabric, trims, accessories, local and import | LC tracking fields, landed cost on import, supplier lead times |
+| Store and bonded warehouse | Inventory | Receipts, lots, locations, consumption, finished goods | Bond register, UD-wise lot tracking, wastage percentages, import entitlement reports |
+| Production | Manufacturing | BOM, routing, work orders, work centres, capacity | Cutting, sewing and finishing routing, line-wise output, SMV-based capacity |
+| Quality | Quality (Enterprise) or community modules | Inline and final inspection, AQL sampling | Buyer-specific checklists, defect categories, rework tracking |
+| Costing | Accounting with analytic accounts | Cost per style, overhead absorption, actual versus planned | FOB and CM costing templates, wastage impact |
+| Workforce | HR, Payroll, Attendance | Workers, shifts, leave, salary, overtime | Labour Act 2006 rules, attendance device integration, grade-wise minimum wage |
+| Finance and compliance | Accounting | Ledger, export documents, bank, VAT | Export at 0 percent VAT, Mushak outputs for local purchases, cash incentive documentation |
+
+## Variants, BOMs and the size matrix
+
+A style with 6 colours and 8 sizes is 48 product variants. Odoo product attributes handle this, and Odoo 17 to 19 can attach a bill of materials to a specific variant or use attribute-based component lines so that one BOM for the style covers all variants with size-dependent consumption. Sales order entry for 48 variants needs a matrix view; Enterprise includes one and Community edition has community modules that add it.
+
+Model fabric consumption per size in the BOM, with a wastage percentage, so the material requirement for a 20,000-piece order is calculated rather than estimated. Trims that are shared across sizes stay at the style level.
+
+## Bonded warehouse, UD and LC tracking
+
+Export-oriented factories with bonded warehouse licences must track imported inputs against the utilisation declaration (UD) from BGMEA or BKMEA and the back-to-back LC, and prove that materials were consumed in export production. Odoo's Inventory app can model this:
+
+- A dedicated bonded location per warehouse.
+- Lot numbers on fabric and trims that carry the UD or LC reference.
+- Consumption through manufacturing orders that link raw material lots to the export order.
+- Custom reports for the bond register and the entitlement versus utilisation position.
+
+This is custom report and configuration work, usually 10 to 25 person-days, and it is a reasonable test of whether an implementer has garments experience. Factories in EPZs have a related but different reporting requirement; confirm the formats with your customs consultant before configuration.
+
+## Production planning and work orders
+
+Odoo Manufacturing supports multi-step routing. A typical garments routing: cutting, printing or embroidery (often subcontracted), sewing lines, finishing, packing. Each is a work centre with capacity. Subcontracting is supported in Odoo 17 to 19, so a wash or print sent to an outside unit is tracked as a subcontracting order with material issued and goods returned.
+
+Line-wise daily output is the number every production manager wants. Capture it through work order completions per line, and report hourly or daily output against target. SMV-based planning (minutes per piece per operation) is a custom planning layer on top of Odoo's standard capacity; several Bangladesh implementers have built it, but confirm it is in scope.
+
+## Costing per style
+
+Garments margins depend on knowing cost per piece. Odoo gives you actual material consumption from manufacturing orders and labour from work orders, and analytic accounts let you absorb overhead by line or by order. A practical approach used locally: an analytic account per buyer order, costs posted to it from stock moves, payroll allocation and overheads, then a report comparing FOB price, planned CM and actual cost. Expect this report to be custom.
+
+## Payroll and the Labour Act 2006
+
+Payroll for a 1,500-worker factory is where many ERP projects fail. Odoo Payroll can be configured with salary structures for the minimum wage grades, basic plus house rent and medical, overtime at double the basic hourly rate as the Act requires, attendance bonus, two festival bonuses, provident fund contributions and gratuity accrual. Attendance devices (fingerprint or face) integrate through their export files or an API connector, which is usually a small custom module.
+
+Buyer audits look at payslips, overtime records and leave. Keeping these in Odoo with a printed Bangla payslip helps compliance. The [payroll module guide](/modules/payroll) and [HR training](/training/functional/hr) go deeper.
+
+## Finance, VAT and export documentation
+
+Export sales are zero-rated for VAT. Local purchases carry 15 percent VAT and need Mushak 6.3 from suppliers; local sales of leftover stock or to other factories need Mushak 6.3 from you. Odoo handles this with fiscal positions: export buyers get the zero-rated position automatically. Mushak 9.1 grouping, VDS and TDS on local service providers, and cash incentive claim documentation are configured in Accounting; the [accounting landing page](/odoo-accounting-bangladesh) covers them.
+
+Multi-currency is standard: USD orders, BDT costs, EUR for some buyers. Set exchange rates by date and let Odoo handle the realised gain or loss on LC settlement.
+
+## A worked example
+
+Consider a hypothetical Narayanganj knitwear factory with 400 workers, 8 sewing lines and 20 buyer orders in progress. It moves from Excel and Tally to Odoo 18 in two phases:
+
+Phase one (months 1 to 4): Sales for order entry with style variants, Purchase with LC fields, Inventory with a bonded location and lot tracking by UD, Accounting with export and local VAT positions. Go-live at the start of a quarter.
+
+Phase two (months 5 to 9): Manufacturing with cutting, sewing and finishing routing, line-wise output capture, subcontracting for printing, Quality inspections per buyer checklist, Payroll with Labour Act rules and attendance device integration. Costing report per order.
+
+Indicative effort: 180 to 300 person-days across both phases. At community-observed day rates of BDT 8,000 to 15,000 per person-day that is roughly BDT 15 to 45 lakh of implementation, inside the range for garments work. Hosting on a local data centre or an international cloud adds BDT 1 to 3 lakh per year. On Community edition licences are zero; on Enterprise Custom, 60 internal users at Odoo's US list price of about USD 37.40 per user per month would add up to roughly BDT 32 to 34 lakh per year at BDT 120 to 125 per USD (the regional price shown from Bangladesh is usually lower), which is why many large factories choose Community with a strong partner. Confirm current pricing on odoo.com/pricing.
+
+## Practical realities on the floor
+
+- Load-shedding: production floor scanning and attendance terminals need UPS backup, and the server should be in a data centre, not in the factory office.
+- Connectivity: a factory in Ashulia or Gazipur with unreliable internet should run Odoo on a local server or a local cloud with a backup link, rather than on a SaaS instance that goes dark with the connection.
+- Language: Bangla labels on work order screens and payslips improve adoption with line supervisors.
+- Training: supervisors and store staff need hands-on sessions with real styles, not slides.
+
+## Implementation checklist
+
+1. List every buyer-specific document (order sheet, packing list, inspection report) before scoping.
+2. Decide how variants and BOMs will be modelled, and test with your most complex style.
+3. Confirm bond register and UD reporting formats with your customs consultant.
+4. Decide Community or Enterprise based on shop floor user count and the need for Quality and PLM.
+5. Agree the Odoo version in writing; a new version ships every October.
+6. Phase the rollout; do not attempt merchandising, production and payroll in one go-live.
+7. Run a parallel month for payroll before switching.
+8. Use the [ERP readiness checklist](/resources/erp-checklist) and the [implementation guide](/implementation-guide#process) to structure discovery and UAT.
+
+## Frequently asked questions
+
+### Can Odoo handle garments style, colour and size variants?
+
+Yes. Odoo product variants model a style with colour and size attributes, and Odoo 17 to 19 let a bill of materials apply to specific variants. Very large size and colour matrices work best with a matrix entry view, which is available in Enterprise and through community modules for Community edition.
+
+### Does Odoo support bonded warehouse and UD tracking?
+
+Not out of the box. Odoo Inventory tracks lots and locations, and a bonded warehouse can be modelled as a separate location with lot-level tracking by UD or LC. The bond register and customs reporting formats are custom reports that experienced Bangladesh implementers add.
+
+### What does an Odoo garments implementation cost?
+
+Community-observed ranges for a garments or manufacturing rollout with MRP, Quality and integrations are BDT 25 lakh to 1 crore plus, over 6 to 12 months. A cutting-and-sewing unit with simpler needs may fit the mid-size range of BDT 8 to 25 lakh. These are ranges, not quotes.
+
+### Can Odoo run payroll for several thousand workers under the Labour Act?
+
+Odoo Payroll handles salary rules for basic, house rent, medical, overtime at double the basic rate, festival bonus, provident fund and gratuity once configured. For thousands of workers, attendance device integration and performance tuning are part of the project.
+
+### Should a garments factory use Community or Enterprise?
+
+Factories that need Quality, PLM, Maintenance and Studio often prefer Enterprise. Factories with a strong technical partner run Community with OCA modules to avoid per-user licence fees for hundreds of shop floor users. Both approaches are in use in Bangladesh.
+
+## Next step
+
+Download the [ERP readiness checklist](/resources/erp-checklist) and work through the garments-specific items with your merchandising, store, production and accounts heads before you speak to any implementer. A completed checklist turns a vague "we want ERP" into a scope that a specialist can price, and the [manufacturing functional training](/training/functional/manufacturing) will help your internal champion understand what they are evaluating.

@@ -1,6 +1,5 @@
-import { redirect } from "next/navigation";
+import { canonicalMetadataFor, canonicalPageFor } from "@/components/doc-page";
 
-export default function Page() {
-  redirect("/landings/odoo-pricing-bangladesh");
-}
-
+// Canonical short URL for content/landings/odoo-pricing-bangladesh.mdx (blueprint WS-A).
+export const generateMetadata = canonicalMetadataFor("landings", "odoo-pricing-bangladesh");
+export default canonicalPageFor("landings", "odoo-pricing-bangladesh");

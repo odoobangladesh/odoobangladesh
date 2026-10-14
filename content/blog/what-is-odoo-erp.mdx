@@ -1,25 +1,176 @@
 ---
-title: "What is Odoo ERP?"
-description: "A practical introduction to Odoo ERP: what it is, who it’s for, and why it’s popular for growing teams in Bangladesh."
+title: "What is Odoo ERP? A Beginner's Guide for Bangladesh"
+description: "Odoo is a modular open source ERP for accounting, inventory, sales, HR and manufacturing. Learn editions, hosting, how Bangladeshi firms adopt it, and careers."
 date: "2026-04-28"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
 keywords:
   - Odoo
   - Odoo Bangladesh
   - Odoo ERP Bangladesh
   - Best ERP in Bangladesh
+  - what is Odoo ERP
+  - Odoo Community vs Enterprise Bangladesh
+  - open source ERP Bangladesh
+  - Odoo career Bangladesh
+related:
+  - label: "Learning Center"
+    href: "/learning-center"
+  - label: "Modules directory"
+    href: "/modules"
+  - label: "Odoo Accounting module"
+    href: "/modules/accounting"
+  - label: "Odoo Inventory module"
+    href: "/modules/inventory"
+  - label: "Odoo vs ERPNext"
+    href: "/comparisons/odoo-vs-erpnext"
+  - label: "Odoo Pricing Guide"
+    href: "/pricing-guide"
+  - label: "Odoo Career Guide"
+    href: "/odoo-career-guide"
+faq:
+  - q: "Is Odoo free to use in Bangladesh?"
+    a: "Yes, in two ways. Odoo Community is free and open source but you host it yourself. One App Free lets you use a single Enterprise app at no licence cost on Odoo's cloud. Enterprise with more than one app is paid per user per month."
+  - q: "Which Odoo version should a Bangladeshi company start with today?"
+    a: "Odoo 17 to 19 are the versions most partners support in 2026. Odoo releases a new major version every October, so check odoo.com for the current release before you commit."
+  - q: "Does Odoo handle Bangladesh VAT and Mushak forms out of the box?"
+    a: "Not fully. Odoo 17 to 19 ship an official l10n_bd localisation with a Bangladesh chart of accounts and VAT rates from 0 to 15 percent (check the default, which is set to 10 percent rather than 15), but Mushak 6.3 invoices, the Mushak 9.1 VAT return (filed monthly or quarterly since the Finance Act 2026) and VDS/TDS are usually delivered as an add-on by a local partner or the community."
+  - q: "How long does a typical Odoo rollout take for a small Bangladeshi business?"
+    a: "A 2 to 5 user rollout of three to six apps usually takes six to twelve weeks from kick-off to go-live, assuming clean master data and a committed internal owner. Larger manufacturing projects take six months or more."
+  - q: "Can a fresh graduate build a career around Odoo in Bangladesh?"
+    a: "Yes. Odoo work splits into functional roles (consultant, business analyst) and technical roles (Python developer, DevOps). Both have active hiring from local partners and remote clients. See the career guide for a path."
 ---
 
-Odoo is a modular, open-source-friendly ERP platform used for sales, inventory, accounting, manufacturing, HR, and more.
+Odoo is a suite of business applications that share one database, so your sales, purchase, stock, accounting, payroll and manufacturing records all live in one place and update each other automatically. It is open source at its core, sold in a paid Enterprise edition for extra apps and hosting, and is one of the most widely implemented ERP platforms in Bangladesh for SMEs, trading houses, garments factories and service firms. This guide explains what an ERP is, how Odoo's editions and apps fit together, how to host it, how Bangladeshi companies usually adopt it, and what it means for your career if you are a fresh graduate.
 
-## Why Odoo is popular in Bangladesh
+## What an ERP actually is
 
-- Flexible modules (start small, expand later)
-- Strong customization ecosystem
-- Fits SMEs and mid-market organizations
+ERP stands for enterprise resource planning. Strip away the jargon and it means a single system of record for the transactions that run a business.
 
-## Next steps
+Consider a Chattogram trading company today. The sales team keeps quotations in Excel. The warehouse keeps stock in a register. The accountant posts entries in Tally or a desktop accounting package at month end. HR keeps attendance in a separate biometric export. Nobody can answer "how much did we sell to this customer this quarter, and did we get paid" without three phone calls.
 
-- Read the **Implementation Guide**
-- Explore **Accounting**, **Inventory**, and **Manufacturing** learning paths
-- Compare **Odoo vs ERPNext** for open-source ERP options
+An ERP removes the copying. A confirmed sales order creates a delivery to pick. The delivery reduces stock. The invoice posts to receivables. The bKash or bank receipt clears it. The Mushak 9.1 VAT return, filed monthly or quarterly since the Finance Act 2026, draws from the same invoices. The owner opens one dashboard and sees the business.
 
+The benefit is not that the software is clever. It is that each fact is entered once, by the person closest to it, and everyone else reads the same fact.
+
+## What Odoo is, in plain terms
+
+Odoo started in Belgium in 2005 as TinyERP, became OpenERP, and was renamed Odoo in 2014. It is built in Python on PostgreSQL, and its source code is public under the LGPL licence for the Community edition.
+
+Three things make it different from older ERPs you may have heard of:
+
+- It is modular. You install only the apps you need and add more later. A shop might start with Point of Sale and Inventory. A factory might start with Purchase, Inventory and Accounting, then add Manufacturing after six months.
+- It is a web application. Users open it in a browser or the mobile app. No per-desktop installation.
+- It is customisable without rewriting the product. Developers add modules on top rather than editing the core, which keeps upgrades possible.
+
+Odoo S.A. releases a new major version every October. In 2026 the practical range in Bangladesh is Odoo 17 to 19. Most new projects start on the latest stable release, and most partners still support the previous two. Check the current version before you sign anything, because features and pricing shift with each release.
+
+## Community, Enterprise and One App Free
+
+This is the first decision every Bangladeshi buyer faces, and the one most often misunderstood.
+
+| Edition | Licence cost | Hosting | What you get | Typical Bangladesh fit |
+|---|---|---|---|---|
+| Community | Free, open source | Self-hosted only | Core apps: sales, CRM, purchase, inventory, invoicing, basic accounting (via community add-ons), manufacturing, project, HR basics, POS, website | Cost-sensitive SMEs with a technical partner or in-house developer |
+| Enterprise | Paid per user per month | Odoo Online, Odoo.sh or self-hosted | Everything in Community plus full accounting with bank reconciliation, payroll, quality, PLM, field service, helpdesk, studio, mobile apps, official support and upgrades | Mid-size firms, garments and manufacturing, anyone who wants official support |
+| One App Free | Free | Odoo Online only | One Enterprise app for unlimited users, on Odoo's cloud | Startups testing a single process such as CRM or Inventory |
+
+Odoo's US list price with yearly billing is roughly USD 24.90 per user per month on the Standard plan (Odoo Online only) and about USD 37.40 on the Custom plan (needed for Odoo.sh, self-hosting, Studio and multi-company). Odoo prices by region, buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, and prices are usually revised between January and April each year, so confirm the figure there and treat any BDT conversion of the US price as an upper bound.
+
+Assuming roughly BDT 120 to 125 per USD, a 10 user Custom plan lands between BDT 3.6 lakh and BDT 4.5 lakh a year before any implementation cost. The [pricing guide](/pricing-guide#compare) walks through the full comparison and the [Odoo pricing in Bangladesh](/odoo-pricing-bangladesh) page covers payment and invoicing questions local buyers raise.
+
+One honest note on Community: the free edition does not include the full accounting module. Bangladeshi firms on Community typically rely on community-maintained accounting add-ons (the OCA account modules) on top of the core l10n_bd chart and VAT rates, plus a local Mushak and withholding add-on. It works, many companies run on it, but your partner must be comfortable maintaining those add-ons across upgrades.
+
+## The app catalogue, and which apps matter here
+
+Odoo lists dozens of apps. For a Bangladeshi business the ones that carry most of the value are:
+
+- [Accounting](/modules/accounting): chart of accounts, 15 percent VAT, VDS and TDS withholding on supplier bills, July to June fiscal year, multi-currency for export LCs, all of which start from the official l10n_bd chart of accounts and VAT rates, and the base for Mushak 6.3 tax invoices and the Mushak 9.1 return (monthly or quarterly, due within 15 days of the period end) once the Mushak layouts are added.
+- [Sales](/modules/sales) and [CRM](/modules/crm): quotations, pipeline, customer credit limits, which matter for distributors selling on 30 to 60 day terms.
+- [Purchase](/modules/purchase): RFQs, vendor bills, three-way matching, LC tracking for importers.
+- [Inventory](/modules/inventory): multi-warehouse, lots and serials, barcode, bonded warehouse tracking for export units.
+- [Manufacturing](/modules/manufacturing): bills of material, work orders, MRP planning, subcontracting, which is common in knitwear and woven supply chains.
+- [HR](/modules/hr) and [Payroll](/modules/payroll): attendance, leave, and salary rules that respect the Bangladesh Labour Act 2006, including festival bonus, overtime at double the basic rate, provident fund and gratuity.
+- [Point of Sale](/modules/pos): offline-tolerant tills for retail, pharmacy and restaurants, with bKash, Nagad and Rocket recorded as payment methods.
+- [Project](/modules/project): timesheets and task billing for agencies and IT firms.
+
+Beyond these, Website and eCommerce, Helpdesk, Fleet, Quality and Maintenance show up in specific sectors. The [modules directory](/modules) covers each one in Bangladesh context.
+
+## Hosting options and the data residency question
+
+Where Odoo runs is a business decision, not only a technical one.
+
+**Odoo Online (SaaS).** Odoo hosts it. No server management, automatic upgrades, but no custom Python modules and your data sits in a European or Asian data centre outside Bangladesh. Fine for a small firm using standard apps.
+
+**Odoo.sh.** Odoo's managed platform for Enterprise customers who need custom modules. Git-based deployment, staging branches, backups. Priced on top of the Custom plan. Data still outside Bangladesh.
+
+**Self-hosted.** Community or Enterprise on your own server. Options in Bangladesh include local data centres and cloud providers with a Dhaka or Singapore region, or an on-premise box in the factory. You own backups, security, upgrades and uptime. A self-hosted server with 2 to 4 vCPU and 8 to 16 GB RAM typically costs BDT 5,000 to 20,000 per month (BDT 60,000 to 2.4 lakh per year) depending on provider and region.
+
+Government bodies, banks, NGOs with donor rules and some garments buyers ask where data lives. If your customers or regulators care, self-hosting inside Bangladesh or in a nearby region you control is the usual answer. The [deployment training topic](/training/technical/deployment) covers how a self-hosted setup is built.
+
+Plan for connectivity too. Dhaka broadband is reliable but load-shedding still hits shops and factories outside the main grid. POS and warehouse barcode stations need UPS backup and an offline-capable client, both of which Odoo supports if configured.
+
+## How Odoo is typically adopted in Bangladesh
+
+The pattern the community sees again and again:
+
+1. **A trigger.** An audit finding, a buyer's compliance demand, a second branch opening, or an owner tired of month-end chaos.
+2. **A pilot on one or two apps.** Often Inventory plus Sales, or Accounting alone to replace a legacy package. Two to five users.
+3. **Partner or freelancer selection.** Dhaka has a growing set of Odoo partners, freelance developers and functional consultants. Quality varies widely. The [partners directory](/odoo-partners-bangladesh) and the [ERP readiness checklist](/resources/erp-checklist) help you ask the right questions.
+4. **Configuration, data migration and training.** Master data cleanup is where most projects slip. Expect six to twelve weeks for a small pilot.
+5. **Expansion.** Payroll, Manufacturing, POS and reporting follow in later phases once the core is stable.
+
+Costs follow this shape. Community-observed ranges, not quotes: a small SME with 2 to 5 users and 3 to 6 apps spends BDT 3 to 8 lakh on implementation; a mid-size company with 10 to 30 users and customisation spends BDT 8 to 25 lakh; a manufacturing or garments unit with MRP, quality and integrations spends BDT 25 lakh to 1 crore or more. The [implementation cost article](/blog/odoo-implementation-cost-in-bangladesh) breaks down each component, and the [implementation guide](/implementation-guide) walks through the phases.
+
+Bangla language matters more than vendors admit. Odoo ships a Bangla translation that covers menus and labels, but your printed reports, delivery challans and salary slips usually need custom Bangla templates. Ask about this early.
+
+## Where Odoo sits against alternatives
+
+If you are comparing options, three contrasts come up most:
+
+- Against Tally and desktop accounting: Odoo is a full operations system, not only a ledger. The trade-off is that it needs process discipline and training.
+- Against [ERPNext](/comparisons/odoo-vs-erpnext): both are open source and Python-based. ERPNext is fully free with no paid edition; Odoo has a larger partner base and a more polished Enterprise tier.
+- Against [SAP Business One](/comparisons/odoo-vs-sap-business-one) and [Microsoft Dynamics 365](/comparisons/odoo-vs-microsoft-dynamics-365): those cost several times more in licence and partner fees and suit firms with large IT budgets. Odoo covers most of the same ground for a mid-market budget.
+
+The [open source ERP in Bangladesh](/open-source-erp-bangladesh) page gives a wider survey.
+
+## The career angle for graduates
+
+Odoo has become one of the more reliable entry points into software and consulting work in Bangladesh, for two reasons. The platform is widely deployed, so there is maintenance and expansion work. And the skills transfer: Python, PostgreSQL, process analysis and accounting literacy are useful beyond Odoo.
+
+Two tracks:
+
+- **Functional.** You learn how businesses run and how to map that onto Odoo configuration. Accounting knowledge is a strong advantage; a BBA or CA-inter background fits well. Start with the [functional training track](/training/functional), beginning with [accounting](/training/functional/accounting).
+- **Technical.** You learn Python, the Odoo ORM, OWL front end, module development and deployment. A CSE background helps but is not required if you can code. Start with the [technical training track](/training/technical), beginning with [module development](/training/technical/module-development).
+
+Both tracks lead to partner jobs in Dhaka, in-house ERP roles at manufacturers, and remote freelance work for overseas clients. The [career guide](/odoo-career-guide) lays out skills, expected progression and how to build a portfolio without a job yet.
+
+## Conclusion
+
+Odoo is a modular, open source ERP that a Bangladeshi business can start small on and grow into. The main decisions are the edition (Community for cost control, Enterprise for support and full accounting, One App Free to trial), where to host it (with data residency in mind), and who implements it. The main risks are dirty master data, under-budgeted training, and a partner who cannot maintain the local VAT and payroll localisations. Go in with a clear scope and a readiness check, and Odoo is usually a sound choice.
+
+## Frequently asked questions
+
+### Is Odoo free to use in Bangladesh?
+
+Yes, in two ways. Odoo Community is free and open source but you host it yourself. One App Free lets you use a single Enterprise app at no licence cost on Odoo's cloud. Enterprise with more than one app is paid per user per month.
+
+### Which Odoo version should a Bangladeshi company start with today?
+
+Odoo 17 to 19 are the versions most partners support in 2026. Odoo releases a new major version every October, so check odoo.com for the current release before you commit.
+
+### Does Odoo handle Bangladesh VAT and Mushak forms out of the box?
+
+Not fully. Odoo 17 to 19 ship an official l10n_bd localisation with a Bangladesh chart of accounts and VAT rates from 0 to 15 percent (check the default, which is set to 10 percent rather than 15), but Mushak 6.3 invoices, the Mushak 9.1 VAT return (filed monthly or quarterly since the Finance Act 2026) and VDS/TDS are usually delivered as an add-on by a local partner or the community.
+
+### How long does a typical Odoo rollout take for a small Bangladeshi business?
+
+A 2 to 5 user rollout of three to six apps usually takes six to twelve weeks from kick-off to go-live, assuming clean master data and a committed internal owner. Larger manufacturing projects take six months or more.
+
+### Can a fresh graduate build a career around Odoo in Bangladesh?
+
+Yes. Odoo work splits into functional roles (consultant, business analyst) and technical roles (Python developer, DevOps). Both have active hiring from local partners and remote clients. See the career guide for a path.
+
+## Next step
+
+Subscribe to the community newsletter through the [Learning Center](/learning-center) for one email a month on Odoo releases, Bangladesh localisation updates, training batches and new guides. No spam, unsubscribe any time.

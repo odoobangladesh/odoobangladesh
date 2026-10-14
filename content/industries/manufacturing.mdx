@@ -1,36 +1,132 @@
 ---
-title: "Odoo for Manufacturing in Bangladesh"
-description: "How manufacturers use Odoo for bills of materials, inventory, purchasing, and production costing."
+title: "Odoo for Manufacturing in Bangladesh: BOM, MRP and Costing"
+description: "How Bangladeshi manufacturers use Odoo 17 to 19 for bills of materials, routings, MRP, subcontracting, quality checks and finished-goods costing in BDT."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Manufacturing ERP Bangladesh
   - Odoo Manufacturing Bangladesh
   - Odoo ERP Bangladesh
+  - Odoo MRP Bangladesh
+  - bill of materials software Bangladesh
+  - light engineering ERP Bogura
+  - production costing ERP
 related:
-  - label: "Manufacturing"
+  - label: "Manufacturing module"
     href: "/modules/manufacturing"
-  - label: "Inventory"
+  - label: "Inventory module"
     href: "/modules/inventory"
-  - label: "Purchase"
+  - label: "Purchase module"
     href: "/modules/purchase"
-  - label: "Accounting"
+  - label: "Accounting module"
     href: "/modules/accounting"
   - label: "Odoo vs ERPNext"
     href: "/comparisons/odoo-vs-erpnext"
   - label: "ERP readiness checklist"
     href: "/resources/erp-checklist"
+  - label: "Manufacturing training"
+    href: "/training/functional/manufacturing"
+faq:
+  - q: "Does Odoo Community edition include MRP and work orders?"
+    a: "Community includes bills of materials and manufacturing orders. Work orders, routings with work centres, the MRP scheduler, quality checkpoints, PLM and the shop floor tablet view are Enterprise features in Odoo 17 to 19."
+  - q: "Can Odoo handle subcontracted operations like galvanising or machining?"
+    a: "Yes. Odoo has a subcontracting BoM type where you send components to a vendor and receive the finished part back against a purchase order. Resupply of components can be tracked, and the vendor bill carries VDS and TDS as usual."
+  - q: "How does Odoo calculate finished-goods cost for a Bangladeshi factory?"
+    a: "With average or FIFO costing, Odoo values the finished product at component cost plus work centre cost per hour plus any landed costs. Overheads like electricity and generator fuel are usually loaded as a work centre rate or a cost line in the BoM."
+  - q: "What size of manufacturer is Odoo suited to in Bangladesh?"
+    a: "The community sees Odoo in factories from 20 to several hundred users. Below about 10 users a simpler stock and invoicing setup often does. Above that, MRP, quality and costing justify the configuration effort."
+  - q: "What does a manufacturing rollout cost?"
+    a: "Community-observed ranges for manufacturing with MRP, quality and integrations run from BDT 25 lakh to over BDT 1 crore. Simpler setups with BoM and stock only fall in the BDT 8 to 25 lakh range. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are not quotes."
 ---
 
-## Typical requirements
+Odoo 17 to 19 work well for Bangladeshi manufacturers whose main problems are inaccurate bills of materials, raw-material stock that purchasing cannot trust, and finished-goods cost that finance cannot explain. The Manufacturing, Inventory, Purchase and Accounting modules cover the core flow from material requirement through work orders to costed finished goods. Enterprise adds routings, work centres, MRP scheduling, quality checkpoints and a shop-floor tablet. Community covers bills of materials and manufacturing orders without the scheduling layer. This page maps those modules to the realities of a Bangladeshi plant: local vendors billed with VDS and TDS, 15 percent VAT on inputs and outputs, generator fuel in overhead, and a July to June fiscal year.
 
-- Bills of materials that match what the floor actually consumes
-- Raw-material stock that purchasing can trust
-- Work orders and a way to see late operations
-- Finished-goods cost that finance can explain
+## Industry context in Bangladesh
 
-## Common modules
+Manufacturing outside garments is diverse: light engineering in Bogura and Jashore, pharmaceuticals in Dhaka and Gazipur, plastics and packaging in Narayanganj, ceramics in Mymensingh, steel re-rolling in Chattogram, food processing in Bogura and Narsingdi, and electrical goods in Gazipur. Most plants are family-owned, with 50 to 1,000 workers, and run on a mix of a local accounting package, Excel for production planning and a manual store ledger.
 
-Manufacturing, Inventory, Purchase, and Accounting. Garments is a narrower case of the same pattern. See [Odoo for garments](/industries/garments) when traceability and production planning are the main problem.
+Common regulatory touchpoints include the NBR VAT regime (Mushak 6.3 tax invoices for sales, Mushak 6.1 and 6.2 purchase and sales registers, Mushak 9.1 return, filed monthly or quarterly since the Finance Act 2026 and due within 15 days of the period end), input VAT rebate on raw materials, withholding at source on local service vendors, and Labour Act 2006 payroll rules for workers. Export-oriented units in EPZs add bonded warehouse and customs documentation similar to garments; see [Odoo for garments](/industries/garments) for that case.
 
-## A first release
+Power is a planning input. Load-shedding and generator running hours affect work centre capacity and overhead rates, so capacity figures in Odoo should reflect realistic shift hours rather than nameplate capacity.
 
-Configure one product family end to end before adding every work center. The [manufacturing training](/training/functional/manufacturing) checklist is the study path for that flow.
+## Pain points Odoo is usually asked to solve
+
+- The BoM in the costing sheet does not match what the floor actually consumes, so variances are discovered at year end.
+- Purchasing buys on a phone call because there is no reliable on-hand and forecast figure.
+- Late operations are invisible until the delivery date is missed.
+- Subcontracted operations (galvanising, powder coating, machining) are tracked in a notebook and billed without a receipt record.
+- Scrap and rework are not captured, so yield figures are guesses.
+- Finance values finished goods at a flat estimate, which NBR auditors and bank lenders both question.
+
+## Module map
+
+| Module | Why it matters for a Bangladeshi manufacturer |
+|---|---|
+| [Manufacturing](/modules/manufacturing) | Multi-level BoMs, routings and work centres (Enterprise), manufacturing and work orders, scrap, byproducts, subcontracting BoMs for outsourced operations. |
+| [Inventory](/modules/inventory) | Raw material, WIP and finished goods locations, reordering rules, lot and serial tracking, landed costs on imported inputs, cycle counts. |
+| [Purchase](/modules/purchase) | Requests for quotation, vendor price lists in BDT, three-way matching, VDS and TDS on vendor bills, import POs with LC references. |
+| [Accounting](/modules/accounting) | Perpetual stock valuation, cost of goods sold, Mushak 6.3 invoices, Mushak 9.1 return data, input VAT rebate tracking, fiscal year July to June. |
+| Quality (Enterprise) | Incoming inspection on raw material, in-process checks at work centres, final inspection, non-conformance and corrective actions. |
+| [Sales](/modules/sales) | Dealer and institutional orders that drive make-to-order or make-to-stock planning, with delivery dates feeding the MRP scheduler. |
+| [Payroll](/modules/payroll) | Worker wages with overtime at double rate, festival bonus and provident fund; optional in release one. |
+
+Pick four to six modules for the first release. Quality and Payroll are the usual candidates for phase two.
+
+## A worked example: a Bogura light engineering workshop
+
+Consider a hypothetical Bogura light engineering company with 120 workers making agricultural pumps and spare parts for dealers across the north. It runs two shifts, outsources galvanising to a vendor in the same industrial area, and sells to around 90 dealers. The owner wants a reliable cost per pump and fewer stock-outs of castings. Here is a plausible Odoo 17 to 19 setup.
+
+**Products and BoMs.** Each pump model has a multi-level BoM: the finished pump, a sub-assembly for the impeller housing, and purchased components such as bearings and seals. A subcontracting BoM for the galvanised casing sends raw castings to the vendor and receives finished casings back.
+
+**Routing and work centres.** Enterprise routings define operations: casting, machining, galvanising (subcontracted), assembly, testing and packing. Work centres carry a cost per hour that includes labour, generator fuel and depreciation. Capacity is set at 14 productive hours per day across two shifts, not 16, to reflect power interruptions.
+
+**Planning.** Dealer orders arrive through Sales as make-to-stock with reorder rules on finished pumps. The MRP scheduler proposes manufacturing orders and purchase RFQs for bearings from a Dhaka importer. Purchase confirms the RFQ in BDT with 15 percent VAT and the usual VDS deduction on the vendor's service component.
+
+**Execution.** Operators record work order start and stop on a tablet. Scrap at machining is logged with a reason code. The galvanising subcontract goes out as a delivery and comes back as a receipt against the vendor PO; the vendor bill posts with TDS at the applicable rate.
+
+**Quality.** Incoming castings are inspected on a sampling plan; failed lots are quarantined in a separate location. Final testing records pressure test results on the manufacturing order.
+
+**Costing and finance.** With average costing and perpetual valuation, each finished pump carries component cost plus work centre hours plus the galvanising bill. Finance sees cost of goods sold at dispatch, and the Mushak 6.3 invoice goes to the dealer with VAT. The monthly Mushak 9.1 is prepared from Odoo's tax report and the purchase and sales registers.
+
+This example is illustrative. A pharmaceutical plant would add batch records and expiry tracking; a packaging plant would focus on roll-to-sheet unit conversions.
+
+## Implementation checklist
+
+- Validate BoMs on the floor with the production supervisor before loading them. Wrong consumption figures are the single most common reason costing is distrusted after go-live.
+- Decide costing method per product category (average is the usual default) and confirm it with the auditor, since it drives stock valuation on the balance sheet.
+- Model subcontracting explicitly. Do not hide outsourced operations inside a purchased component.
+- Set realistic work centre capacity that reflects load-shedding and generator hours.
+- Configure Mushak 6.3 invoice layout, VAT 15 percent, VDS and TDS rules, and the July to June fiscal year before the first transaction.
+- Configure one product family end to end, including a full month of close, before adding every work centre. The [manufacturing training](/training/functional/manufacturing) track walks through this flow.
+- Plan data migration carefully: opening stock by lot, open purchase orders, and the chart of accounts. See the [implementation guide](/implementation-guide#data).
+- Agree who is accountable for recording scrap and work order times. If nobody owns it, the data will stop within a month.
+- Decide Community versus Enterprise early. If you need routings, work orders and quality checkpoints, you need Enterprise or a significant customisation; the [Odoo vs ERPNext comparison](/comparisons/odoo-vs-erpnext) is useful if licence cost is the sticking point.
+- Host on a local provider or a regional cloud, and plan for a tablet-friendly network on the shop floor.
+
+## Frequently asked questions
+
+### Does Odoo Community edition include MRP and work orders?
+
+Community includes bills of materials and manufacturing orders. Work orders, routings with work centres, the MRP scheduler, quality checkpoints, PLM and the shop floor tablet view are Enterprise features in Odoo 17 to 19.
+
+### Can Odoo handle subcontracted operations like galvanising or machining?
+
+Yes. Odoo has a subcontracting BoM type where you send components to a vendor and receive the finished part back against a purchase order. Resupply of components can be tracked, and the vendor bill carries VDS and TDS as usual.
+
+### How does Odoo calculate finished-goods cost for a Bangladeshi factory?
+
+With average or FIFO costing, Odoo values the finished product at component cost plus work centre cost per hour plus any landed costs. Overheads like electricity and generator fuel are usually loaded as a work centre rate or a cost line in the BoM.
+
+### What size of manufacturer is Odoo suited to in Bangladesh?
+
+The community sees Odoo in factories from 20 to several hundred users. Below about 10 users a simpler stock and invoicing setup often does. Above that, MRP, quality and costing justify the configuration effort.
+
+### What does a manufacturing rollout cost?
+
+Community-observed ranges for manufacturing with MRP, quality and integrations run from BDT 25 lakh to over BDT 1 crore. Simpler setups with BoM and stock only fall in the BDT 8 to 25 lakh range. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are not quotes.
+
+## Next step
+
+Download the [ERP readiness checklist](/resources/erp-checklist) and fill in the BoM accuracy, costing method and subcontracting sections with your production head before you request any demo. It will save you a round of discovery meetings. Odoo releases a new major version every October, so confirm which version a partner proposes and whether it is still in support.

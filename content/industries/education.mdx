@@ -1,36 +1,134 @@
 ---
-title: "Odoo for Education in Bangladesh"
-description: "How education organizations use Odoo for admissions follow-up, fees, people records, and internal projects."
+title: "Odoo for Education in Bangladesh: Admissions and Fees"
+description: "How Bangladeshi schools and universities use Odoo 17 to 19 for admissions, bKash fee collection, HR and eLearning, and why a student system is still needed."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Education ERP Bangladesh
   - Odoo Education Bangladesh
   - Odoo ERP Bangladesh
+  - university ERP Bangladesh
+  - school fee collection software bKash
+  - Odoo eLearning Bangladesh
+  - student information system Odoo
 related:
-  - label: "CRM"
+  - label: "CRM module"
     href: "/modules/crm"
-  - label: "Accounting"
+  - label: "Accounting module"
     href: "/modules/accounting"
-  - label: "HR"
+  - label: "HR module"
     href: "/modules/hr"
-  - label: "Project"
+  - label: "Project module"
     href: "/modules/project"
+  - label: "Payroll module"
+    href: "/modules/payroll"
   - label: "Odoo vs ERPNext"
     href: "/comparisons/odoo-vs-erpnext"
   - label: "ERP readiness checklist"
     href: "/resources/erp-checklist"
+faq:
+  - q: "Is Odoo a student information system?"
+    a: "No. Odoo 17 to 19 have no native student, course registration, grading or transcript module. Institutions use CRM for admissions, Accounting for fees, HR for staff and eLearning for content, and add a student information system through configuration, OCA modules or a partner add-on."
+  - q: "Can students pay fees by bKash or Nagad through Odoo?"
+    a: "Odoo's customer portal can show invoices and accept payments through a payment provider. bKash and Nagad are not standard Odoo providers, so a partner-built payment connector is needed. Many institutions record MFS payments manually from the merchant statement instead."
+  - q: "Does Odoo eLearning replace Moodle?"
+    a: "For course content, quizzes and certificates it can. It does not handle enrolment rules, grading schemes or academic transcripts the way a learning management system tied to a registrar does. Universities often keep Moodle and use Odoo for the business side."
+  - q: "What about VAT and tax for an educational institution in Bangladesh?"
+    a: "Most tuition fees are VAT exempt, but services like canteen, transport and some training courses may attract VAT at 15 percent. Odoo's fiscal positions handle the split. Staff payroll follows tax and provident fund rules as in any organisation."
+  - q: "What does an education rollout cost in Bangladesh?"
+    a: "A school or college using CRM, Accounting and HR with 5 to 15 users typically falls in the community-observed BDT 3 to 8 lakh range. A private university adding eLearning, a portal and a student records customisation sits in the BDT 8 to 25 lakh range. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are ranges, not quotes."
 ---
 
-## Typical requirements
+Odoo 17 to 19 work for a Bangladeshi educational institution on the business side: admissions follow-up in CRM, fee invoicing and collection in Accounting (including bKash and Nagad recorded as payment methods), staff records and payroll in HR, campus projects in Project, and course content in eLearning. Odoo has no dedicated student information system, so student records, course registration, attendance, grading and transcripts need configuration, an OCA education module, or a partner add-on. The most reliable first release picks either admissions or fee collection as the single workflow, not both, and leaves academic records where they are until the business processes are stable.
 
-- A clear path for enquiries and follow-ups
-- Fee invoices and receipts that finance can reconcile
-- Staff records kept apart from student operations
-- Internal work, such as a campus project, tracked without a separate spreadsheet
+## Industry context in Bangladesh
 
-## Common modules
+The sector includes private universities in Dhaka, Chattogram and Sylhet regulated by the University Grants Commission, English-medium and Bangla-medium private schools, colleges, polytechnics, coaching centres and a growing set of skills training providers. Private institutions depend on timely fee collection, and most now accept bKash, Nagad, Rocket and bank deposit alongside cash at the accounts counter. Admissions seasons cluster around January for schools and two or three intakes a year for universities, which creates bursts of enquiry handling that a spreadsheet cannot keep up with.
 
-CRM, Accounting, HR, and Project. This is not a student-information system by default. Confirm which academic records stay outside the first release.
+Finance operates on a July to June fiscal year. Tuition is generally VAT exempt but ancillary services may not be, and withholding applies to vendor bills. Staff payroll follows standard income tax and provident fund practice, and many institutions have a gratuity scheme. Universities also manage research grants, hostel operations, transport fleets and libraries, each with its own ledger.
 
-## A first release
+The software landscape is mixed: a locally developed student management system or a UGC-oriented package for academics, Tally for accounts, Excel for admissions, and sometimes Moodle for online learning. Odoo is attractive as the layer that connects admissions, fees, HR and procurement, provided everyone agrees where student academic records live.
 
-Pick either admissions follow-up or fee collection as the first workflow, not both, unless the same small team owns the data. The [ERP checklist](/resources/erp-checklist) is the place to write that choice down.
+## Pain points Odoo is usually asked to solve
+
+- Enquiries from Facebook, phone and walk-ins are logged in different places, and follow-up depends on individual admission officers.
+- Fee receipts are issued by hand or from a separate system, so finance reconciles bKash and bank deposits weeks later.
+- Scholarship and waiver rules are applied inconsistently across departments.
+- Staff records, leave and payroll are managed in spreadsheets with no audit trail.
+- Procurement for labs, construction and IT has no approval path or budget check.
+- Management reports on collection rates and outstanding fees per batch are built by hand each month.
+
+## Module map
+
+| Module | Why it matters for a Bangladeshi institution |
+|---|---|
+| [CRM](/modules/crm) | Enquiry capture from web forms and social channels, follow-up activities, admission pipeline by programme and intake, conversion reporting. |
+| [Accounting](/modules/accounting) | Fee invoices per student and semester, instalment payment terms, waivers as discounts, bKash, Nagad and bank journals, VAT exempt and taxable fiscal positions, Mushak 9.1 where applicable. |
+| [HR](/modules/hr) and [Payroll](/modules/payroll) | Faculty and staff records, contracts, leave, attendance, provident fund, gratuity, income tax at source, festival bonus. |
+| [Project](/modules/project) | Campus construction, accreditation preparation, events and internal IT work tracked as projects with tasks. |
+| eLearning (Website) | Course content, video lessons, quizzes and certificates for supplementary or paid short courses. |
+| [Purchase](/modules/purchase) | Lab equipment, books, IT and canteen procurement with approvals, VDS and TDS on vendor bills. |
+| Student records | Not native. Configure contacts with student fields, use an OCA education module, or commission a partner add-on. |
+
+Four to five modules in release one is normal. eLearning and student records are usually phase two.
+
+## A worked example: a Dhaka private university
+
+Consider a hypothetical private university in Dhaka with 6,000 students, 300 faculty and staff, three intakes a year and a finance team of eight. The registrar's academic system stays in place. The university wants faster admissions follow-up and a fee ledger that reconciles with bKash and the bank. Here is a plausible Odoo 17 to 19 flow.
+
+**Admissions.** Enquiries from the website form, Facebook leads and the admission desk create CRM leads tagged by programme (BBA, CSE, LLB) and intake (Spring 2027). Admission officers work a pipeline: enquiry, document check, admission test, offer, enrolled. Follow-up activities are scheduled automatically two days after each stage. Conversion by source is reported weekly.
+
+**Enrolment and fees.** When a lead reaches enrolled, a contact record with student ID, programme and batch is created and the first semester fee invoice of BDT 85,000 is issued with a three-instalment payment term. A 25 percent merit waiver is applied as a discount line. The student sees the invoice in the portal.
+
+**Collection.** The student pays BDT 30,000 by bKash to the university merchant number. The accounts officer registers the payment against the invoice in the bKash journal and reconciles the merchant statement at week end. Bank deposits are matched from the bank statement import. Overdue instalments trigger a reminder email and a list for the department.
+
+**Staff and payroll.** Faculty contracts, leave and attendance are in HR. Monthly payroll runs with provident fund contributions, income tax deduction at source and the two festival bonuses, with payslips in Bangla and English.
+
+**Projects and procurement.** A new lab build is a Project with tasks and a budget. Purchase orders for equipment go through departmental approval, and vendor bills post with VDS and TDS. A supplementary online course for alumni is published through eLearning with a paid enrolment.
+
+**Reporting.** The vice chancellor's office sees admission conversion by programme, collection rate by batch, outstanding fees ageing and payroll cost by department, all from one database. Academic grades and transcripts remain in the registrar's system, with the student ID as the shared key.
+
+This is illustrative. A school would run one intake a year, monthly fees and parent contacts; a training centre would lean on eLearning and CRM.
+
+## Implementation checklist
+
+- Decide what stays in the academic system and what moves to Odoo. Write it down. Student ID is the shared key.
+- Pick one first workflow: admissions follow-up or fee collection. Only combine them if the same small team owns both data sets.
+- Design the contact model for students, guardians and alumni before importing. Duplicates are hard to merge later.
+- Configure fee products per programme and semester, waiver rules as discounts, and instalment payment terms.
+- Set up one journal per collection channel: cash counter, bKash, Nagad, Rocket, each bank. Reconciliation depends on this split.
+- Configure fiscal positions for VAT exempt tuition and taxable services, and VDS and TDS on vendor bills.
+- Decide the payment portal approach: manual MFS recording, a partner-built bKash or Nagad connector, or a bank gateway.
+- Configure payroll rules for provident fund, gratuity, income tax and festival bonus with your accountant; the [HR training](/training/functional/hr) track covers the setup.
+- Pilot one department or one intake, then expand. See the [implementation guide](/implementation-guide#uat) for acceptance testing.
+- Address data residency: student and guardian personal data should be hosted locally or with a documented policy.
+
+If licence cost is the main question, the [Odoo vs ERPNext comparison](/comparisons/odoo-vs-erpnext) is relevant, since ERPNext ships an education domain while Odoo relies on add-ons.
+
+## Frequently asked questions
+
+### Is Odoo a student information system?
+
+No. Odoo 17 to 19 have no native student, course registration, grading or transcript module. Institutions use CRM for admissions, Accounting for fees, HR for staff and eLearning for content, and add a student information system through configuration, OCA modules or a partner add-on.
+
+### Can students pay fees by bKash or Nagad through Odoo?
+
+Odoo's customer portal can show invoices and accept payments through a payment provider. bKash and Nagad are not standard Odoo providers, so a partner-built payment connector is needed. Many institutions record MFS payments manually from the merchant statement instead.
+
+### Does Odoo eLearning replace Moodle?
+
+For course content, quizzes and certificates it can. It does not handle enrolment rules, grading schemes or academic transcripts the way a learning management system tied to a registrar does. Universities often keep Moodle and use Odoo for the business side.
+
+### What about VAT and tax for an educational institution in Bangladesh?
+
+Most tuition fees are VAT exempt, but services like canteen, transport and some training courses may attract VAT at 15 percent. Odoo's fiscal positions handle the split. Staff payroll follows tax and provident fund rules as in any organisation.
+
+### What does an education rollout cost in Bangladesh?
+
+A school or college using CRM, Accounting and HR with 5 to 15 users typically falls in the community-observed BDT 3 to 8 lakh range. A private university adding eLearning, a portal and a student records customisation sits in the BDT 8 to 25 lakh range. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are ranges, not quotes.
+
+## Next step
+
+The [ERP readiness checklist](/resources/erp-checklist) is the place to write down which workflow goes first and where student records will live. Fill it in with the registrar and the finance head together before you request a demo. Odoo publishes a new major version every October, so confirm the version and its support window before you commit.

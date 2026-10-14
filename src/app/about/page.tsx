@@ -13,7 +13,7 @@ export default function AboutPage() {
       <h1 className="text-3xl font-semibold tracking-tight">About the community</h1>
       <p className="mt-3 text-sm leading-6 text-zinc-600">
         Odoo Bangladesh is a community-driven, educational platform for people
-        exploring Odoo ERP in Bangladesh — including businesses planning ERP
+        exploring Odoo ERP in Bangladesh, including businesses planning ERP
         adoption, functional consultants, developers, students, and career
         switchers.
       </p>

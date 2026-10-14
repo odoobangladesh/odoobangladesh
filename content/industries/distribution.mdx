@@ -1,31 +1,133 @@
 ---
-title: "Odoo for Distribution in Bangladesh"
-description: "Distribution workflows in Odoo: multi-warehouse inventory, purchasing, sales, pricing, and delivery operations."
+title: "Odoo for Distribution in Bangladesh: Dealers and Route Sales"
+description: "How Bangladeshi distributors use Odoo 17 to 19 for dealer credit limits, route and van sales, van stock, FMCG secondary sales, multi-depot stock and VAT."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Distribution ERP Bangladesh
   - Odoo Inventory Bangladesh
   - Odoo ERP Bangladesh
+  - FMCG distribution software Bangladesh
+  - dealer management system Odoo
+  - van sales ERP Bangladesh
+  - secondary sales tracking
 related:
-  - label: "Sales"
+  - label: "Sales module"
     href: "/modules/sales"
-  - label: "Inventory"
+  - label: "Inventory module"
     href: "/modules/inventory"
-  - label: "Purchase"
+  - label: "Purchase module"
     href: "/modules/purchase"
-  - label: "Accounting"
+  - label: "Accounting module"
     href: "/modules/accounting"
+  - label: "CRM module"
+    href: "/modules/crm"
   - label: "Odoo vs SAP Business One"
     href: "/comparisons/odoo-vs-sap-business-one"
   - label: "ERP readiness checklist"
     href: "/resources/erp-checklist"
+faq:
+  - q: "Can Odoo enforce dealer credit limits?"
+    a: "Yes. Odoo 17 to 19 have a partner credit limit setting that warns or blocks sales order confirmation when the dealer's outstanding plus the new order exceeds the limit. Blocking rather than warning requires the setting to be enforced and a clear override rule."
+  - q: "How do we track van stock and route sales in Odoo?"
+    a: "Treat each van as an inventory location, load it from the depot in the morning and sell from it during the day. A mobile-friendly order entry screen is usually a partner-built app or the Odoo mobile app with a simplified sales order form."
+  - q: "Does Odoo track secondary sales from distributors to retailers?"
+    a: "Only if the distributors enter their sales into your Odoo instance, for example through a portal or a lightweight app. Many FMCG companies in Bangladesh use a separate distributor management system and import summaries into Odoo."
+  - q: "How does VAT work for a distributor in Odoo?"
+    a: "You buy with input VAT at 15 percent, sell with output VAT and issue a Mushak 6.3 invoice, and file Mushak 9.1 monthly or quarterly (both allowed since the Finance Act 2026, due within 15 days of the period end). Odoo's tax report gives the figures; the register formats need a localisation layout."
+  - q: "What does a distribution rollout cost in Bangladesh?"
+    a: "A distributor with 10 to 30 users, two or three depots and dealer credit control typically falls in the community-observed BDT 8 to 25 lakh range. Add more for a route sales app and MFS collection integration. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are ranges, not quotes."
 ---
 
-## Typical goals
+Odoo 17 to 19 fit a Bangladeshi distributor whose problems are dealer receivables, stock scattered across depots and vans, and margin that is invisible until the month closes. The Sales, Inventory, Purchase and Accounting modules cover order to cash and procure to pay, including dealer credit limits, multi-warehouse stock, pricelists by dealer tier, and VAT at 15 percent with Mushak 6.3 invoicing. Route sales from a van and secondary sales reporting from distributors to retailers are not standard Odoo features; they are built on top with van locations, a mobile order screen and, often, an import from a distributor management system. This page sets out what is configuration and what is a project.
 
-- Stock accuracy across warehouses
-- Efficient picking/packing and dispatch
-- Pricing control and margin visibility
+## Industry context in Bangladesh
 
-## Common modules
+Distribution in Bangladesh runs on a layered channel. A manufacturer or importer sells to regional distributors or directly to dealers; distributors run territory sales representatives who visit retailers on fixed routes, often with a van carrying stock. Settlement is on credit terms measured in days or in a number of open invoices, and collection is a mix of cash, cheques, bank transfer and increasingly bKash or Nagad merchant payments.
 
-- Sales, Inventory, Purchase, Accounting (plus Barcodes if needed)
+Sectors that fit this pattern include FMCG, pharmaceuticals, electronics and mobile accessories, building materials (cement, tiles, paint), lubricants, agricultural inputs and packaged food. Depots sit in Dhaka, Chattogram, Bogura, Jashore, Sylhet and Cumilla, with the last mile covered by covered vans and pickup trucks. Pricing has tiers: distributor price, dealer price, retailer price, and trade promotions that change every month.
+
+The compliance layer is VAT at each stage. Distributors claim input VAT on purchases and charge output VAT on sales, issue Mushak 6.3 invoices, and file Mushak 9.1 monthly or quarterly (since the Finance Act 2026 either period is allowed, with the return due within 15 days of the period end). Vendor bills for transport and services carry VDS deductions. Finance runs a July to June fiscal year and manages a large receivables book, so ageing by dealer is the report the owner checks first.
+
+## Pain points Odoo is usually asked to solve
+
+- Dealer outstanding balances are tracked in a ledger book or Tally with no link to the order, so overdue dealers keep receiving goods.
+- Depot and van stock is counted weekly, and shrinkage shows up only at the count.
+- Pricelists and trade schemes are applied inconsistently by sales representatives.
+- Secondary sales (distributor to retailer) are reported on paper or WhatsApp and consolidated days later.
+- Picking and dispatch from the depot rely on one experienced store keeper.
+- Margin per SKU and per territory is unknown because landed costs and schemes are not captured.
+
+## Module map
+
+| Module | Why it matters for a Bangladeshi distributor |
+|---|---|
+| [Sales](/modules/sales) | Dealer orders, pricelists per tier, trade promotions as discounts, credit limit warning or block on confirmation, delivery dates by route. |
+| [Inventory](/modules/inventory) | Multi-depot warehouses, van locations, batch picking, lot and expiry tracking for FMCG and pharma, reorder rules per depot, cycle counts. |
+| [Purchase](/modules/purchase) | Purchase orders to principals or importers, landed costs on imports, three-way matching, VDS and TDS on service vendors. |
+| [Accounting](/modules/accounting) | Receivables ageing by dealer, payment terms, cheque and MFS collection journals, Mushak 6.3 invoices, Mushak 9.1 data, territory profitability via analytic accounts. |
+| [CRM](/modules/crm) | Dealer onboarding pipeline, territory assignment, visit planning for sales representatives (Enterprise adds activity scheduling). |
+| Fleet (optional) | Van maintenance and fuel if you own the vehicles. |
+
+Four to five modules is the usual first release. The route sales app is a separate decision.
+
+## A worked example: a Chattogram FMCG distributor
+
+Consider a hypothetical FMCG distributor based in Chattogram with depots in Agrabad and Cumilla, 8 vans, 14 sales representatives and around 600 retail dealers across the division. It distributes packaged snacks and personal care for two national brands. The owner wants to stop over-extending credit and see van shrinkage daily. A plausible Odoo 17 to 19 setup looks like this.
+
+**Master data.** Each dealer is a customer with a tier pricelist, a credit limit in BDT, payment terms of 15 days, and a territory tag. Products carry barcodes, lot numbers and expiry dates. The Agrabad and Cumilla depots are two warehouses; each van is a location under its depot.
+
+**Morning load.** The store keeper creates an internal transfer from the Agrabad depot to Van 3 for the day's route, scanned out by lot. Van 3 now holds BDT 2.4 lakh of stock at cost.
+
+**Route selling.** The representative enters orders for each retailer on a mobile order screen. A dealer with BDT 85,000 outstanding and a BDT 1 lakh limit tries to order BDT 30,000; Odoo blocks confirmation until a manager overrides or a payment is recorded. The representative collects BDT 12,000 by bKash and records it against the dealer's oldest invoice.
+
+**Evening return.** Unsold stock is transferred back from Van 3 to the depot. Any variance between loaded, sold and returned quantities is flagged on the transfer and investigated the same evening.
+
+**Purchasing and VAT.** Weekly purchase orders go to the principal's depot in Dhaka. Vendor bills post with 15 percent input VAT; transport bills post with VDS. Sales invoices are Mushak 6.3 formatted, and the accountant pulls the monthly figures for Mushak 9.1 from the tax report.
+
+**Reporting.** The owner's dashboard shows receivables ageing by territory, van shrinkage by van, and gross margin by brand after trade schemes. Secondary sales to retailers are already in the system because the representative entered them at the shop.
+
+This is illustrative. A building materials distributor would skip expiry tracking and add weight-based units; a pharma distributor would add batch recall reporting.
+
+## Implementation checklist
+
+- Clean the dealer master first: one record per dealer, correct BIN where applicable, credit limit and terms agreed with the owner.
+- Decide credit control policy in writing: warn or block, who can override, and whether post-dated cheques count as payment.
+- Define pricelist tiers and how trade schemes are expressed (percentage discount, free goods, or both). Free goods need a zero-priced line with stock movement.
+- Model vans as locations and write the morning load and evening return procedure before configuring it.
+- Choose the route sales approach: the Odoo mobile app, a partner-built app, or a separate distributor management system that imports into Odoo.
+- Configure VAT at 15 percent, Mushak 6.3 invoice layout, VDS and TDS rules, and the July to June fiscal year.
+- Set up collection journals for cash, cheque, bank, bKash and Nagad so reconciliation is possible.
+- Pilot one depot and two vans for a month before rolling out. See the [implementation guide](/implementation-guide#process).
+- Train store keepers on batch picking and barcode scanning; the [inventory training](/training/functional/inventory) track is the study path.
+- Plan hosting for mobile access from the field; representatives need a stable connection or an app that queues orders offline.
+
+If you are weighing Odoo against a mid-market product sold to distributors, the [Odoo vs SAP Business One comparison](/comparisons/odoo-vs-sap-business-one) looks at licence and partner differences.
+
+## Frequently asked questions
+
+### Can Odoo enforce dealer credit limits?
+
+Yes. Odoo 17 to 19 have a partner credit limit setting that warns or blocks sales order confirmation when the dealer's outstanding plus the new order exceeds the limit. Blocking rather than warning requires the setting to be enforced and a clear override rule.
+
+### How do we track van stock and route sales in Odoo?
+
+Treat each van as an inventory location, load it from the depot in the morning and sell from it during the day. A mobile-friendly order entry screen is usually a partner-built app or the Odoo mobile app with a simplified sales order form.
+
+### Does Odoo track secondary sales from distributors to retailers?
+
+Only if the distributors enter their sales into your Odoo instance, for example through a portal or a lightweight app. Many FMCG companies in Bangladesh use a separate distributor management system and import summaries into Odoo.
+
+### How does VAT work for a distributor in Odoo?
+
+You buy with input VAT at 15 percent, sell with output VAT and issue a Mushak 6.3 invoice, and file Mushak 9.1 monthly or quarterly (both allowed since the Finance Act 2026, due within 15 days of the period end). Odoo's tax report gives the figures; the register formats need a localisation layout.
+
+### What does a distribution rollout cost in Bangladesh?
+
+A distributor with 10 to 30 users, two or three depots and dealer credit control typically falls in the community-observed BDT 8 to 25 lakh range. Add more for a route sales app and MFS collection integration. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are ranges, not quotes.
+
+## Next step
+
+Work through the [ERP readiness checklist](/resources/erp-checklist) with your depot manager and your accountant together. The credit policy and the van procedure are the two items most distributors leave undecided until go-live, and they are the two that stall it. Odoo ships a new major version every October; check the current release before you commit to one.

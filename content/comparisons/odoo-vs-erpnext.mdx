@@ -1,10 +1,18 @@
 ---
-title: "Odoo vs ERPNext (Bangladesh)"
-description: "A neutral comparison of Odoo vs ERPNext for Bangladesh: fit, customization, implementation effort, and talent availability."
+title: "Odoo vs ERPNext in Bangladesh: Which Open Source ERP Fits You"
+description: "Odoo vs ERPNext for Bangladesh businesses: licensing, hosting, VAT and Mushak localisation, customisation, partner depth and total cost in BDT, fairly judged."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo vs ERPNext
   - Open Source ERP Bangladesh
   - Best ERP in Bangladesh
+  - ERPNext Bangladesh
+  - Odoo Community vs ERPNext
+  - free ERP software Bangladesh
+  - ERP for SME Bangladesh
 canonical: "/odoo-vs-erpnext"
 related:
   - label: "Accounting"
@@ -23,21 +31,144 @@ related:
     href: "/implementation-guide"
   - label: "ERP readiness checklist"
     href: "/resources/erp-checklist"
+  - label: "Open source ERP in Bangladesh"
+    href: "/open-source-erp-bangladesh"
+faq:
+  - q: "Is ERPNext completely free while Odoo is not?"
+    a: "Both have a free, open source core. ERPNext is fully open source under GPL with no paid edition. Odoo Community is free under LGPL, and Odoo Enterprise adds paid apps at roughly USD 24.90 to 37.40 per user per month at Odoo's US list price (the regional price shown from Bangladesh is usually lower). In both cases you still pay for implementation, hosting and support."
+  - q: "Which one handles Bangladesh VAT and Mushak forms better?"
+    a: "Odoo has the head start. Odoo 17 to 19 ship an official l10n_bd package with a Bangladesh chart of accounts and VAT rates from 0 to 15 percent, although the default tax it sets is 10 percent and must be changed to 15. Mushak 6.3 invoices, the 6.1 and 6.2 registers, the Mushak 9.1 return and VDS and TDS withholding still need a partner, a community module or a paid add-on in Odoo. ERPNext localisation is usually built per project."
+  - q: "Which has more developers and partners in Bangladesh?"
+    a: "The Odoo pool in Bangladesh is larger, with more freelancers, partners and training batches. ERPNext has a smaller but active community and benefits from strong traction in India and Pakistan, so remote talent is reachable. Verify availability in your city before deciding."
+  - q: "Can a garments factory run on either system?"
+    a: "Yes, both support multi-level BOMs, work orders and subcontracting. Odoo's manufacturing, quality and shop floor tools go deeper in Enterprise. ERPNext covers the core well and is often chosen where budget is the main constraint. Bonded warehouse and UD tracking need custom work in both."
+  - q: "Can I move from ERPNext to Odoo later, or the other way?"
+    a: "Yes, but treat it as a fresh implementation with data migration, not an upgrade. Master data and opening balances move cleanly; transaction history, custom scripts and reports do not. Plan a July to June fiscal year cutover to keep NBR filings tidy."
 ---
 
-## Quick summary
+Odoo and ERPNext are the two open source ERPs that Bangladeshi businesses shortlist most often, and the fair answer is that both can run a 10 to 300 person company well. Odoo is the better pick when you want depth in manufacturing, accounting, POS and HR, a large local talent pool, and the option to upgrade to Enterprise apps later. ERPNext is the better pick when you want a single free edition with no upsell, a lighter stack that a small in-house team can own, and you are comfortable with a smaller Bangladesh partner base. This page compares both for Odoo 17 to 19 and current ERPNext releases, with Bangladesh specifics throughout.
 
-Both Odoo and ERPNext can be strong options for SMEs and mid-market organizations. The best choice depends on complexity, customization needs, and local talent/support availability.
+## Direct verdict
 
-## How to compare
+Pick Odoo if any of these are true: you run a factory or a multi-warehouse distributor, you need retail POS that survives load-shedding, you expect to hire Odoo staff locally, or you want a paid Enterprise path with vendor-backed upgrades. Pick ERPNext if these are true: your budget is under BDT 5 lakh for the first phase, your processes are mostly trading and accounting, you have a developer who likes Python and wants to own the code, and you accept that most Bangladesh localisation will be built or adapted for you rather than installed from a catalogue.
 
-- **Modules and depth**: manufacturing, accounting, inventory features you need
-- **Customization**: how often you expect changes after go-live
-- **Total cost**: implementation + training + maintenance
-- **Ecosystem**: hiring, training, and developer community in Bangladesh
+Neither answer is wrong. The community sees ERPNext succeed in Bangladesh trading houses, schools and NGOs, and sees Odoo succeed in garments, pharma distribution, retail chains and service firms. The decision usually comes down to three things: how deep your manufacturing and compliance needs go, who will maintain the system in year three, and whether you prefer a free-only model or a free-plus-paid model.
 
-## Selection checklist
+## Side-by-side table
 
-- List your must-have workflows (not “nice to have”)
-- Decide timeline and budget range
-- Run a proof-of-concept for your hardest process
+| Dimension | Odoo (17 to 19) | ERPNext |
+|---|---|---|
+| Licensing | Community edition free (LGPL); Enterprise apps about USD 24.90 to 37.40 per user per month at Odoo's US list price; a lower regional price usually shows on odoo.com/pricing from Bangladesh | Fully open source (GPL v3), one edition, no paid tier for the software itself |
+| Hosting | Self-host in Bangladesh, Odoo Online (SaaS, Enterprise only), or Odoo.sh; Community must be self-hosted | Self-host in Bangladesh or use Frappe Cloud (paid managed hosting by the maintainers) |
+| Localisation for Bangladesh | Official l10n_bd chart of accounts and VAT rates in core (default tax is 10 percent, set it to 15); Mushak 6.3 and 9.1, VDS/TDS and Bangla reports via community modules or partner add-ons; bKash and Nagad connectors from freelancers | No official NBR localisation; chart of accounts and VAT templates built per project; Bangla UI translation exists but reports need work |
+| Modules | 80 plus official apps: accounting, inventory, MRP, quality, PLM, POS, HR, payroll, eCommerce, helpdesk, field service | Core modules: accounting, stock, manufacturing, CRM, projects; HR and payroll (HRMS), education, healthcare and non-profit are separate Frappe apps, and some of them are lightly maintained |
+| Customisation | Python, ORM, OWL JavaScript front end, Studio (Enterprise) for no-code changes | Python, Frappe framework, DocType builder for no-code fields and forms, server and client scripts |
+| Partner ecosystem in Bangladesh | Larger: several partners, many freelancers, regular training batches in Dhaka and Chattogram | Smaller: a handful of partners and freelancers, with remote support from India and Pakistan common |
+| Typical total cost (community-observed) | Small SME BDT 3 to 8 lakh; mid-size BDT 8 to 25 lakh; manufacturing BDT 25 lakh to 1 crore plus, plus Enterprise licences if chosen | Small SME BDT 2 to 6 lakh; mid-size BDT 6 to 20 lakh; manufacturing BDT 15 to 60 lakh; no software licence |
+| Best fit | Manufacturing, garments, retail chains, distributors, service firms that will scale | Trading, education, NGOs, small manufacturers and teams that want one free edition |
+
+All cost figures are community-observed ranges for Bangladesh, not quotes. They exclude hardware, hosting and staff time.
+
+## Pricing model
+
+The two projects take different commercial positions and you should understand both before comparing invoices.
+
+Odoo has a dual edition model. Odoo Community is free, self-hosted and covers accounting, invoicing, sales, purchase, inventory, basic manufacturing, CRM, projects and HR. Odoo Enterprise adds the paid apps: full accounting reports and bank sync, Studio, quality, PLM, field service, helpdesk, eSign, the mobile app and official upgrades. Odoo's US list price with yearly billing is roughly USD 24.90 per user per month on the Standard plan and USD 37.40 on the Custom plan, with a One App Free plan at zero cost. Odoo prices by region and changes regional prices every year, usually between January and April; buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so confirm there before budgeting. Assuming roughly BDT 120 to 125 per USD and the US price, 20 Standard users cost at most about BDT 60,000 to 62,000 per month, or up to BDT 7.2 to 7.5 lakh per year. The [pricing guide](/pricing-guide#components) breaks down the full cost stack.
+
+ERPNext has one edition and it is free. There is no user licence at any scale. The maintainers earn from Frappe Cloud, a managed hosting service with tiered plans, and from partner support contracts. If you self-host in Bangladesh, your only recurring software cost is zero. This matters for organisations with many light users, such as a school with 150 teachers who each log attendance, or a distributor with 60 field sales staff. In Odoo you would either keep those users on Community, model them as portal users, or pay per seat.
+
+Implementation is where the real money goes in both cases. For a Dhaka trading company with 5 users wanting accounting, sales, purchase and inventory, the community sees BDT 3 to 8 lakh for Odoo and a little less for ERPNext, mostly because ERPNext partners charge lower day rates and there is no licence to resell. For a mid-size firm with 20 users and customisation, BDT 8 to 25 lakh is typical for Odoo. ERPNext projects at the same scale often land at BDT 6 to 20 lakh. The gap narrows when the ERPNext project needs localisation reports built from scratch, which it usually does.
+
+Hosting costs are similar. A production-grade VPS in Singapore or a Bangladesh data centre runs BDT 5,000 to 20,000 per month (BDT 60,000 to 2.4 lakh per year) for an SME-sized server, more for larger setups, and both systems need backups, SSL and monitoring. ERPNext's stack (MariaDB, Redis, Node, Python) is a little heavier to operate than a single Odoo instance with PostgreSQL, but both are routine for a competent DevOps freelancer. See the [deployment training topic](/training/technical/deployment) for an Odoo-side walkthrough.
+
+## Localisation for Bangladesh
+
+This is the section most comparison articles skip, and it is the one that decides most projects.
+
+Neither Odoo nor ERPNext ships an NBR-certified Bangladesh localisation that files returns for you, but Odoo does ship an official one in core. Odoo 17, 18 and 19 include `l10n_bd` ("Bangladesh - Accounting"), which installs a Bangladesh chart of accounts of about 135 accounts, sale and purchase VAT taxes at 0, 2, 4.5, 5, 7.5, 10 and 15 percent plus zero-rated export and exempt, a Bangladesh tax report grouped by rate, and the districts as states. One gotcha: the template sets the default sale and purchase tax to 10 percent, so change it to 15 percent right after install. Mushak forms, the 9.1 return and withholding still need community modules or custom work. ERPNext has no official Bangladesh pack; partners build the chart of accounts and tax templates per project.
+
+What you need for NBR compliance in either system:
+
+- A 15 percent standard VAT rate plus reduced and exempt rates, mapped to product categories.
+- Mushak 6.3 tax invoice layout printed from the sales invoice, with BIN, HS code where applicable, and the correct VAT breakdown.
+- Mushak 6.1 purchase register and 6.2 sales register as exportable reports.
+- Mushak 9.1 return summary, ideally generated from the registers rather than by hand. Since the Finance Act 2026 (FY2026-27) a registered business may file the 9.1 monthly or quarterly (covering three tax periods); either way it is due within 15 days of the end of the period, and monthly filing remains available.
+- VDS (VAT deducted at source) and TDS (tax deducted at source) on supplier bills, with certificate printing and a ledger per deduction type.
+- July to June fiscal year with period locking.
+- Bangla-language invoice and payslip layouts for shop floor and retail.
+
+In Odoo, the chart of accounts and the VAT rates come from l10n_bd, and community modules for most of the rest exist and are shared on GitHub and through local partners, so a project usually adapts rather than builds. Quality varies and versions lag: a Mushak module written for Odoo 16 will need porting to 17 or 18. Budget BDT 50,000 to 2 lakh for localisation work in a typical Odoo project. The [accounting module page](/modules/accounting) covers the setup in detail.
+
+In ERPNext, the tax template system is flexible, and withholding categories can model VDS and TDS, but printed Mushak formats and the 9.1 summary are almost always built as custom print formats and script reports. Expect BDT 1 to 3 lakh of localisation work unless your partner already has a Bangladesh pack. Ask to see it running before you sign.
+
+Payments: bKash, Nagad and Rocket collection and disbursement integrations exist for both as freelancer-built connectors. Bank reconciliation with BRAC, City, DBBL or Eastern Bank is CSV-based in both systems because local banks rarely offer open APIs. Odoo Enterprise bank sync does not cover Bangladeshi banks.
+
+Payroll: Bangladesh Labour Act 2006 rules (two festival bonuses, gratuity, provident fund, overtime at double the basic hourly rate, earned leave encashment) need configuration in both. Odoo's payroll app is Enterprise only, so Community users rely on the OCA payroll modules or a partner build. ERPNext's HRMS is a separate open source app with salary structures and components that handle these rules with formula-based configuration. For a 400-worker Narayanganj knitwear factory, both can produce the monthly salary sheet and the bank disbursement file, but the Odoo route needs either Enterprise or OCA modules, while ERPNext HRMS is free. See the [payroll module page](/modules/payroll).
+
+## Implementation and partner ecosystem
+
+Talent is the hidden variable in a five-year total cost of ownership.
+
+Odoo appears to have the larger local talent pool, judging by partner listings and job adverts. There are multiple partners, a steady stream of freelancers, and regular [functional](/training/functional) and [technical](/training/technical) training batches. Developers who know Python and PostgreSQL can be productive on Odoo within months, and the OWL front end has a growing local base. If a partner disappears, you can usually find another who can read the code. Day rates for experienced Odoo consultants in Dhaka sit in the BDT 8,000 to 15,000 per person-day range, with freelancers at the lower end and partners at the upper end. See [partners](/partners) for how to vet one.
+
+ERPNext in Bangladesh has a smaller but committed community. A few firms and freelancers specialise in it, and because ERPNext has strong traction in India and Pakistan, remote partners in the same time zone are easy to reach and often cheaper. The Frappe framework is well documented and the DocType model is quick to learn, so an in-house developer can go far without a partner. The risk is bus factor: if your one ERPNext person leaves, the local replacement pool is thin.
+
+Project shape is similar for both. A sensible plan for a Chattogram distributor with 15 users runs 10 to 16 weeks: two weeks of discovery, four to six weeks of configuration and localisation, two weeks of data migration, two weeks of UAT and parallel run, then go-live at a month end. The [implementation guide](/implementation-guide#process) walks through each stage, and the [pitfalls section](/implementation-guide#pitfalls) lists the mistakes that sink both Odoo and ERPNext projects, most of which are about data quality and ownership rather than software.
+
+Upgrades differ. Odoo releases a major version every October and Enterprise customers get vendor upgrade tooling; Community users and heavily customised sites need a partner for each jump. ERPNext releases majors roughly yearly, and upgrades are scripted through bench, but custom apps and scripts still need testing. Both ecosystems advise staying no more than two versions behind.
+
+## Who should pick which
+
+Pick Odoo when:
+
+- You run manufacturing with routings, quality checks, subcontracting or PLM, especially in [garments](/industries/garments) where the Enterprise shop floor tools pay off.
+- You operate retail with several outlets and need offline POS that reconnects after load-shedding. See the [POS module](/modules/pos).
+- You want a wide app catalogue in one vendor stack: helpdesk, field service, eCommerce, eSign, marketing.
+- You expect to hire and train in Dhaka, Chattogram or Sylhet, and want options when a partner relationship ends.
+- You may later pay for Enterprise to get vendor upgrades and support, and want that path open.
+
+Pick ERPNext when:
+
+- Your first-phase budget is under BDT 5 lakh and licence cost must stay zero at any user count.
+- Your business is trading or services, where ERPNext's free core fits well; for education, healthcare or non-profit, separate Frappe apps exist but some are lightly maintained, so check the app's activity before relying on it.
+- You have or will hire a Python developer who wants to own the whole stack, including HRMS.
+- You value a single edition with no feature gating and no upsell conversation.
+- Your users are mostly in India, Pakistan or the Gulf as well as Bangladesh, where ERPNext partner coverage is dense.
+
+For an [SME](/industries/sme) that is unsure, the community suggestion is a two-week proof of concept on each: load your real chart of accounts, 200 products, 50 customers and one month of invoices, then try to produce a Mushak 9.1 summary. Whichever team gets you there with less friction has told you something a feature grid cannot.
+
+## Migration considerations
+
+Moving between the two is a re-implementation, not an upgrade. Both store data in relational databases with well-documented models, so master data moves cleanly: chart of accounts, customers, suppliers, products, BOMs, employees and opening balances. Transaction history is harder. The community pattern is to migrate open items only (unpaid invoices, open purchase orders, stock on hand) and keep the old system read-only for history.
+
+Time the cutover for 1 July so the new system owns a full fiscal year and the Mushak 9.1 returns do not straddle two databases. Export all Mushak registers from the old system before shutting it down, because NBR audits can reach back several years.
+
+Custom work does not transfer. An ERPNext server script becomes an Odoo Python method; an Odoo QWeb report becomes an ERPNext print format. Budget this as new development. Integrations with bKash, Nagad, SMS gateways and bank files must be rebuilt, though the API knowledge carries over.
+
+If you are leaving ERPNext for Odoo, the usual driver is manufacturing depth or retail POS. If you are leaving Odoo Community for ERPNext, the usual driver is the licence conversation when a team wants Enterprise features at 50 plus users. Both moves are common enough that local partners have done them; ask for a reference and a data mapping sheet. The [data migration section](/implementation-guide#data) of the implementation guide covers the mechanics.
+
+## Frequently asked questions
+
+### Is ERPNext completely free while Odoo is not?
+
+Both have a free, open source core. ERPNext is fully open source under GPL with no paid edition. Odoo Community is free under LGPL, and Odoo Enterprise adds paid apps at roughly USD 24.90 to 37.40 per user per month at Odoo's US list price (the regional price shown from Bangladesh is usually lower). In both cases you still pay for implementation, hosting and support.
+
+### Which one handles Bangladesh VAT and Mushak forms better?
+
+Odoo has the head start. Odoo 17 to 19 ship an official l10n_bd package with a Bangladesh chart of accounts and VAT rates from 0 to 15 percent, although the default tax it sets is 10 percent and must be changed to 15. Mushak 6.3 invoices, the 6.1 and 6.2 registers, the Mushak 9.1 return and VDS and TDS withholding still need a partner, a community module or a paid add-on in Odoo. ERPNext localisation is usually built per project.
+
+### Which has more developers and partners in Bangladesh?
+
+The Odoo pool in Bangladesh is larger, with more freelancers, partners and training batches. ERPNext has a smaller but active community and benefits from strong traction in India and Pakistan, so remote talent is reachable. Verify availability in your city before deciding.
+
+### Can a garments factory run on either system?
+
+Yes, both support multi-level BOMs, work orders and subcontracting. Odoo's manufacturing, quality and shop floor tools go deeper in Enterprise. ERPNext covers the core well and is often chosen where budget is the main constraint. Bonded warehouse and UD tracking need custom work in both.
+
+### Can I move from ERPNext to Odoo later, or the other way?
+
+Yes, but treat it as a fresh implementation with data migration, not an upgrade. Master data and opening balances move cleanly; transaction history, custom scripts and reports do not. Plan a July to June fiscal year cutover to keep NBR filings tidy.
+
+## Next step
+
+If your shortlist is down to these two, the fastest way forward is a short conversation about your processes, user count and compliance needs. [Talk to a specialist](/contact) from the community, and bring the [ERP readiness checklist](/resources/erp-checklist) so the discussion starts from your must-have workflows rather than from a feature list.

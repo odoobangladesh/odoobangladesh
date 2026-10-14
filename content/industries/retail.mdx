@@ -1,31 +1,131 @@
 ---
-title: "Odoo for Retail in Bangladesh"
-description: "Retail workflows in Odoo: POS, inventory, purchasing, pricing, loyalty, and reporting."
+title: "Odoo for Retail in Bangladesh: Multi-Branch POS Guide"
+description: "How Bangladeshi retail chains run Odoo 17 to 19: multi-branch POS, VAT-inclusive pricing, bKash and Nagad payments, loyalty, stock transfers and reporting."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Retail ERP Bangladesh
   - Odoo Retail Bangladesh
   - Odoo ERP Bangladesh
+  - Odoo POS Bangladesh
+  - multi-branch POS software Bangladesh
+  - VAT inclusive POS Mushak 6.3
+  - bKash POS integration
 related:
-  - label: "Point of Sale"
+  - label: "Point of Sale module"
     href: "/modules/pos"
-  - label: "Inventory"
+  - label: "Inventory module"
     href: "/modules/inventory"
-  - label: "Purchase"
+  - label: "Purchase module"
     href: "/modules/purchase"
-  - label: "Accounting"
+  - label: "Accounting module"
     href: "/modules/accounting"
   - label: "Odoo vs ERPNext"
     href: "/comparisons/odoo-vs-erpnext"
   - label: "ERP readiness checklist"
     href: "/resources/erp-checklist"
+  - label: "POS training"
+    href: "/training/functional/pos"
+faq:
+  - q: "Does Odoo POS keep working during load-shedding or an internet cut?"
+    a: "Odoo POS runs in the browser and keeps selling offline once the session is loaded, then syncs when the connection returns. You still need a UPS or battery for the terminal and printer, and a session must have been opened while online."
+  - q: "Can Odoo POS accept bKash, Nagad and Rocket?"
+    a: "Out of the box you record them as separate payment methods and reconcile against the MFS statement. Live integration with the bKash or Nagad merchant API is a partner-built connector, not a standard Odoo feature."
+  - q: "How do we show VAT-inclusive prices on the shelf and still report 15 percent VAT?"
+    a: "Set the sales tax as included in price on the product or pricelist. Odoo then shows the shelf price to the customer and separates the VAT portion on the receipt and in the Mushak reports."
+  - q: "Is the Odoo POS receipt a valid Mushak 6.3 invoice?"
+    a: "The standard receipt needs customisation to carry the BIN, Mushak 6.3 heading and the fields NBR expects. Most partners deliver a modified receipt template. Check the current NBR guidance on EFD and software-generated invoices for your category."
+  - q: "What does a multi-branch retail rollout cost in Bangladesh?"
+    a: "A 3 to 5 branch chain with 10 to 30 users typically lands in the community-observed BDT 8 to 25 lakh range including receipt and MFS customisation. Single-shop setups with 2 to 5 users are closer to BDT 3 to 8 lakh. Enterprise licences at Odoo's US list price with yearly billing run about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are ranges, not quotes."
 ---
 
-## Typical goals
+Odoo 17 to 19 suit a Bangladeshi retailer with more than one branch who wants a single stock position, one product and price master, and sales reporting that finance can reconcile with the VAT return. The Point of Sale, Inventory, Purchase and Accounting modules cover the core. VAT-inclusive shelf pricing, bKash and Nagad as payment methods, and branch-to-branch stock transfers are all configuration. A Mushak 6.3 compliant receipt, live MFS integration and a Bangla receipt layout are customisation. Offline selling is built into the POS, which matters when load-shedding or a cut fibre line takes a branch offline for an hour.
 
-- Fast POS operations and inventory accuracy
-- Purchase planning and stock replenishment
-- Sales reporting across branches
+## Industry context in Bangladesh
 
-## Common modules
+Organised retail in Bangladesh has grown from a few supermarket chains to a long tail of multi-branch pharmacies, clothing brands, electronics and mobile shops, furniture showrooms, bakeries and convenience chains across Dhaka, Chattogram, Sylhet, Khulna and the district towns. A typical chain has 3 to 30 outlets, a central warehouse in Dhaka or a regional hub, and a head office that manages purchasing, pricing and promotions.
 
-- POS, Inventory, Purchase, Accounting, Website/eCommerce (optional)
+The regulatory layer is VAT. Retail sales carry 15 percent VAT in most categories, consumers expect shelf prices that already include VAT, and the retailer must issue a tax invoice, file Mushak 9.1 monthly or quarterly (both allowed since the Finance Act 2026, due within 15 days of the period end), and in many categories use an NBR-approved electronic fiscal device (EFD) or software-based invoicing. On the payment side, cash remains dominant, but bKash, Nagad, Rocket and card terminals from local banks are standard at the counter. Customers expect loyalty points, festival discounts around Eid and Pohela Boishakh, and the ability to exchange or return.
+
+Infrastructure is the other constant. Branches lose power and connectivity, printers jam, and barcode scanners are shared. Any POS that stops selling when the internet drops will be abandoned by staff within a week.
+
+## Pain points Odoo is usually asked to solve
+
+- Each branch runs its own POS or a spreadsheet, and head office consolidates sales by phone call every evening.
+- Stock at branches is unknown, so transfers and replenishment are guesswork and dead stock accumulates.
+- Price changes and promotions are communicated by WhatsApp and applied inconsistently.
+- MFS and card settlements are reconciled by hand against bank and bKash statements.
+- VAT reporting is reconstructed at month end from receipt rolls rather than from the system.
+- Loyalty programmes live in a separate app or do not exist.
+
+## Module map
+
+| Module | Why it matters for a Bangladeshi retail chain |
+|---|---|
+| [Point of Sale](/modules/pos) | One POS configuration per branch, offline selling, cash and MFS payment methods, receipts, returns, loyalty and gift cards (Enterprise), session cash control. |
+| [Inventory](/modules/inventory) | Central warehouse plus one location per branch, inter-branch transfers, reorder rules by branch, barcode receipts and cycle counts. |
+| [Purchase](/modules/purchase) | Vendor price lists in BDT, consolidated purchasing at head office, VDS and TDS on vendor bills, landed costs on imported goods. |
+| [Accounting](/modules/accounting) | POS session closing journals, VAT-inclusive tax configuration, Mushak 6.3 and Mushak 9.1 data, MFS and bank reconciliation, branch profitability via analytic accounts. |
+| [Sales](/modules/sales) | Corporate and bulk orders, quotations for institutional buyers, and the pricelist engine shared with POS. |
+| [CRM](/modules/crm) | Optional. Customer database for loyalty and festival campaigns, linked to POS customers. |
+
+Four to five of these modules is a normal first release. eCommerce and Website are common additions later.
+
+## A worked example: a Mirpur pharmacy chain
+
+Consider a hypothetical pharmacy and personal care chain with six outlets in Mirpur, Uttara and Dhanmondi, a central store in Mirpur 10, and about 25 staff who touch the system. Head office wants one price list, branch-level stock, and a VAT return that comes out of the system. Here is a plausible Odoo 17 to 19 flow.
+
+**Setup.** One company, one warehouse per branch, a central warehouse in Mirpur. Each branch has a POS configuration with its own cash journal, a bKash method, a Nagad method and a card method. Products are loaded with barcodes, VAT at 15 percent included in price, and expiry tracking on medicines using lots.
+
+**Daily selling.** A cashier opens a session with an opening cash count. During a load-shedding spell the terminal runs on a small UPS and the POS keeps selling offline for the 40 minutes the line is down, then syncs. A customer pays BDT 1,250 with BDT 1,000 by bKash and BDT 250 in cash; the receipt shows the VAT portion separately and the loyalty points earned.
+
+**Replenishment.** Reorder rules per branch trigger internal transfer requests to the central warehouse each evening. The Mirpur 10 store picks and dispatches by van the next morning, and the branch scans in the receipt. Near-expiry stock is reported weekly by lot.
+
+**Purchasing.** Head office raises purchase orders to distributors, posts vendor bills with VDS where applicable, and matches them to receipts. Promotional prices for Eid are set on a pricelist with start and end dates and apply at all six counters at once.
+
+**Finance.** Each session close posts cash, bKash, Nagad and card amounts to separate journals. The accountant reconciles bKash merchant statements against the bKash journal weekly. The VAT report for the filing period (monthly or quarterly) gives output VAT by branch for the Mushak 9.1 return, and analytic accounts show gross margin per branch.
+
+Figures and branch counts are illustrative; a clothing chain would add size and colour variants and a furniture showroom would add delivery scheduling.
+
+## Implementation checklist
+
+- Decide whether each branch is a separate warehouse or a location in one warehouse. Separate warehouses are easier for reorder rules and branch reports.
+- Load products with barcodes before anything else, and clean duplicate SKUs across branches first.
+- Configure VAT as included in price and test the receipt breakdown with a BDT 100 sale.
+- Create one payment method per settlement channel: cash, bKash, Nagad, Rocket, each bank's card terminal. Reconciliation depends on this.
+- Agree the receipt layout with your VAT consultant: BIN, Mushak 6.3 heading, Bangla and English text. Check current NBR rules on EFD for your retail category.
+- Put a UPS on every terminal and printer, and test the POS offline for a full hour before go-live. The [POS training](/training/functional/pos) track covers session and offline handling.
+- Pilot one branch for two to four weeks, then roll out one branch a week. See the [implementation guide](/implementation-guide#go-live).
+- Define loyalty rules (points per BDT, expiry, redemption) in writing before configuring them. Changing them after launch confuses customers.
+- Plan cash control: opening and closing counts, shortage tolerance, and who signs off.
+- Host where latency to the branches is acceptable; a Dhaka-hosted or regional cloud instance usually works, and keep the data-residency position documented.
+
+If the choice is between Odoo and another open-source platform, the [Odoo vs ERPNext comparison](/comparisons/odoo-vs-erpnext) covers POS and local support differences.
+
+## Frequently asked questions
+
+### Does Odoo POS keep working during load-shedding or an internet cut?
+
+Odoo POS runs in the browser and keeps selling offline once the session is loaded, then syncs when the connection returns. You still need a UPS or battery for the terminal and printer, and a session must have been opened while online.
+
+### Can Odoo POS accept bKash, Nagad and Rocket?
+
+Out of the box you record them as separate payment methods and reconcile against the MFS statement. Live integration with the bKash or Nagad merchant API is a partner-built connector, not a standard Odoo feature.
+
+### How do we show VAT-inclusive prices on the shelf and still report 15 percent VAT?
+
+Set the sales tax as included in price on the product or pricelist. Odoo then shows the shelf price to the customer and separates the VAT portion on the receipt and in the Mushak reports.
+
+### Is the Odoo POS receipt a valid Mushak 6.3 invoice?
+
+The standard receipt needs customisation to carry the BIN, Mushak 6.3 heading and the fields NBR expects. Most partners deliver a modified receipt template. Check the current NBR guidance on EFD and software-generated invoices for your category.
+
+### What does a multi-branch retail rollout cost in Bangladesh?
+
+A 3 to 5 branch chain with 10 to 30 users typically lands in the community-observed BDT 8 to 25 lakh range including receipt and MFS customisation. Single-shop setups with 2 to 5 users are closer to BDT 3 to 8 lakh. Enterprise licences at Odoo's US list price with yearly billing run about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are ranges, not quotes.
+
+## Next step
+
+Use the [ERP readiness checklist](/resources/erp-checklist) to write down your branch structure, payment channels and VAT receipt requirements before you speak to a partner. Those three decisions shape the whole retail configuration. Odoo publishes a new major version every October, so confirm the version you will deploy and its support window.

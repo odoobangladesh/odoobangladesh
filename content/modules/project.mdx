@@ -1,38 +1,142 @@
 ---
-title: "Odoo Project Module"
-description: "Projects, tasks, and timesheets in Odoo, and how delivery connects to sales and invoicing."
+title: "Odoo Project Module in Bangladesh: IT Services and Construction"
+description: "How Odoo Project manages tasks, timesheets, milestones and billing for Bangladesh IT services firms and construction companies, linked to sales and accounting."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Project
   - Project ERP Bangladesh
   - Odoo ERP Bangladesh
+  - Odoo timesheets
+  - construction ERP Bangladesh
+  - IT services project management Odoo
+  - milestone billing Odoo
 related:
   - label: "CRM"
     href: "/modules/crm"
   - label: "Sales"
     href: "/modules/sales"
+  - label: "Purchase"
+    href: "/modules/purchase"
   - label: "Odoo for services"
     href: "/industries/services"
   - label: "Odoo for construction"
     href: "/industries/construction"
   - label: "Functional training: Accounting"
     href: "/training/functional/accounting"
-  - label: "Implementation guide"
-    href: "/implementation-guide"
+  - label: "Implementation guide: process design"
+    href: "/implementation-guide#process"
+faq:
+  - q: "Can Odoo Project bill clients by milestone?"
+    a: "Yes. Set the service product's invoicing policy to milestones, define the milestones on the sales order, and mark each one reached from the project. The invoice then pulls the reached milestones, which suits construction progress billing and fixed-price software projects."
+  - q: "Does Odoo Project have a Gantt chart?"
+    a: "The Gantt view for tasks and the Planning app for staff shifts are Enterprise features. Community edition has kanban, list, calendar and a basic timeline through community modules."
+  - q: "How does a construction company track site costs in Odoo?"
+    a: "Each site is a project with an analytic account. Purchase orders for cement, rods and subcontractor bills carry that analytic account, timesheets add labour, and the project profitability report compares cost against progress invoices."
+  - q: "Can timesheets be filled from a phone?"
+    a: "Yes. The Odoo mobile app and the responsive web interface allow engineers and developers to log hours against tasks, and Enterprise adds a timer and a weekly grid view."
+  - q: "Is a Jira-style workflow possible for a software team?"
+    a: "Project stages, sub-tasks, tags, sprints through milestones and dependencies cover most agile needs. Teams that need story points and burndown charts typically keep Jira and sync tasks, or accept a simpler setup in Odoo."
 ---
 
-## What it covers
+Odoo Project organises work into projects, stages and tasks, records time against them through Timesheets, and connects delivery to money: a won opportunity or a confirmed sales order can create a project, and the hours or milestones logged there become the invoice. In Bangladesh the module is used most by two kinds of companies. IT services and software houses in Dhaka and Chattogram use it to run client projects, track billable hours for foreign clients in USD, and invoice on time. Construction and real estate firms use it to track sites, subcontractors and material costs against progress billing. This page covers Odoo 17 to 19; Odoo ships a new major version every October, so confirm the version before scoping.
 
-- Projects, stages, and tasks
-- Timesheets, when billing depends on time
-- Handoff from a won opportunity or a sales order into delivery
-- The invoice that follows a milestone or a timesheet
+## What the module does
 
-## Implementation notes (Bangladesh)
+- Projects with configurable stages, tasks, sub-tasks, tags, assignees and deadlines.
+- Timesheets on tasks, with billable and non-billable distinction.
+- Project creation from a sales order line for service products.
+- Invoicing policies for services: fixed price, timesheet-based, milestone-based or prepaid hours.
+- Analytic accounts per project, so purchases, expenses and payroll costs land on the project.
+- Project profitability: revenue versus cost by project.
+- Customer portal where clients see tasks and approve work.
+- Collaboration through chatter, email and document attachments.
 
-- Decide whether you bill fixed price, time, or milestones before configuring tasks
-- Keep stage names the same across teams
-- Name who updates task status, and which report a manager will check weekly
+## Key features in Odoo 17 to 19
 
-## Related reading
+Odoo 17 introduced the project dashboard with profitability, milestones tied to sales order lines, and a cleaner task form. Odoo 18 added task dependencies in the Gantt view for Enterprise and improved recurring tasks. Odoo 19 keeps the same model with refinements to the portal and planning.
 
-Services firms usually arrive here from [CRM](/modules/crm) and [sales](/modules/sales). Construction uses the same task model with heavier purchasing. See [Odoo for construction](/industries/construction).
+| Feature | Community | Enterprise |
+|---|---|---|
+| Projects, tasks, stages, sub-tasks | Yes | Yes |
+| Timesheets | Yes | Yes, with timer and grid |
+| Milestone and timesheet invoicing | Yes | Yes |
+| Gantt view and dependencies | No | Yes |
+| Planning (staff scheduling) | No | Yes |
+| Field Service app | No | Yes |
+| Helpdesk tickets linked to projects | No | Yes |
+| Project profitability dashboard | Basic | Full |
+
+## Bangladesh-specific considerations
+
+### IT services and software houses
+
+Consider a hypothetical 40-person software company in Banani serving clients in Europe and the Gulf. Each client contract is a sales order with service lines: a fixed-price build, a monthly retainer in USD, and a support bucket of 40 prepaid hours. Odoo creates one project per order, developers log hours to tasks, and the monthly invoice is generated from timesheets or milestones. Invoices in USD convert at the Bangladesh Bank rate on invoice date, and the exchange gain or loss on receipt posts automatically in [Accounting](/modules/accounting). Export income from software has tax treatment that your accountant should configure as a fiscal position so VAT is not charged on foreign-client invoices. Keep timesheets honest: foreign clients audit them, and payroll cost per developer against billed hours is the margin report management will actually use.
+
+### Construction and real estate
+
+A developer building a 10-storey apartment block in Bashundhara runs the site as a project with an analytic account. Material purchases through [Purchase](/modules/purchase), subcontractor bills for piling, electrical and finishing, and site labour from payroll all carry that analytic account. Progress billing to buyers or to a client under a contract uses milestone invoicing: foundation complete, structure complete, finishing. Retention money and advance adjustments are handled as payment terms and separate invoice lines. RAJUK approvals, bank financing drawdowns and the AIT deducted by corporate clients on contractor bills are tracked as tasks and as withholding taxes respectively. The [construction industry page](/industries/construction) covers the full flow.
+
+### Services VAT and withholding
+
+Services invoices in Bangladesh carry VAT at 15 percent for most categories, and corporate clients deduct VDS and TDS at source when paying. Configure the withholding so that the receivable clears correctly when the client pays net of deduction, and keep the deduction certificates as attachments on the invoice. Timesheet-based invoicing in Odoo produces the invoice; the VAT and withholding setup lives in Accounting.
+
+### Working week and holidays
+
+Project deadlines and planned hours depend on the company working schedule. Set the Sunday to Thursday week for offices, add the Eid and national holidays each year, and remember that foreign clients work Monday to Friday, so a project calendar often needs both.
+
+### Connectivity and the portal
+
+Clients in Bangladesh respond to WhatsApp faster than to portal notifications. The customer portal still earns its place for formal approvals and document handover; use the chatter for the audit trail and WhatsApp for the nudge.
+
+## Community vs Enterprise for project
+
+Community covers projects, tasks, timesheets and all four invoicing policies, which is enough for most software houses. Enterprise adds the Gantt view, Planning for resource scheduling, Field Service for technicians, and Helpdesk. Construction firms that schedule crews and equipment across sites get real value from Planning and Gantt. Enterprise pricing is roughly USD 24.90 to 37.40 per user per month at Odoo's US list price; a 40-person software house would license everyone who fills timesheets, so assuming roughly BDT 120 to 125 per USD that is up to around BDT 14 to 22 lakh per year, and usually less at the regional price shown from Bangladesh. Confirm current Bangladesh pricing on odoo.com/pricing and compare plans in the [pricing guide](/pricing-guide#compare).
+
+## Typical implementation steps
+
+1. Decide the billing model per service type: fixed price, time, milestone or retainer. This decision shapes everything; do it during [process design](/implementation-guide#process).
+2. Define a standard set of stages used by every team and a small tag vocabulary.
+3. Create service products with the right invoicing policy and link them to project templates.
+4. Switch on analytic accounting and decide the analytic plan (by project, by client, by site).
+5. Set timesheet rules: daily entry, approval by project manager, lock after month end.
+6. Configure the customer portal and decide what clients can see.
+7. Migrate open projects and tasks, then run a month in parallel with the old tracker.
+
+A services firm with CRM, Sales, Project, Timesheets and Invoicing for 10 to 30 users typically lands in the community-observed BDT 8 to 25 lakh implementation range, with the lower end for little customisation.
+
+## Common mistakes
+
+- Configuring tasks before deciding how the work is billed.
+- Different stage names per team, so company-wide reports fail.
+- Timesheets filled at month end from memory, which clients then dispute.
+- Forgetting the analytic account on purchases, so site cost is incomplete.
+- Treating the project module as a chat tool and never closing tasks.
+
+## Frequently asked questions
+
+### Can Odoo Project bill clients by milestone?
+
+Yes. Set the service product's invoicing policy to milestones, define the milestones on the sales order, and mark each one reached from the project. The invoice then pulls the reached milestones, which suits construction progress billing and fixed-price software projects.
+
+### Does Odoo Project have a Gantt chart?
+
+The Gantt view for tasks and the Planning app for staff shifts are Enterprise features. Community edition has kanban, list, calendar and a basic timeline through community modules.
+
+### How does a construction company track site costs in Odoo?
+
+Each site is a project with an analytic account. Purchase orders for cement, rods and subcontractor bills carry that analytic account, timesheets add labour, and the project profitability report compares cost against progress invoices.
+
+### Can timesheets be filled from a phone?
+
+Yes. The Odoo mobile app and the responsive web interface allow engineers and developers to log hours against tasks, and Enterprise adds a timer and a weekly grid view.
+
+### Is a Jira-style workflow possible for a software team?
+
+Project stages, sub-tasks, tags, sprints through milestones and dependencies cover most agile needs. Teams that need story points and burndown charts typically keep Jira and sync tasks, or accept a simpler setup in Odoo.
+
+## Next step
+
+Use the community [ERP readiness checklist](/resources/erp-checklist) to settle billing models, stages and analytic structure before your first project workshop. Services firms usually arrive here from [CRM](/modules/crm) and [Sales](/modules/sales); read [Odoo for services](/industries/services) for the end-to-end flow. Because project billing lives or dies on the invoice setup, the [accounting functional training](/training/functional/accounting) is the most useful course for a project manager who will own invoicing.

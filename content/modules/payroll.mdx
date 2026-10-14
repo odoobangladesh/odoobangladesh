@@ -1,37 +1,146 @@
 ---
-title: "Odoo Payroll Module"
-description: "What a payroll setup needs from HR and accounting: structures, payslips, and the month-end handoff."
+title: "Odoo Payroll Module in Bangladesh: Salary Rules and Labour Act"
+description: "How Odoo Payroll handles Bangladesh salary rules: festival bonus, provident fund, gratuity, double-rate overtime, tax at source, and the accounting handoff."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Payroll
   - Payroll ERP Bangladesh
   - Odoo ERP Bangladesh
+  - Bangladesh payroll software
+  - Odoo salary rules Bangladesh
+  - festival bonus provident fund Odoo
+  - garments payroll ERP
 related:
   - label: "HR"
     href: "/modules/hr"
   - label: "Accounting"
     href: "/modules/accounting"
+  - label: "Manufacturing"
+    href: "/modules/manufacturing"
   - label: "Odoo for garments"
     href: "/industries/garments"
   - label: "Functional training: HR"
     href: "/training/functional/hr"
-  - label: "Implementation guide — data readiness"
+  - label: "Implementation guide: data readiness"
     href: "/implementation-guide#data"
+faq:
+  - q: "Is there an official Bangladesh payroll localisation for Odoo?"
+    a: "No. Odoo publishes payroll localisations for a limited set of countries and Bangladesh is not among them. The Payroll app ships a generic salary structure, and a partner configures Bangladesh rules such as festival bonus, provident fund, gratuity, overtime and income tax at source as salary rules."
+  - q: "Is Odoo Payroll available in Community edition?"
+    a: "Not from Odoo itself. Payroll is an Enterprise app in Odoo 17 to 19. Community users rely on community-maintained payroll modules or a partner-built module, and should check who will maintain it at each version upgrade."
+  - q: "How is festival bonus configured?"
+    a: "As a salary rule on a separate bonus structure, usually one basic salary paid twice a year before the two Eids, with eligibility by length of service. Run it as a separate payslip batch so the accounting entry and the tax calculation stay clean."
+  - q: "Can Odoo calculate income tax deducted at source on salaries?"
+    a: "Yes, through a Python-coded salary rule that applies the NBR slabs for the current assessment year to taxable income after exemptions, and divides the annual liability by twelve. Slabs change in the June budget, so the rule needs an annual update."
+  - q: "How does payroll reach the accounting ledger?"
+    a: "Each salary rule maps to debit and credit accounts. Confirming a payslip batch posts one journal entry per batch or per employee to the salary journal, with provident fund, tax and other deductions sitting on liability accounts until paid."
 ---
 
-## What it covers
+Odoo Payroll converts a contract and a month of attendance and leave into a payslip and an accounting entry. It is an Enterprise app in Odoo 17 to 19, and it ships with a generic salary structure that knows nothing about Bangladesh. Every local rule, the festival bonus before Eid, the provident fund contribution, gratuity accrual, overtime at double the basic rate under the Labour Act 2006, and income tax deducted at source under the NBR slabs, has to be configured as a salary rule. That is possible and many Bangladesh companies do it, but it is a project, not a checkbox. This page explains what the module does, how the Bangladesh rules are typically modelled, and what has to be true in [HR](/modules/hr) before you start. Odoo releases a new major version every October, so check the current one.
 
-- Salary structures and payslip inputs
-- Attendance or time-off figures that change a payslip
-- Posting payroll results where finance expects them
-- What must be true in employee records before the first test run
+## What the module does
 
-## Implementation notes (Bangladesh)
+- Salary structures and structure types (monthly staff, daily workers, piece-rate).
+- Salary rules with fixed amounts, percentages or Python code, grouped into categories such as basic, allowance, gross, deduction and net.
+- Payslip inputs from attendance, leave and other inputs such as overtime hours, advances and loan instalments.
+- Payslip batches by department or legal entity, with validation and confirmation.
+- Accounting entries per payslip or per batch into a salary journal.
+- Reports: payslip register, contribution summaries and custom bank advice files.
 
-- Do not start payroll until HR owns the employee master
-- Confirm the legal entity’s pay period and who approves changes
-- Treat statutory rules as a scoped configuration, and document every local rule you add
-- Rehearse one full pay cycle before go-live, including the accounting entry
+Payroll reads the employee contract for wage and working schedule, the attendance and leave records for worked and unworked days, and the company calendar for holidays. If any of those are wrong, the payslip is wrong.
 
-## Related reading
+## Key features in Odoo 17 to 19
 
-The [HR module](/modules/hr) is the source of the employee. The [accounting module](/modules/accounting) is where the result has to land.
+Odoo 17 reorganised salary structures around structure types and improved the payslip input lines. Odoo 18 added more flexible work entry types and better batch handling for large headcounts. Odoo 19 continues the same rule engine with interface changes. The parts Bangladesh users rely on most are Python-coded rules, work entry types that distinguish paid leave from unpaid absence, and the ability to run several structures in one month (regular salary, festival bonus, final settlement).
+
+| Element | Typical Bangladesh use |
+|---|---|
+| Structure type | Monthly staff, factory workers on monthly minimum wage, casual daily workers |
+| Work entry types | Attendance, earned leave, sick leave, maternity leave, unpaid absence, public holiday |
+| Other inputs | Overtime hours, salary advance, PF loan instalment, mobile bill, arrears |
+| Rule categories | Basic, house rent, medical, conveyance, gross, PF employee, PF employer, tax, net |
+
+## Bangladesh-specific considerations
+
+### Wage structure
+
+Bangladesh salaries are quoted as gross with a basic component and allowances. In the garments sector the minimum wage gazette fixes basic, house rent at a percentage of basic, medical, conveyance and food allowance for each grade. Configure basic as a contract field and the allowances as rules computed from it. Many offices use a 50 or 60 percent basic ratio; the choice affects provident fund, gratuity and overtime because all three are based on basic.
+
+### Festival bonus
+
+The Labour Rules require two festival bonuses per year for workers with at least one year of service, each not exceeding one month's basic. Many companies pay one basic each before Eid-ul-Fitr and Eid-ul-Azha. Model this as a separate structure run as its own batch a week before each Eid. Eligibility logic (length of service, pro-rata for newer joiners) goes in the rule's Python code.
+
+### Provident fund
+
+Under the Labour Act 2006, section 264, the worker contribution is not less than 7 and not more than 8 percent of basic wages, matched by the employer; most trust deeds settle on 8 percent, so a worker on BDT 8,500 basic contributes BDT 680 and the employer adds BDT 680. The Labour Act amendment effective 17 November 2025 makes a provident fund mandatory for employers with 100 or more permanent workers (previously it was set up only on request by three quarters of the workers), and gives each worker the option to join the Progoti universal pension scheme instead, with the employer matching the flat monthly amount. Payroll therefore needs a per-contract choice between PF and Progoti. Two rules handle this: an employee deduction and an employer contribution that does not reduce net pay but posts to a PF liability account. Fund balances and loan tracking are usually kept outside Odoo or in a small custom module.
+
+### Gratuity
+
+Gratuity under the Labour Act is 30 days' wages per completed year of service (45 days for more than ten years) payable on separation. Odoo does not accrue gratuity by default. Companies either compute it in the final settlement structure or accrue it monthly through a rule that posts an expense and a provision with no effect on the payslip net.
+
+### Overtime at double rate
+
+Overtime is paid at twice the basic hourly rate: basic divided by 208 hours (26 days by 8 hours) times two, per hour. Hours come from Attendances in HR or from a manual input line. Factories should cap overtime hours as the Act limits them, and the payslip should show overtime hours and rate for compliance audits.
+
+### Income tax deducted at source
+
+Employers must withhold income tax on salaries under the NBR slabs for the assessment year, after exemptions for house rent, medical and conveyance allowances up to the prescribed limits. Model this as a Python rule that estimates annual taxable income, applies the slabs, subtracts tax already withheld and divides by the remaining months. The slabs and the tax-free threshold change in the June budget speech, so put the parameters in a configuration record you can update each July rather than hard-coding them. The employer deposits the withheld tax monthly and files the annual salary return; Odoo gives you the figures, not the filing.
+
+### Minimum wage and gazette changes
+
+When the minimum wage board publishes a new gazette, every affected contract changes. Use contract versions, or in Odoo 19 the employee version history, so that payslips before and after the change remain auditable. Arrears for back months are an other-input line.
+
+### Paying salaries by bank and bKash
+
+Most companies pay staff by bank transfer and many pay factory workers by bKash, Nagad or Rocket. Odoo does not ship a Bangladesh bank advice format; a small QWeb or XLSX report produces the bank file and the MFS disbursement sheet. Reconcile the salary payment against the salary payable account in [Accounting](/modules/accounting).
+
+## Community vs Enterprise for payroll
+
+The Payroll app is Enterprise only in Odoo 17 to 19. Community users have three paths: a community-maintained payroll module, a partner's own module, or payroll outside Odoo with a journal entry imported monthly. Each is workable; the question is who maintains the rules when the tax slabs change and when you upgrade. Enterprise at roughly USD 24.90 to 37.40 per user per month at Odoo's US list price (usually lower at the regional price shown on odoo.com/pricing from Bangladesh) applies to HR and finance users, not every employee on the payslip. See the [pricing guide](/pricing-guide#components).
+
+## Typical implementation steps
+
+1. Confirm the employee master is complete in HR: contracts, basic wage, bank or MFS details, joining dates. The [data readiness section](/implementation-guide#data) lists the fields.
+2. Document every pay component and deduction with its formula and legal source.
+3. Build structure types and salary rules; keep tax slabs in a parameter record.
+4. Map each rule to accounts and create the salary journal.
+5. Run a parallel payroll for one or two months against the existing spreadsheet, down to the taka.
+6. Build the bank advice and MFS disbursement reports.
+7. Go live at the start of a month, ideally not the month of a festival bonus.
+
+## Common mistakes
+
+- Starting payroll before HR owns the employee master.
+- Hard-coding tax slabs in rule code and forgetting them after the budget.
+- Running festival bonus inside the regular structure, which muddles tax and accounting.
+- Not reconciling the salary payable account, so unpaid salaries sit there for years.
+- Letting the consultant run the parallel test instead of the payroll officer.
+
+## Frequently asked questions
+
+### Is there an official Bangladesh payroll localisation for Odoo?
+
+No. Odoo publishes payroll localisations for a limited set of countries and Bangladesh is not among them. The Payroll app ships a generic salary structure, and a partner configures Bangladesh rules such as festival bonus, provident fund, gratuity, overtime and income tax at source as salary rules.
+
+### Is Odoo Payroll available in Community edition?
+
+Not from Odoo itself. Payroll is an Enterprise app in Odoo 17 to 19. Community users rely on community-maintained payroll modules or a partner-built module, and should check who will maintain it at each version upgrade.
+
+### How is festival bonus configured?
+
+As a salary rule on a separate bonus structure, usually one basic salary paid twice a year before the two Eids, with eligibility by length of service. Run it as a separate payslip batch so the accounting entry and the tax calculation stay clean.
+
+### Can Odoo calculate income tax deducted at source on salaries?
+
+Yes, through a Python-coded salary rule that applies the NBR slabs for the current assessment year to taxable income after exemptions, and divides the annual liability by twelve. Slabs change in the June budget, so the rule needs an annual update.
+
+### How does payroll reach the accounting ledger?
+
+Each salary rule maps to debit and credit accounts. Confirming a payslip batch posts one journal entry per batch or per employee to the salary journal, with provident fund, tax and other deductions sitting on liability accounts until paid.
+
+## Next step
+
+Before scoping payroll, go through the community [ERP readiness checklist](/resources/erp-checklist); its people and payroll section lists the pay components, statutory rules and data fields you need to document first. Garments factories should also read [Odoo for garments](/industries/garments) for the compliance context, and HR officers can build the needed skills through the [HR functional training](/training/functional/hr).

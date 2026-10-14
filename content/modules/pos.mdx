@@ -1,31 +1,144 @@
 ---
-title: "Odoo Point of Sale (POS) Module"
-description: "Retail POS operations in Odoo: fast billing, multi-branch workflows, inventory sync, and reporting."
+title: "Odoo Point of Sale (POS) in Bangladesh: Offline, MFS and VAT"
+description: "How Odoo POS runs Bangladesh shops through load-shedding with offline mode, bKash and Nagad payments, VAT-inclusive pricing and multi-branch stock control."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo POS
   - Retail ERP Bangladesh
   - Odoo Retail Bangladesh
+  - POS software Bangladesh
+  - Odoo POS offline mode
+  - bKash POS integration
+  - VAT inclusive pricing Odoo
 related:
   - label: "Inventory"
     href: "/modules/inventory"
   - label: "Accounting"
     href: "/modules/accounting"
+  - label: "Sales"
+    href: "/modules/sales"
   - label: "Odoo for retail"
     href: "/industries/retail"
   - label: "Functional training: Point of Sale"
     href: "/training/functional/pos"
-  - label: "Implementation guide"
-    href: "/implementation-guide"
+  - label: "Implementation guide: go-live"
+    href: "/implementation-guide#go-live"
+faq:
+  - q: "Does Odoo POS keep working during load-shedding or an internet cut?"
+    a: "The POS screen keeps selling when the internet drops because it caches products and prices in the browser, then syncs orders when the connection returns. Power is the other half: the till, router and receipt printer need a UPS or an inverter, otherwise the browser session is lost."
+  - q: "Can customers pay with bKash or Nagad at an Odoo POS?"
+    a: "Yes, as a payment method. The cashier records the amount against a bKash or Nagad payment method tied to a dedicated journal and notes the transaction ID. Direct API integration with the MFS merchant platforms is a custom connector, not a built-in feature."
+  - q: "How do we show VAT-inclusive shelf prices?"
+    a: "Set the POS sales tax as included in price and enter product prices as the shelf price. Receipts then show the VAT portion separately, which is what the Mushak 6.3 simplified retail invoice needs."
+  - q: "Is Odoo POS free?"
+    a: "The POS app is in Community edition, and Odoo's One App Free plan covers POS alone on Odoo Online. Adding Inventory or Accounting moves you to a paid plan, so check odoo.com/pricing for current Bangladesh rates."
+  - q: "Can one Odoo database run shops in Dhaka, Chattogram and Sylhet?"
+    a: "Yes. Each shop is a POS configuration linked to its own stock location and cash journal, with shared or branch-specific pricelists, and head office sees consolidated sales and stock."
 ---
 
-## What it covers
+Odoo Point of Sale is a browser-based till that sells from a product catalogue, takes payment, prints a receipt, and posts the session to [Inventory](/modules/inventory) and [Accounting](/modules/accounting). It runs on a laptop, an Android tablet or a cheap Windows mini PC, which is why it fits Bangladesh retail from a single pharmacy in Mirpur to a 12-branch fashion chain. The questions that matter locally are whether it keeps working when the power or the internet drops, how to take bKash and Nagad at the counter, how to price goods VAT-inclusive the way shelves are labelled, and how to run many branches from one database. This page covers Odoo 17 to 19; a new major version arrives each October.
 
-- POS sessions and cash management
-- Multi-store product/pricing setup
-- Integration with inventory and accounting
+## What the module does
 
-## Implementation notes
+- POS sessions with opening and closing cash counts per cashier.
+- Product catalogue with categories, barcodes, variants and images for touch selling.
+- Pricelists, discounts, promotions and loyalty programmes.
+- Payment methods: cash, bank card via terminal, and custom methods such as MFS wallets.
+- Receipts, customer invoices on request, and returns and refunds.
+- Restaurant mode: floor plans, tables, kitchen printing and bill splitting.
+- Stock deduction from the shop location on each order, with low stock visibility.
+- Session closing that posts sales, VAT and payments into the ledger.
+- Reporting by product, cashier, branch, hour and payment method.
 
-- Confirm offline/online requirements
-- Define cashier roles and permissions
-- Standardize product barcodes and price rules
+## Key features in Odoo 17 to 19
+
+Odoo 17 rebuilt the POS front end on OWL with a faster screen and a new self-ordering option for restaurants. Odoo 18 added a cleaner closing control and better offline resilience. Odoo 19 continues the same architecture with refinements to combos and the preparation display. Features Bangladesh retailers use most:
+
+| Feature | Community | Enterprise |
+|---|---|---|
+| Core selling, sessions, receipts | Yes | Yes |
+| Offline selling with later sync | Yes | Yes |
+| Restaurant floor and kitchen display | Yes | Yes |
+| Loyalty, gift cards, eWallet | Yes | Yes |
+| Card terminal integrations (Adyen, Stripe, others) | Limited | Yes, but few terminals are available in Bangladesh |
+| Self-ordering kiosk and QR menu | No | Yes |
+| Multi-branch reporting | Yes | Yes |
+
+## Bangladesh-specific considerations
+
+### Load-shedding and connectivity
+
+Power cuts are routine in many areas and broadband drops with them. Odoo POS caches the catalogue and pricelist in the browser; once a session is open it continues to ring up sales without internet, storing orders locally and syncing when the link returns. It cannot open a new session or load a changed pricelist while offline, so open sessions before the morning rush. Power is the real risk: a sudden cut closes the browser and unsynced orders in a crashed browser can be lost. A small online UPS of 600 to 1,000 VA at BDT 5,000 to 12,000 keeps a mini PC, router and thermal printer alive long enough to sync, and a solar or IPS backup covers longer outages. Treat this as part of the implementation budget, not an afterthought.
+
+### bKash, Nagad, Rocket and cards
+
+Mobile financial services are the second payment method after cash in most shops. Create a payment method per wallet, each linked to a bank-type journal, so the day's bKash sales can be reconciled against the merchant statement with transaction IDs. Card terminals from local banks are usually standalone; the cashier keys the amount into the terminal and records the payment in Odoo as a card payment. Direct integration with bKash or Nagad merchant APIs is possible as a custom connector and is worth it only at high transaction volumes.
+
+### VAT-inclusive pricing and the retail Mushak
+
+Retail shelf prices include VAT, and NBR expects a tax invoice for retail sales, with an electronic fiscal device (EFD) mandated for certain categories of shops in city areas. Configure the 15 percent VAT as price-inclusive on the POS, enter prices as shelf prices, and let the receipt show the VAT portion. For the Mushak 6.3 layout on receipts you need your BIN, the VAT amount and a running serial; a receipt template customisation handles this. Where an EFD is mandated, the EFD is a separate NBR-registered device and Odoo does not replace it; many shops run both and reconcile daily. Reduced VAT rates apply to some goods and restaurants, so check the current schedule with your VAT consultant.
+
+### Multi-branch chains
+
+A fashion retailer with branches in Bashundhara City, Jamuna Future Park and GEC Circle in Chattogram runs one database with one POS configuration per branch, each with its own stock location, cash journal and cashiers. Pricelists can be shared or branch-specific for clearance stock. Inter-branch transfers go through Inventory, and head office reads consolidated sales by branch and hour. The [retail industry page](/industries/retail) walks through this setup.
+
+### Hardware
+
+Budget receipt printers (58 mm and 80 mm thermal) and barcode scanners are available in Dhaka at BDT 5,000 to 15,000 each. Odoo prints receipts through the browser or through the IoT Box; the browser route is cheaper and works for most shops. Cash drawers trigger from the printer. Bangla product names print correctly once a Unicode font is installed on the server.
+
+### Data and privacy
+
+Customer phone numbers collected for loyalty are sensitive. Limit export rights and decide whether the database is hosted in Bangladesh or abroad.
+
+## Community vs Enterprise for POS
+
+The POS app is in Community, including restaurant mode, loyalty and offline selling. Enterprise adds self-ordering kiosks, more payment terminal integrations and the IoT Box support that matters mainly for scales and certain printers. For most Bangladesh shops Community POS plus Inventory and Invoicing is enough. Multi-branch chains that also want full Enterprise Accounting pay roughly USD 24.90 to 37.40 per user per month at Odoo's US list price (usually less at the regional price shown from Bangladesh), where a user is a named back-office person, not each cashier login on a shared till. Confirm Bangladesh pricing on odoo.com/pricing and read the [pricing guide](/pricing-guide#components).
+
+## Typical implementation steps
+
+1. Clean the product master: barcodes, VAT-inclusive prices, categories for the touch screen.
+2. Define payment methods and the journal behind each one.
+3. Configure a POS per branch with its stock location and receipt template.
+4. Set cashier roles, discount limits and manager approvals.
+5. Install hardware and test printing, scanning and the UPS switchover.
+6. Load opening stock per branch after a count.
+7. Run a soft launch on one till for a week, then follow the [go-live guidance](/implementation-guide#go-live) for the rest.
+
+A single shop with POS, Inventory and Invoicing typically falls at the low end of the community-observed BDT 3 to 8 lakh range for a small SME.
+
+## Common mistakes
+
+- No UPS, so the browser dies with the power and the sync queue dies with it.
+- Entering prices VAT-exclusive while shelves show VAT-inclusive, giving customers two different totals.
+- One payment method called "mobile banking" for every wallet, which makes reconciliation impossible.
+- Shared cashier logins, so shrinkage cannot be traced.
+- Opening sessions after the shop opens, when the internet may already be down.
+
+## Frequently asked questions
+
+### Does Odoo POS keep working during load-shedding or an internet cut?
+
+The POS screen keeps selling when the internet drops because it caches products and prices in the browser, then syncs orders when the connection returns. Power is the other half: the till, router and receipt printer need a UPS or an inverter, otherwise the browser session is lost.
+
+### Can customers pay with bKash or Nagad at an Odoo POS?
+
+Yes, as a payment method. The cashier records the amount against a bKash or Nagad payment method tied to a dedicated journal and notes the transaction ID. Direct API integration with the MFS merchant platforms is a custom connector, not a built-in feature.
+
+### How do we show VAT-inclusive shelf prices?
+
+Set the POS sales tax as included in price and enter product prices as the shelf price. Receipts then show the VAT portion separately, which is what the Mushak 6.3 simplified retail invoice needs.
+
+### Is Odoo POS free?
+
+The POS app is in Community edition, and Odoo's One App Free plan covers POS alone on Odoo Online. Adding Inventory or Accounting moves you to a paid plan, so check odoo.com/pricing for current Bangladesh rates.
+
+### Can one Odoo database run shops in Dhaka, Chattogram and Sylhet?
+
+Yes. Each shop is a POS configuration linked to its own stock location and cash journal, with shared or branch-specific pricelists, and head office sees consolidated sales and stock.
+
+## Next step
+
+Download the community [ERP readiness checklist](/resources/erp-checklist) and use its retail section to list products, payment methods, branches and hardware before you configure a till. Read [Odoo for retail](/industries/retail) for the multi-branch picture, and the [POS functional training](/training/functional/pos) if your floor managers will run sessions themselves. Wholesale and B2B orders belong in the [sales module](/modules/sales) rather than the POS.

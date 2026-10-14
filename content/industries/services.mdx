@@ -1,31 +1,131 @@
 ---
-title: "Odoo for Services Companies in Bangladesh"
-description: "Service workflows in Odoo: projects, timesheets, invoicing, CRM, and reporting."
+title: "Odoo for Services Companies in Bangladesh: Projects and Billing"
+description: "How Bangladeshi IT, consulting and agency firms use Odoo 17 to 19 for timesheets, retainers, project profitability, VDS on client bills and USD export income."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Services ERP Bangladesh
   - Odoo Project Bangladesh
   - Odoo ERP Bangladesh
+  - IT company ERP Bangladesh
+  - consulting firm timesheet software
+  - project profitability Odoo
+  - software export invoicing Bangladesh
 related:
-  - label: "CRM"
+  - label: "CRM module"
     href: "/modules/crm"
-  - label: "Sales"
+  - label: "Sales module"
     href: "/modules/sales"
-  - label: "Project"
+  - label: "Project module"
     href: "/modules/project"
-  - label: "Accounting"
+  - label: "Accounting module"
     href: "/modules/accounting"
+  - label: "HR module"
+    href: "/modules/hr"
   - label: "Odoo vs Dynamics 365"
     href: "/comparisons/odoo-vs-microsoft-dynamics-365"
   - label: "ERP readiness checklist"
     href: "/resources/erp-checklist"
+faq:
+  - q: "Can Odoo bill clients from timesheets?"
+    a: "Yes. In Odoo 17 to 19 a sales order line for a service product can be invoiced on timesheets, on milestones or on a fixed price. Timesheets logged against the project task feed the invoice automatically, with approved hours only if you enable validation."
+  - q: "How do we handle monthly retainers in Odoo?"
+    a: "Use a recurring sales order through the Subscriptions app (Enterprise) or a fixed-price service product invoiced monthly. Hours consumed against the retainer are tracked in timesheets and reported against the sold quantity."
+  - q: "How does VDS work when a Bangladeshi client pays our invoice?"
+    a: "Local clients deduct VAT at source and income tax at source from service invoices and pay the net. Odoo records the deductions as separate journal items at payment time, so the receivable clears and the withholding certificates can be reconciled later."
+  - q: "Can Odoo invoice foreign clients in USD?"
+    a: "Yes. Multi-currency is standard. Export of services is zero-rated for VAT, and the bank realisation certificate and any cash incentive are tracked in Accounting with custom fields or a dedicated analytic tag."
+  - q: "What does a services firm rollout cost in Bangladesh?"
+    a: "A 5 to 20 user firm using CRM, Sales, Project and Accounting typically lands in the community-observed BDT 3 to 8 lakh range, or BDT 8 to 25 lakh if HR, payroll and reporting customisation are added. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are ranges, not quotes."
 ---
 
-## Typical goals
+Odoo 17 to 19 fit a Bangladeshi services company whose core question is whether each project and client is profitable. CRM, Sales, Project and Accounting give you a single flow from lead to quotation to project to invoice, with timesheets feeding time-and-materials billing, milestones feeding fixed-price billing, and retainers tracked against hours consumed. Project profitability compares billed revenue with timesheet cost and expenses in real time. Bangladesh specifics are handled in Accounting: VDS and income tax deducted at source by local clients, 15 percent VAT with Mushak 6.3 invoicing on local services, zero-rated export invoices in USD for foreign clients, and Labour Act rules in payroll. This page covers IT firms, consultancies, agencies, architecture practices and similar.
 
-- Better project visibility and delivery tracking
-- Timesheet-based billing (where relevant)
-- Sales pipeline → delivery → invoicing consistency
+## Industry context in Bangladesh
 
-## Common modules
+Services in Bangladesh range from software exporters in Dhaka and Chattogram serving clients in North America, Europe and the Gulf, to management and audit consultancies, advertising and digital agencies, engineering and architecture practices, law firms, and the business process outsourcing sector. Teams run from 5 to a few hundred people, most of whom are billable or partly billable.
 
-- CRM, Sales, Project, Accounting (Timesheets if needed)
+The commercial model is a mix of fixed-price projects, time-and-materials contracts billed monthly, and retainers. Local clients deduct VAT at source (VDS) and income tax at source from invoices and issue withholding certificates, so the amount received is never the invoice amount. Foreign clients pay in USD through bank wires or platforms, and the firm must track bank realisation and apply for any export cash incentive. VAT on local services is 15 percent with a Mushak 6.3 invoice and a monthly Mushak 9.1 return. Payroll follows the Labour Act 2006 for festival bonus, provident fund and gratuity, with income tax at source on salaries. The fiscal year is July to June.
+
+The typical stack is a CRM or spreadsheet for leads, a project tool such as Jira or Trello, a separate timesheet tool, and Tally or an accountant's Excel for the books. The owner usually cannot tell which clients lose money until the year closes.
+
+## Pain points Odoo is usually asked to solve
+
+- Quotations and project scope live in email, so change requests are delivered free.
+- Timesheets are collected in a separate tool and never reconciled with what was invoiced.
+- Retainer hours are not tracked, so over-servicing is normal.
+- Receivables do not match invoices because VDS and tax at source are recorded late or not at all.
+- Export income in USD is tracked in a separate sheet for the bank and the incentive application.
+- Utilisation per consultant and margin per project are unknown.
+
+## Module map
+
+| Module | Why it matters for a Bangladeshi services firm |
+|---|---|
+| [CRM](/modules/crm) | Lead pipeline by source and service line, follow-up activities, win rate by sector, quotation handoff. |
+| [Sales](/modules/sales) | Quotations with service products billed by timesheet, milestone or fixed price; retainers as recurring orders; USD and BDT pricelists. |
+| [Project](/modules/project) | Projects created from confirmed orders, tasks and milestones, timesheets per task, project profitability dashboard. |
+| [Accounting](/modules/accounting) | Customer invoices with 15 percent VAT or zero-rated export, VDS and TDS on receipt, Mushak 6.3 layout, Mushak 9.1 data, multi-currency, expenses re-billed to clients. |
+| [HR](/modules/hr) and [Payroll](/modules/payroll) | Employee records, leave, attendance, utilisation, payroll with provident fund, gratuity, festival bonus and income tax at source. |
+| Timesheets (Enterprise) | Weekly grid entry, mobile app, validation by manager, billable versus non-billable analysis. |
+
+Four to five modules in release one is typical. Payroll is often phase two, after timesheets are habitual.
+
+## A worked example: a Dhaka software exporter
+
+Consider a hypothetical 45-person software company in Dhaka's Banani area with 30 engineers, two foreign clients on monthly time-and-materials contracts, one foreign client on a fixed-price build, and four local clients on retainers for support. The founders want to know project margin monthly and stop losing money on retainers. A plausible Odoo 17 to 19 setup follows.
+
+**Pipeline and quotation.** A lead from a referral is qualified in CRM and converted to a quotation. For the fixed-price build the quotation has three milestone lines totalling USD 60,000. For a local retainer the quotation has a monthly service line of BDT 3 lakh covering 80 hours, with extra hours at BDT 4,500 each.
+
+**Projects and timesheets.** Confirming each order creates a project. Engineers log time daily against tasks from the Timesheets app; managers validate weekly. The retainer project shows 92 hours consumed against 80 sold by the third week, which triggers a conversation with the client rather than a surprise.
+
+**Invoicing.** The time-and-materials clients are invoiced monthly in USD from validated timesheets. The fixed-price client is invoiced when each milestone is marked reached. The retainer client is invoiced BDT 3 lakh plus 15 percent VAT on a Mushak 6.3 invoice, with a second line for 12 extra hours.
+
+**Collection.** The retainer client pays BDT 2.9 lakh after deducting VDS and income tax at source; the accountant records the withholding as separate items so the invoice is fully reconciled and the certificates can be matched later. The USD wires are recorded in a USD bank journal with the realisation reference, and an analytic tag collects export income for the incentive application.
+
+**Payroll and costing.** Monthly payroll runs with provident fund, income tax at source and festival bonus provisions. Employee cost per hour feeds timesheet cost, so the project profitability report shows revenue, timesheet cost, expenses and margin per project. The founders see that one retainer runs at a loss and reprice it at renewal.
+
+Values are illustrative. A consultancy would add expense re-billing for travel; an agency would add vendor costs for media and printing against each campaign project.
+
+## Implementation checklist
+
+- Define your service products and billing methods first: timesheet, milestone, fixed price, retainer. Everything else depends on this.
+- Decide whether timesheets are mandatory and validated. Unvalidated timesheets produce invoices clients dispute.
+- Set employee cost rates in HR so project profitability is meaningful from day one.
+- Configure VAT at 15 percent and Mushak 6.3 for local clients and a zero-rated fiscal position for export clients.
+- Agree the VDS and tax-at-source recording method with your accountant: deduction at payment registration with separate accounts.
+- Set up USD and BDT journals, exchange rate updates, and the realisation tracking fields for export income.
+- Model retainers as recurring orders with sold hours, and report consumed versus sold monthly.
+- Pilot with one team and two clients for a month. See the [implementation guide](/implementation-guide#process) for sequencing.
+- Plan payroll as phase two unless your HR data is already clean; the [HR training](/training/functional/hr) track covers Labour Act rules.
+- Choose hosting with client confidentiality in mind; foreign clients may ask where their project data sits.
+
+If you are comparing Odoo with a Microsoft-based stack, the [Odoo vs Dynamics 365 comparison](/comparisons/odoo-vs-microsoft-dynamics-365) looks at licence cost and partner availability in Bangladesh.
+
+## Frequently asked questions
+
+### Can Odoo bill clients from timesheets?
+
+Yes. In Odoo 17 to 19 a sales order line for a service product can be invoiced on timesheets, on milestones or on a fixed price. Timesheets logged against the project task feed the invoice automatically, with approved hours only if you enable validation.
+
+### How do we handle monthly retainers in Odoo?
+
+Use a recurring sales order through the Subscriptions app (Enterprise) or a fixed-price service product invoiced monthly. Hours consumed against the retainer are tracked in timesheets and reported against the sold quantity.
+
+### How does VDS work when a Bangladeshi client pays our invoice?
+
+Local clients deduct VAT at source and income tax at source from service invoices and pay the net. Odoo records the deductions as separate journal items at payment time, so the receivable clears and the withholding certificates can be reconciled later.
+
+### Can Odoo invoice foreign clients in USD?
+
+Yes. Multi-currency is standard. Export of services is zero-rated for VAT, and the bank realisation certificate and any cash incentive are tracked in Accounting with custom fields or a dedicated analytic tag.
+
+### What does a services firm rollout cost in Bangladesh?
+
+A 5 to 20 user firm using CRM, Sales, Project and Accounting typically lands in the community-observed BDT 3 to 8 lakh range, or BDT 8 to 25 lakh if HR, payroll and reporting customisation are added. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month, at most about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD. Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. These are ranges, not quotes.
+
+## Next step
+
+Fill in the [ERP readiness checklist](/resources/erp-checklist) with your delivery lead and your accountant. The billing method per service line and the VDS recording method are the two decisions that make or break a services rollout, and both belong on paper before any demo. Odoo releases a new major version every October, so check the current version and its support window.

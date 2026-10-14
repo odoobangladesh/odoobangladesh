@@ -1,22 +1,152 @@
 ---
-title: "Free ERP Readiness Checklist (Bangladesh)"
-description: "A community checklist to prepare for ERP implementation: scope, data, processes, timeline, training, and change management."
+title: "Free ERP Readiness Checklist for Bangladesh Businesses"
+description: "A printable 60-point ERP readiness checklist for Bangladeshi firms: readiness, process mapping, data, partner evaluation, budget and go-live, plus usage tips."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
 keywords:
   - ERP checklist Bangladesh
   - Odoo implementation Bangladesh
   - Odoo ERP Bangladesh
+  - ERP readiness assessment
+  - ERP vendor evaluation Bangladesh
+  - Odoo go-live checklist
+related:
+  - label: "Implementation Guide"
+    href: "/implementation-guide"
+  - label: "Odoo Pricing Guide"
+    href: "/pricing-guide"
+  - label: "Odoo Implementation Cost in Bangladesh"
+    href: "/odoo-implementation-cost-bangladesh"
+  - label: "Odoo Partners in Bangladesh"
+    href: "/odoo-partners-bangladesh"
+  - label: "Odoo Accounting module"
+    href: "/modules/accounting"
+  - label: "SME industry guide"
+    href: "/industries/sme"
+faq:
+  - q: "Who should fill in this checklist?"
+    a: "The owner or managing director together with the head of accounts, the store or warehouse lead and one person from HR. Do it in one two-hour sitting, then revisit the open items a week later."
+  - q: "How many items should be ticked before we talk to a partner?"
+    a: "There is no pass mark, but if fewer than half of the readiness and data items are ticked, spend a month on those first. Clean data and a named internal owner lower both the cost and the risk of any ERP project."
+  - q: "Does this checklist apply to ERP systems other than Odoo?"
+    a: "Yes. The readiness, process, data and budget sections apply to any ERP. The partner evaluation section includes Odoo-specific questions about edition, localisation and upgrades, which you can adapt for ERPNext or others."
+  - q: "Can we get this as a printable file?"
+    a: "The full list is on this page so you can print it from the browser or copy it into a spreadsheet. A downloadable version is sent to newsletter subscribers when the community updates it."
 ---
 
-## Quick checklist
+This checklist helps a Bangladeshi company decide whether it is ready for an ERP such as Odoo, and what to fix before signing with a partner. It has sixty items in six groups: readiness, process mapping, data, vendor and partner evaluation, budget, and go-live. Print it, tick what is true today, and use the gaps as your preparation plan. It is written for Odoo 17 to 19 but most items apply to any ERP. It is maintained by the community and is free to use and share.
 
-- Define scope and success metrics
-- Map current processes (as-is) and target process (to-be)
-- Identify master data owners and cleanup plan
-- Decide integrations (accounting, eCommerce, logistics, etc.)
-- Set training plan for end users and admins
-- Prepare UAT and go-live checklist
+## How to use this checklist
 
-## Want feedback?
+Work through it in one sitting with the people who actually run the business: the owner, the head of accounts, the warehouse or store lead, and HR. Tick an item only if it is true now, not if you plan to do it. An honest "no" is more useful than a hopeful "yes".
 
-Use the inquiry form to request a free assessment call.
+Then count. The readiness and data groups predict project risk more than any other. If most of those items are unticked, you are not ready to buy, and any partner quote you receive will be inaccurate because the partner cannot see the state of your data either.
 
+Use the budget group alongside the [implementation cost page](/odoo-implementation-cost-bangladesh) and the [pricing guide](/pricing-guide#components), and the partner group when interviewing candidates from the [partners directory](/odoo-partners-bangladesh). The go-live group belongs to the last phase of the [implementation guide](/implementation-guide#go-live).
+
+## 1. Readiness and ownership
+
+- [ ] A single named owner inside the company is accountable for the ERP project, with time formally freed up for it
+- [ ] The managing director or owner has personally agreed to use the system's reports rather than parallel Excel sheets after go-live
+- [ ] The trigger for the project is written down in one sentence (audit finding, buyer compliance, new branch, month-end chaos)
+- [ ] Three measurable success criteria are defined, for example month-end close in 5 working days, stock accuracy above 95 percent, Mushak 9.1 filed from the system
+- [ ] Department heads for accounts, sales, store and HR have each been told what changes for them and have raised their concerns
+- [ ] You have decided whether to start with a pilot of 2 or 3 apps or a full rollout, and why
+- [ ] Someone in the team can read and write English well enough to work with Odoo's interface and documentation, or Bangla labels and reports are in scope from day one
+- [ ] Internet connectivity and power backup at each location that will use the system have been checked, including UPS for POS and warehouse stations
+
+## 2. Process mapping
+
+- [ ] The current order-to-cash flow is drawn step by step: enquiry, quotation, order, delivery, invoice, payment
+- [ ] The current procure-to-pay flow is drawn: requisition, RFQ, purchase order, goods receipt, vendor bill, payment, including LC steps for imports
+- [ ] Approval limits are written down: who can approve a purchase, a discount, a credit sale, a salary advance
+- [ ] Every point where paper changes hands (gate pass, challan, requisition slip) is listed and marked as keep, digitise or remove
+- [ ] Stock locations are listed: warehouses, floors, bonded areas, consignment stock at customers, goods in transit
+- [ ] Manufacturing steps, if any, are listed with inputs, outputs, scrap and subcontracted operations
+- [ ] Payroll components are listed: basic, house rent, medical, conveyance, overtime at double rate, festival bonus, provident fund, gratuity, tax deduction
+- [ ] VAT touchpoints are listed: which sales need a Mushak 6.3 invoice, which purchases carry input VAT, where VDS and TDS apply
+- [ ] The processes you want to change have been separated from the processes you want to keep, so the partner does not configure bad habits into the new system
+
+## 3. Data readiness
+
+- [ ] A single product or item list exists with unique codes, units of measure and categories, and duplicates have been removed
+- [ ] Customer master data has one record per customer with correct name, address, BIN or TIN where applicable, credit terms and contact person
+- [ ] Supplier master data has the same, with bank details and withholding status
+- [ ] The chart of accounts is finalised and mapped to how you report to management, the auditor and NBR
+- [ ] Opening balances are agreed for a cut-over date that falls at a month end, ideally 1 July to match the fiscal year
+- [ ] Physical stock count is scheduled near the cut-over date and the counting team is named
+- [ ] Open sales orders, open purchase orders and unpaid invoices on the cut-over date are listed and reconciled
+- [ ] Employee master data is complete: joining date, designation, grade, salary structure, leave balances, provident fund opening balance
+- [ ] Historical data to migrate is decided: opening balances only, one fiscal year, or everything, with the cost difference understood
+- [ ] A data owner is named per master data set and signs off before load
+- [ ] Bank, bKash, Nagad and Rocket accounts to be reconciled in the system are listed with who holds access
+
+## 4. Vendor and partner evaluation
+
+- [ ] You have asked at least three candidates: local partners, freelancers or a mix, and compared them on the same written scope
+- [ ] Each candidate has stated which Odoo versions they support today and how they handle the October upgrade cycle
+- [ ] Each candidate has shown a working VAT localisation: Mushak 6.3 layout, Mushak 9.1 data, VDS and TDS on bills
+- [ ] Each candidate has shown payroll rules that follow the Bangladesh Labour Act 2006, or has explained what is missing
+- [ ] Each candidate has explained Community versus Enterprise for your scope, with pros and cons, rather than pushing one
+- [ ] References from two Bangladeshi companies of similar size have been spoken to by phone, not only read
+- [ ] The proposal lists named team members, their roles and their availability during your project
+- [ ] The proposal states what happens if the lead consultant leaves mid-project
+- [ ] Deliverables are itemised: configuration document, test scripts, training material, user manual in English or Bangla
+- [ ] Support after go-live is defined: hours, response time, hourly rate, annual maintenance percentage
+- [ ] Ownership of custom code and your data export rights are written in the contract
+- [ ] Hosting location, backup schedule and who holds server access are agreed in writing
+
+## 5. Budget
+
+- [ ] The budget is split into licences, implementation, customisation, data migration, hosting, training, support and a change request reserve
+- [ ] Licence cost has been checked on odoo.com/pricing for the current year and converted at a stated BDT rate with a range
+- [ ] Your budget sits inside the community-observed ranges for your size, or you understand why it does not
+- [ ] 15 percent VAT on partner services is included and the quote is marked inclusive or exclusive
+- [ ] VDS and TDS deductions on partner payments are understood by your accounts team
+- [ ] A reserve of 10 to 20 percent of the implementation fee is set aside for change requests in year one
+- [ ] Internal staff time for data cleanup, testing and training is estimated in person-days
+- [ ] Hardware is costed: barcode scanners, POS terminals, printers, UPS units, network upgrades
+- [ ] Three-year total cost of ownership is calculated, including recurring licences and support, not only year one
+- [ ] Payment milestones are tied to deliverables (discovery sign-off, configuration complete, UAT passed, go-live) rather than to dates
+
+## 6. UAT and go-live
+
+- [ ] Test scripts exist for every mapped process, with real Bangladeshi data (a real product, a real customer, a real month's payroll)
+- [ ] End users, not only managers, have run the test scripts and signed them
+- [ ] At least one full month-end close has been simulated in the test system, including the VAT return figures
+- [ ] Role-based training has been delivered and attendance recorded, with a second session scheduled for absentees
+- [ ] User accounts and access rights are set per role, and the admin password is held by the company, not only the partner
+- [ ] Backup and restore has been tested once before go-live, not only configured
+- [ ] The go-live date is at a month start, staff leave is blocked for the two weeks around it, and it avoids Eid and the fiscal year-end rush unless cut-over is deliberately 1 July
+- [ ] A parallel run or fallback plan is agreed: how long the old system stays available and who decides to roll back
+- [ ] Hypercare support is scheduled: the partner is on site or on call daily for the first two weeks
+- [ ] A review meeting is booked for 30 days after go-live to list change requests and decide phase two
+
+## What to do with the gaps
+
+Group your unticked items by section. Readiness and data gaps are yours to fix before buying. Process gaps are best fixed together with a partner during discovery, as described in the [process section of the implementation guide](/implementation-guide#process). Budget gaps mean rework the numbers before issuing an RFP. Go-live gaps are expected early on; they become the plan for the last phase.
+
+Revisit the checklist at each milestone. A company that ticks most of the data section before kick-off typically finishes faster and spends less, because the partner is configuring rather than cleaning.
+
+## Frequently asked questions
+
+### Who should fill in this checklist?
+
+The owner or managing director together with the head of accounts, the store or warehouse lead and one person from HR. Do it in one two-hour sitting, then revisit the open items a week later.
+
+### How many items should be ticked before we talk to a partner?
+
+There is no pass mark, but if fewer than half of the readiness and data items are ticked, spend a month on those first. Clean data and a named internal owner lower both the cost and the risk of any ERP project.
+
+### Does this checklist apply to ERP systems other than Odoo?
+
+Yes. The readiness, process, data and budget sections apply to any ERP. The partner evaluation section includes Odoo-specific questions about edition, localisation and upgrades, which you can adapt for ERPNext or others.
+
+### Can we get this as a printable file?
+
+The full list is on this page so you can print it from the browser or copy it into a spreadsheet. A downloadable version is sent to newsletter subscribers when the community updates it.
+
+## Next step
+
+If you have worked through the list and want a second opinion on the gaps, [request a consultation](/contact) and a community volunteer or a listed partner can review it with you. Bring the ticked checklist; it makes the conversation specific.

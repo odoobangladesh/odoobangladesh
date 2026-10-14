@@ -1,10 +1,18 @@
 ---
-title: "Odoo vs Microsoft Dynamics 365 (Bangladesh)"
-description: "A neutral comparison for teams evaluating Odoo vs Microsoft Dynamics 365 in Bangladesh: fit, complexity, customization, and rollout approach."
+title: "Odoo vs Microsoft Dynamics 365 in Bangladesh: A Fair Comparison"
+description: "Odoo vs Microsoft Dynamics 365 Business Central for Bangladesh: licensing, hosting, VAT and Mushak localisation, customisation, partners and total cost in BDT."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo vs Dynamics 365
   - ERP comparison Bangladesh
   - Best ERP in Bangladesh
+  - Dynamics 365 Business Central Bangladesh
+  - Odoo vs Business Central
+  - ERP software price Bangladesh
+  - Microsoft ERP Bangladesh
 related:
   - label: "Accounting"
     href: "/modules/accounting"
@@ -22,16 +30,140 @@ related:
     href: "/implementation-guide"
   - label: "ERP readiness checklist"
     href: "/resources/erp-checklist"
+  - label: "Odoo pricing in Bangladesh"
+    href: "/odoo-pricing-bangladesh"
+faq:
+  - q: "Which Dynamics 365 product should I compare with Odoo?"
+    a: "Dynamics 365 Business Central. It is Microsoft's ERP for small and mid-size companies and is the product local partners propose against Odoo. Finance and Operations is for large enterprises and is a different price class and project size."
+  - q: "Is Dynamics 365 cheaper than Odoo Enterprise?"
+    a: "Usually not. Business Central is licensed per named user per month at prices published by Microsoft, and the full-access tiers cost more per seat than Odoo Enterprise's US list price of USD 24.90 to 37.40 (the regional price shown from Bangladesh is usually lower). Odoo Community is free. Confirm current prices with a local Microsoft partner and on odoo.com/pricing."
+  - q: "Does either system support Bangladesh VAT and Mushak forms out of the box?"
+    a: "Partly, and only on the Odoo side. Odoo 17 to 19 ship an official l10n_bd package with a Bangladesh chart of accounts and VAT rates up to 15 percent (check the default, which the template sets to 10 percent). Mushak 6.3 invoices, the 9.1 return and VDS/TDS still come from community modules, partner add-ons or custom reports in Odoo. Microsoft publishes no Bangladesh localisation; Business Central partners build Mushak 6.3 invoices, VDS/TDS and the 9.1 return as extensions. Ask any partner to demonstrate a working Mushak 9.1 before you sign."
+  - q: "Can I host Dynamics 365 in Bangladesh for data residency?"
+    a: "Business Central is primarily a cloud service hosted in Microsoft regions outside Bangladesh. On-premises deployment exists but is less common and partner dependent. Odoo Community and Enterprise can be self-hosted in a Bangladesh data centre or on a local VPS."
+  - q: "Which is easier to find staff for in Bangladesh?"
+    a: "Odoo. The local pool of Odoo functional consultants and Python developers is larger and training batches run regularly. Business Central skills exist mainly inside a few Microsoft partners, so you depend more on the partner for changes."
 ---
 
-## Quick summary
+For most Bangladeshi companies with 5 to 200 users, Odoo is the more practical choice over Microsoft Dynamics 365 Business Central: it costs less per seat, can be hosted inside Bangladesh, has a larger local talent pool, and its open source Community edition removes licence cost entirely. Dynamics 365 Business Central is the better fit when your organisation already runs on Microsoft 365, Power BI and Azure, when a parent company or auditor expects a Microsoft stack, or when you want a vendor-managed cloud with a long support horizon and a partner who takes full responsibility. This page compares Odoo 17 to 19 with Business Central, with Bangladesh specifics on VAT, hosting, partners and cost.
 
-- **Odoo** can be a strong fit for modular rollouts and customization-friendly workflows.
-- **Dynamics 365** may fit organizations already aligned with Microsoft ecosystems and larger enterprise processes.
+## Direct verdict
 
-## Compare on these dimensions
+Choose Odoo if you want control: self-hosting, source code access, a pay-as-you-grow model and the ability to hire developers locally. Choose Business Central if you want conformity: a mainstream Microsoft product that your group CFO, external auditors and multinational customers recognise, tight Excel and Outlook integration, and a partner who owns the whole project from licensing to support.
 
-- Process complexity and required integrations
-- Implementation timeline and change management
-- Total cost: implementation + training + support
-- Local talent and long-term maintainability
+Be clear about which Dynamics product you are comparing. Microsoft sells two ERPs under the Dynamics 365 name. Business Central is for small and mid-size businesses and is the product that competes with Odoo. Finance and Supply Chain Management (formerly Finance and Operations) is a large-enterprise system with a far higher price class and project size, and it is rarely the right comparison for a company considering Odoo. This page uses Business Central throughout.
+
+## Side-by-side table
+
+| Dimension | Odoo (17 to 19) | Dynamics 365 Business Central |
+|---|---|---|
+| Licensing | Community free (LGPL); Enterprise about USD 24.90 to 37.40 per user per month at Odoo's US list price; a lower regional price usually shows on odoo.com/pricing from Bangladesh | Per named user per month, published by Microsoft in tiers (Essentials, Premium, Team Member); confirm with a local partner |
+| Hosting | Self-host in Bangladesh, Odoo Online (SaaS) or Odoo.sh | Microsoft cloud by default in regions outside Bangladesh; on-premises possible but uncommon |
+| Localisation for Bangladesh | Official l10n_bd chart of accounts and VAT rates in core (default tax is 10 percent, set it to 15); Mushak 6.3 and 9.1, VDS/TDS and Bangla reports via community modules or partner add-ons | No official Bangladesh localisation; partners build extensions for VAT, Mushak and withholding |
+| Modules | 80 plus apps: accounting, sales, CRM, inventory, MRP, POS, HR, payroll, eCommerce, helpdesk, field service | Finance, sales, purchasing, inventory, projects, service, basic manufacturing (Premium); CRM and HR via other Dynamics products or add-ons |
+| Customisation | Python, ORM, OWL front end, Studio (Enterprise) no-code | AL language extensions, Power Platform (Power Apps, Power Automate), AppSource add-ons |
+| Partner ecosystem in Bangladesh | Several partners, many freelancers, regular training batches | A few certified Microsoft partners, skills concentrated inside them, limited freelance market |
+| Typical total cost range (community-observed) | Small SME BDT 3 to 8 lakh; mid-size BDT 8 to 25 lakh; manufacturing BDT 25 lakh to 1 crore plus, plus Enterprise licences if used | Implementation often BDT 15 lakh to 1 crore plus for the same scope, plus recurring per-user licences; confirm with a partner |
+| Best fit | SMEs, distributors, manufacturers, retail and service firms that want control and low seat cost | Subsidiaries of multinationals, Microsoft-standardised groups, firms that want a single accountable vendor stack |
+
+Implementation ranges are community-observed for Bangladesh and are not quotes. Business Central figures reflect what local projects tend to cost in partner proposals and should be verified case by case.
+
+## Pricing model
+
+Odoo offers two routes. Odoo Community is free and self-hosted. Odoo Enterprise is subscription per user per month, at Odoo's US list price with yearly billing roughly USD 24.90 on the Standard plan and USD 37.40 on the Custom plan, with One App Free at zero cost. Odoo prices by region and changes prices yearly, usually between January and April; buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so confirm there. Assuming roughly BDT 120 to 125 per USD and the US price, 25 Standard users cost at most about BDT 75,000 to 78,000 per month, or up to roughly BDT 9 to 9.4 lakh per year. All Enterprise apps are included at that price; you do not pay per app on the Standard and Custom plans. The [pricing guide](/pricing-guide#components) and the [Odoo pricing in Bangladesh](/odoo-pricing-bangladesh) page cover the full cost stack.
+
+Business Central is licensed per named user per month, in tiers published by Microsoft. Essentials covers finance, sales, purchasing, inventory and projects. Premium adds manufacturing and service management. Team Member is a low-cost, read-mostly licence for staff who only approve, look up or enter timesheets. Licences are sold through a Microsoft Cloud Solution Provider partner in Bangladesh, often bundled with implementation and support. Microsoft adjusts prices periodically and local partners may quote in USD or BDT, so confirm the current rate with a partner rather than relying on any figure you read online. This page does not quote exact Business Central prices because they are not verified for Bangladesh at the time of writing; what is well established is that the full-access tiers cost more per seat than Odoo Enterprise's published rates, and that Odoo Community costs nothing per seat.
+
+The structural difference matters more than the headline rate. With Odoo, a 60-person company can put 15 users on Enterprise for finance and management while 45 warehouse and shop floor staff work through POS, barcode or portal access without a full seat, or the whole company runs on Community at zero licence cost. With Business Central, every person who touches the system needs some licence, and the Team Member tier limits what they can do. Over five years, a 40-user Business Central deployment in Bangladesh typically pays more in licences alone than a comparable Odoo Enterprise deployment, and far more than Odoo Community.
+
+Implementation is where Business Central projects grow. Microsoft partners in Bangladesh run structured methodologies with certified consultants, and day rates are higher than the Odoo market. A finance-and-trading implementation for 20 users is commonly proposed in the BDT 15 to 40 lakh range, and manufacturing projects run higher. Comparable Odoo projects land at BDT 8 to 25 lakh for mid-size scope, as described in the [implementation cost page](/odoo-implementation-cost-bangladesh).
+
+## Localisation for Bangladesh
+
+Microsoft publishes no Bangladesh localisation for Business Central. Odoo S.A. does ship one in core: Odoo 17, 18 and 19 include `l10n_bd` ("Bangladesh - Accounting") with a chart of accounts of about 135 accounts, sale and purchase VAT taxes at 0, 2, 4.5, 5, 7.5, 10 and 15 percent plus zero-rated export and exempt, a Bangladesh tax report grouped by rate, and the districts as states. It does not include Mushak layouts, the 9.1 return, VDS/TDS or Bangla translations, and it sets the default tax to 10 percent, which the implementer must change to 15. So in both cases the partner still builds or adapts the NBR-facing pieces. The checklist is the same for both:
+
+- 15 percent standard VAT with reduced, zero and exempt rates mapped to product and service categories.
+- Mushak 6.3 tax invoice printed from the sales document with BIN, VAT breakdown and the required declarations.
+- Mushak 6.1 and 6.2 purchase and sales registers, exportable for the monthly filing.
+- Mushak 9.1 return summary generated from the registers. Since the Finance Act 2026 (FY2026-27) the return may be filed monthly or quarterly (covering three tax periods), due within 15 days of the end of the period; monthly filing remains available.
+- VDS and TDS withholding on supplier bills with certificate printing.
+- July to June fiscal year with period and year-end locks.
+- Bangla-language invoices, delivery challans and payslips where front-line staff need them.
+
+In Odoo, the chart of accounts and VAT rates come from l10n_bd, and most of the rest exist as community modules and custom QWeb reports that local partners reuse across projects, so localisation is normally BDT 50,000 to 2 lakh of work and a few weeks. The [accounting module page](/modules/accounting) has the detail, and the [Odoo accounting in Bangladesh](/odoo-accounting-bangladesh) page explains the setup for NBR.
+
+In Business Central, localisation is built as AL extensions. Microsoft ships official localisations for many countries but not Bangladesh, so the partner uses a base (often the international W1 version) and adds the VAT structure, Mushak formats and withholding. Some Bangladesh partners have a reusable extension; others build per project. Ask for a demonstration of a Mushak 9.1 summary and a VDS certificate before you sign, and ask who maintains the extension when Microsoft pushes its twice-yearly release wave, because extensions must be kept compatible.
+
+Payments and banking: bKash, Nagad and Rocket integrations are freelancer-built for Odoo and partner-built for Business Central; neither vendor offers them natively. Bank statement import for BRAC, City, Eastern or DBBL is CSV-based in both, since Bangladeshi banks rarely expose APIs. Business Central's bank reconciliation UI is mature; Odoo's is mature in Enterprise and basic in Community.
+
+Payroll under the Bangladesh Labour Act 2006 (festival bonuses, gratuity, provident fund, overtime at double the basic rate) is handled in Odoo through the Enterprise payroll app or OCA modules. Business Central has no native payroll; Bangladesh partners usually pair it with a local payroll product or build an extension. See the [payroll module](/modules/payroll) for what the Odoo side looks like.
+
+Hosting and data residency: Odoo can run in a Bangladesh data centre, on a local VPS, or in Singapore. Business Central is primarily a Microsoft-hosted service in regions outside Bangladesh. For most private companies this is acceptable, but if a regulator, a government contract or a bank partner requires data to stay in Bangladesh, Business Central on-premises is possible yet less common and more expensive, and Odoo self-hosting is the simpler route.
+
+## Implementation and partner ecosystem
+
+Odoo's ecosystem in Bangladesh is wide and uneven. There are several partners, many freelancers and regular [training batches](/training), which means competitive pricing and the ability to switch providers, but also variable quality. The community advice is to check references, insist on a written scope and run UAT properly; the [implementation guide](/implementation-guide#uat) explains how. Day rates for experienced Odoo consultants in Dhaka sit roughly in the BDT 8,000 to 15,000 per person-day range.
+
+Business Central's ecosystem in Bangladesh is narrow and structured. A small number of certified Microsoft partners handle most projects, with trained consultants, documented methodology and formal support agreements. Quality is more consistent, pricing is higher, and switching partners mid-life is harder because AL extensions and licences are tied to the partner relationship. If the partner is good, this is a strength. If not, you have fewer exits.
+
+Project timelines are similar for a given scope: 10 to 16 weeks for a 15 to 25 user finance, sales and inventory rollout, and 6 to 12 months for manufacturing with integrations. Business Central projects spend more time on licensing, tenant setup and Microsoft 365 integration; Odoo projects spend more time on choosing and testing community modules.
+
+Integration tells a clear story. If your company lives in Outlook, Excel, Teams, SharePoint and Power BI, Business Central connects to all of them natively, and Power Automate can wire approvals without code. Odoo integrates with Microsoft 365 through connectors for calendar and mail, but Excel-style analysis is done inside Odoo's own reporting or exported. If your company lives in Google Workspace, WhatsApp and bKash, Odoo's [CRM](/modules/crm) and [sales](/modules/sales) apps with WhatsApp integration fit better than Business Central, which needs Dynamics 365 Sales or a third-party CRM for pipeline management.
+
+Upgrades: Odoo ships a major version every October; Enterprise customers get vendor upgrade services, Community users rely on partners. Business Central on cloud updates automatically twice a year, which keeps you current but means every extension must be tested on Microsoft's schedule.
+
+## Who should pick which
+
+Pick Odoo when:
+
+- You are an [SME](/industries/sme) or a [service firm](/industries/services) with 5 to 100 users and want seat cost near zero or at most Odoo Enterprise rates.
+- You need data hosted in Bangladesh or want full control of the server.
+- You want one stack for CRM, sales, accounting, inventory, HR, POS, website and helpdesk without buying separate Dynamics products.
+- You want to hire or train staff locally and avoid depending on a single partner.
+- You run retail or manufacturing where Odoo's POS, MRP and quality apps are included rather than add-ons.
+
+Pick Business Central when:
+
+- You are a subsidiary of a multinational that standardises on Microsoft, or your group consolidates in Dynamics or Power BI.
+- Your users are already deep in Microsoft 365 and Excel-driven finance workflows.
+- You want a single accountable vendor and partner chain with formal SLAs and are willing to pay for it.
+- Your auditors, lenders or customers expect a globally recognised ERP brand.
+- Your processes are stable and standard, and you do not expect heavy customisation after go-live.
+
+A hypothetical example: a Dhaka pharmaceutical distributor with 30 users, five depots and a bKash collection flow is usually better on Odoo, because the warehouse, route sales and mobile money pieces exist in the Odoo ecosystem and the seat cost is manageable. A Chattogram EPZ subsidiary of a Japanese manufacturer that reports monthly to a head office running Dynamics is usually better on Business Central, because consolidation, intercompany and audit expectations are already set by the parent.
+
+## Migration considerations
+
+Moving from Business Central to Odoo, or the reverse, is a new implementation with data migration. Master data moves well in both directions: chart of accounts, customers, vendors, items, price lists, fixed assets and opening balances. Open transactions (unpaid invoices and bills, open orders, stock on hand by location) should be migrated at cutover. Historical transactions are better left in a read-only archive.
+
+Choose a 1 July cutover so that the new system owns a full NBR fiscal year and Mushak 9.1 returns come from one database. Export the Mushak 6.1 and 6.2 registers, VDS and TDS ledgers and fixed asset registers from the old system first, because audits can reach back several years.
+
+Customisation does not transfer. AL extensions become Odoo modules; Odoo QWeb reports become Business Central report layouts. Power Automate flows become Odoo automated actions or server actions. Budget each as new work and prioritise by what the business actually uses.
+
+Licensing transitions are simpler from Business Central to Odoo (cancel the subscription at renewal) than the other way, where you commit to per-user licences before go-live. If you are moving from Odoo Community to Business Central, expect a long conversation about which users need Essentials versus Team Member licences, and model that cost over five years before deciding. The [data migration section](/implementation-guide#data) covers cleansing and load order.
+
+## Frequently asked questions
+
+### Which Dynamics 365 product should I compare with Odoo?
+
+Dynamics 365 Business Central. It is Microsoft's ERP for small and mid-size companies and is the product local partners propose against Odoo. Finance and Operations is for large enterprises and is a different price class and project size.
+
+### Is Dynamics 365 cheaper than Odoo Enterprise?
+
+Usually not. Business Central is licensed per named user per month at prices published by Microsoft, and the full-access tiers cost more per seat than Odoo Enterprise's US list price of USD 24.90 to 37.40 (the regional price shown from Bangladesh is usually lower). Odoo Community is free. Confirm current prices with a local Microsoft partner and on odoo.com/pricing.
+
+### Does either system support Bangladesh VAT and Mushak forms out of the box?
+
+Partly, and only on the Odoo side. Odoo 17 to 19 ship an official l10n_bd package with a Bangladesh chart of accounts and VAT rates up to 15 percent (check the default, which the template sets to 10 percent). Mushak 6.3 invoices, the 9.1 return and VDS/TDS still come from community modules, partner add-ons or custom reports in Odoo. Microsoft publishes no Bangladesh localisation; Business Central partners build Mushak 6.3 invoices, VDS/TDS and the 9.1 return as extensions. Ask any partner to demonstrate a working Mushak 9.1 before you sign.
+
+### Can I host Dynamics 365 in Bangladesh for data residency?
+
+Business Central is primarily a cloud service hosted in Microsoft regions outside Bangladesh. On-premises deployment exists but is less common and partner dependent. Odoo Community and Enterprise can be self-hosted in a Bangladesh data centre or on a local VPS.
+
+### Which is easier to find staff for in Bangladesh?
+
+Odoo. The local pool of Odoo functional consultants and Python developers is larger and training batches run regularly. Business Central skills exist mainly inside a few Microsoft partners, so you depend more on the partner for changes.
+
+## Next step
+
+If you are weighing Odoo against Business Central, the useful next conversation is about your user mix, your Microsoft footprint and your compliance needs, not about feature lists. [Talk to a specialist](/contact) from the community, and work through the [ERP readiness checklist](/resources/erp-checklist) first so the discussion starts from your must-have workflows.

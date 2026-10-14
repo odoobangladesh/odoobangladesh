@@ -1,31 +1,143 @@
 ---
-title: "Odoo Sales Module"
-description: "Sales pipeline to quotation to order: pricing, discounts, approvals, and reporting in Odoo Sales."
+title: "Odoo Sales Module in Bangladesh: Quotes, Dealers and VAT Invoices"
+description: "How Odoo Sales takes a Bangladesh business from quotation to order to Mushak invoice, with pricelists, dealer credit limits, approvals and WhatsApp follow-up."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Sales
   - Odoo ERP Bangladesh
   - Sales ERP Bangladesh
+  - Odoo quotation
+  - dealer management software Bangladesh
+  - Odoo pricelist
+  - Odoo credit limit
 related:
   - label: "CRM"
     href: "/modules/crm"
   - label: "Inventory"
     href: "/modules/inventory"
+  - label: "Accounting"
+    href: "/modules/accounting"
   - label: "Odoo for distribution"
     href: "/industries/distribution"
+  - label: "Odoo for SMEs"
+    href: "/industries/sme"
   - label: "Functional training: Accounting"
     href: "/training/functional/accounting"
-  - label: "Implementation guide"
-    href: "/implementation-guide"
+  - label: "Implementation guide: configuration"
+    href: "/implementation-guide#configuration"
+faq:
+  - q: "Can Odoo Sales block orders for dealers who exceed their credit limit?"
+    a: "Yes. Odoo 17 and later have partner credit limits in Sales and Accounting settings. When a dealer's receivable plus open orders exceeds the limit, the order shows a warning and can be blocked from confirmation until a manager overrides it."
+  - q: "How do quotations get sent over WhatsApp?"
+    a: "The quotation PDF can be downloaded and shared by hand from any edition. Enterprise in Odoo 17 and later adds a WhatsApp app that sends templated messages with the quotation attached and logs replies on the order."
+  - q: "Does the invoice from a sales order meet Mushak 6.3 requirements?"
+    a: "Only after customisation. The standard invoice carries VAT per line and totals, but the Mushak 6.3 layout needs the BIN, the form title, HS codes and a prescribed serial, which a partner adds to the invoice report or through a Mushak app."
+  - q: "Can salespeople give discounts without approval?"
+    a: "Community edition lets you hide the discount field from salespeople or allow it freely. Discount limits that trigger approval need a small customisation or an OCA module, and Enterprise Sales does not add this on its own."
+  - q: "Is Odoo Sales free?"
+    a: "The Sales app is in Community edition at no licence cost, and the One App Free plan covers Sales alone on Odoo Online. Adding Inventory or Accounting moves you to a paid per-user plan; check odoo.com/pricing for Bangladesh rates."
 ---
 
-## What it covers
+Odoo Sales turns a quotation into a confirmed sales order, triggers the delivery in [Inventory](/modules/inventory) and produces the invoice in [Accounting](/modules/accounting). It carries pricelists, discounts, payment terms, taxes and the handover from the pipeline in [CRM](/modules/crm). For Bangladesh companies the questions are practical: how to manage dealer credit across districts, how to issue a VAT invoice that satisfies NBR, how to run quotations through WhatsApp, and how to keep salespeople from discounting away the margin. This page covers Odoo 17 to 19; Odoo releases a new major version every October, so confirm which one your partner proposes.
 
-- Quotations and sales orders
-- Pricelists, discounts, and approvals
-- Delivery + invoicing flow (with Inventory/Accounting)
+## What the module does
 
-## Implementation notes
+- Quotations with templates, optional products, validity dates and online acceptance by the customer.
+- Sales orders that reserve stock and create delivery orders.
+- Pricelists by customer group, quantity break or currency, with date ranges.
+- Discounts per line, global discounts and promotion programmes.
+- Payment terms and down payments.
+- Invoicing policy per product: on ordered quantities or on delivered quantities.
+- Customer credit limits with warning or block on confirmation.
+- Sales teams, targets and commission-ready reporting by salesperson, product, region and month.
+- Customer portal for order status and documents.
 
-- Define discount and approval rules early
-- Align sales reports with management needs
-- Confirm handoffs between sales → warehouse → finance
+## Key features in Odoo 17 to 19
+
+Odoo 17 added partner credit limits, a redesigned quotation builder and the WhatsApp app for Enterprise. Odoo 18 improved pricelist rules and the product catalogue popup for fast order entry. Odoo 19 continues the same model with interface refinements and better margin visibility per order line.
+
+| Feature | Community | Enterprise |
+|---|---|---|
+| Quotations, orders, pricelists, discounts | Yes | Yes |
+| Credit limits | Yes (17 and later) | Yes |
+| Online quotation acceptance | Yes | Yes, with Sign for formal contracts |
+| WhatsApp app | No | Yes |
+| Subscriptions and rentals | No | Yes |
+| Amazon and marketplace connectors | No | Yes (not relevant for most Bangladesh sellers) |
+| Margin on order lines | Yes | Yes |
+
+## Bangladesh-specific considerations
+
+### Dealer networks and credit control
+
+Consider a hypothetical electronics distributor in Dhaka selling fans and LED lights through 300 dealers across the country. Each dealer is a company partner with a credit limit in BDT, a payment term (often 30 days or cheque on delivery), and a pricelist by tier (platinum, gold, silver). The territory sales officer enters orders from the dealer's WhatsApp message on a phone. The credit limit check warns when a Bogura dealer with BDT 4 lakh outstanding places a BDT 2 lakh order against a BDT 5 lakh limit, and a manager decides. Delivery goes by courier or own truck through Inventory, and the invoice posts the 15 percent VAT. Post-dated cheques, which are common in dealer trade, are recorded as payments on a PDC journal and moved to the bank on clearing. The [distribution industry page](/industries/distribution) walks through this end to end.
+
+### WhatsApp-led selling
+
+Most quotations in Bangladesh go out as a PDF on WhatsApp, not as an email with a portal link. In Community, the salesperson downloads the quotation and sends it from a phone; the order's chatter should record that it was sent. In Enterprise on Odoo 17 and later, the WhatsApp app sends a templated message with the PDF and logs the reply. Either way, agree a rule that the quotation number appears in the WhatsApp message so payments and queries can be matched later.
+
+### VAT invoices and Mushak 6.3
+
+Every sale to a VAT-registered customer needs a Mushak 6.3 tax invoice. Set the 15 percent VAT as price-exclusive on B2B pricelists and price-inclusive on retail ones, so the same product can serve both. Customise the invoice report, or install a Mushak app, to carry BIN, the Mushak 6.3 heading, HS codes, VAT per line and the serial format NBR expects. Reduced VAT rates apply to some goods and services; use a fiscal position for customers in bonded or export zones where VAT is zero-rated. The details live on the [accounting module page](/modules/accounting).
+
+### Approvals and discount control
+
+Salespeople in competitive trades discount to close. In Community you can hide the discount field, allow it, or add a module that routes orders with discounts above a threshold to a manager. Decide the rule before go-live; the [configuration guidance](/implementation-guide#configuration) explains why late decisions cost more than early ones.
+
+### Exports
+
+Garments exporters and software firms invoice foreign buyers in USD or EUR. Multi-currency pricelists and a zero-rated export fiscal position handle this. For garments the sales order often mirrors the buyer's purchase order with style, size and colour breakdown; variants or a line per size are both common. See the [SME industry page](/industries/sme) for a smaller trading example and [Odoo for garments](/industries/garments) for export flows.
+
+## Community vs Enterprise for sales
+
+Community Sales is complete for quotation to order to invoice, including credit limits from Odoo 17. Enterprise adds WhatsApp, electronic signature on quotations, subscriptions for recurring billing and rentals. A distributor with 20 users on Community plus a discount-approval module is a common setup; a company selling annual service contracts benefits from Subscriptions. Enterprise pricing is roughly USD 24.90 to 37.40 per user per month at Odoo's US list price; assuming roughly BDT 120 to 125 per USD, 20 users cost up to about BDT 7 to 11 lakh per year, and usually less at the regional price shown from Bangladesh. Confirm Bangladesh pricing on odoo.com/pricing and compare editions in the [pricing guide](/pricing-guide#compare).
+
+## Typical implementation steps
+
+1. Define customer categories and pricelists, including who may see cost and margin.
+2. Set discount rules and approval thresholds.
+3. Configure payment terms, credit limits and the PDC journal.
+4. Set taxes per product category and fiscal positions for export and bonded customers.
+5. Build quotation templates for your top product bundles.
+6. Customise the invoice layout for Mushak 6.3 and the delivery challan.
+7. Import customers and open orders, then train sales officers on phone entry.
+8. Run the sales, warehouse and finance handoffs in a one-week pilot before full go-live.
+
+A trading SME with Sales, Inventory, Purchase and Invoicing for 5 to 10 users falls in the community-observed BDT 3 to 8 lakh range; dealer-heavy distributors with credit workflows move into the BDT 8 to 25 lakh band.
+
+## Common mistakes
+
+- Setting credit limits after go-live, when dealers already have large balances.
+- One pricelist for everyone and discounts typed by hand on every line.
+- Invoicing on ordered quantity when deliveries are partial, which produces disputes.
+- No fiscal position for exports, so USD invoices carry 15 percent VAT.
+- Salespeople creating duplicate customers from WhatsApp names instead of trade licence names.
+
+## Frequently asked questions
+
+### Can Odoo Sales block orders for dealers who exceed their credit limit?
+
+Yes. Odoo 17 and later have partner credit limits in Sales and Accounting settings. When a dealer's receivable plus open orders exceeds the limit, the order shows a warning and can be blocked from confirmation until a manager overrides it.
+
+### How do quotations get sent over WhatsApp?
+
+The quotation PDF can be downloaded and shared by hand from any edition. Enterprise in Odoo 17 and later adds a WhatsApp app that sends templated messages with the quotation attached and logs replies on the order.
+
+### Does the invoice from a sales order meet Mushak 6.3 requirements?
+
+Only after customisation. The standard invoice carries VAT per line and totals, but the Mushak 6.3 layout needs the BIN, the form title, HS codes and a prescribed serial, which a partner adds to the invoice report or through a Mushak app.
+
+### Can salespeople give discounts without approval?
+
+Community edition lets you hide the discount field from salespeople or allow it freely. Discount limits that trigger approval need a small customisation or an OCA module, and Enterprise Sales does not add this on its own.
+
+### Is Odoo Sales free?
+
+The Sales app is in Community edition at no licence cost, and the One App Free plan covers Sales alone on Odoo Online. Adding Inventory or Accounting moves you to a paid per-user plan; check odoo.com/pricing for Bangladesh rates.
+
+## Next step
+
+Work through the community [ERP readiness checklist](/resources/erp-checklist) before configuring Sales; its customer and pricing sections ask about dealer tiers, credit terms and VAT setup. The pipeline that feeds Sales is on the [CRM page](/modules/crm), and because the invoice is where sales setup succeeds or fails, the [accounting functional training](/training/functional/accounting) is the most useful course for a sales administrator.

@@ -1,35 +1,108 @@
 ---
-title: "Odoo Functional Training: Manufacturing"
-description: "Functional topics for Odoo Manufacturing: bills of materials, work orders, costing, and shop-floor flow."
+title: "Odoo Manufacturing Functional Training in Bangladesh: Guide"
+description: "What Odoo Manufacturing functional training covers for Bangladesh factories: BOMs, work centres, work orders, subcontracting and production costing in BDT."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Functional Training
   - Odoo Manufacturing
   - Odoo Training Bangladesh
+  - Odoo MRP course Bangladesh
+  - Odoo bill of materials training
+  - Odoo garments factory ERP training
 related:
-  - label: "Manufacturing module"
-    href: "/modules/manufacturing"
-  - label: "Inventory module"
-    href: "/modules/inventory"
-  - label: "Odoo for manufacturing"
-    href: "/industries/manufacturing"
-  - label: "Odoo for garments"
-    href: "/industries/garments"
-  - label: "Implementation guide"
-    href: "/implementation-guide"
+  - label: "Previous topic: Inventory"
+    href: "/training/functional/inventory"
+  - label: "Next topic: HR"
+    href: "/training/functional/hr"
   - label: "Functional syllabus"
     href: "/resources/functional-syllabus"
+  - label: "Manufacturing module"
+    href: "/modules/manufacturing"
+  - label: "Odoo for garments"
+    href: "/industries/garments"
+faq:
+  - q: "Do I need factory experience to take the Manufacturing topic?"
+    a: "It helps but is not required. You need the Inventory topic first. The batch walks through a hypothetical Gazipur factory so you learn the vocabulary of BOMs, routings and work orders from the data itself."
+  - q: "What is the difference between Community and Enterprise for manufacturing?"
+    a: "Community has bills of materials and manufacturing orders. Work centres, work orders, routings, PLM, quality and maintenance are Enterprise features in Odoo 17 to 19. The training uses Enterprise for the shop-floor sessions."
+  - q: "Can Odoo handle garments subcontracting and bonded raw materials?"
+    a: "Yes. The subcontracting route sends components to a subcontractor and receives finished goods back. Bonded fabric and accessories can be tracked in a separate location so the bond register can be reconciled with Odoo quantities."
+  - q: "How is production cost calculated?"
+    a: "Component cost at the costing method you chose in Inventory, plus work centre cost per hour from the recorded work order time. The cost analysis report on each manufacturing order shows the breakdown in BDT."
 ---
 
-This topic page is a learning checklist for functional consultants focusing on **Manufacturing**.
+Odoo Manufacturing functional training teaches you to model a Bangladeshi factory on Odoo 17 to 19: multi-level bills of materials with versions, work centres with hourly costs in BDT, routings and work orders, subcontracting to a sister unit, component consumption and finished goods receipt, and the production cost report an owner will compare against the quotation. It is the third topic in the functional track and depends on [Inventory](/training/functional/inventory), because every manufacturing order is a set of stock moves with accounting behind it. The practice data is a hypothetical Gazipur factory, because that is where many of the implementations in Bangladesh happen.
 
-## Learning checklist
+## Learning outcomes
 
-- Bills of materials and versions
-- Work centers, routings, and work orders
-- Component consumption and finished-goods receipt
-- Production costing and the handoff to inventory
-- What to confirm before a shop-floor go-live
+By the end of this topic you should be able to:
 
-## Practice
+- Build a two or three level bill of materials with by-products, scrap percentages and alternative components.
+- Set up work centres with capacity, efficiency, hourly cost and working hours that reflect a two-shift factory.
+- Create routings (operations on the BOM) and run work orders on a tablet from the shop floor.
+- Plan manufacturing orders from sales demand or reordering rules and read the master production schedule.
+- Use the subcontracting route for washing, printing or embroidery done by an outside unit.
+- Explain the cost of a finished product: components, labour, overhead, and where each number comes from.
+- Define what a factory must check before a shop-floor go-live and write that into a UAT script.
 
-Build a two-level bill of materials, complete one work order, and check that components left stock and the finished product arrived.
+## Prerequisites
+
+Complete the [Inventory](/training/functional/inventory) topic. Read the [Manufacturing module](/modules/manufacturing) page. You should understand how stock valuation posts to accounting from the [Accounting](/training/functional/accounting) topic, otherwise the costing session will be hard to follow.
+
+## Syllabus outline
+
+| Session | Topic | Exercise |
+|---|---|---|
+| 1 | Manufacturing settings, product setup, BOM structure | Create a two-level BOM for a finished garment |
+| 2 | BOM versions, variants, by-products, scrap | Add a second version and compare the two |
+| 3 | Work centres: capacity, costs, shifts, alternative work centres | Set up cutting, sewing, finishing and packing |
+| 4 | Routings, work orders, tablet view, time tracking | Run one order through all four operations |
+| 5 | Manufacturing orders: planning, availability, backorders, unbuild | Plan 1,000 pieces and split into two orders |
+| 6 | Subcontracting, bonded materials, consignment | Send 500 pieces for washing and receive them back |
+| 7 | Production costing, cost analysis, overhead, WIP accounting | Reconcile one order cost with the quotation |
+| 8 | Reports, OEE, shop-floor go-live checklist, UAT | Write the go-live checklist for one line |
+
+## Practice exercises
+
+**Exercise 1: Gazipur knitwear factory BOM.** Consider a Gazipur knitwear factory with 400 workers that makes a basic men's polo shirt. Build the BOM for one piece, size L, colour navy: 0.32 kg of pique fabric, 1 collar, 3 buttons, 1 main label, 1 care label, 1 polybag, 25 grams of sewing thread, with a 3 percent scrap rate on fabric. Add a second-level BOM for the collar, made from 0.05 kg of rib fabric. Create the four work centres (cutting, sewing, finishing, packing) with hourly costs of BDT 180, 220, 160 and 120 respectively. Add operations with standard times of 2, 9, 3 and 1 minutes per piece. Then create a manufacturing order for 1,000 pieces and check the component demand and the planned duration.
+
+**Exercise 2: Two versions of the same BOM.** The merchandiser substitutes the collar with a bought-in collar from a Narayanganj supplier at BDT 12 per piece. Create version 2 of the BOM, keep version 1 archived, and compare the planned cost of both versions.
+
+**Exercise 3: Subcontracted washing.** The factory sends finished polo shirts to a sister unit in Savar for enzyme wash at BDT 18 per piece. Set up the subcontractor partner, the subcontracting BOM and the resupply route. Send 500 pieces, receive 490 back, and account for the 10 pieces lost in the wash.
+
+**Exercise 4: Production cost against quotation.** The buyer's price is USD 3.20 FOB per piece. Assuming roughly BDT 120 to 125 per USD, run the cost analysis on the completed order and show whether the factory made money on this style before overhead.
+
+**Exercise 5: Shop-floor readiness.** Write a 15-point checklist that a Gazipur factory must satisfy before the first live manufacturing order: tablets charged, work centre operators trained, scrap reasons configured, BOM signed off by the merchandiser, and a plan for when the internet drops.
+
+## Recommended order
+
+The previous topic is [Inventory](/training/functional/inventory). The next topic is [HR](/training/functional/hr), where you move from products to people: the same factory needs employee records, shifts and attendance before anyone can discuss payroll.
+
+## Where it leads
+
+Manufacturing is the highest-value functional specialisation in Bangladesh, because garments, textiles, pharmaceuticals, plastics and food processing all need MRP and few consultants can configure it well. The [career guide functional track](/odoo-career-guide#functional) notes that manufacturing projects run longer and pay more. The [garments industry page](/industries/garments) describes the BGMEA, EPZ and bonded warehouse context that comes up in nearly every factory project.
+
+## Frequently asked questions
+
+### Do I need factory experience to take the Manufacturing topic?
+
+It helps but is not required. You need the Inventory topic first. The batch walks through a hypothetical Gazipur factory so you learn the vocabulary of BOMs, routings and work orders from the data itself.
+
+### What is the difference between Community and Enterprise for manufacturing?
+
+Community has bills of materials and manufacturing orders. Work centres, work orders, routings, PLM, quality and maintenance are Enterprise features in Odoo 17 to 19. The training uses Enterprise for the shop-floor sessions.
+
+### Can Odoo handle garments subcontracting and bonded raw materials?
+
+Yes. The subcontracting route sends components to a subcontractor and receives finished goods back. Bonded fabric and accessories can be tracked in a separate location so the bond register can be reconciled with Odoo quantities.
+
+### How is production cost calculated?
+
+Component cost at the costing method you chose in Inventory, plus work centre cost per hour from the recorded work order time. The cost analysis report on each manufacturing order shows the breakdown in BDT.
+
+## Next step
+
+Read the [functional syllabus](/resources/functional-syllabus) for the full programme and check the [training page](/training) for the next batch. Confirm the Odoo version your batch uses; a new major version arrives every October.

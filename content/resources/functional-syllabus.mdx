@@ -1,33 +1,122 @@
 ---
-title: "Odoo Functional Training Syllabus (Download)"
-description: "A community syllabus outline for Odoo Functional training: modules, consulting skills, UAT, and implementation basics."
+title: "Odoo Functional Training Syllabus for Bangladesh (Odoo 17 to 19)"
+description: "Session-by-session Odoo functional training syllabus for Bangladesh: accounting, inventory, manufacturing, HR, POS, with prerequisites, format and assessment."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Functional Training
   - Odoo Training Bangladesh
   - Learn Odoo Bangladesh
+  - Odoo functional consultant course Dhaka
+  - Odoo accounting training Bangladesh
+  - Odoo ERP course syllabus
+related:
+  - label: "Functional training track"
+    href: "/training/functional"
+  - label: "Functional: Accounting"
+    href: "/training/functional/accounting"
+  - label: "Functional: Inventory"
+    href: "/training/functional/inventory"
+  - label: "Functional: Manufacturing"
+    href: "/training/functional/manufacturing"
+  - label: "Functional: HR and Payroll"
+    href: "/training/functional/hr"
+  - label: "Functional: Point of Sale"
+    href: "/training/functional/pos"
+  - label: "Odoo Career Guide"
+    href: "/odoo-career-guide"
+faq:
+  - q: "Do I need an accounting or IT background for the functional track?"
+    a: "No formal degree is required. Comfort with spreadsheets and basic bookkeeping terms (debit, credit, VAT, stock) is enough. BBA, CA-inter and commerce graduates find the accounting sessions easiest; others catch up with the pre-reading."
+  - q: "Which Odoo version does the syllabus use?"
+    a: "Sessions run on Odoo 17 to 19 depending on the batch. Concepts carry across these versions; where a screen differs, the trainer points it out. Odoo releases a new major version every October, so check the batch notice."
+  - q: "Is the training online or in person?"
+    a: "Both formats are typical. Evening batches run online two or three times a week; weekend batches are often held in person in Dhaka. The session content is the same in either format."
+  - q: "What does the assessment involve?"
+    a: "A short quiz after each module block, one graded practical per track, and a final capstone where you configure a hypothetical Bangladeshi company end to end and present it. Attendance of 80 percent is required for a certificate."
 ---
 
-This is a syllabus outline page. If you want a PDF download later, we can generate a downloadable file and link it here.
+This page sets out the full session plan for the community's Odoo functional training track, covering five modules in order: accounting, inventory, manufacturing, HR and payroll, and point of sale. It is built for Odoo 17 to 19 and for Bangladesh practice: 15 percent VAT, Mushak 6.3 and 9.1, VDS and TDS, the July to June fiscal year, Bangladesh Labour Act 2006 payroll rules, and bKash, Nagad and Rocket at the till. Use it to decide whether the track fits you, to prepare before a batch, or to self-study using the exercises.
 
-## Modules (typical)
+## Who this track is for
 
-- Sales, CRM
-- Purchase, Inventory
-- Accounting
-- Manufacturing (overview)
-- HR/Payroll (overview)
-- POS (overview)
-- Project
+The functional track trains people who will configure Odoo, map business processes onto it, and support users. Typical participants are accountants, store and supply chain staff, HR officers, fresh BBA or commerce graduates, and small business owners who want to run their own implementation. It does not teach programming; for that, see the [technical syllabus](/resources/technical-syllabus).
 
-## Consulting skills
+## Prerequisites
 
-- Process mapping + requirement discovery
-- Scope control and documentation
-- UAT planning and scripts
-- End-user training planning
+- Basic bookkeeping literacy: you know what a debit, a credit, a trial balance and VAT are
+- Spreadsheet skills: sorting, filtering, simple formulas, importing CSV
+- Working English for the Odoo interface; Bangla is used freely in class
+- A laptop with a modern browser and a stable connection; a trial Odoo database is provided for each participant
 
-## Next steps
+No prior Odoo experience is assumed.
 
-- Explore `/training/functional`
-- Book a free consultation via `/contact`
+## Format
 
+Batches are typically offered in two patterns: evening sessions of two hours, two or three times a week over 10 to 12 weeks, or weekend sessions of four hours on Fridays or Saturdays over about 12 weeks. Both are run online, and weekend batches are often also offered in person in Dhaka. Each session mixes a short demonstration, hands-on configuration on your own database, and a Bangladesh-flavoured exercise. Prices are set per batch by the organiser and published on the [training page](/training); this syllabus does not fix them.
+
+## Session table
+
+| Session | Topic | Learning outcomes | Exercise |
+|---|---|---|---|
+| 1 | Orientation and ERP basics | Explain what an ERP is, navigate Odoo 17 to 19, understand apps, users, companies and access rights | Create a company "Padma Traders Ltd, Dhaka", set July to June fiscal year, add three users with roles |
+| 2 | [Accounting](/training/functional/accounting): chart of accounts and taxes | Build a chart of accounts for a Bangladeshi SME, configure 15 percent VAT, VDS and TDS taxes and fiscal positions | Load a 60-account chart, create VAT 15 percent, VDS 7.5 percent and TDS 5 percent taxes, test on a sample bill |
+| 3 | Accounting: customer invoicing and receipts | Create invoices, credit notes, payment terms, record bKash and bank receipts, reconcile | Issue five invoices to Chattogram customers, record two bKash receipts and one bank transfer, reconcile the statement |
+| 4 | Accounting: vendor bills, withholding and LC purchases | Register bills with VDS and TDS, handle foreign currency bills, track an import LC | Post a USD bill from a Singapore supplier at a stated rate, apply VDS, pay through LC margin account |
+| 5 | Accounting: month end, VAT return and reports | Run bank reconciliation, prepare Mushak 9.1 figures, lock periods, read P&L and balance sheet | Close July for Padma Traders and produce the VAT return summary and a profit and loss in Bangla labels |
+| 6 | [Inventory](/training/functional/inventory): products and warehouses | Configure product types, units, categories, multi-warehouse and locations including a bonded area | Set up Dhaka and Gazipur warehouses with receipt, stock and bonded locations; import 200 SKUs from CSV |
+| 7 | Inventory: receipts, deliveries and routes | Run purchase-to-receipt and sale-to-delivery, use one-step and two-step routes, print challans | Receive a 40-line purchase, deliver three sales orders, print Bangla delivery challans |
+| 8 | Inventory: lots, serials, barcode and counts | Track lots and expiry, use the barcode app, perform cycle counts and adjustments | Receive pharmaceutical lots with expiry dates, scan a delivery, run a count on 50 items and post the variance |
+| 9 | Inventory: reordering, valuation and reporting | Configure reordering rules, choose costing methods, read stock valuation and ageing reports | Set min-max rules for fast movers, compare FIFO and average cost on a sample month |
+| 10 | [Manufacturing](/training/functional/manufacturing): bills of material and work centres | Create BoMs, multi-level BoMs, work centres and routings | Build a BoM for a 180 gsm polo shirt with fabric, thread, labels and packing, with cutting, sewing and finishing operations |
+| 11 | Manufacturing: orders, work orders and subcontracting | Run manufacturing orders, consume components, record scrap, manage subcontracted dyeing | Produce 1,000 polos across two work orders, send grey fabric to a Narayanganj dyeing subcontractor |
+| 12 | Manufacturing: MRP planning, quality and costing | Use the master production schedule, set quality checks, analyse product cost | Plan a buyer order of 20,000 pieces, add an inline quality check, compute unit cost including overhead |
+| 13 | [HR](/training/functional/hr): employees, contracts and attendance | Set up departments, employees, contracts and attendance, integrate a biometric export | Create 30 employees across admin and production grades, import a month of attendance from CSV |
+| 14 | HR: leave and payroll structure | Configure leave types, salary structures and rules for basic, house rent, medical, conveyance and overtime at double rate | Define a salary structure under the Bangladesh Labour Act 2006 and run one payslip with 12 hours overtime |
+| 15 | HR: festival bonus, provident fund, gratuity and tax | Add festival bonus, provident fund contributions, gratuity accrual and income tax deduction rules | Run an Eid month payroll for 30 employees with bonus and PF, post it to accounting |
+| 16 | [Point of Sale](/training/functional/pos): shop setup and sessions | Configure a POS, payment methods including bKash, Nagad, Rocket and cash, open and close sessions | Open a pharmacy till in Mirpur, sell 20 items with mixed payments, close the session and verify cash |
+| 17 | POS: offline operation, hardware and returns | Handle load-shedding with the offline client, connect a receipt printer and scanner, process returns and discounts | Simulate a power cut mid-sale, resume and sync, process a return with a Mushak-compliant receipt |
+| 18 | POS: multi-shop reporting and accounting link | Run several shops, set session accounting, read sales by product and cashier | Consolidate two shops into one VAT return summary and reconcile POS cash to the bank deposit |
+| 19 | Consulting skills: discovery and process mapping | Run a discovery workshop, document as-is and to-be processes, scope a project | Interview a classmate playing a Khulna distributor and write a two-page scope document |
+| 20 | Consulting skills: UAT, training and go-live | Write test scripts, plan role-based training, run a go-live checklist, handle change requests | Write five UAT scripts for Padma Traders and a go-live plan around a 1 July cut-over |
+| 21 | Capstone work session | Configure a hypothetical company end to end with trainer support | Build "Meghna Knitwear, Narayanganj": accounting, inventory, one BoM, 10 employees, one POS outlet |
+| 22 | Capstone presentation and assessment | Present the configuration, defend choices, receive feedback | 15-minute presentation and Q&A per participant |
+
+The track order matches the five topic pages: [accounting](/training/functional/accounting), [inventory](/training/functional/inventory), [manufacturing](/training/functional/manufacturing), [HR](/training/functional/hr) and [POS](/training/functional/pos). Each topic page has extra practice exercises and a recommended reading list.
+
+## Assessment
+
+- A ten-question quiz at the end of each module block (after sessions 5, 9, 12, 15 and 18), open book, 60 percent to pass
+- One graded practical: the month-end close in session 5, marked on correctness of VAT figures and reconciliation
+- The capstone in sessions 21 and 22, marked on completeness, correctness of Bangladesh tax and payroll setup, and clarity of presentation
+- Attendance of 80 percent is required for the community certificate of completion
+
+The certificate is a community document, not an Odoo S.A. certification. Participants who want the official Odoo certification exam are pointed to it in the career session.
+
+## How to use this syllabus for self-study
+
+Work through the sessions in order on a free Odoo trial or a Community install. Give each session two to three hours including the exercise. Keep one hypothetical company throughout so your data accumulates like a real business. When you reach a topic you cannot complete, post the question in the [forum](/forum) with your Odoo version. The whole track takes about 60 hours of focused study.
+
+## Frequently asked questions
+
+### Do I need an accounting or IT background for the functional track?
+
+No formal degree is required. Comfort with spreadsheets and basic bookkeeping terms (debit, credit, VAT, stock) is enough. BBA, CA-inter and commerce graduates find the accounting sessions easiest; others catch up with the pre-reading.
+
+### Which Odoo version does the syllabus use?
+
+Sessions run on Odoo 17 to 19 depending on the batch. Concepts carry across these versions; where a screen differs, the trainer points it out. Odoo releases a new major version every October, so check the batch notice.
+
+### Is the training online or in person?
+
+Both formats are typical. Evening batches run online two or three times a week; weekend batches are often held in person in Dhaka. The session content is the same in either format.
+
+### What does the assessment involve?
+
+A short quiz after each module block, one graded practical per track, and a final capstone where you configure a hypothetical Bangladeshi company end to end and present it. Attendance of 80 percent is required for a certificate.
+
+## Next step
+
+To ask about the next batch, a self-study plan, or whether the functional or technical track suits you, [get in touch](/contact). Mention your background and the Odoo version you have access to so the reply can be specific. The [career guide](/odoo-career-guide#functional) explains where the track leads.

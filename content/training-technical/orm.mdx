@@ -1,31 +1,141 @@
 ---
-title: "Odoo Technical Training: ORM"
-description: "How the Odoo ORM maps models, fields, and recordsets, and how to keep queries readable."
+title: "Odoo ORM Training in Bangladesh: Models, Fields and Recordsets"
+description: "What Odoo ORM training covers for Odoo 17 to 19: recordsets, search and browse, create and write, computed fields with api.depends, and the SQL behind them."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Technical Training
   - Odoo ORM
   - Odoo Training Bangladesh
+  - Odoo recordset tutorial
+  - Odoo computed fields api.depends
+  - Odoo developer course Bangladesh
 related:
-  - label: "Technical training: module development"
+  - label: "Previous topic: Module development"
     href: "/training/technical/module-development"
-  - label: "Technical training: performance"
-    href: "/training/technical/performance"
-  - label: "Developer resources"
-    href: "/developer-resources"
+  - label: "Next topic: OWL"
+    href: "/training/technical/owl"
   - label: "Technical syllabus"
     href: "/resources/technical-syllabus"
+  - label: "Payroll module"
+    href: "/modules/payroll"
+  - label: "Developer resources"
+    href: "/developer-resources"
+faq:
+  - q: "Why does the ORM matter if I can write SQL?"
+    a: "Because access rights, multi-company rules, translations, computed fields and the cache all live in the ORM. Raw SQL skips them, which is why a search that returns the wrong company's invoices usually traces back to a cr.execute someone wrote in a hurry."
+  - q: "What is the difference between a stored and a non-stored computed field?"
+    a: "A stored field is written to PostgreSQL and recomputed when its api.depends triggers change, so you can search and group by it. A non-stored field is computed on read and cannot be used in a domain unless you add a search method."
+  - q: "Did the ORM change between Odoo 17 and 19?"
+    a: "The public API of recordsets, fields and decorators is stable. Odoo 17 removed some old compatibility methods, and later versions tightened field access and flushing behaviour. The training points out the differences; the exercises run on all three."
+  - q: "Is this topic enough to pass a partner interview?"
+    a: "Together with module development, it covers what most Bangladesh partner interviews test: explain a recordset, write a domain, explain api.depends, and spot an N+1 loop. The performance topic adds the measurement skills."
 ---
 
-This topic page is a learning checklist for developers focusing on the **ORM**.
+Odoo ORM training teaches you how the model layer of Odoo 17 to 19 works underneath the fields you declared in [module development](/training/technical/module-development): what a recordset is, what `search`, `browse`, `create`, `write` and `unlink` do and which SQL they produce, how `@api.depends` drives recomputation and caching, when a `Many2one`, `One2many` or `Many2many` needs an inverse, and how a careless loop turns one page into a thousand queries. The exercises build a payroll helper for a Bangladeshi employer, with festival bonus and provident fund calculations, because payroll logic is where local developers meet the ORM at full depth.
 
-## Learning checklist
+## Learning outcomes
 
-- Models, fields, and recordsets
-- `create`, `write`, `search`, and `browse`
-- Computed fields and depends
-- Relational fields and when an inverse matters
-- How a careless search becomes a slow page
+By the end of this topic you should be able to:
 
-## Practice
+- Explain a recordset, the environment, `self.env`, `sudo()`, `with_context()` and `with_company()`.
+- Write domains with `&`, `|`, `in`, `child_of` and dotted paths, and read the SQL they generate from the log.
+- Use `search`, `search_count`, `search_read`, `browse`, `read_group` and `filtered`, `mapped`, `sorted` on recordsets.
+- Create and update records with `create` (including batch create with a list of dicts) and `write`, and know when `unlink` is refused.
+- Declare computed fields with `@api.depends`, decide whether to store them, and add `inverse` and `search` methods.
+- Use `@api.constrains`, `@api.onchange`, `@api.model_create_multi` and `default_get` correctly.
+- Model relations with `fields.Many2one`, `One2many` and `Many2many` and understand `ondelete`, `comodel_name` and `inverse_name`.
+- Recognise N+1 patterns and use prefetching and `read_group` instead.
 
-Add a stored computed field on a custom model, search records with a domain, and explain which queries that field will trigger.
+## Prerequisites
+
+Complete [module development](/training/technical/module-development). Know basic SQL: select, join, group by. Keep a database with demo data installed so you can experiment in the Odoo shell (`odoo-bin shell -d yourdb`). Read the [Payroll module](/modules/payroll) page for the business vocabulary used in the exercises.
+
+## Syllabus outline
+
+| Session | Topic | Exercise |
+|---|---|---|
+| 1 | Recordsets, environment, cache, the Odoo shell | Explore `hr.employee` from the shell |
+| 2 | Fields in depth: types, attributes, `related`, `company_dependent` | Add salary component fields to the contract |
+| 3 | Search: domains, operators, `search_read`, `read_group` | Find employees eligible for festival bonus |
+| 4 | Create, write, unlink; batch operations; `model_create_multi` | Generate 400 bonus lines in one create call |
+| 5 | Computed fields, `@api.depends`, store, inverse, search methods | Compute PF contribution with a stored field |
+| 6 | Relational fields, inverses, `ondelete`, command tuples | Build a bonus batch with One2many lines |
+| 7 | Constraints, onchange, defaults, context, multi-company | Block duplicate bonus for the same Eid |
+| 8 | Query counting, prefetch, N+1 diagnosis, SQL logging | Reduce one loop from 800 queries to 3 |
+
+## Practice exercises
+
+**Exercise 1: Shell exploration.** Open the shell and run the following, then explain the output of each line in one sentence:
+
+```python
+emps = env["hr.employee"].search([("department_id.name", "=", "Sewing")])
+emps.mapped("contract_id.wage")
+env["hr.employee"].read_group([], ["id:count"], ["department_id"])
+```
+
+**Exercise 2: Festival bonus batch.** Consider a hypothetical Gazipur knitwear factory with 400 workers. Build a model `bd.festival.bonus.batch` with a `Many2one` to `hr.department`, a `Selection` for Eid-ul-Fitr or Eid-ul-Adha, and a `One2many` of lines. Each line has a `Many2one` to `hr.employee`, a `basic_wage` related field, and a stored computed bonus:
+
+```python
+class BdFestivalBonusLine(models.Model):
+    _name = "bd.festival.bonus.line"
+    _description = "Festival bonus line"
+
+    batch_id = fields.Many2one("bd.festival.bonus.batch", required=True, ondelete="cascade")
+    employee_id = fields.Many2one("hr.employee", required=True)
+    basic_wage = fields.Monetary(related="employee_id.contract_id.wage", store=True)
+    months_served = fields.Integer(compute="_compute_bonus", store=True)
+    bonus_amount = fields.Monetary(compute="_compute_bonus", store=True)
+    currency_id = fields.Many2one("res.currency", default=lambda s: s.env.company.currency_id)
+
+    @api.depends("basic_wage", "employee_id.contract_id.date_start", "batch_id.payment_date")
+    def _compute_bonus(self):
+        for line in self:
+            start = line.employee_id.contract_id.date_start
+            months = 0
+            if start and line.batch_id.payment_date:
+                delta = line.batch_id.payment_date - start
+                months = delta.days // 30
+            line.months_served = months
+            line.bonus_amount = line.basic_wage if months >= 12 else line.basic_wage * months / 12
+```
+
+Then write a button method that creates all 400 lines in a single `create` call with a list of dicts, not in a loop.
+
+**Exercise 3: Provident fund search.** Add a stored computed field `pf_contribution` on the contract equal to 8 percent of basic wage (the upper end of the 7 to 8 percent band in Labour Act 2006, section 264), with a search method so that a domain `[("pf_contribution", ">", 1000)]` works. Then write a `read_group` that returns total PF per department in BDT.
+
+**Exercise 4: Duplicate guard.** Add an `@api.constrains` so an employee cannot appear in two batches for the same festival in the same fiscal year (July to June). Test it from the shell.
+
+**Exercise 5: Query count.** Turn on SQL logging with `--log-sql`, open the bonus batch form with 400 lines and count the queries. Rewrite any loop that reads `employee_id.contract_id.wage` one record at a time so the prefetch cache does the work, then count again.
+
+## Recommended order
+
+The previous topic is [module development](/training/technical/module-development). The next topic is [OWL](/training/technical/owl), where you build a front-end component that reads the bonus batch you created here through the ORM via RPC.
+
+## Where it leads
+
+ORM depth separates a developer who copies snippets from one who can debug a production problem at 11 pm when the payroll will not post. The [career guide technical track](/odoo-career-guide#technical) places ORM and performance skills at the centre of the mid-level developer role, which is where salaries in Dhaka step up. The [performance](/training/technical/performance) topic at the end of the track builds directly on session 8 of this one.
+
+## Frequently asked questions
+
+### Why does the ORM matter if I can write SQL?
+
+Because access rights, multi-company rules, translations, computed fields and the cache all live in the ORM. Raw SQL skips them, which is why a search that returns the wrong company's invoices usually traces back to a cr.execute someone wrote in a hurry.
+
+### What is the difference between a stored and a non-stored computed field?
+
+A stored field is written to PostgreSQL and recomputed when its api.depends triggers change, so you can search and group by it. A non-stored field is computed on read and cannot be used in a domain unless you add a search method.
+
+### Did the ORM change between Odoo 17 and 19?
+
+The public API of recordsets, fields and decorators is stable. Odoo 17 removed some old compatibility methods, and later versions tightened field access and flushing behaviour. The training points out the differences; the exercises run on all three.
+
+### Is this topic enough to pass a partner interview?
+
+Together with module development, it covers what most Bangladesh partner interviews test: explain a recordset, write a domain, explain api.depends, and spot an N+1 loop. The performance topic adds the measurement skills.
+
+## Next step
+
+Read the [technical syllabus](/resources/technical-syllabus) for the full programme and check the [training page](/training) for the next batch. Odoo releases a new major version every October, so confirm the version before you start.

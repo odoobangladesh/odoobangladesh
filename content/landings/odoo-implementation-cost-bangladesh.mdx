@@ -1,42 +1,176 @@
 ---
-title: "Odoo Implementation Cost in Bangladesh"
-description: "Understand what drives Odoo implementation cost in Bangladesh: scope, data migration, customization, integrations, training, and go-live support."
+title: "Odoo Implementation Cost in Bangladesh: Ranges by Scope"
+description: "Odoo implementation in Bangladesh costs BDT 3 to 8 lakh for a small SME, BDT 8 to 25 lakh mid-size, and BDT 25 lakh to 1 crore plus for garments or factories."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo implementation cost Bangladesh
   - Odoo ERP Bangladesh
   - Odoo Bangladesh
   - ERP implementation Bangladesh
+  - Odoo implementation price BDT
+  - ERP implementation cost Dhaka
+  - Odoo project budget Bangladesh
+  - Odoo customisation cost Bangladesh
 canonical: "/odoo-implementation-cost-bangladesh"
+related:
+  - label: "Implementation guide"
+    href: "/implementation-guide"
+  - label: "Odoo for SMEs in Bangladesh"
+    href: "/industries/sme"
+  - label: "Manufacturing module guide"
+    href: "/modules/manufacturing"
+  - label: "Odoo vs SAP Business One"
+    href: "/comparisons/odoo-vs-sap-business-one"
+  - label: "ERP readiness checklist"
+    href: "/resources/erp-checklist"
+  - label: "Odoo pricing in Bangladesh"
+    href: "/odoo-pricing-bangladesh"
+faq:
+  - q: "What is the minimum cost to implement Odoo in Bangladesh?"
+    a: "For a small company with 2 to 5 users and 3 to 6 apps, community-observed implementation costs start around BDT 3 lakh and go up to about BDT 8 lakh, on top of licence and hosting. Projects quoted far below that usually exclude data migration, Mushak reports or training."
+  - q: "Why do quotes for the same company differ so much?"
+    a: "Because providers assume different scope. One may include Mushak 6.3 reports, payroll rules and a parallel run while another quotes configuration only. Always ask for a line-item estimate against a written scope so you compare like with like."
+  - q: "How long does an Odoo implementation take in Bangladesh?"
+    a: "A small SME typically goes live in 6 to 12 weeks. A mid-size company with customisation takes 3 to 6 months. A garments or manufacturing rollout with MRP and integrations commonly takes 6 to 12 months, often in phases."
+  - q: "Is customisation always expensive?"
+    a: "Not if it is limited to reports and small workflow tweaks. A Mushak 6.3 invoice layout is a few days of work. Rewriting core processes or building deep integrations is where cost grows, and it also raises every future upgrade cost."
+  - q: "Can a freelancer implement Odoo for less than a partner?"
+    a: "Often yes, for small scopes. The trade-off is continuity, documentation and support after go-live. For a 5-user company a documented freelancer engagement can work well; for a 100-user factory most teams prefer a firm with a bench."
 ---
 
-Odoo implementation cost varies widely because it depends more on **scope and complexity** than on the software alone.
+Odoo implementation cost in Bangladesh depends on scope, not on the software. Community-observed ranges, which are not quotes: a small SME with 2 to 5 users and 3 to 6 apps typically spends BDT 3 to 8 lakh; a mid-size company with 10 to 30 users and customisation spends BDT 8 to 25 lakh; a manufacturing or garments operation with MRP, quality and integrations spends BDT 25 lakh to 1 crore or more. These figures cover implementation only. Licences for Odoo Enterprise are about USD 24.90 to 37.40 per user per month at Odoo's US list price (up to about BDT 3,000 to 4,700 at BDT 120 to 125 per USD; the regional price shown from Bangladesh is usually lower), and Community is free. This page explains what sits inside each range so you can budget with assumptions stated.
 
-## Key cost drivers
+## The ranges, with what they assume
 
-- **Scope**: number of modules, users, departments
-- **Process complexity**: approvals, exceptions, multi-warehouse, multi-company
-- **Data migration**: quality of masters + history needed
-- **Customization**: what can be configured vs what must be coded
-- **Integrations**: payments, logistics, eCommerce, external accounting tools
-- **Training**: role-based training for end users + admins
-- **Testing and go-live**: UAT scripts, cutover plan, stabilization window
+| Scope tier | Typical profile | Observed range | What is usually inside |
+|---|---|---|---|
+| Small SME | 2 to 5 users; Sales, Purchase, Inventory, Invoicing, CRM; Dhaka or Chattogram trading, services or a small retailer | BDT 3 to 8 lakh | Discovery, standard configuration, chart of accounts and 15 percent VAT setup, basic Mushak 6.3 layout, master data import, 2 to 3 training sessions, 4 weeks of post-go-live support |
+| Mid-size company | 10 to 30 users; above plus Accounting, HR and Payroll, approval flows, multi-warehouse | BDT 8 to 25 lakh | Everything above plus Mushak 9.1 tax grids, VDS and TDS withholding, payroll rules under the Labour Act 2006, custom reports, Tally or legacy migration with history, parallel run, role-based training |
+| Manufacturing or garments | 30 to 200 users; MRP, Quality, Maintenance, bonded warehouse, buyer or bank integrations | BDT 25 lakh to 1 crore plus | Everything above plus BOM and routing design, shop floor setup, costing, style and colour-size variants, UD or bond register support, integrations, phased go-live over 6 to 12 months |
 
-## How to budget safely
+These ranges reflect what community members report across Bangladesh partners and freelancers for Odoo 17 to 19. A new Odoo version lands every October, and a project that starts on one version and finishes on the next adds cost, so agree the version in writing.
 
-1. Define v1 scope (what must go live first).
-2. Create a phased roadmap for remaining modules/features.
-3. Use a checklist for readiness and a proof-of-concept for hardest workflows.
+## The seven cost drivers
 
-## Common mistakes that increase cost
+### 1. Scope: apps, users and departments
 
-- Starting customization too early
-- Skipping data cleanup
-- Weak UAT and training plan
-- No change management ownership
+Each app adds configuration, testing and training. The jump from 5 to 30 users is not six times the effort, but it multiplies the number of roles, permissions and training sessions. Multi-company (a group with a trading arm and a factory) or multi-warehouse (Dhaka, Gazipur and Chattogram depots) each add weeks.
 
-## Next steps
+### 2. Process complexity
 
-- Read `/implementation-guide`
-- Download `/resources/erp-checklist`
-- Request a free assessment via `/contact`
+A sales order that goes straight to invoice is standard Odoo. A sales order that needs credit approval by a director, a delivery challan in Bangla, a post-dated cheque workflow and commission calculation for field sales agents needs configuration and probably a small custom module. List every exception and approval before you ask for a quote.
 
+### 3. Data migration
+
+This is the most underestimated line in Bangladesh projects. Most companies migrate from Tally, a locally built accounting package or Excel. Typical effort:
+
+- Master data only (customers, suppliers, products, chart of accounts) with opening balances: 5 to 10 person-days.
+- Plus open invoices, bills and stock by location: 10 to 20 person-days.
+- Plus two or more years of transaction history: 20 to 40 person-days, and often not worth it. Keep history in a read-only archive instead.
+
+Dirty data multiplies all of these. Duplicate customers, products with inconsistent units and unreconciled bank accounts have to be fixed before import, and that work lands on your team as much as on the implementer.
+
+### 4. Customisation and localisation
+
+Separate three kinds of custom work:
+
+| Type | Examples | Typical effort |
+|---|---|---|
+| Reports and documents | Mushak 6.3 invoice, Mushak 6.7 credit note, Bangla delivery challan, lakh and crore formatting, payslip layout | 1 to 5 days each |
+| Localisation logic | VDS and TDS withholding taxes, Mushak 9.1 tax grids, festival bonus, provident fund and gratuity rules, overtime at double the basic rate | 5 to 20 days total |
+| Process changes | New approval chains, commission engines, custom costing, buyer-specific packing lists for garments | 10 to 60 days or more |
+
+Reports and localisation are expected in almost every Bangladesh project. Process changes are where you should push back. Ask whether the standard flow can work with a small habit change before paying for code.
+
+### 5. Integrations
+
+bKash or Nagad merchant APIs, bank statement imports, an e-commerce storefront, a courier aggregator, an attendance device or a buyer's EDI portal each range from a few days to several weeks. Most SMEs need none in phase one. A garments factory often needs two or three.
+
+### 6. Training and change management
+
+Budget 2 to 4 days of training for a small SME and 10 to 20 days for a mid-size company across roles: accounts, sales, warehouse, HR and management. Training in Bangla with your own data is more effective than vendor demos. The hidden cost is your own staff time: a project of any size needs an internal owner spending at least a quarter of their week on it.
+
+### 7. Testing, cutover and stabilisation
+
+A user acceptance test with written scripts, a parallel run for at least one accounting month (so you can compare the Mushak 9.1 figures) and a stabilisation window of 4 to 8 weeks after go-live are the difference between a system people use and one they work around. Expect 15 to 25 percent of the implementation budget here.
+
+## A worked example
+
+Consider a hypothetical Gazipur packaging manufacturer with 25 users, moving from Tally plus Excel to Odoo 18 Community with OCA accounting modules. Scope: Sales, Purchase, Inventory with two warehouses, Manufacturing with 40 BOMs, Accounting with Mushak 6.3 and 9.1, Payroll for 180 workers.
+
+| Line item | Person-days | Indicative cost at BDT 8,000 to 15,000 per person-day |
+|---|---|---|
+| Discovery and process mapping | 8 | BDT 0.64 to 1.2 lakh |
+| Configuration of all apps | 25 | BDT 2 to 3.75 lakh |
+| Mushak reports, withholding, tax grids | 12 | BDT 0.96 to 1.8 lakh |
+| Payroll rules (bonus, PF, gratuity, overtime) | 10 | BDT 0.8 to 1.5 lakh |
+| Data migration from Tally and Excel | 15 | BDT 1.2 to 2.25 lakh |
+| Custom reports and small modules | 15 | BDT 1.2 to 2.25 lakh |
+| Training (role-based, in Bangla) | 10 | BDT 0.8 to 1.5 lakh |
+| UAT, parallel run, go-live support | 20 | BDT 1.6 to 3 lakh |
+| Total | 115 | BDT 9.2 to 17.25 lakh |
+
+The day rate range reflects what the community observes between experienced freelancers and established partners in Dhaka. This example sits inside the mid-size range. Add hosting of roughly BDT 5,000 to 20,000 per month (BDT 60,000 to 2.4 lakh per year) for a local or international cloud server, and zero licence cost because it is Community. The same scope on Enterprise Custom would add about USD 37.40 per user per month at Odoo's US list price, at most roughly BDT 13 to 14 lakh per year for 25 users at BDT 120 to 125 per USD, but would remove the OCA accounting setup effort. See the [pricing page](/odoo-pricing-bangladesh) for licence detail.
+
+## What a quote should include
+
+Ask each provider to confirm, in writing, whether the price covers:
+
+- The Odoo version and edition.
+- Named apps and user count.
+- Mushak 6.3, 6.7, 6.8 and 9.1 outputs, and withholding taxes.
+- Payroll rules under the Labour Act 2006 if Payroll is in scope.
+- Data migration scope (masters only, open items, or history).
+- Number of training days and language.
+- Length of post-go-live support and the response time.
+- Who owns the custom code and whether it is delivered in a Git repository.
+- Payment schedule tied to milestones, not calendar dates.
+- 15 percent VAT, included or excluded.
+
+The [implementation guide](/implementation-guide#process) walks through the phases in order, and the [pitfalls section](/implementation-guide#pitfalls) covers what goes wrong.
+
+## Hidden and recurring costs
+
+- Yearly upgrade: Odoo releases a new version each October. With custom modules, an upgrade commonly costs 10 to 30 percent of the original implementation.
+- Support retainer: from a few thousand taka per month for an on-call freelancer to BDT 50,000 or more per month for a partner SLA.
+- Hosting and backups: BDT 5,000 to 20,000 per month (BDT 60,000 to 2.4 lakh per year) for an SME-sized cloud server, more for large setups or where you need data residency in Bangladesh.
+- Internal staff time: usually the largest unbudgeted item.
+- Hardware for warehouses and shop floor: barcode scanners, label printers and a UPS so POS or scanning keeps working during load-shedding.
+
+## How to keep cost inside the range
+
+1. Define a phase-one scope that goes live in 90 days. Accounting, Sales, Purchase and Inventory are the usual core.
+2. Configure first, customise second. Reserve code for reports and legal requirements.
+3. Clean your master data before the project starts, using your own staff.
+4. Run a proof of concept on your single hardest process before signing a full contract.
+5. Assign an internal project owner with decision authority.
+6. Compare at least two line-item estimates against the same written scope. The [partners page](/odoo-partners-bangladesh) explains how to evaluate providers without relying on marketing claims.
+
+## Frequently asked questions
+
+### What is the minimum cost to implement Odoo in Bangladesh?
+
+For a small company with 2 to 5 users and 3 to 6 apps, community-observed implementation costs start around BDT 3 lakh and go up to about BDT 8 lakh, on top of licence and hosting. Projects quoted far below that usually exclude data migration, Mushak reports or training.
+
+### Why do quotes for the same company differ so much?
+
+Because providers assume different scope. One may include Mushak 6.3 reports, payroll rules and a parallel run while another quotes configuration only. Always ask for a line-item estimate against a written scope so you compare like with like.
+
+### How long does an Odoo implementation take in Bangladesh?
+
+A small SME typically goes live in 6 to 12 weeks. A mid-size company with customisation takes 3 to 6 months. A garments or manufacturing rollout with MRP and integrations commonly takes 6 to 12 months, often in phases.
+
+### Is customisation always expensive?
+
+Not if it is limited to reports and small workflow tweaks. A Mushak 6.3 invoice layout is a few days of work. Rewriting core processes or building deep integrations is where cost grows, and it also raises every future upgrade cost.
+
+### Can a freelancer implement Odoo for less than a partner?
+
+Often yes, for small scopes. The trade-off is continuity, documentation and support after go-live. For a 5-user company a documented freelancer engagement can work well; for a 100-user factory most teams prefer a firm with a bench.
+
+## Next step
+
+Write down your user count, your app list and your Bangladesh-specific requirements, then [talk to a specialist](/contact) through the community inquiry form and ask for a line-item range against that scope. The [ERP readiness checklist](/resources/erp-checklist) gives you the structure to capture those requirements before the conversation.

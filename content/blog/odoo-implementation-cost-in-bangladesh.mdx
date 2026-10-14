@@ -1,38 +1,195 @@
 ---
-title: "Odoo Implementation Cost in Bangladesh (What Actually Drives It)"
-description: "A practical guide to Odoo implementation cost drivers: scope, data, customization, integrations, training, and go-live support."
+title: "Odoo Implementation Cost in Bangladesh: Full Breakdown"
+description: "What Odoo implementation costs in Bangladesh, line by line: licences, implementation, customisation, data migration, hosting, training, support and VAT."
 date: "2026-04-28"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
 keywords:
   - Odoo implementation cost Bangladesh
   - Odoo ERP Bangladesh
   - Odoo Bangladesh
+  - Odoo price in BDT
+  - ERP implementation cost Bangladesh
+  - Odoo partner cost Dhaka
+  - Odoo Enterprise licence cost Bangladesh
+related:
+  - label: "Odoo Pricing Guide"
+    href: "/pricing-guide"
+  - label: "Odoo Pricing in Bangladesh"
+    href: "/odoo-pricing-bangladesh"
+  - label: "Odoo Implementation Cost in Bangladesh"
+    href: "/odoo-implementation-cost-bangladesh"
+  - label: "Implementation Guide"
+    href: "/implementation-guide"
+  - label: "ERP Readiness Checklist"
+    href: "/resources/erp-checklist"
+  - label: "Odoo for the Garments Industry"
+    href: "/odoo-for-garments-industry"
+faq:
+  - q: "What is the minimum realistic budget for Odoo in Bangladesh?"
+    a: "For a small SME with 2 to 5 users and 3 to 6 apps, community-observed implementation costs run BDT 3 to 8 lakh, plus licences if you choose Enterprise and hosting of BDT 5,000 to 20,000 per month (BDT 60,000 to 2.4 lakh per year). Anyone quoting far below that is usually leaving out training or data migration."
+  - q: "Is Odoo Community really free?"
+    a: "The software licence is free. You still pay for implementation, hosting, the Mushak and withholding layer on top of the core l10n_bd chart of accounts and VAT rates, and ongoing support. Community also lacks the full Enterprise accounting and payroll apps, so add-on maintenance is part of the real cost."
+  - q: "Do I pay VAT on Odoo implementation services in Bangladesh?"
+    a: "Services from a VAT-registered local partner attract 15 percent VAT, and your company may need to deduct VDS and TDS at source on the payment. Ask whether a quote is inclusive or exclusive before comparing partners."
+  - q: "Why do change requests cost so much after go-live?"
+    a: "Each change needs analysis, development, testing on a staging copy and deployment, and it often touches reports and training material. Budget 10 to 20 percent of the implementation fee for the first year of changes."
+  - q: "How do Enterprise licence prices convert to BDT?"
+    a: "Odoo's US list price with yearly billing is about USD 24.90 per user per month for Standard and USD 37.40 for Custom. Assuming roughly BDT 120 to 125 per USD, that is up to about BDT 3,000 to 4,700 per user per month. Odoo prices by region and the regional USD price shown on odoo.com/pricing from Bangladesh is usually lower, so treat that as an upper bound and confirm there."
 ---
 
-Teams often search for a fixed number, but real ERP cost is driven by **scope + complexity**.
+Odoo implementation in Bangladesh typically costs BDT 3 to 8 lakh for a small SME with 2 to 5 users and 3 to 6 apps, BDT 8 to 25 lakh for a mid-size company with 10 to 30 users and customisation, and BDT 25 lakh to 1 crore or more for a manufacturing or garments unit with MRP, quality control and integrations. These are community-observed ranges, not quotes, and they exclude annual Enterprise licences and hosting. This article breaks the total into its components so you can read a partner's proposal line by line, spot what is missing, and build a budget that survives the first year.
 
-## 1) Scope (modules and departments)
+The guidance applies to Odoo 17 to 19. Odoo releases a new major version every October, so check the current release and pricing before you commit.
 
-More modules and departments means more discovery, configuration, training, and testing.
+## Why there is no fixed price
 
-## 2) Data readiness
+ERP cost is driven by scope and complexity, not by the software. Two companies with the same user count can differ by a factor of five depending on how many processes they bring in, how clean their data is, how much they want changed from standard, and how many external systems must connect.
 
-Data cleanup is often underestimated. Products, customers, suppliers, and chart of accounts need ownership and standards.
+A useful way to think about the total is eight buckets. Each is explained below with Bangladesh ranges and the assumptions behind them.
 
-## 3) Customization vs configuration
+## 1. Licences
 
-Configuration-first reduces long-term maintenance and upgrade risk. Customize only for workflows that truly need it.
+Odoo Community is free and open source. Odoo Enterprise is priced per user per month. Odoo's US list price with yearly billing is approximately USD 24.90 for the Standard plan (Odoo Online hosting only) and USD 37.40 for the Custom plan (required for Odoo.sh, self-hosting, Studio and multi-company). Odoo prices by region, and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so BDT conversions built on the US figure are an upper bound. One App Free gives one Enterprise app for unlimited users at no cost on Odoo Online.
 
-## 4) Integrations
+Assuming roughly BDT 120 to 125 per USD:
 
-Payment gateways, logistics, eCommerce, and BI tools add effort and testing cycles.
+| Plan | Per user per month (approx.) | 10 users per year (approx.) | 25 users per year (approx.) |
+|---|---|---|---|
+| Community | Free | Free | Free |
+| Standard | BDT 3,000 to 3,100 | BDT 3.6 to 3.7 lakh | BDT 9 to 9.3 lakh |
+| Custom | BDT 4,500 to 4,700 | BDT 5.4 to 5.6 lakh | BDT 13.5 to 14 lakh |
 
-## 5) Training + UAT
+Prices vary by region and change yearly, usually between January and April. Confirm the Bangladesh figure on odoo.com/pricing. Odoo invoices in USD or EUR by card, which raises the question of paying foreign currency from Bangladesh; the [Odoo pricing in Bangladesh](/odoo-pricing-bangladesh) page covers how local companies usually handle this, and the [pricing guide](/pricing-guide#compare) compares the plans in detail.
 
-Training is not optional. Strong UAT scripts and role-based training reduce go-live issues.
+Licence cost is recurring. Over five years, a 25 user Custom subscription is around BDT 68 to 70 lakh at today's rates, which is often more than the implementation itself. Factor that in when weighing Community against Enterprise.
 
-## Suggested next steps
+## 2. Implementation (discovery, configuration, testing)
 
-- Use `/resources/erp-checklist`
-- Read `/implementation-guide`
-- See the landing page: `/odoo-implementation-cost-bangladesh`
+This is the partner's core fee. It covers discovery workshops, process mapping, configuration of each app, chart of accounts and tax setup, user acceptance testing, and go-live support. The [implementation guide](/implementation-guide#discovery) describes each phase.
 
+Community-observed ranges for the partner fee alone:
+
+- Small SME, 2 to 5 users, 3 to 6 apps: BDT 2 to 5 lakh
+- Mid-size, 10 to 30 users, some customisation: BDT 5 to 15 lakh
+- Manufacturing or garments with MRP, quality and integrations: BDT 15 to 60 lakh
+
+Freelancers in Dhaka often quote below the SME range. That can work for a simple Inventory plus Sales rollout, but check whether the quote includes testing and documentation, and who supports you when the freelancer takes another contract.
+
+## 3. Customisation and development
+
+Every hour of custom Python or OWL development adds to the initial cost and to every future upgrade. Bangladesh day rates for Odoo consultants and developers, at partners and among experienced freelancers, run roughly BDT 8,000 to 15,000 per person-day depending on seniority.
+
+Common Bangladesh-specific customisations:
+
+- VAT localisation beyond core: Odoo's official l10n_bd package already gives you the Bangladesh chart of accounts and VAT rates (set the default tax to 15 percent, since the template uses 10). What you pay for is the Mushak 6.3 tax invoice layout, Mushak 9.1 return export (the return is filed monthly or quarterly since the Finance Act 2026, due within 15 days of the period end), and VDS and TDS on vendor bills. Some partners sell this as a packaged add-on for BDT 50,000 to 2 lakh; others build it per project.
+- Payroll rules under the Bangladesh Labour Act 2006: festival bonus, overtime at double the basic rate, provident fund, gratuity accrual, maternity leave. Enterprise Payroll needs these configured; Community needs an add-on.
+- Bangla report templates for challans, salary slips and customer-facing invoices.
+- Garments-specific flows: bonded warehouse tracking, style and size matrices, LC and back-to-back LC tracking.
+
+Configure first, customise second. A change that can be made in settings costs nothing to upgrade; a change in code costs every year.
+
+## 4. Data migration
+
+The most underestimated bucket. Products, customers, suppliers, opening stock, open invoices and the chart of accounts all need to be cleaned, mapped and loaded. The [data section of the implementation guide](/implementation-guide#data) covers the method.
+
+Budget BDT 50,000 to 5 lakh depending on volume and source. Migrating from Tally or a spreadsheet with a few thousand records sits at the low end. Migrating five years of history from a legacy system with inconsistent product codes sits at the high end. Most of this cost is your own staff's time, which rarely appears on the partner's invoice but is real.
+
+## 5. Hosting and infrastructure
+
+| Option | Monthly cost (approx.) | Notes |
+|---|---|---|
+| Odoo Online | Included in Enterprise Standard | No custom code, data outside Bangladesh |
+| Odoo.sh | USD 60 plus per month on top of Custom plan, scales with workers and storage | Custom code allowed, data outside Bangladesh |
+| Self-hosted cloud (Singapore or local provider) | BDT 5,000 to 20,000 | 2 to 4 vCPU, 8 to 16 GB RAM, backups extra |
+| On-premise server | BDT 1.5 to 5 lakh one-off plus power and UPS | Needed where data must stay inside the factory or office |
+
+Add SSL, backups, monitoring and a DevOps retainer if self-hosting. Data residency questions from banks, government buyers and some export customers push many firms to local or regional hosting.
+
+## 6. Training
+
+Role-based training for end users and a deeper admin track for the internal owner. Partners quote on-site sessions in Dhaka at the same BDT 8,000 to 15,000 per person-day as consulting, sometimes more for a senior trainer; online sessions cost less. A small rollout needs 3 to 6 training days; a factory with 50 shop-floor users needs 10 to 20. Skipping training is the most common reason an Odoo project is declared a failure six months later.
+
+## 7. Support and maintenance
+
+After go-live you need someone to answer questions, fix data entry errors, apply security updates and handle the October upgrade cycle. Options:
+
+- Annual maintenance contract with the partner: typically 15 to 25 percent of the implementation fee per year
+- Hourly or ticket-based support: BDT 2,000 to 5,000 per hour
+- In-house Odoo administrator: BDT 40,000 to 1.2 lakh per month salary depending on experience
+
+Enterprise includes Odoo's own helpdesk and version upgrades, but not functional help with your configuration.
+
+## 8. Hidden costs
+
+The items that rarely appear in the first proposal:
+
+- **Change requests.** Once users see the system they ask for changes. Budget 10 to 20 percent of the implementation fee for year one.
+- **VAT on services.** A VAT-registered partner charges 15 percent VAT on top of the fee. Your company may also need to deduct VDS and TDS at source and issue the Mushak 6.3 documentation on your side. Ask every bidder whether the quote is inclusive.
+- **Internal time.** Your accountant, store manager and HR officer spend weeks on data, testing and training. Count it.
+- **Third-party integrations.** bKash or Nagad merchant APIs, SMS gateways, biometric attendance devices, courier APIs, and bank statement imports each add BDT 30,000 to 3 lakh.
+- **Hardware.** Barcode scanners, POS terminals, receipt printers, UPS units for load-shedding.
+- **Scope creep in phase two.** The successful pilot grows. Plan the second phase budget before the first ends.
+
+## Three hypothetical scenarios
+
+These scenarios are illustrative, built from community-observed ranges, assuming roughly BDT 120 to 125 per USD. They are not quotes.
+
+| Line item | Dhaka trading SME: 4 users, Sales, Purchase, Inventory, Invoicing, Community edition | Mid-size distributor: 20 users, Enterprise Custom, Accounting, Payroll, CRM, custom reports | Narayanganj knitwear factory: 60 users, Enterprise Custom, MRP, Quality, bonded warehouse, LC tracking, biometric integration |
+|---|---|---|---|
+| Licences, year one | BDT 0 | BDT 10.8 to 11.2 lakh | BDT 32 to 34 lakh |
+| Implementation fee | BDT 2 to 4 lakh | BDT 6 to 12 lakh | BDT 20 to 45 lakh |
+| Customisation | BDT 0.5 to 1.5 lakh (VAT add-on) | BDT 2 to 5 lakh | BDT 8 to 20 lakh |
+| Data migration | BDT 0.3 to 0.8 lakh | BDT 1 to 2.5 lakh | BDT 2 to 5 lakh |
+| Hosting, year one | BDT 0.6 to 1.2 lakh | BDT 1.2 to 2.4 lakh | BDT 2.5 to 5 lakh |
+| Training | BDT 0.6 to 1.2 lakh | BDT 1.5 to 3 lakh | BDT 4 to 8 lakh |
+| Support, year one | BDT 0.5 to 1 lakh | BDT 1.5 to 3 lakh | BDT 4 to 10 lakh |
+| Integrations and hardware | BDT 0.3 to 1 lakh | BDT 1 to 3 lakh | BDT 5 to 12 lakh |
+| Change request reserve | BDT 0.3 to 0.6 lakh | BDT 1 to 2 lakh | BDT 3 to 7 lakh |
+| VAT on partner services at 15 percent | BDT 0.6 to 1.4 lakh | BDT 2 to 4 lakh | BDT 6 to 14 lakh |
+| **Year one total** | **BDT 5.7 to 12.7 lakh** | **BDT 28 to 48 lakh** | **BDT 86 lakh to 1.6 crore** |
+
+The licence lines use Odoo's US list price at BDT 120 to 125 per USD, so they are an upper bound; the regional price shown from Bangladesh is usually lower. The trading SME lands inside the BDT 3 to 8 lakh implementation band once you strip out hosting, support and VAT; the full year one outlay is higher because those recurring items are real. The factory scenario shows how licences alone become a third of the budget at 60 Enterprise users, which is why many garments units keep shop-floor workers off named licences and use shared kiosk terminals where the workflow allows. The [garments industry page](/odoo-for-garments-industry) covers that design choice.
+
+## How to read a partner proposal
+
+Ask each bidder to present the quote in the eight buckets above. Then:
+
+1. Check that discovery, UAT and go-live support are explicitly in scope. See the [UAT](/implementation-guide#uat) and [go-live](/implementation-guide#go-live) sections.
+2. Separate one-off from recurring cost and total both over three years.
+3. Ask whether VAT is included and who handles VDS and TDS.
+4. Ask how change requests are priced after go-live.
+5. Ask who maintains the VAT localisation and payroll rules through the next Odoo upgrade.
+6. Run the [ERP readiness checklist](/resources/erp-checklist) on your own side before comparing bids; a company with clean data gets lower and more reliable quotes.
+
+The [implementation cost landing page](/odoo-implementation-cost-bangladesh) keeps a condensed version of these ranges that the community updates as rates move.
+
+## Conclusion
+
+Odoo's licence is the smallest or the largest line depending on edition and user count, but implementation, customisation, data and training decide whether the project works. For Bangladesh, add the VAT localisation, Labour Act payroll rules, Bangla reports and local hosting to any generic estimate, and reserve for change requests and 15 percent VAT on services. Use the ranges here to sanity-check proposals, not to replace them.
+
+## Frequently asked questions
+
+### What is the minimum realistic budget for Odoo in Bangladesh?
+
+For a small SME with 2 to 5 users and 3 to 6 apps, community-observed implementation costs run BDT 3 to 8 lakh, plus licences if you choose Enterprise and hosting of BDT 5,000 to 20,000 per month (BDT 60,000 to 2.4 lakh per year). Anyone quoting far below that is usually leaving out training or data migration.
+
+### Is Odoo Community really free?
+
+The software licence is free. You still pay for implementation, hosting, the Mushak and withholding layer on top of the core l10n_bd chart of accounts and VAT rates, and ongoing support. Community also lacks the full Enterprise accounting and payroll apps, so add-on maintenance is part of the real cost.
+
+### Do I pay VAT on Odoo implementation services in Bangladesh?
+
+Services from a VAT-registered local partner attract 15 percent VAT, and your company may need to deduct VDS and TDS at source on the payment. Ask whether a quote is inclusive or exclusive before comparing partners.
+
+### Why do change requests cost so much after go-live?
+
+Each change needs analysis, development, testing on a staging copy and deployment, and it often touches reports and training material. Budget 10 to 20 percent of the implementation fee for the first year of changes.
+
+### How do Enterprise licence prices convert to BDT?
+
+Odoo's US list price with yearly billing is about USD 24.90 per user per month for Standard and USD 37.40 for Custom. Assuming roughly BDT 120 to 125 per USD, that is up to about BDT 3,000 to 4,700 per user per month. Odoo prices by region and the regional USD price shown on odoo.com/pricing from Bangladesh is usually lower, so treat that as an upper bound and confirm there.
+
+## Next step
+
+Subscribe to the community newsletter through the [Learning Center](/learning-center) for a monthly update on Odoo pricing changes, Bangladesh localisation news and new cost benchmarks as the community collects them. No spam, unsubscribe any time.

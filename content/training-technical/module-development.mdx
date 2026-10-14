@@ -1,27 +1,144 @@
 ---
-title: "Odoo Technical Training: Module Development"
-description: "Build Odoo modules: models, security, views, menus, data files, and best practices."
+title: "Odoo Module Development Training in Bangladesh: Course Guide"
+description: "What Odoo module development training covers for Odoo 17 to 19: manifest, models, security, XML views, QWeb, tests and packaging a Bangladesh VAT addon."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Technical Training
   - Odoo Module Development
   - Learn Odoo Development Bangladesh
+  - Odoo developer course Dhaka
+  - Odoo custom addon tutorial
+  - Odoo 17 module development
 related:
-  - label: "Technical training: ORM"
+  - label: "Next topic: ORM"
     href: "/training/technical/orm"
-  - label: "Technical training: OWL"
-    href: "/training/technical/owl"
-  - label: "Developer resources"
-    href: "/developer-resources"
   - label: "Technical syllabus"
     href: "/resources/technical-syllabus"
+  - label: "Accounting module"
+    href: "/modules/accounting"
+  - label: "Developer resources"
+    href: "/developer-resources"
+  - label: "Career guide: technical track"
+    href: "/odoo-career-guide#technical"
+faq:
+  - q: "How much Python do I need before this topic?"
+    a: "Classes, decorators, list comprehensions and reading a traceback. If you can write a small Flask or Django app you are ready. If not, spend two weeks on Python basics first; the batch does not teach the language."
+  - q: "Can I develop on Windows?"
+    a: "You can, but most Bangladesh developers run Odoo in Docker or on Ubuntu, and production is always Linux. The training uses a Docker setup so that your laptop matches the deployment topic later."
+  - q: "Which Odoo version should I learn?"
+    a: "Odoo 17 to 19. The module structure, manifest, models and XML views are the same across these versions, with small differences in view attributes that the training points out. A new major version arrives every October."
+  - q: "Do I need Enterprise to develop modules?"
+    a: "No. Community edition source from GitHub is enough for everything in this topic. Enterprise modules are only needed when you extend an Enterprise app such as full accounting or payroll."
 ---
 
-This topic page introduces the core workflow of building an Odoo module.
+Odoo module development training teaches you to build a custom addon for Odoo 17 to 19 from an empty folder to a tested, installable package: the manifest, a model with fields, access rights and record rules, list and form views in XML, menus and actions, data and demo files, a QWeb report, and a test that runs under `--test-enable`. The practice project is a Bangladesh VAT addon that adds a Mushak 6.3 reference to customer invoices, because that is the kind of module local businesses actually ask for. It is the first topic in the technical track; the [ORM](/training/technical/orm) topic goes deeper into the model layer afterwards.
 
-## Core topics
+## Learning outcomes
 
-- Add models + access rights
-- Create views and menus (XML)
-- Add business logic (Python)
-- Test and package your addon
+By the end of this topic you should be able to:
 
+- Create an addon with `__manifest__.py`, `__init__.py`, `models`, `views`, `security`, `data` and `tests` folders and install it from the command line.
+- Define a model with `models.Model`, `_name`, `_description`, `_inherit`, and fields including `fields.Many2one` and `fields.Selection`.
+- Extend an existing model such as `account.move` with `_inherit` without touching core code.
+- Write `ir.model.access.csv` and a record rule that limits records by company.
+- Build list, form and search views with XML, inherit a core view with XPath, and add a menu and window action.
+- Create a QWeb report template and print it as PDF.
+- Write a `TransactionCase` test and run it with `odoo-bin --test-enable`.
+- Use `--dev=all` for auto-reload and the debugger during development.
+
+## Prerequisites
+
+Comfortable Python, basic Git, and a working Odoo 17 to 19 database on your laptop (Docker or source install). Read the [developer resources](/developer-resources) page for the setup links. Knowing what an invoice looks like in the [Accounting module](/modules/accounting) helps, because the project extends it.
+
+## Syllabus outline
+
+| Session | Topic | Exercise |
+|---|---|---|
+| 1 | Addon structure, manifest, addons path, install and upgrade with `odoo-bin` | Scaffold `bd_vat_mushak` and install it |
+| 2 | Models and fields: types, defaults, required, `_inherit` | Add `mushak_number` and `vat_registration` fields to `account.move` |
+| 3 | Security: access CSV, groups, record rules, multi-company | Restrict the fields to an Accounting Manager group |
+| 4 | Views: form, list, search, XPath inheritance, widgets | Show the fields on the invoice form and list |
+| 5 | Menus, actions, data files, demo data, sequences | Add a Mushak sequence that resets each fiscal year |
+| 6 | Business logic: `@api.depends`, `@api.constrains`, `onchange`, buttons | Validate the 13-digit BIN format |
+| 7 | QWeb reports: templates, inheritance, PDF layout | Produce a Mushak 6.3 style tax invoice |
+| 8 | Tests, `--test-enable`, packaging, versioning, code review | Write three tests and open a merge request |
+
+## Practice exercises
+
+**Exercise 1: Scaffold and install.** Create `bd_vat_mushak` with this manifest and install it against a fresh database:
+
+```python
+{
+    "name": "Bangladesh VAT: Mushak 6.3 reference",
+    "version": "17.0.1.0.0",
+    "depends": ["account"],
+    "data": [
+        "security/ir.model.access.csv",
+        "data/sequence.xml",
+        "views/account_move_views.xml",
+        "report/mushak_invoice.xml",
+    ],
+    "license": "LGPL-3",
+}
+```
+
+Run `odoo-bin -d bdvat -i bd_vat_mushak --dev=all` and confirm the module shows as installed.
+
+**Exercise 2: Extend the invoice.** Inherit `account.move` and add a stored Mushak reference computed from the fiscal year and a sequence, plus a Many2one to a new `bd.vat.circle` model that holds the NBR VAT circle office:
+
+```python
+from odoo import api, fields, models
+
+class AccountMove(models.Model):
+    _inherit = "account.move"
+
+    mushak_number = fields.Char(copy=False, readonly=True)
+    vat_circle_id = fields.Many2one("bd.vat.circle", string="VAT circle")
+    vat_inclusive_total = fields.Monetary(compute="_compute_vat_inclusive_total", store=True)
+
+    @api.depends("amount_total", "amount_tax")
+    def _compute_vat_inclusive_total(self):
+        for move in self:
+            move.vat_inclusive_total = move.amount_total
+```
+
+Give `bd.vat.circle` a list and form view, a menu under Accounting Configuration, and demo data for the Dhaka South and Chittagong circles.
+
+**Exercise 3: Validate the BIN.** Add a constraint on the partner's VAT field so that a Bangladesh BIN must be 13 digits. Test it with a Chittagong trading company partner whose BIN is 12 digits and confirm the error message is readable in both English and Bangla.
+
+**Exercise 4: Mushak 6.3 style report.** Build a QWeb template that prints the invoice with the seller BIN, buyer BIN, VAT circle, Mushak number, and a VAT column at 15 percent. Inherit the standard invoice report rather than replacing it.
+
+**Exercise 5: Tests.** Write three `TransactionCase` tests: the Mushak number is assigned on posting, it is not assigned on a draft, and the BIN constraint rejects a 12-digit value. Run them with `odoo-bin -d bdvat_test -i bd_vat_mushak --test-enable --stop-after-init` and read the log.
+
+## Recommended order
+
+Module development is the first topic in the technical track, so there is no previous topic. Start from the [technical syllabus](/resources/technical-syllabus). The next topic is [ORM](/training/technical/orm), which explains what `search`, `browse`, `create` and `write` do underneath the fields you declared here.
+
+## Where it leads
+
+A developer who can ship a clean, tested addon is the person Bangladesh partners hire first, because nearly every local project needs a VAT, payroll or report customisation that core Odoo does not cover. The [career guide technical track](/odoo-career-guide#technical) describes the junior developer to technical lead path and the freelance market for small addons. The [deployment](/training/technical/deployment) topic later in the track shows how the addon you built here reaches a production server.
+
+## Frequently asked questions
+
+### How much Python do I need before this topic?
+
+Classes, decorators, list comprehensions and reading a traceback. If you can write a small Flask or Django app you are ready. If not, spend two weeks on Python basics first; the batch does not teach the language.
+
+### Can I develop on Windows?
+
+You can, but most Bangladesh developers run Odoo in Docker or on Ubuntu, and production is always Linux. The training uses a Docker setup so that your laptop matches the deployment topic later.
+
+### Which Odoo version should I learn?
+
+Odoo 17 to 19. The module structure, manifest, models and XML views are the same across these versions, with small differences in view attributes that the training points out. A new major version arrives every October.
+
+### Do I need Enterprise to develop modules?
+
+No. Community edition source from GitHub is enough for everything in this topic. Enterprise modules are only needed when you extend an Enterprise app such as full accounting or payroll.
+
+## Next step
+
+Download the [technical syllabus](/resources/technical-syllabus) to see how this topic fits the 12 to 14 week developer programme, then check the [training page](/training) for the next batch.

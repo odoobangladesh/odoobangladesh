@@ -1,25 +1,165 @@
 ---
-title: "Open Source ERP in Bangladesh"
-description: "A neutral guide to open source ERP options in Bangladesh, with Odoo and ERPNext comparisons and implementation checklists."
+title: "Open Source ERP in Bangladesh: Options, Costs and How to Choose"
+description: "A neutral guide to open source ERP in Bangladesh: Odoo Community, ERPNext and others compared on licensing, Mushak localisation, talent, hosting and cost."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Open Source ERP Bangladesh
   - Best ERP in Bangladesh
   - Odoo vs ERPNext
+  - free ERP software Bangladesh
+  - ERP for SME Bangladesh
+  - self-hosted ERP Bangladesh
+  - Odoo Community edition Bangladesh
 canonical: "/open-source-erp-bangladesh"
+related:
+  - label: "Comparisons"
+    href: "/comparisons"
+  - label: "Odoo vs ERPNext"
+    href: "/comparisons/odoo-vs-erpnext"
+  - label: "Odoo for SMEs in Bangladesh"
+    href: "/industries/sme"
+  - label: "Accounting module guide"
+    href: "/modules/accounting"
+  - label: "ERP readiness checklist"
+    href: "/resources/erp-checklist"
+  - label: "Technical training: Deployment"
+    href: "/training/technical/deployment"
+faq:
+  - q: "Which open source ERP is best in Bangladesh?"
+    a: "There is no single best. Odoo Community has the largest local talent pool and partner ecosystem in Bangladesh and the widest module coverage. ERPNext is fully open source including accounting and has a smaller but active local following. Choose based on your industry fit, the talent you can hire and the localisation you need."
+  - q: "Is open source ERP really free?"
+    a: "The licence is free. Implementation, hosting, localisation for NBR VAT and Mushak, training and support are not. Community-observed implementation ranges in Bangladesh are BDT 3 to 8 lakh for a small SME, BDT 8 to 25 lakh mid-size, and BDT 25 lakh to 1 crore plus for manufacturing or garments, whichever open source product you pick."
+  - q: "Can open source ERP handle Bangladesh VAT and Mushak forms?"
+    a: "Yes, with configuration and some custom reports. Both Odoo and ERPNext can model 15 percent VAT, reduced rates, zero-rated exports and withholding. Mushak 6.3 and 9.1 layouts are custom or community-contributed in both, so ask any implementer to show a working sample."
+  - q: "Can I host an open source ERP inside Bangladesh?"
+    a: "Yes. Self-hosting is the main advantage of open source. Local data centres and local cloud providers can host Odoo or ERPNext so that data stays in Bangladesh, which matters for government, financial and some export clients. Budget for backups, monitoring and a UPS-backed network at your sites."
+  - q: "Should a small business start with open source ERP or Tally?"
+    a: "Tally is accounting software; an ERP covers sales, purchase, inventory, manufacturing, HR and accounting in one database. If you only need books and VAT, Tally or Odoo's One App Free invoicing may be enough. If you have stock, production or a sales team to coordinate, an ERP is the next step."
 ---
 
-Open source ERP can be a strong fit when you want flexibility, long-term control, and the ability to build internal capability.
+Open source ERP is a strong option for Bangladesh businesses because the licence costs nothing, you can host the system inside the country, and a local pool of freelancers and partners can customise it for NBR VAT, Mushak forms and Labour Act payroll. The two products most used in Bangladesh are Odoo Community (Odoo 17 to 19) and ERPNext, with a few others in niche use. The licence is free but the project is not: community-observed implementation ranges are BDT 3 to 8 lakh for a small SME, BDT 8 to 25 lakh for a mid-size company, and BDT 25 lakh to 1 crore plus for manufacturing or garments. This guide explains the options, the trade-offs and how to choose without a vendor in the room.
 
-## Common evaluation points
+## What "open source ERP" means in practice
 
-- Fit for your industry and workflows
-- Customization needs vs standard process
-- Talent availability (functional + technical)
-- Total cost: implementation + training + maintenance
+An open source ERP gives you the source code under a licence that lets you run, modify and redistribute it. For a Bangladesh buyer the practical consequences are:
 
-## Useful links
+- No per-user licence fee, which matters when a factory has 200 shop floor users.
+- You can host it in a Dhaka data centre, on a local cloud, or on your own server, so data residency is in your control.
+- Any competent developer can modify it, so you are not locked to one vendor.
+- You, not a vendor, are responsible for upgrades, security and backups, unless you pay someone to be.
 
-- Compare: `/odoo-vs-erpnext`
-- Checklist: `/resources/erp-checklist`
-- Learning: `/learning-center`
+The last point is where the "free" label misleads. Open source shifts cost from licences to people. Whether that is cheaper depends on your size and on the talent you can reach.
 
+## The main options in Bangladesh
+
+| Product | Licence | Technology | Local ecosystem in Bangladesh | Where it is strongest |
+|---|---|---|---|---|
+| Odoo Community | LGPL v3 | Python, PostgreSQL, OWL front-end | Largest: official partners, independent firms, many freelancers, training batches | Breadth of apps, inventory and manufacturing, large third-party module library (OCA) |
+| Odoo Enterprise | Proprietary, about USD 24.90 to 37.40 per user per month at Odoo's US list price (regional price from Bangladesh usually lower) | Same core as Community plus proprietary apps | Same partners resell it | Full Accounting, Studio, Quality, mobile app, vendor support and upgrades |
+| ERPNext | GPL v3 | Python (Frappe framework), MariaDB | Smaller but active; a handful of firms and freelancers | Fully open source accounting and HR, no paid edition split, clean single-codebase model |
+| Dolibarr, Tryton and others | Various open source | PHP or Python | Very limited local support | Small businesses with simple needs and in-house technical skill |
+
+Odoo Enterprise is included for context because many Bangladesh projects start on Community and consider Enterprise later, or the reverse. The [Odoo vs ERPNext comparison](/comparisons/odoo-vs-erpnext) goes deeper on the two main contenders; this page stays at the decision level.
+
+## Comparing on what matters locally
+
+### Localisation for NBR VAT and Mushak
+
+Neither product ships a complete Bangladesh VAT package, although Odoo 17 to 19 include an official l10n_bd module with the chart of accounts and VAT rates (its default tax is 10 percent, so set it to 15). Both can be configured for 15 percent VAT, reduced rates, zero-rated exports, VDS and TDS withholding and a July to June fiscal year. Mushak 6.3 tax invoices and Mushak 9.1 return mapping are custom or community-contributed work in both, typically 3 to 10 person-days. The question to ask any implementer is not "do you support Bangladesh VAT" but "show me a Mushak 6.3 you have delivered and the 9.1 grid mapping".
+
+### Payroll under the Labour Act 2006
+
+Both have payroll engines that can be configured for basic, house rent, medical, overtime at double the basic rate, festival bonuses, provident fund and gratuity. Odoo Community's payroll depends on OCA or custom modules in Odoo 17 to 19; ERPNext's HR and payroll are part of its open source suite. For a factory with thousands of workers, attendance device integration and performance are project items in either case.
+
+### Bangla language and local formats
+
+Both support Bangla as a UI language with partial translation coverage, and both can print Bangla documents. Lakh and crore number formatting is a small customisation in either. Check how your customers' delivery challans and payslips will look before you commit.
+
+### Talent and partner availability
+
+This is often the deciding factor. Odoo appears to have the larger pool of functional consultants and developers in Bangladesh, judging by partner listings and job adverts, which means more choice, more competitive rates and easier replacement if a provider leaves. ERPNext talent exists but is thinner, so you may depend more on one firm. For an in-house team, Python skills transfer between the two, but framework knowledge does not.
+
+### Hosting and data residency
+
+Both self-host on a standard Linux server with PostgreSQL (Odoo) or MariaDB (ERPNext). A local data centre VM sized for 10 to 50 users costs roughly BDT 5,000 to 20,000 per month (BDT 60,000 to 2.4 lakh per year); an international cloud server costs USD 25 to 150 per month, roughly BDT 3,000 to 19,000 at BDT 120 to 125 per USD. Either product also has a managed cloud from its vendor, hosted abroad. The [deployment training topic](/training/technical/deployment) covers a production setup for Odoo.
+
+### Upgrades
+
+Odoo releases a major version every October and supports the three most recent; upgrading a customised Community instance is a project, often 10 to 30 percent of the original implementation cost. ERPNext releases on its own cadence with in-place upgrade tooling. In both cases, the less you customise core processes, the cheaper every upgrade.
+
+## Cost ranges with assumptions
+
+Open source does not change the implementation ranges much, because the work is the same: discovery, configuration, localisation, migration, training, go-live. Community-observed ranges for Bangladesh, not quotes:
+
+| Scope | Profile | Observed implementation range | Yearly running cost (hosting plus basic support) |
+|---|---|---|---|
+| Small SME | 2 to 5 users, 3 to 6 apps | BDT 3 to 8 lakh | BDT 50,000 to 2 lakh |
+| Mid-size | 10 to 30 users, customisation, Mushak and payroll | BDT 8 to 25 lakh | BDT 2 to 6 lakh |
+| Manufacturing or garments | MRP, quality, integrations | BDT 25 lakh to 1 crore plus | BDT 5 lakh and above |
+
+The saving versus proprietary ERP is in licences. For comparison, Odoo Enterprise at Odoo's US list price of about USD 24.90 to 37.40 per user per month is up to about BDT 3,000 to 4,700 per user per month, so 30 users cost at most about BDT 11 to 17 lakh per year in licences alone. Odoo prices by region and the regional USD price shown on odoo.com/pricing from Bangladesh is usually lower, so confirm there; it also changes yearly. Proprietary mid-market ERPs covered in the [comparisons section](/comparisons) typically cost more per user than that. Over five years, licence savings on 30 or more users can fund a good deal of support and customisation, which is the core argument for open source at that size.
+
+## When open source ERP is the right call
+
+Open source fits well when:
+
+- You have, or can hire, technical capability, either in-house or through a partner you trust.
+- You need data to stay in Bangladesh.
+- You have many users, so per-user licences would dominate the budget.
+- Your processes need local customisation: Mushak outputs, bonded warehouse tracking, specific payroll rules.
+- You want the freedom to change provider without losing the system.
+
+It fits less well when:
+
+- You have no technical capability and no budget for a support retainer. A SaaS product with vendor support may fail less often.
+- You need vendor-certified compliance or audited software for a regulated category.
+- Your needs are only accounting and VAT. A dedicated accounting package or a single-app plan may be enough.
+
+## A worked example
+
+Consider a hypothetical Chattogram distribution company with 15 users: 4 in accounts, 6 in sales and delivery, 3 in the warehouse, 2 managers. They evaluate a proprietary mid-market ERP and Odoo Community.
+
+- Proprietary option: licences for 15 users, implementation by the vendor's partner, hosting on the vendor's cloud abroad. Licence cost recurs yearly; customisation for Mushak and post-dated cheques is charged at partner rates.
+- Odoo Community: zero licence, implementation by a local firm at a community-observed BDT 8 to 15 lakh for this scope, hosting on a local cloud at BDT 1.2 to 2.4 lakh per year, support retainer BDT 15,000 to 40,000 per month.
+
+Over five years the open source route avoids licence fees entirely and keeps data in Bangladesh, at the price of owning the upgrade and support relationship. Whether that is better depends on the firm's confidence in its local provider, which is why the [partner evaluation guide](/odoo-partners-bangladesh) matters more than the product choice.
+
+## How to evaluate properly
+
+1. Write down your industry workflows and your Bangladesh-specific requirements: VAT cases, Mushak outputs, withholding, payroll rules, payment channels, Bangla documents, hosting location.
+2. Shortlist two products, usually Odoo Community and ERPNext, and the providers for each.
+3. Ask each provider for a proof of concept on your hardest process using your own data.
+4. Check talent availability: how many people in Dhaka or Chattogram could support this system if the provider disappeared?
+5. Get line-item estimates against the same written scope. The [implementation cost page](/odoo-implementation-cost-bangladesh) lists what a quote should include.
+6. Decide on total five-year cost, not first-year price.
+
+The [ERP readiness checklist](/resources/erp-checklist) gives you a structure for step one, and the [SME industry guide](/industries/sme) shows what a typical small business scope looks like.
+
+## Frequently asked questions
+
+### Which open source ERP is best in Bangladesh?
+
+There is no single best. Odoo Community has the largest local talent pool and partner ecosystem in Bangladesh and the widest module coverage. ERPNext is fully open source including accounting and has a smaller but active local following. Choose based on your industry fit, the talent you can hire and the localisation you need.
+
+### Is open source ERP really free?
+
+The licence is free. Implementation, hosting, localisation for NBR VAT and Mushak, training and support are not. Community-observed implementation ranges in Bangladesh are BDT 3 to 8 lakh for a small SME, BDT 8 to 25 lakh mid-size, and BDT 25 lakh to 1 crore plus for manufacturing or garments, whichever open source product you pick.
+
+### Can open source ERP handle Bangladesh VAT and Mushak forms?
+
+Yes, with configuration and some custom reports. Both Odoo and ERPNext can model 15 percent VAT, reduced rates, zero-rated exports and withholding. Mushak 6.3 and 9.1 layouts are custom or community-contributed in both, so ask any implementer to show a working sample.
+
+### Can I host an open source ERP inside Bangladesh?
+
+Yes. Self-hosting is the main advantage of open source. Local data centres and local cloud providers can host Odoo or ERPNext so that data stays in Bangladesh, which matters for government, financial and some export clients. Budget for backups, monitoring and a UPS-backed network at your sites.
+
+### Should a small business start with open source ERP or Tally?
+
+Tally is accounting software; an ERP covers sales, purchase, inventory, manufacturing, HR and accounting in one database. If you only need books and VAT, Tally or Odoo's One App Free invoicing may be enough. If you have stock, production or a sales team to coordinate, an ERP is the next step.
+
+## Next step
+
+If you have narrowed the choice to one or two products and want a second opinion on fit, [talk to a specialist](/contact) through the community inquiry form. Describe your industry, user count and Bangladesh-specific requirements, and ask for a neutral view before you request vendor quotes. The [ERP readiness checklist](/resources/erp-checklist) will help you prepare that description.

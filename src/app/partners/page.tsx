@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Odoo Partners in Bangladesh (Directory)",
   description:
-    "A community directory to help you find Odoo partners and specialists in Bangladesh — based on expertise areas, industries, and training capability.",
+    "A community directory to help you find Odoo partners and specialists in Bangladesh, based on expertise areas, industries, and training capability.",
   alternates: { canonical: "/partners" },
 };
 
@@ -18,7 +18,7 @@ export default function PartnersPage() {
         <p className="mt-2 text-sm leading-6 text-zinc-600">
           This is a community directory concept (work in progress). The goal is
           to help teams find the right specialists based on module expertise,
-          industry experience, and training capability — without aggressive
+          industry experience, and training capability, without aggressive
           sales language.
         </p>
       </div>

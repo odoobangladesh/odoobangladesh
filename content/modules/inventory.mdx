@@ -1,32 +1,147 @@
 ---
-title: "Odoo Inventory Module"
-description: "Warehouse operations in Odoo: receipts, deliveries, routes, barcodes, replenishment, and traceability."
+title: "Odoo Inventory Module in Bangladesh: Warehouses, LC and Bond"
+description: "How Odoo Inventory handles warehouses, receipts, barcodes, landed costs and traceability for Bangladesh importers, distributors and bonded garments factories."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Inventory
   - Inventory ERP Bangladesh
   - Odoo ERP Bangladesh
+  - Odoo warehouse management Bangladesh
+  - Odoo landed cost customs duty
+  - bonded warehouse ERP
+  - Odoo barcode
 related:
   - label: "Purchase"
     href: "/modules/purchase"
   - label: "Manufacturing"
     href: "/modules/manufacturing"
+  - label: "Accounting"
+    href: "/modules/accounting"
   - label: "Odoo for distribution"
     href: "/industries/distribution"
+  - label: "Odoo for garments"
+    href: "/industries/garments"
   - label: "Functional training: Inventory"
     href: "/training/functional/inventory"
-  - label: "Implementation guide"
-    href: "/implementation-guide"
+  - label: "Implementation guide: configuration"
+    href: "/implementation-guide#configuration"
+faq:
+  - q: "Can Odoo Inventory track a bonded warehouse separately?"
+    a: "Yes. Create the bond as its own warehouse or as a dedicated location with its own receipt and issue operation types, so bonded fabric and accessories never mix with duty-paid stock and the bond register can be reconciled against Odoo moves."
+  - q: "How are customs duty and AIT added to stock cost?"
+    a: "Use the Landed Costs feature. After the receipt, create a landed cost document for customs duty, AIT, C&F agent fees, port charges and inland transport, and split it across the received lines by value, quantity or weight."
+  - q: "Does Odoo Inventory work on a barcode scanner?"
+    a: "Community edition supports barcode scanning on receipts and deliveries through the web interface. The dedicated Barcode app with a scanner-optimised screen is Enterprise. Cheap USB and Bluetooth scanners work with both."
+  - q: "Which stock valuation method should a Bangladesh company choose?"
+    a: "Most importers use average cost with automated valuation so the ledger reflects landed cost. FIFO suits companies with volatile import prices. Standard cost suits manufacturers with stable BOM costs. Agree the choice with your auditor before go-live."
+  - q: "Can we run multiple warehouses in Dhaka and Chattogram?"
+    a: "Yes. Each warehouse has its own locations, operation types and reordering rules, and inter-warehouse transfers move stock between them with a transit location in between."
 ---
 
-## What it covers
+Odoo Inventory is the warehouse engine of the system. It records every receipt, delivery, transfer and adjustment as a stock move, keeps quantities per location, and posts the value of that stock to [Accounting](/modules/accounting) when automated valuation is switched on. For Bangladesh companies the module has to cope with realities the generic documentation ignores: imports that arrive by letter of credit with customs duty and advance income tax, bonded warehouses in the garments sector that customs can inspect, distributors with depots in several divisions, and barcode labelling that often starts from nothing. This page describes Odoo 17 to 19; Odoo releases a new major version every October, so check which one you are being offered.
 
-- Multi-warehouse operations
-- Reordering rules and replenishment
-- Barcodes and picking workflows
-- Lot/serial tracking (traceability)
+## What the module does
 
-## Implementation notes
+- Warehouses and locations in a hierarchy, with internal, transit, scrap and customer locations.
+- Operation types: receipts, deliveries, internal transfers, manufacturing pickings and returns.
+- Routes and rules that decide how a product reaches a location (buy, manufacture, pull from another warehouse).
+- Reordering rules that trigger purchase orders or manufacturing orders at minimum stock.
+- Lot and serial tracking with expiry dates, which pharma and food distributors rely on.
+- Stock valuation (standard, average, FIFO) with optional automated journal entries.
+- Landed costs to add duty, freight and agent fees to the cost of received goods.
+- Barcode scanning, packages, putaway and removal strategies, and cycle counts.
+- Reporting: stock on hand, forecasted stock, moves history and valuation.
 
-- Define locations and picking types
-- Align stock valuation method with accounting needs
-- Confirm barcode hardware and labeling workflow
+## Key features in Odoo 17 to 19
+
+| Feature | Odoo 17 | Odoo 18 and 19 |
+|---|---|---|
+| Replenishment dashboard | Yes, with manual and automatic triggers | Improved forecasting and supplier lead time use |
+| Multi-step receipts (input, quality, stock) | Yes | Yes, with simpler route configuration |
+| Barcode app | Enterprise, redesigned mobile screen | Enterprise, batch and wave picking |
+| Quality checks on receipt | Enterprise Quality app | Enterprise Quality app |
+| Landed costs | Yes | Yes |
+| Package and pallet handling | Yes | Yes, with packaging-level reordering |
+| Stock count by location | Yes | Yes, with scheduled counts |
+
+The core model has not changed between 17 and 19, so a warehouse supervisor trained on 17 can move to 19 with a short refresher.
+
+## Bangladesh-specific considerations
+
+### LC-based imports
+
+Most industrial raw material and finished goods imports arrive under a letter of credit. In Odoo the purchase order is created in [Purchase](/modules/purchase) with the foreign currency and the expected arrival date. Inventory sees a receipt that may arrive weeks after the LC is opened, sometimes in partial shipments. Use the LC number as a reference on the receipt, enable backorders for partial arrivals, and set the receipt date to the date goods actually clear the port, not the bill of lading date, so valuation and ageing are correct.
+
+### Landed costs with customs duty and AIT
+
+An import from Chattogram port carries customs duty, supplementary duty where applicable, VAT at import (recoverable as input VAT), advance income tax (AIT), C&F agent fees, port and shipping line charges and inland transport to Gazipur or Narayanganj. The landed cost document in Odoo lets you attach each of these as a cost line and split it across the receipt. Import VAT is not a product cost; book it to the VAT receivable account instead. AIT is also not a product cost; it is an advance against corporate income tax and belongs on a tax asset account. Agree this treatment with your accountant, because getting it wrong overstates stock value.
+
+### Bonded warehouses for garments
+
+Export-oriented garments factories import fabric and accessories duty-free into a bonded warehouse licensed by the Customs Bond Commissionerate. The bond register must show receipts, issues to production and balances by item. Configure the bond as a separate warehouse (or a dedicated location) with its own operation types, track lots by LC and UD number, and never let duty-paid local purchases enter the same location. Consumption against a utilisation declaration (UD) can be reported from manufacturing order consumption. Odoo will not generate the official bond register format, so plan a custom report. The [garments industry page](/industries/garments) explains the wider BGMEA and EPZ context.
+
+### Distribution depots and transit
+
+A distributor with depots in Dhaka, Chattogram, Bogura and Sylhet runs each depot as a warehouse. Inter-warehouse transfers use a transit location so stock on a truck is visible and not counted at either end. Reordering rules per depot trigger internal transfers from the central warehouse rather than new purchases. The [distribution industry page](/industries/distribution) shows the full flow with dealers and credit control.
+
+### Barcodes and hardware
+
+Many local products arrive without a GS1 barcode. Generate internal barcodes in Odoo, print labels on a thermal printer (TSC and Zebra models are common in Dhaka's electronics markets at BDT 15,000 to 40,000), and scan with a USB or Bluetooth scanner. Load-shedding affects warehouse operations as much as retail; a small UPS for the label printer and the WiFi router avoids half-printed labels.
+
+### Pharma and food traceability
+
+Pharmaceutical distributors need batch numbers and expiry dates for DGDA compliance and recalls. Odoo's lot tracking with expiry alerts and FEFO removal (first expired, first out) handles this in Community edition.
+
+## Community vs Enterprise for inventory
+
+Community edition includes warehouses, routes, lots, valuation, landed costs and web-based barcode scanning. Enterprise adds the dedicated Barcode app with a scanner-first interface, the Quality app for inspections on receipt, shipping connectors (mostly irrelevant for Bangladesh domestic couriers), and better planning views. A trading SME with one or two warehouses usually runs Community well. A factory that wants quality checks on every fabric roll will want Enterprise Quality or an OCA alternative. Licence cost for Enterprise is roughly USD 24.90 to 37.40 per user per month at Odoo's US list price, usually less at the regional price shown from Bangladesh; confirm current Bangladesh pricing on odoo.com/pricing and see the [pricing guide](/pricing-guide#components).
+
+## Typical implementation steps
+
+1. List warehouses, physical locations and whether any are bonded.
+2. Decide the valuation method with your auditor and whether valuation posts automatically.
+3. Define operation types, including multi-step receipts if you inspect goods before stocking.
+4. Set product categories with the right stock accounts and costing method; follow the [configuration guidance](/implementation-guide#configuration).
+5. Clean the product master: units of measure, barcodes, lot tracking flags, reorder minimums.
+6. Load opening stock by location and lot on a cut-over date, after a physical count.
+7. Configure landed cost types for duty, AIT, freight and agent fees.
+8. Train storekeepers on scanning and backorders, then run a week in parallel with the old register.
+
+Community-observed implementation ranges for a distributor with inventory, purchase, sales and accounting and 10 to 30 users sit around BDT 8 to 25 lakh, depending on customisation such as bond reports.
+
+## Common mistakes
+
+- Receiving goods at bill of lading date instead of clearance date.
+- Including import VAT and AIT in product cost.
+- Mixing bonded and duty-paid stock in one location.
+- Skipping the opening stock count and importing last year's spreadsheet.
+- Buying scanners before testing whether the product barcodes are readable.
+
+## Frequently asked questions
+
+### Can Odoo Inventory track a bonded warehouse separately?
+
+Yes. Create the bond as its own warehouse or as a dedicated location with its own receipt and issue operation types, so bonded fabric and accessories never mix with duty-paid stock and the bond register can be reconciled against Odoo moves.
+
+### How are customs duty and AIT added to stock cost?
+
+Use the Landed Costs feature. After the receipt, create a landed cost document for customs duty, AIT, C&F agent fees, port charges and inland transport, and split it across the received lines by value, quantity or weight.
+
+### Does Odoo Inventory work on a barcode scanner?
+
+Community edition supports barcode scanning on receipts and deliveries through the web interface. The dedicated Barcode app with a scanner-optimised screen is Enterprise. Cheap USB and Bluetooth scanners work with both.
+
+### Which stock valuation method should a Bangladesh company choose?
+
+Most importers use average cost with automated valuation so the ledger reflects landed cost. FIFO suits companies with volatile import prices. Standard cost suits manufacturers with stable BOM costs. Agree the choice with your auditor before go-live.
+
+### Can we run multiple warehouses in Dhaka and Chattogram?
+
+Yes. Each warehouse has its own locations, operation types and reordering rules, and inter-warehouse transfers move stock between them with a transit location in between.
+
+## Next step
+
+Work through the community [ERP readiness checklist](/resources/erp-checklist) before your first inventory workshop; its product master and warehouse sections cover units of measure, barcodes, valuation and opening stock. For hands-on practice, the [inventory functional training](/training/functional/inventory) uses Bangladesh import and depot scenarios. Manufacturers should read the [manufacturing module](/modules/manufacturing) next.

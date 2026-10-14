@@ -1,31 +1,119 @@
 ---
-title: "Odoo Technical Training: Performance"
-description: "Performance checklist for Odoo: slow searches, prefetch, indexes, and what to measure before changing code."
+title: "Odoo Performance Training in Bangladesh: Measure, Then Tune"
+description: "What Odoo performance training covers for Odoo 17 to 19: profiling slow actions, N+1 queries, indexes, PostgreSQL tuning, workers, memory limits and cron jobs."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Technical Training
   - Odoo Performance
   - Odoo Training Bangladesh
+  - Odoo slow database fix
+  - Odoo PostgreSQL tuning
+  - Odoo profiler N+1 queries
 related:
-  - label: "Technical training: ORM"
-    href: "/training/technical/orm"
-  - label: "Technical training: deployment"
+  - label: "Previous topic: Deployment"
     href: "/training/technical/deployment"
-  - label: "Developer resources"
-    href: "/developer-resources"
   - label: "Technical syllabus"
     href: "/resources/technical-syllabus"
+  - label: "Inventory module"
+    href: "/modules/inventory"
+  - label: "Career guide: technical track"
+    href: "/odoo-career-guide#technical"
+  - label: "Developer resources"
+    href: "/developer-resources"
+faq:
+  - q: "My Odoo is slow. Should I buy a bigger server?"
+    a: "Not first. Most slow Odoo systems in Bangladesh have one or two bad queries, a missing index or too few workers. Measure with the built-in profiler and the PostgreSQL slow query log, fix what you find, then size the server from the numbers."
+  - q: "What is an N+1 query problem?"
+    a: "A loop that reads a related record one at a time, so 1,000 stock moves produce 1,001 queries instead of two. The ORM prefetches when you access fields on a recordset, so the fix is usually to read in batches or use read_group."
+  - q: "Does the training cover PostgreSQL tuning?"
+    a: "Yes: shared_buffers, work_mem, effective_cache_size, autovacuum and the slow query log, plus how to read EXPLAIN ANALYZE output. The settings are sized for a typical 8 to 16 GB server used by Bangladesh SMEs."
+  - q: "Is performance different in Odoo 17, 18 and 19?"
+    a: "The tools are the same: the profiler, SQL logging, workers and limits. Each version has made the ORM a little faster, so an upgrade can help, but it never fixes a missing index or a bad loop. Measure on your version."
 ---
 
-This topic page is a learning checklist for developers focusing on **performance**.
+Odoo performance training teaches you to find out why an Odoo 17 to 19 system is slow before changing anything: using the built-in profiler and `--log-sql` to see what a slow action does, spotting N+1 patterns and fixing them with prefetch and `read_group`, adding indexes only on fields that are actually filtered, tuning PostgreSQL for the server you have, setting `workers` and `limit_memory_hard` from measurements rather than guesses, and moving heavy work into scheduled actions. The exercises use a hypothetical Chittagong distributor with 2 million stock moves, because inventory volume is the most common reason a Bangladeshi Odoo slows down after year two. It is the final topic in the technical track and builds on [deployment](/training/technical/deployment).
 
-## Learning checklist
+## Learning outcomes
 
-- Measure a slow action before rewriting it
-- Search domains, prefetch, and N+1 style record access
-- Indexes on fields you actually filter
-- What belongs in a scheduled action versus a user click
-- How to tell a data-volume problem from a code problem
+By the end of this topic you should be able to:
 
-## Practice
+- Enable the profiler from the developer menu or with `--dev=all`, record a slow action, and read the SQL and Python call breakdown.
+- Turn on `--log-sql` and PostgreSQL's `log_min_duration_statement` to catch slow queries in production.
+- Recognise N+1 access in Python and in QWeb reports and fix it with batch reads, `mapped`, `read_group` or `search_read`.
+- Decide when `index=True` on a field or a partial index in SQL is justified, and check the result with `EXPLAIN ANALYZE`.
+- Tune PostgreSQL `shared_buffers`, `work_mem`, `effective_cache_size`, `random_page_cost` and autovacuum for an SSD server.
+- Size `workers`, `max_cron_threads`, `limit_memory_hard` and `limit_time_real` from observed memory per worker and request times.
+- Move long-running imports, report generation and reconciliation into scheduled actions or queued jobs with correct batch sizes.
+- Tell a data-volume problem from a code problem and write that finding up for a client in plain language.
 
-Take one list view that feels slow, note the domain and the fields it loads, and name one change you would try first.
+## Prerequisites
+
+Complete [ORM](/training/technical/orm) and [deployment](/training/technical/deployment). You need a production-like server with real data volume; the batch provides a generated database of 2 million `stock.move` rows. Read the [Inventory module](/modules/inventory) page for the vocabulary.
+
+## Syllabus outline
+
+| Session | Topic | Exercise |
+|---|---|---|
+| 1 | Measure first: profiler, `--log-sql`, browser network tab, baseline numbers | Record the baseline for five slow actions |
+| 2 | N+1 in Python: loops, related fields, prefetch, `read_group` | Fix a stock valuation loop |
+| 3 | N+1 in QWeb and reports, report batch size, PDF rendering time | Fix a 400-page delivery report |
+| 4 | Domains and indexes: `index=True`, partial indexes, `EXPLAIN ANALYZE` | Add one index and prove it helped |
+| 5 | PostgreSQL tuning for 8 to 16 GB servers, autovacuum, bloat | Tune and re-measure the baseline |
+| 6 | Workers, memory and time limits, cron threads, long polling | Size `odoo.conf` from measured memory |
+| 7 | Scheduled actions, queued jobs, batch imports, archiving old data | Move month-end valuation to a nightly job |
+| 8 | Capacity planning, monitoring, writing the performance report | Deliver a findings report to a client |
+
+## Practice exercises
+
+**Exercise 1: Baseline.** On the Chittagong distributor database, time these five actions and record the query count and wall time for each: opening the stock moves list, opening the stock valuation report for one month, confirming a 200-line sales order, printing a 400-line delivery slip, and the inventory valuation dashboard. Nothing is changed in this session.
+
+**Exercise 2: Fix the loop.** A custom valuation method looks like this:
+
+```python
+total = 0
+for move in self.env["stock.move"].search([("date", ">=", start), ("date", "<", end)]):
+    total += move.quantity * move.product_id.standard_price
+```
+
+Rewrite it with `read_group` or a single `search_read` plus a dict of product prices, then compare the query count and wall time with the baseline. Explain in two sentences why the first version loads every move into Python memory and reads product prices in prefetch batches, when PostgreSQL could have done the grouping and the sum in one query.
+
+**Exercise 3: Index decision.** Users filter stock moves by a custom `challan_number` Char field every day. Add `index=True` to the field, run `EXPLAIN ANALYZE` on the resulting query before and after, and record the change in planning and execution time. Then show that adding an index on a field nobody filters only slows down writes.
+
+**Exercise 4: PostgreSQL tuning.** On an 8 GB server, set `shared_buffers` to about 2 GB, `effective_cache_size` to about 6 GB, `work_mem` to 16 to 32 MB, `random_page_cost` to 1.1 for SSD, and make autovacuum more aggressive on `stock_move` and `mail_message`. Re-run the baseline and record the change. Note that these are starting points, not final values.
+
+**Exercise 5: Workers and memory.** Watch memory per worker during the baseline with `ps` or `htop`. If a worker peaks at 1.2 GB on a large report, set `limit_memory_soft` and `limit_memory_hard` above that with headroom, and compute how many workers fit in 8 GB after leaving room for PostgreSQL. Write the resulting `odoo.conf` block.
+
+**Exercise 6: Nightly job.** Move the month-end valuation into a scheduled action that processes 10,000 moves per batch and commits between batches. Confirm the dashboard reads the stored result in under a second during the day.
+
+## Recommended order
+
+The previous topic is [deployment](/training/technical/deployment). Performance is the last topic in the technical track, so there is no next topic. Return to the [technical syllabus](/resources/technical-syllabus) to review the whole programme and the integration sessions.
+
+## Where it leads
+
+A developer who can measure a slow Odoo and fix the right thing is rare in Bangladesh, and that is why performance work is often the entry point to retained support contracts with factories and distributors. The [career guide technical track](/odoo-career-guide#technical) describes the senior developer and technical lead roles where this skill is expected, and the freelance market for one-off performance audits.
+
+## Frequently asked questions
+
+### My Odoo is slow. Should I buy a bigger server?
+
+Not first. Most slow Odoo systems in Bangladesh have one or two bad queries, a missing index or too few workers. Measure with the built-in profiler and the PostgreSQL slow query log, fix what you find, then size the server from the numbers.
+
+### What is an N+1 query problem?
+
+A loop that reads a related record one at a time, so 1,000 stock moves produce 1,001 queries instead of two. The ORM prefetches when you access fields on a recordset, so the fix is usually to read in batches or use read_group.
+
+### Does the training cover PostgreSQL tuning?
+
+Yes: shared_buffers, work_mem, effective_cache_size, autovacuum and the slow query log, plus how to read EXPLAIN ANALYZE output. The settings are sized for a typical 8 to 16 GB server used by Bangladesh SMEs.
+
+### Is performance different in Odoo 17, 18 and 19?
+
+The tools are the same: the profiler, SQL logging, workers and limits. Each version has made the ORM a little faster, so an upgrade can help, but it never fixes a missing index or a bad loop. Measure on your version.
+
+## Next step
+
+Read the [technical syllabus](/resources/technical-syllabus) for the full programme and check the [training page](/training) for the next batch. A new major Odoo version arrives every October, so confirm the version your batch uses.

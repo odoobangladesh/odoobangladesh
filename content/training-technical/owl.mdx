@@ -1,31 +1,148 @@
 ---
-title: "Odoo Technical Training: OWL"
-description: "OWL basics for Odoo: components, templates, props, and where a backend view is still the better choice."
+title: "Odoo OWL Training in Bangladesh: Components, Hooks and Widgets"
+description: "What Odoo OWL 2 training covers for Odoo 17 to 19: components, templates, props, useState and useService, field widgets, client actions, assets and POS patches."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Technical Training
   - Odoo OWL
   - Odoo Training Bangladesh
+  - OWL 2 component tutorial
+  - Odoo JavaScript framework course
+  - Odoo field widget development
 related:
-  - label: "Technical training: module development"
-    href: "/training/technical/module-development"
-  - label: "Technical training: ORM"
+  - label: "Previous topic: ORM"
     href: "/training/technical/orm"
-  - label: "Developer resources"
-    href: "/developer-resources"
+  - label: "Next topic: Deployment"
+    href: "/training/technical/deployment"
   - label: "Technical syllabus"
     href: "/resources/technical-syllabus"
+  - label: "Point of Sale module"
+    href: "/modules/pos"
+  - label: "Developer resources"
+    href: "/developer-resources"
+faq:
+  - q: "Is OWL the same as React or Vue?"
+    a: "It is a small component framework with similar ideas: components, props, reactive state and hooks. OWL 2 is what Odoo 17 to 19 ship, and the web client, POS and many widgets are built on it. If you know React you will be productive in a week."
+  - q: "Do I need OWL to be an Odoo developer?"
+    a: "Not for most backend work. XML views, QWeb reports and Python cover the majority of Bangladesh projects. You need OWL when a client wants a custom widget, dashboard, POS screen change or an interactive client action."
+  - q: "How much JavaScript do I need?"
+    a: "Modern ES modules, classes, async and await, and template literals. The training assumes you can read a Promise chain. No build tool knowledge is needed because Odoo bundles assets itself."
+  - q: "Did OWL change between Odoo 17 and 19?"
+    a: "OWL 2 is used throughout and the component model (components, props, hooks, templates) is stable. What changed between 17 and 18 is around it: `rpc` moved from a service to a function imported from `@web/core/network/rpc`, the JavaScript test framework moved from QUnit to HOOT, and some field widget props were refined. The exercises use `searchRead` and `orm.call`, which behave the same in all three versions, but check the version before copying a snippet."
 ---
 
-This topic page is a learning checklist for developers focusing on **OWL**.
+Odoo OWL training teaches you to build front-end components for Odoo 17 to 19 with OWL 2, the component framework that powers the web client and Point of Sale: components and templates, props and validation, `useState` and `useRef`, lifecycle hooks such as `onWillStart`, the `useService` hook for ORM and notifications, registering a field widget or client action, declaring assets in the manifest, and deciding when a plain XML view is the better choice. The exercises build a VAT summary widget and a small POS change for a Dhaka pharmacy, because that is the kind of front-end work local clients pay for. It follows the [ORM](/training/technical/orm) topic because every component you write reads data through it.
 
-## Learning checklist
+## Learning outcomes
 
-- Components, templates, and props
-- State, hooks, and when to re-render
-- How an OWL component is registered in a module
-- When an XML form view is enough and a custom component is not
-- How to keep a component testable
+By the end of this topic you should be able to:
 
-## Practice
+- Write an OWL 2 component with a `static template`, `static props` and a QWeb template using `t-if`, `t-foreach`, `t-on-click` and `t-out`.
+- Manage reactive state with `useState`, read DOM nodes with `useRef`, and load data in `onWillStart` and `onWillUpdateProps`.
+- Call the server through `useService("orm")` and show feedback through `useService("notification")`.
+- Register a field widget in `registry.category("fields")` and use it from a form view with `widget="..."`.
+- Register a client action and open it from a menu.
+- Declare JavaScript, XML templates and SCSS in `web.assets_backend` and `point_of_sale._assets_pos` in the manifest.
+- Patch an existing POS component in Odoo 17 to 19 without copying the whole file.
+- Explain to a client why a computed field and a standard view are cheaper than a custom component when they are enough.
 
-Build a small component that reads a record and shows one computed value, then mount it from a module instead of a standalone page.
+## Prerequisites
+
+Complete [module development](/training/technical/module-development) and [ORM](/training/technical/orm). Know modern JavaScript. Run Odoo with `--dev=all` so asset changes reload without a restart. Read the [Point of Sale module](/modules/pos) page before the POS session.
+
+## Syllabus outline
+
+| Session | Topic | Exercise |
+|---|---|---|
+| 1 | OWL 2 basics: components, templates, props, assets in the manifest | Render a hello component in a client action |
+| 2 | State and hooks: `useState`, `useRef`, lifecycle, `onWillStart` | Load and display VAT totals for the month |
+| 3 | Services: `orm`, `notification`, `action`, error handling, and `rpc` (in 17 `rpc` is a service, in 18 and 19 it is a function imported from `@web/core/network/rpc`) | Show a notification when the VAT return is late |
+| 4 | Field widgets: `standardFieldProps`, registry, record and update | Build a BIN input widget with 13-digit validation |
+| 5 | Client actions, menus, dashboards, routing | Build a Mushak 9.1 preview dashboard |
+| 6 | QWeb templates: inheritance with `t-inherit`, slots, sub-components | Extend the invoice form chatter header |
+| 7 | POS customisation: patching screens, receipt changes, offline | Add a VAT-inclusive line note to the receipt |
+| 8 | Testing: QUnit in 17, HOOT in 18 and 19, plus tours, debugging, code review | Write one unit test and one tour |
+
+## Practice exercises
+
+**Exercise 1: VAT summary component.** Build a component that shows total sales, output VAT and input VAT for the current month for a hypothetical Chittagong trading company, read through the ORM service. The example uses `searchRead`, whose signature is the same in Odoo 17, 18 and 19; the grouped-read helpers changed between versions, so when you need server-side aggregation call a Python method with `this.orm.call(...)` instead:
+
+```javascript
+/** @odoo-module **/
+import { Component, useState, onWillStart } from "@odoo/owl";
+import { registry } from "@web/core/registry";
+import { useService } from "@web/core/utils/hooks";
+
+export class BdVatSummary extends Component {
+    static template = "bd_vat_mushak.VatSummary";
+    // The action service passes extra props to a client action, and --dev=all validates them.
+    static props = { "*": true };
+
+    setup() {
+        this.orm = useService("orm");
+        this.state = useState({ sales: 0, outputVat: 0, inputVat: 0, loading: true });
+        onWillStart(async () => {
+            const moves = await this.orm.searchRead(
+                "account.move",
+                [["state", "=", "posted"], ["move_type", "in", ["out_invoice", "in_invoice"]]],
+                ["move_type", "amount_untaxed", "amount_tax"],
+                { limit: 5000 }
+            );
+            for (const m of moves) {
+                if (m.move_type === "out_invoice") {
+                    this.state.sales += m.amount_untaxed;
+                    this.state.outputVat += m.amount_tax;
+                } else {
+                    this.state.inputVat += m.amount_tax;
+                }
+            }
+            this.state.loading = false;
+        });
+    }
+}
+
+registry.category("actions").add("bd_vat_mushak.vat_summary", BdVatSummary);
+```
+
+Write the matching XML template with `t-if="state.loading"`, `t-out` for each amount, and a table that formats amounts as BDT, declare both files in `web.assets_backend`, and add a client action and menu under Accounting Reporting.
+
+**Exercise 2: BIN field widget.** Create a field widget that accepts only digits, shows a red border until 13 digits are entered, and writes the value with `this.props.record.update({ [this.props.name]: value })`. Use it on the partner form with `widget="bd_bin"`.
+
+**Exercise 3: Late return notification.** If today is more than 15 days past the end of the chosen filing period (monthly or quarterly since Finance Act 2026) and no Mushak 9.1 has been marked filed for that period, show a warning notification when the VAT dashboard opens. Use `useService("notification")` and keep the check on the server side in a Python method called through `this.orm.call(...)` or `rpc` (in 17 `rpc` is a service obtained with `useService("rpc")`, in 18 and 19 it is a function imported from `@web/core/network/rpc`).
+
+**Exercise 4: Dhaka pharmacy receipt.** Patch the POS receipt component so each line shows "incl. 15 percent VAT" and the footer shows the pharmacy's BIN. Use the `patch` utility from `@web/core/utils/patch` and declare the file in `point_of_sale._assets_pos`. Test it offline by disconnecting the network and printing a receipt.
+
+**Exercise 5: Decide against OWL.** A client asks for a coloured badge on overdue invoices. Show that a `decoration-danger` attribute on the list view does it with no JavaScript, and write two sentences for the client explaining why that is the better choice.
+
+## Recommended order
+
+The previous topic is [ORM](/training/technical/orm). The next topic is [deployment](/training/technical/deployment), where you learn how assets are bundled on a production server and why a missing asset declaration shows up only after go-live.
+
+## Where it leads
+
+OWL skills are less common than Python skills among local developers, which tends to help a developer's rate when the project needs a custom widget or a POS change. The [career guide technical track](/odoo-career-guide#technical) describes the full-stack Odoo developer profile that partners in Dhaka look for on larger retail and dashboard projects.
+
+## Frequently asked questions
+
+### Is OWL the same as React or Vue?
+
+It is a small component framework with similar ideas: components, props, reactive state and hooks. OWL 2 is what Odoo 17 to 19 ship, and the web client, POS and many widgets are built on it. If you know React you will be productive in a week.
+
+### Do I need OWL to be an Odoo developer?
+
+Not for most backend work. XML views, QWeb reports and Python cover the majority of Bangladesh projects. You need OWL when a client wants a custom widget, dashboard, POS screen change or an interactive client action.
+
+### How much JavaScript do I need?
+
+Modern ES modules, classes, async and await, and template literals. The training assumes you can read a Promise chain. No build tool knowledge is needed because Odoo bundles assets itself.
+
+### Did OWL change between Odoo 17 and 19?
+
+OWL 2 is used throughout and the component model (components, props, hooks, templates) is stable. What changed between 17 and 18 is around it: `rpc` moved from a service to a function imported from `@web/core/network/rpc`, the JavaScript test framework moved from QUnit to HOOT, and some field widget props were refined. The exercises use `searchRead` and `orm.call`, which behave the same in all three versions, but check the version before copying a snippet.
+
+## Next step
+
+Read the [technical syllabus](/resources/technical-syllabus) for the full programme and check the [training page](/training) for the next batch. A new major Odoo version arrives every October, so confirm the version your batch uses.

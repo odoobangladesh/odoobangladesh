@@ -1,34 +1,141 @@
 ---
-title: "Odoo Manufacturing (MRP) Module"
-description: "Production planning in Odoo: BOMs, work orders, shop floor operations, costing, and quality."
+title: "Odoo Manufacturing (MRP) Module in Bangladesh: BOMs to Costing"
+description: "What Odoo Manufacturing does for Bangladesh garments, plastics and pharma plants: BOMs, work orders, subcontracting, costing, Community versus Enterprise."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Manufacturing Bangladesh
   - Manufacturing ERP Bangladesh
   - Odoo ERP Bangladesh
+  - Odoo MRP
+  - garments ERP Bangladesh
+  - Odoo bill of materials
+  - Odoo work orders
+  - pharma ERP Bangladesh
 related:
   - label: "Inventory"
     href: "/modules/inventory"
   - label: "Purchase"
     href: "/modules/purchase"
+  - label: "Accounting"
+    href: "/modules/accounting"
   - label: "Odoo for manufacturing"
     href: "/industries/manufacturing"
   - label: "Odoo for garments"
     href: "/industries/garments"
   - label: "Functional training: Manufacturing"
     href: "/training/functional/manufacturing"
-  - label: "Implementation guide"
-    href: "/implementation-guide"
+  - label: "Implementation guide: user acceptance testing"
+    href: "/implementation-guide#uat"
+faq:
+  - q: "Can Odoo handle garments production with sizes and colours?"
+    a: "Yes, with product variants for size and colour and a BOM per variant or a BOM with variant-specific lines. Large style counts make the variant matrix big, so many factories model the style as the product and track size and colour at the work order or packing stage."
+  - q: "Does Odoo Community include work orders and work centres?"
+    a: "Yes. Community has BOMs, manufacturing orders, routings through work centres, work orders and basic costing. Enterprise adds the Shop Floor app, Quality, PLM, Maintenance scheduling and the master production schedule."
+  - q: "How does Odoo cost a manufactured product?"
+    a: "The finished product cost is the sum of consumed component cost at their valuation method plus work centre time at the hourly cost you set. Overheads such as electricity and factory rent can be added through work centre cost rates or a separate landed cost on the output."
+  - q: "Can a pharma plant use Odoo for batch records?"
+    a: "Odoo tracks lots per manufacturing order and consumption per lot, which gives batch genealogy. The DGDA batch manufacturing record format itself is a custom report, and electronic signature on each step needs the Enterprise Quality app or a customisation."
+  - q: "What about subcontracted washing, printing or embroidery?"
+    a: "The subcontracting feature lets you send components to a subcontractor, receive finished goods, and cost the service through a purchase order. It is available in Community from Odoo 17 and is used widely for garments wash and print houses."
 ---
 
-## What it covers
+Odoo Manufacturing, often called MRP, turns a bill of materials and a routing into manufacturing orders, work orders and finished stock. It consumes components from [Inventory](/modules/inventory), records labour and machine time at work centres, and posts the cost of what was made. In Bangladesh the module shows up most often in three sectors: garments and knitwear, where styles, sizes, colours and subcontracted processes dominate; plastics and packaging, where a small number of machines run continuous batches; and pharmaceuticals, where batch genealogy and DGDA documentation matter more than scheduling. This page covers Odoo 17 to 19 and notes where the three versions differ. Odoo releases a new major version every October, so confirm the version before scoping.
 
-- Bills of Materials (BOM)
-- Work orders and routing
-- Production scheduling basics
-- Costing and reporting
+## What the module does
 
-## Implementation notes
+- Bills of materials with components, by-products, operations and versioning.
+- Manufacturing orders that reserve and consume components and produce finished goods.
+- Work orders routed through work centres with planned and actual time.
+- Subcontracting: components sent to a third party, finished goods received back.
+- Unbuild orders and scrap for rework and waste.
+- Costing: component cost plus work centre cost into the finished product valuation.
+- Planning views, capacity per work centre and basic scheduling.
+- Reporting on production efficiency, cost analysis and material consumption variance.
 
-- Validate BOM accuracy and versions
-- Define routing + work centers and capacity
-- Plan data collection on shop floor (tablets, scanners)
+## Key features in Odoo 17 to 19
+
+| Feature | Community | Enterprise | Version note |
+|---|---|---|---|
+| BOMs, MOs, work orders | Yes | Yes | Stable across 17 to 19 |
+| Subcontracting | Yes | Yes | Mature from 17 |
+| Shop Floor tablet app | No | Yes | New in 17, extended in 18 |
+| Quality checks and alerts | No (OCA options) | Yes | Both |
+| PLM with engineering change orders | No | Yes | Both |
+| Master production schedule | No | Yes | Both |
+| Maintenance requests | Yes (basic) | Yes with preventive scheduling | Both |
+| Kit BOMs (phantom) | Yes | Yes | Both |
+
+Odoo 17 introduced the Shop Floor app, a touch-first screen for operators that replaced the older work order tablet view. Odoo 18 added better MO splitting and merging and tighter component availability warnings. Odoo 19 continues with planning refinements; nothing structural changes for a Bangladesh implementation.
+
+## Bangladesh-specific considerations
+
+### Garments and knitwear
+
+Consider a hypothetical Narayanganj knitwear factory with 400 workers producing basic tees for European buyers. A style has 5 sizes and 4 colours, which is 20 variants. The practical BOM design is one BOM per style with fabric consumption per size, trims common to all, and operations for cutting, sewing, finishing and packing. Washing and printing go to subcontractors in Savar; subcontracting purchase orders carry the service price per dozen. The bonded warehouse feeds fabric to production against the UD; see the [garments industry page](/industries/garments). Per-line efficiency reporting is usually a custom report because buyers and management expect it in a specific layout. Production counting on the floor is still done on paper in many factories, so plan whether operators or line supervisors enter work order quantities and on which tablet.
+
+### Plastics and packaging
+
+A plastics moulding plant in Gazipur runs 8 to 15 machines continuously. Each machine is a work centre with an hourly cost that includes electricity, which is a large share of cost given industrial tariffs and diesel generator backup during load-shedding. BOMs are simple (resin, masterbatch, regrind), but by-products such as regrind must be modelled so material variance is visible. The master production schedule in Enterprise helps here, though many plants plan in a spreadsheet and push confirmed orders into Odoo.
+
+### Pharmaceuticals
+
+Pharma manufacturers need lot tracking on every component and the finished batch, consumption records per lot, yield reconciliation and a batch manufacturing record. Odoo gives the genealogy; the regulatory document is a QWeb report customised to the DGDA format. Quality control steps with sign-off need the Enterprise Quality app or a community equivalent. Expiry dates and FEFO removal are in Community.
+
+### Costing and the ledger
+
+Finished product cost flows to [Accounting](/modules/accounting) as work-in-progress and finished goods entries when automated valuation is on. Bangladesh auditors want to see material, labour and overhead separately; set work centre costs so labour and machine overhead post to distinct accounts, and reconcile the WIP account monthly, before the Mushak 9.1 return pulls purchase figures from the same ledger.
+
+### Power and connectivity on the floor
+
+Shop floor tablets lose connection during load-shedding if the WiFi access point is not on backup power. Put the server (or the internet link to a hosted server) and access points on the generator circuit. If you self-host on-site, size the UPS to carry the server through a generator switchover.
+
+## Community vs Enterprise for manufacturing
+
+Community covers the core: BOMs, MOs, work orders, subcontracting and costing. A factory that needs shop floor tablets, quality inspections with pass and fail logic, engineering change control or a formal master schedule needs Enterprise, or a partner willing to maintain OCA quality modules. For a factory with 30 named users (planners, storekeepers, supervisors and finance, not every worker), Enterprise at roughly USD 24.90 to 37.40 per user per month at Odoo's US list price, assuming roughly BDT 120 to 125 per USD, is at most in the region of BDT 11 to 17 lakh per year; the regional price shown from Bangladesh is usually lower. Confirm Bangladesh pricing on odoo.com/pricing. Implementation for a manufacturing or garments rollout with MRP, quality and integrations sits in the community-observed range of BDT 25 lakh to 1 crore plus; see the [pricing guide](/pricing-guide#components).
+
+## Typical implementation steps
+
+1. Validate BOM accuracy with the merchandising or production engineering team; 80 percent of MRP failures are bad BOMs.
+2. Define work centres, capacity and hourly costs, including power and generator fuel.
+3. Decide the unit of production: pieces, dozens, kilograms or batches, and keep it consistent between sales and manufacturing.
+4. Configure subcontracting partners and their service prices.
+5. Set up lot tracking and quality points where regulation or buyers require.
+6. Run user acceptance testing on a real month's production data; follow the [UAT guidance](/implementation-guide#uat) and insist that supervisors, not consultants, run the test orders.
+7. Go live on one line or one machine first, then roll out.
+
+## Common mistakes
+
+- Treating every size and colour as a separate product with its own BOM, then being unable to maintain 2,000 BOMs.
+- Ignoring by-products and waste, so material variance looks like theft.
+- Setting work centre costs to zero and wondering why margins look too good.
+- Skipping UAT with real data because the demo looked fine.
+- Buying tablets before deciding who enters production quantities.
+
+## Frequently asked questions
+
+### Can Odoo handle garments production with sizes and colours?
+
+Yes, with product variants for size and colour and a BOM per variant or a BOM with variant-specific lines. Large style counts make the variant matrix big, so many factories model the style as the product and track size and colour at the work order or packing stage.
+
+### Does Odoo Community include work orders and work centres?
+
+Yes. Community has BOMs, manufacturing orders, routings through work centres, work orders and basic costing. Enterprise adds the Shop Floor app, Quality, PLM, Maintenance scheduling and the master production schedule.
+
+### How does Odoo cost a manufactured product?
+
+The finished product cost is the sum of consumed component cost at their valuation method plus work centre time at the hourly cost you set. Overheads such as electricity and factory rent can be added through work centre cost rates or a separate landed cost on the output.
+
+### Can a pharma plant use Odoo for batch records?
+
+Odoo tracks lots per manufacturing order and consumption per lot, which gives batch genealogy. The DGDA batch manufacturing record format itself is a custom report, and electronic signature on each step needs the Enterprise Quality app or a customisation.
+
+### What about subcontracted washing, printing or embroidery?
+
+The subcontracting feature lets you send components to a subcontractor, receive finished goods, and cost the service through a purchase order. It is available in Community from Odoo 17 and is used widely for garments wash and print houses.
+
+## Next step
+
+Start with the community [ERP readiness checklist](/resources/erp-checklist); its production section asks the BOM, work centre and costing questions a factory should answer before scoping. Then read [Odoo for manufacturing](/industries/manufacturing) for the sector picture, and the [manufacturing functional training](/training/functional/manufacturing) if your planners need hands-on practice before go-live. Procurement of raw material is covered in the [purchase module](/modules/purchase).

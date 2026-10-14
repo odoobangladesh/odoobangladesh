@@ -5,7 +5,7 @@ import { listDocs } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Odoo vs Other ERP (Comparisons)",
   description:
-    "ERP comparison guides for Bangladesh: Odoo vs ERPNext, Odoo vs SAP Business One, and more — with practical selection checklists.",
+    "ERP comparison guides for Bangladesh: Odoo vs ERPNext, Odoo vs SAP Business One, and more, with practical selection checklists.",
   alternates: { canonical: "/comparisons" },
 };
 
@@ -28,7 +28,7 @@ export default async function ComparisonsIndexPage() {
         {comparisons.map((c) => (
           <Link
             key={c.slug}
-            href={`/comparisons/${c.slug}`}
+            href={c.path}
             className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300"
           >
             <div className="text-sm font-semibold">{c.title}</div>

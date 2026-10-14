@@ -1,34 +1,156 @@
 ---
-title: "Odoo Accounting Module"
-description: "What Odoo Accounting does, who it’s for in Bangladesh, and typical implementation considerations."
+title: "Odoo Accounting Module in Bangladesh: VAT, Mushak and Setup"
+description: "What Odoo Accounting does, how it handles NBR VAT at 15 percent, Mushak 6.3 and 9.1, VDS/TDS and the July to June year, plus what Bangladesh firms must set up."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo
   - Odoo Accounting
   - Odoo ERP Bangladesh
   - Accounting ERP Bangladesh
+  - Odoo VAT Bangladesh
+  - Mushak 6.3 Odoo
+  - Odoo l10n_bd
+  - bKash reconciliation Odoo
 related:
   - label: "Inventory"
     href: "/modules/inventory"
   - label: "Sales"
     href: "/modules/sales"
+  - label: "Purchase"
+    href: "/modules/purchase"
   - label: "Odoo for SMEs"
     href: "/industries/sme"
   - label: "Functional training: Accounting"
     href: "/training/functional/accounting"
-  - label: "Implementation guide — data readiness"
+  - label: "Implementation guide: data readiness"
     href: "/implementation-guide#data"
   - label: "Odoo Accounting in Bangladesh"
     href: "/odoo-accounting-bangladesh"
+faq:
+  - q: "Does Odoo have an official Bangladesh accounting localisation?"
+    a: "Yes, partially. Odoo 17, 18 and 19 ship a core module called l10n_bd (Bangladesh - Accounting) with a chart of accounts, VAT tax templates and a basic tax report. It does not produce Mushak 6.3 invoices or the Mushak 9.1 return, so those need a community or paid app, or custom reports."
+  - q: "Can Odoo print a Mushak 6.3 tax invoice?"
+    a: "Not out of the box. The standard invoice layout can be customised to carry the BIN, the Mushak 6.3 title, the VAT breakdown and the serial number NBR expects, or you can install a third-party Mushak app from the Odoo app store or an OCA-style community module."
+  - q: "How do I handle the July to June fiscal year in Odoo?"
+    a: "Set the fiscal year last day to 30 June in Accounting settings, then lock periods month by month. Since the Finance Act 2026 (FY2026-27), Mushak 9.1 may be filed monthly or quarterly (covering three tax periods), and either way it is due within 15 days of the end of the period, so align your close with the filing period you choose. Monthly filing remains available."
+  - q: "Does Odoo Community include full accounting?"
+    a: "Community includes Invoicing only: customer invoices, vendor bills, payments and journals. Bank reconciliation views, financial reports, assets and budgets are Enterprise features, though OCA modules such as account_financial_report add much of this to Community."
+  - q: "How do bKash and Nagad payments get reconciled?"
+    a: "Create a separate bank-type journal for each MFS wallet, import the merchant statement as CSV or XLSX, and reconcile against invoices. Treat MFS charges as a bank fee on a dedicated expense account."
 ---
 
-## What it covers
+Odoo Accounting is the ledger at the centre of an Odoo system. It records customer invoices, vendor bills, payments, taxes and journal entries, and it produces the trial balance, profit and loss and balance sheet. For a Bangladesh company the question is not whether Odoo can keep books, it can, but how much work it takes to make those books match what NBR, your auditor and your bank expect. This page covers Odoo 17 to 19, the versions most partners in Bangladesh install today. Odoo releases a new major version every October, so check the current version before you start.
 
-- Customer invoices and vendor bills
-- Journals, payment terms, taxes
-- Reports for finance visibility
+## What the module does
 
-## Implementation notes (Bangladesh)
+Accounting in Odoo is one app with several connected pieces:
 
-- Decide COA strategy (migration vs redesign)
-- Clarify tax/VAT workflow and approvals
-- Plan bank reconciliation and month-end process
+- Customer invoices and credit notes, created manually or from a confirmed sales order or delivery.
+- Vendor bills and refunds, created manually, from a purchase order, or from a scanned PDF (Enterprise).
+- Payments and bank journals, with reconciliation of statement lines against open invoices and bills.
+- Taxes, tax groups and fiscal positions, which decide what VAT goes on each line.
+- Journals (sales, purchase, bank, cash, miscellaneous) and a chart of accounts.
+- Reports: general ledger, partner ledger, aged receivable and payable, tax report, and the financial statements.
+
+Everything else in Odoo posts into this ledger. Inventory valuation, payroll results, point of sale sessions and project invoicing all create journal entries here, which is why accounting setup usually goes first in a Bangladesh rollout. See the [Sales](/modules/sales) and [Purchase](/modules/purchase) pages for how documents arrive in the ledger.
+
+## Key features in Odoo 17 to 19
+
+| Feature | What it gives you | Edition |
+|---|---|---|
+| Invoicing and bills | Full document lifecycle with payment terms and follow-ups | Community and Enterprise |
+| Bank reconciliation widget | Match statement lines to invoices with matching rules | Enterprise (OCA alternative for Community) |
+| Financial reports | P&L, balance sheet, cash flow, with comparison and drill-down | Enterprise (OCA account_financial_report for Community) |
+| Tax report | Grouped VAT base and tax amounts by rate | Both, depends on localisation |
+| Assets and depreciation | Asset register with automatic entries | Enterprise |
+| Budgets and analytic accounting | Analytic plans, budget lines, cost centres | Analytic in both, budgets in Enterprise |
+| Multi-currency | USD and EUR invoices with exchange differences | Both |
+| Vendor bill OCR | Scanned bill to draft entry | Enterprise, paid credits |
+
+Odoo 17 introduced multiple analytic plans, which help Bangladesh groups that need cost centre reporting by factory, branch or project. Odoo 18 and 19 tightened the reconciliation and audit trail features, including a stronger lock on posted entries.
+
+## Bangladesh-specific considerations
+
+### The l10n_bd localisation: what it includes and what it does not
+
+A common claim is that Odoo has no Bangladesh localisation. That is only half true. The community checked the Odoo source in October 2026 and found a core module named `l10n_bd` ("Bangladesh - Accounting") on the 17.0, 18.0 and 19.0 branches. It installs when you choose Bangladesh as the fiscal localisation and provides:
+
+- A chart of accounts of roughly 135 accounts with six-digit codes (for example 100201 Account Receivable, 200101 Account Payable, 500403 Water and Electricity).
+- VAT tax templates for sales and purchases at 0, 2, 4.5, 5, 7.5, 10 and 15 percent, plus zero-rated export and exempt variants.
+- A "Bangladesh Tax Report" that groups sales and purchases by rate, including import and export lines.
+- The list of districts as states on partner addresses.
+
+What it does not include matters just as much. There is no Mushak 6.3 invoice layout, no Mushak 6.1 and 6.2 purchase and sales registers, no Mushak 9.1 return, no VDS or TDS withholding setup, and no Bangla report translations. One more trap: the template sets the default sales and purchase tax to the 10 percent rate, not the 15 percent standard rate, so change the company default taxes before anyone creates a product. Odoo 17.0 also shipped with a bug where selecting Bangladesh in Fiscal Localisation failed on a missing tax tag (GitHub issue 176437); it was fixed upstream, so update to a recent 17.0 build before enabling it.
+
+### VAT at 15 percent and the Mushak forms
+
+The standard VAT rate under the VAT and Supplementary Duty Act 2012 is 15 percent. Reduced rates apply to specific services and traders. Configure your taxes as price-exclusive for B2B invoicing and price-inclusive for retail where the shelf price already contains VAT. Each tax should map to the correct account (VAT payable and VAT receivable, or input and output VAT if your auditor prefers those names).
+
+For the Mushak 6.3 tax invoice you need: your BIN, the customer BIN where applicable, invoice serial, date and time, description with HS code for goods, quantity, unit price, taxable value, supplementary duty if any, VAT amount and total. A developer can extend the QWeb invoice report in a day or two to carry these. Paid Mushak apps exist on the Odoo app store, typically around USD 100 at the time of writing, and produce Mushak 6.3, the 6.1 and 6.2 registers and a 9.1 summary. None of them file to the NBR IVAS portal for you; you still enter the return there.
+
+### VDS and TDS withholding
+
+Vendor bills from many suppliers carry VAT deducted at source (VDS) and tax deducted at source (TDS). In Odoo, model each as a negative tax on the purchase side that posts to a VDS payable or TDS payable account. Use a fiscal position per vendor type so the right withholding applies automatically. Keep the withholding certificates as attachments on the bill; auditors ask for them.
+
+### Fiscal year and month end
+
+Bangladesh companies close on 30 June. Set the fiscal year end in Accounting settings and use lock dates monthly. Since the Finance Act 2026 (FY2026-27), a registered business may file Mushak 9.1 either monthly or quarterly (covering three tax periods); either way it is due within 15 days of the end of the period, so your close calendar needs VAT reconciled within about 10 days of the period end. Monthly filing remains available. The tax report in `l10n_bd` gives the base and tax per rate; your accountant maps those lines onto the 9.1 form.
+
+### bKash, Nagad, Rocket and bank reconciliation
+
+Create one bank-type journal per wallet and per bank account. Merchant statements from bKash and Nagad export as spreadsheets and import cleanly as bank statements. Reconcile with a matching rule on the transaction ID that your cashier records on the payment. Book MFS charges, typically a percentage per transaction, as bank fees. For bank accounts, most local banks still do not offer an Odoo feed, so expect CSV import rather than live synchronisation.
+
+### Chart of accounts conventions
+
+Many Bangladesh finance teams migrate from Tally and expect grouped ledgers. Decide early whether you adopt the `l10n_bd` chart, import your existing chart with your own codes, or blend the two. Changing account codes after go-live is painful. Keep Bangla names in the account name field if your statutory reports go out in Bangla, and use the English field for the group.
+
+## Community vs Enterprise for accounting
+
+Community edition gives you Invoicing: invoices, bills, payments, taxes and journals. That is enough for a small trading company that gets statements from an external accountant. Enterprise adds the reconciliation widget, financial statements, assets, budgets, deferred revenue, bill OCR and bank feeds. Community users close the gap with OCA modules such as `account_financial_report`, `account_asset_management` and `account_reconcile_oca`, which a partner can install and maintain. The trade-off is maintenance effort versus the Enterprise licence of roughly USD 24.90 to 37.40 per user per month at Odoo's US list price (the regional price shown from Bangladesh is usually lower); confirm current Bangladesh pricing on odoo.com/pricing, and see the [pricing guide](/pricing-guide#components).
+
+## Typical implementation steps
+
+1. Choose the chart of accounts strategy and confirm it with your auditor.
+2. Enable the Bangladesh localisation, then fix default taxes to 15 percent and add VDS and TDS taxes.
+3. Configure journals for each bank, MFS wallet and cash box, with sequence prefixes.
+4. Set the fiscal year end to 30 June and define lock-date responsibility.
+5. Load opening balances, open receivables and open payables as of the cut-over date. Follow the [data readiness steps](/implementation-guide#data).
+6. Customise the invoice layout for Mushak 6.3, or install an app, and test with NBR's requirements.
+7. Run one parallel month against the old system before switching.
+
+## Common mistakes
+
+- Leaving the default 10 percent tax in place and discovering it after a month of invoicing.
+- Posting bKash receipts to cash instead of a dedicated journal, which makes reconciliation impossible.
+- Importing opening balances without clearing suspense accounts.
+- Treating Mushak reporting as a day-one feature when it is really a configuration project.
+- Skipping lock dates, so staff edit posted periods after the return is filed.
+
+## Frequently asked questions
+
+### Does Odoo have an official Bangladesh accounting localisation?
+
+Yes, partially. Odoo 17, 18 and 19 ship a core module called l10n_bd (Bangladesh - Accounting) with a chart of accounts, VAT tax templates and a basic tax report. It does not produce Mushak 6.3 invoices or the Mushak 9.1 return, so those need a community or paid app, or custom reports.
+
+### Can Odoo print a Mushak 6.3 tax invoice?
+
+Not out of the box. The standard invoice layout can be customised to carry the BIN, the Mushak 6.3 title, the VAT breakdown and the serial number NBR expects, or you can install a third-party Mushak app from the Odoo app store or an OCA-style community module.
+
+### How do I handle the July to June fiscal year in Odoo?
+
+Set the fiscal year last day to 30 June in Accounting settings, then lock periods month by month. Since the Finance Act 2026 (FY2026-27), Mushak 9.1 may be filed monthly or quarterly (covering three tax periods), and either way it is due within 15 days of the end of the period, so align your close with the filing period you choose. Monthly filing remains available.
+
+### Does Odoo Community include full accounting?
+
+Community includes Invoicing only: customer invoices, vendor bills, payments and journals. Bank reconciliation views, financial reports, assets and budgets are Enterprise features, though OCA modules such as account_financial_report add much of this to Community.
+
+### How do bKash and Nagad payments get reconciled?
+
+Create a separate bank-type journal for each MFS wallet, import the merchant statement as CSV or XLSX, and reconcile against invoices. Treat MFS charges as a bank fee on a dedicated expense account.
+
+## Next step
+
+Before you configure a single tax, work through the community [ERP readiness checklist](/resources/erp-checklist). It lists the accounting decisions, chart of accounts, VAT setup, bank journals and opening balances that a Bangladesh finance team should settle before the first workshop. For a broader view, read [Odoo Accounting in Bangladesh](/odoo-accounting-bangladesh) and the [functional accounting training outline](/training/functional/accounting).

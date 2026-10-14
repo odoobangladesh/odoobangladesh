@@ -1,27 +1,136 @@
 ---
-title: "Odoo Technical Training Syllabus (Download)"
-description: "A community syllabus outline for Odoo Technical training: Python, ORM, module development, views, integrations, deployment, and performance."
+title: "Odoo Technical Training Syllabus for Bangladesh (Odoo 17 to 19)"
+description: "Session-by-session Odoo technical training syllabus for Bangladesh: module development, ORM, OWL, deployment and performance, with prerequisites and assessment."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo Technical Training
   - Learn Odoo Development Bangladesh
   - Odoo Training Bangladesh
+  - Odoo developer course Dhaka
+  - Odoo Python training Bangladesh
+  - Odoo OWL training
+  - Odoo module development course
+related:
+  - label: "Technical training track"
+    href: "/training/technical"
+  - label: "Technical: Module development"
+    href: "/training/technical/module-development"
+  - label: "Technical: ORM"
+    href: "/training/technical/orm"
+  - label: "Technical: OWL"
+    href: "/training/technical/owl"
+  - label: "Technical: Deployment"
+    href: "/training/technical/deployment"
+  - label: "Technical: Performance"
+    href: "/training/technical/performance"
+  - label: "Developer resources"
+    href: "/developer-resources"
+  - label: "Odoo Career Guide"
+    href: "/odoo-career-guide"
+faq:
+  - q: "How much Python do I need before starting?"
+    a: "You should be able to write functions and classes, use lists and dictionaries, and read a traceback. One semester of Python or an online course is enough. The first session includes a Python refresher but does not teach it from zero."
+  - q: "Which Odoo version is used in the technical sessions?"
+    a: "Odoo 17 to 19. The ORM and module structure are stable across these versions; OWL and some view syntax changed, and the trainer flags differences. Odoo releases a new major version every October, so check the batch notice."
+  - q: "Do I need a powerful laptop?"
+    a: "A laptop with 8 GB RAM and 20 GB free disk can run Odoo with PostgreSQL locally or in Docker. Linux or macOS is simplest; Windows works with WSL2. A shared cloud server is provided for the deployment sessions."
+  - q: "Is this training in person or online?"
+    a: "Evening batches are typically online. Weekend batches are often held in person in Dhaka with an online option. All code and exercises are shared in a Git repository so either format covers the same material."
+  - q: "How is the technical track assessed?"
+    a: "Code review on three graded assignments, one deployment exercise marked on a live server, and a capstone module presented and reviewed. Attendance of 80 percent is required for the community certificate."
 ---
 
-This is a syllabus outline page. If you want a PDF download later, we can generate a downloadable file and link it here.
+This page sets out the full session plan for the community's Odoo technical training track, in five blocks in order: module development, the ORM, OWL front end, deployment, and performance. It targets Odoo 17 to 19 and uses Bangladesh business problems as exercises: Mushak 6.3 invoice reports, VDS and TDS computation, Bangla report templates, bKash payment integration, and self-hosting on a Dhaka or Singapore server. Use it to decide whether the track fits you, to prepare before a batch, or to self-study with the exercises.
 
-## Core topics (typical)
+## Who this track is for
 
-- Python for Odoo + PostgreSQL
-- Odoo ORM, models, security
-- Module development workflow
-- XML views, menus, reports (QWeb)
-- API integration patterns
-- OWL basics
-- Deployment + Docker
-- Performance optimization
+The technical track trains people who will build and maintain Odoo modules, integrate external systems and run Odoo servers. Typical participants are CSE graduates, working Python or web developers moving into ERP, and functional consultants who want to read and write code. If you have never programmed, start with a general Python course first, then return. If you want to configure Odoo without coding, the [functional syllabus](/resources/functional-syllabus) is the better fit.
 
-## Next steps
+## Prerequisites
 
-- Explore `/training/technical`
-- Book a free consultation via `/contact`
+- Python at an intermediate level: functions, classes, decorators, list comprehensions, exceptions
+- Basic SQL: SELECT, JOIN, GROUP BY; PostgreSQL specifics are taught
+- HTML, CSS and JavaScript basics for the OWL block; ES6 syntax is reviewed in class
+- Git basics: clone, branch, commit, push
+- Linux command line: navigating, editing files, running services
+- A laptop with 8 GB RAM, 20 GB free disk, and Docker or a local PostgreSQL install
 
+Functional familiarity with Odoo helps but is not required; session 1 covers the parts you need.
+
+## Format
+
+Batches are typically offered as evening sessions of two hours, two or three times a week over 12 to 14 weeks, or weekend sessions of four hours over about 14 weeks. Both run online, and weekend batches are often also offered in person in Dhaka. Every session has a coding exercise committed to your own Git repository, and the trainer reviews pull requests between sessions. A shared cloud server is provided for the deployment block. Prices are set per batch by the organiser and published on the [training page](/training); this syllabus does not fix them.
+
+## Session table
+
+| Session | Topic | Learning outcomes | Exercise |
+|---|---|---|---|
+| 1 | Environment and Odoo architecture | Install Odoo 17 to 19 from source or Docker, understand the server, addons path, database and config file, Python refresher | Run Odoo locally with PostgreSQL, create a database for "Padma Traders Ltd", enable developer mode |
+| 2 | [Module development](/training/technical/module-development): anatomy of a module | Create a module with manifest, models, views, menus, security and data files | Scaffold "bd_vehicle_fleet" for a Dhaka logistics firm with a vehicle model and list and form views |
+| 3 | Module development: views and actions | Build list, form, kanban, search and pivot views; window actions and menus; widgets and attributes | Add a kanban for vehicle status, a search filter by route, and a pivot of trips by month |
+| 4 | Module development: security and access | Define groups, access rights CSV, record rules, field-level security, multi-company rules | Restrict drivers to their own trips and give the fleet manager full access; test as each user |
+| 5 | Module development: QWeb reports and Bangla output | Write QWeb PDF reports, embed fonts, format BDT and Bangla text, build a Mushak 6.3 tax invoice layout | Produce a Mushak 6.3 compliant invoice PDF with a Bangla font and VAT breakdown |
+| 6 | Module development: inheritance and extension | Extend existing models and views with _inherit, xpath, and delegation; override methods cleanly | Add a BIN field and VDS applicability flag to partners and show it on vendor bills |
+| 7 | [ORM](/training/technical/orm): fields and recordsets | Master field types, relational fields, recordset operations, mapped, filtered, sorted | Model a garments style-colour-size matrix and generate variants programmatically |
+| 8 | ORM: computed fields, onchange and constraints | Write stored and non-stored computed fields, depends, onchange, SQL and Python constraints | Compute TDS and VDS amounts on vendor bills from a rate table and block saving above a threshold |
+| 9 | ORM: CRUD overrides, defaults and sequences | Override create, write, unlink safely; defaults; sequences; context and environment | Generate a fiscal-year-based invoice sequence that resets on 1 July |
+| 10 | ORM: search, domains, SQL and performance basics | Build domains, use search_read and read_group, drop to SQL when justified, understand the ORM cache | Write a report of stock ageing per warehouse using read_group and compare with raw SQL |
+| 11 | ORM: workflows, mail thread and automated actions | Use state fields, mail.thread, activities, scheduled actions and server actions | Build an LC tracking model with stages, chatter and a daily cron that flags LCs expiring in 7 days |
+| 12 | ORM: external APIs and integration | Call Odoo through XML-RPC and JSON-RPC, consume REST APIs from Python, handle authentication and retries | Integrate a sandbox bKash merchant API to register payments against invoices |
+| 13 | [OWL](/training/technical/owl): framework fundamentals | Understand OWL components, templates, props, state, hooks and the Odoo asset bundle | Build a standalone OWL counter component and mount it in a client action |
+| 14 | OWL: field widgets and view extension | Create custom field widgets, extend list and form renderers, use registries | Write a BDT currency widget that displays lakh and crore formatting |
+| 15 | OWL: services, RPC and client actions | Use ORM and RPC services, notifications, dialogs, and build a client action with its own data | Build a delivery dashboard client action showing today's challans by Dhaka zone |
+| 16 | OWL: POS and website front end | Extend the POS front end and website snippets with OWL, handle offline behaviour | Add a bKash transaction ID prompt to the POS payment screen that survives a connection drop |
+| 17 | [Deployment](/training/technical/deployment): server setup | Provision a Linux server, install PostgreSQL and Odoo, configure systemd, nginx and SSL | Deploy Odoo on the shared Singapore or Dhaka cloud server with HTTPS and a worker configuration |
+| 18 | Deployment: Docker, Git and staging | Run Odoo with Docker Compose, structure a custom addons repository, maintain staging and production branches | Containerise the fleet module with a staging and production compose file and a deploy script |
+| 19 | Deployment: backups, upgrades and security | Automate database and filestore backups, restore tests, apply the October major upgrade, harden the server | Schedule nightly backups to local and off-site storage, restore to staging, run a test upgrade from 17 to 18 |
+| 20 | Deployment: Odoo.sh, data residency and monitoring | Compare Odoo.sh with self-hosting for Bangladesh clients, set up logging, uptime checks and alerts | Write a one-page hosting recommendation for a hypothetical Chattogram bank-regulated client |
+| 21 | [Performance](/training/technical/performance): profiling and the ORM | Profile slow requests, find N+1 queries, use prefetch and batch operations, read PostgreSQL EXPLAIN | Fix a deliberately slow stock report that takes 40 seconds down to under 2 seconds |
+| 22 | Performance: database and server tuning | Tune PostgreSQL, add indexes, configure workers and memory limits, handle large imports | Import 500,000 POS lines efficiently and tune workers for a 60 user factory |
+| 23 | Performance: front end and reports | Optimise OWL rendering, QWeb report generation and asset bundles; cache strategies | Cut a 300-page payslip batch report from minutes to seconds |
+| 24 | Capstone build session | Design and implement a complete module with trainer review | Build a "Bangladesh VAT return" module that collects Mushak 9.1 figures from invoices and exports them |
+| 25 | Capstone review and assessment | Present the module, walk through the code, discuss trade-offs | 20-minute presentation and code review per participant |
+
+The block order matches the five topic pages: [module development](/training/technical/module-development), [ORM](/training/technical/orm), [OWL](/training/technical/owl), [deployment](/training/technical/deployment) and [performance](/training/technical/performance). Each topic page has extra exercises and reading.
+
+## Assessment
+
+- Three graded assignments reviewed as pull requests: the fleet module after session 6, the LC tracking model after session 11, and the OWL dashboard after session 15
+- One deployment exercise marked on a live server after session 19: HTTPS, workers, backups and a successful restore
+- The capstone module in sessions 24 and 25, marked on code quality, correctness of VAT logic, tests, and clarity of presentation
+- Attendance of 80 percent is required for the community certificate of completion
+
+The certificate is a community document, not an Odoo S.A. certification.
+
+## How to use this syllabus for self-study
+
+Follow the sessions in order on a local Odoo 17 to 19 install. Keep one Git repository for all exercises and commit after each session. Budget three to four hours per session including the exercise, about 90 hours in total. The [developer resources](/developer-resources) page lists the documentation, community repositories and tools referenced in class. When stuck, post in the [forum](/forum) with your Odoo version, the traceback and what you tried.
+
+## Frequently asked questions
+
+### How much Python do I need before starting?
+
+You should be able to write functions and classes, use lists and dictionaries, and read a traceback. One semester of Python or an online course is enough. The first session includes a Python refresher but does not teach it from zero.
+
+### Which Odoo version is used in the technical sessions?
+
+Odoo 17 to 19. The ORM and module structure are stable across these versions; OWL and some view syntax changed, and the trainer flags differences. Odoo releases a new major version every October, so check the batch notice.
+
+### Do I need a powerful laptop?
+
+A laptop with 8 GB RAM and 20 GB free disk can run Odoo with PostgreSQL locally or in Docker. Linux or macOS is simplest; Windows works with WSL2. A shared cloud server is provided for the deployment sessions.
+
+### Is this training in person or online?
+
+Evening batches are typically online. Weekend batches are often held in person in Dhaka with an online option. All code and exercises are shared in a Git repository so either format covers the same material.
+
+### How is the technical track assessed?
+
+Code review on three graded assignments, one deployment exercise marked on a live server, and a capstone module presented and reviewed. Attendance of 80 percent is required for the community certificate.
+
+## Next step
+
+To ask about the next batch, a self-study plan, or whether you are ready for the technical track, [get in touch](/contact). Mention your Python experience and which Odoo version you have installed. The [career guide](/odoo-career-guide#technical) explains the developer path and typical roles.

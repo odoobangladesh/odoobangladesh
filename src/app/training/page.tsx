@@ -30,7 +30,7 @@ export default function TrainingIndexPage() {
           <div className="text-sm font-semibold">Functional Training</div>
           <p className="mt-2 text-sm text-zinc-600">
             Sales, CRM, Purchase, Inventory, Accounting, Manufacturing, HR, POS,
-            Project — plus business process analysis and consulting skills.
+            Project, plus business process analysis and consulting skills.
           </p>
           <div className="mt-4 text-sm font-medium underline underline-offset-4">
             Explore functional pathway

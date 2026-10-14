@@ -1,31 +1,135 @@
 ---
-title: "Odoo for Garments Industry (Bangladesh)"
-description: "How Odoo is commonly used for garments operations: inventory traceability, production planning, costing, and compliance reporting."
+title: "Odoo for the Garments Industry in Bangladesh: Guide"
+description: "How Bangladeshi garment factories use Odoo 17 to 19 for style and size matrices, CMT costing, bonded warehouse stock, LC tracking and buyer audits."
+date: "2026-10-14"
+updated: "2026-10-14"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
 keywords:
   - Odoo for Garments Industry
   - Odoo Bangladesh
   - Odoo Manufacturing Bangladesh
+  - garments ERP Bangladesh
+  - RMG ERP software Bangladesh
+  - bonded warehouse ERP
+  - CMT costing software
+  - BGMEA factory ERP
 related:
-  - label: "Manufacturing"
+  - label: "Manufacturing module"
     href: "/modules/manufacturing"
-  - label: "Inventory"
+  - label: "Inventory module"
     href: "/modules/inventory"
-  - label: "Purchase"
+  - label: "Purchase module"
     href: "/modules/purchase"
-  - label: "Accounting"
+  - label: "Accounting module"
     href: "/modules/accounting"
+  - label: "Payroll module"
+    href: "/modules/payroll"
   - label: "Odoo vs ERPNext"
     href: "/comparisons/odoo-vs-erpnext"
   - label: "ERP readiness checklist"
     href: "/resources/erp-checklist"
+faq:
+  - q: "Does Odoo handle a garments style and size matrix out of the box?"
+    a: "Partly. Odoo product variants give you style, colour and size combinations, and Odoo 17 to 19 can build bills of materials per variant. A matrix order-entry grid is available in Odoo Community through the product variant grid (the sale_product_matrix and purchase_product_matrix modules), so that part needs neither an Enterprise licence nor custom code."
+  - q: "Can Odoo track bonded warehouse stock for NBR reporting?"
+    a: "Odoo can hold bonded stock in a separate warehouse or location and report movements, but the NBR bond register formats and the utilisation declaration (UD) are not built in. Expect a report customisation or a partner-built module."
+  - q: "How do garment factories record LC and back-to-back LC in Odoo?"
+    a: "Most teams record the master LC on the sales order and the back-to-back LC on the purchase order as reference fields, then track margins in Accounting. There is no native LC module, so a custom field set or an OCA-style add-on is normal."
+  - q: "What does an Odoo rollout cost for a garments factory in Bangladesh?"
+    a: "Community-observed ranges for manufacturing or garments with MRP, quality and integrations run from BDT 25 lakh to over BDT 1 crore, depending on users, custom reports and the number of factories. Treat this as a range, not a quote."
+  - q: "Can Odoo payroll handle the Labour Act and buyer compliance rules?"
+    a: "Odoo Payroll can be configured for overtime at double rate, festival bonus and provident fund, but the minimum wage grades and attendance rules need setup. Many factories keep a local payroll tool and post summary entries to Odoo instead."
 ---
 
-## Typical requirements
+Odoo fits a Bangladeshi garments factory when you treat it as the system of record for orders, materials, costing and finance, and keep the production floor data entry light. Odoo 17 to 19 cover the style and size matrix through product variants, cut-make-trim (CMT) costing through bills of materials and landed costs, bonded warehouse stock through separate locations, and buyer audit evidence through Quality and document attachments. What Odoo does not give you natively is the NBR bond register, LC lifecycle tracking or a production line efficiency board. Those are configuration or add-on work, and this page explains where the lines fall.
 
-- Raw material to finished goods traceability
-- Production planning and work order management
-- Quality checks and audit-ready reporting
+## Industry context in Bangladesh
 
-## Common modules
+Ready-made garments (RMG) is the largest export sector in the country, concentrated in Narayanganj, Gazipur, Savar, Ashulia and the EPZs in Chittagong, Dhaka and Adamjee. Most factories operate under BGMEA or BKMEA membership, which brings with it a licence regime, bonded warehouse privileges under NBR, and a documentation chain that runs from the buyer's purchase order through a master letter of credit (LC), back-to-back LCs for fabric and trims, utilisation declarations (UD), and export documents.
 
-- Manufacturing, Inventory, Quality, Purchase, Accounting
+A typical mid-size factory has a merchandising team negotiating orders and sample approvals, a commercial team managing LCs and bank documents, a store team handling fabric and accessories, a planning team that cuts and sequences lines, and a compliance team that prepares for buyer audits from brands and third-party auditors. Finance works on the July to June fiscal year and files Mushak 9.1 monthly or quarterly (either is allowed since the Finance Act 2026, due within 15 days of the period end), while most export sales are zero-rated for VAT. Payroll follows the Bangladesh Labour Act 2006 and the garments minimum wage gazette, with overtime at double the basic rate and two festival bonuses a year. The Labour Act amendment effective 17 November 2025 makes a provident fund mandatory for employers with 100 or more permanent workers, which covers almost every garments factory: the worker contributes 7 to 8 percent of basic wages under section 264 and the employer matches it, or the worker may opt into the Progoti universal pension scheme instead, with the employer matching the flat monthly amount. Payroll rules need to carry that choice per worker.
+
+The software landscape is fragmented. Many factories run a locally built production and payroll system, Excel for costing, and Tally or a local accounting package for books. Odoo becomes attractive when the owner wants one place to see order profitability across merchandising, store, production and finance.
+
+## Pain points Odoo is usually asked to solve
+
+- Order costing lives in a merchandiser's spreadsheet, so the actual cost per piece is known only after shipment, if at all.
+- Fabric and trims are received against a back-to-back LC but stock is tracked by hand, so bond utilisation is reconstructed for NBR rather than reported.
+- Cutting, sewing and finishing report on paper. Daily output and rejection figures reach management a day late.
+- Buyer audits (social compliance, quality, security) require evidence that is scattered across folders and email.
+- Payroll and attendance are in a separate system, so labour cost per order is an estimate.
+- Multiple units (knitting, dyeing, garments) under one group need consolidated accounts and inter-company transfers.
+
+## Module map
+
+| Module | Why it matters for a garments factory |
+|---|---|
+| [Sales](/modules/sales) | Buyer purchase orders become sales orders with style, colour and size variants, delivery dates and master LC reference. Order margin is visible from here. |
+| [Purchase](/modules/purchase) | Fabric, trims and accessories bought under back-to-back LCs, with supplier lead times, landed costs and three-way matching against bond receipts. |
+| [Inventory](/modules/inventory) | Separate bonded and non-bonded warehouses, lot tracking per fabric roll, consumption against orders, and leftover reporting for UD reconciliation. |
+| [Manufacturing](/modules/manufacturing) | Bills of materials per style and variant, work orders for cutting, sewing, finishing and packing, and subcontracting for washing or printing. |
+| Quality (Enterprise) | Inline and final inspection checkpoints, AQL-style sampling results, and audit evidence attached to the order. |
+| [Accounting](/modules/accounting) | Export invoice, realisation tracking, Mushak 6.3 for local sales, Mushak 9.1, VDS and TDS on local vendors, and consolidated reporting across units. |
+| [Payroll](/modules/payroll) and [HR](/modules/hr) | Worker grades, overtime at double rate, festival bonus, provident fund, gratuity and attendance from biometric devices. |
+
+Five to six of these modules is a normal first scope. Quality and Payroll are the two most often deferred to a second phase.
+
+## A worked example: a Narayanganj knitwear factory
+
+Consider a hypothetical Narayanganj knitwear factory with 400 workers, three sewing lines, and a monthly output of around 250,000 pieces for two European buyers. The owner wants order-level profitability and a cleaner bond register. Here is how the flow would run in Odoo 17 to 19.
+
+**Order entry.** Merchandising enters the buyer's order for style KW-2041 as a sales order with variants for 4 colours and 6 sizes. The master LC number, LC value in USD, and shipment date are custom fields on the order. The target CMT price is recorded per piece.
+
+**Costing.** A bill of materials for KW-2041 lists fabric consumption per dozen, thread, labels, hang tags, poly bags and cartons. Overhead and labour are added as a per-piece cost line in the BoM. Odoo computes a standard cost per variant, and the merchandiser compares it to the quoted FOB price before confirming.
+
+**Back-to-back LC and purchasing.** From the confirmed order, purchase orders are raised for yarn (sent to a sister knitting unit), dyeing (subcontracted), and trims from a Dhaka supplier. Each PO carries its back-to-back LC reference and expected arrival. Receipts land in the bonded warehouse location with lot numbers per fabric roll.
+
+**Production.** Planning releases manufacturing orders by line and week. Cutting reports actual consumption, sewing reports hourly output, and finishing records rejection reasons. Washing goes out as a subcontracting order and returns with a vendor bill.
+
+**Quality and compliance.** Inline inspection checkpoints are configured at sewing and final packing. Inspection results, buyer sample approvals and the compliance audit calendar are attached to the order record so the audit team can produce evidence in minutes.
+
+**Shipment and finance.** The export invoice is raised in USD against the master LC, the bank realisation is recorded on receipt, and the order shows actual margin after landed costs and subcontracting bills. Bond consumption for the order is exported to a spreadsheet and reconciled with the UD before the NBR return.
+
+All figures are illustrative. A real factory will differ in line count, buyer mix and how much bond reporting it needs automated.
+
+## Implementation checklist
+
+- Decide the unit of planning first: order, style or line. It drives how you structure manufacturing orders.
+- Build the product variant model carefully. Style, colour and size as attributes; avoid creating one product per size by hand.
+- Map every material to bonded or non-bonded before go-live. Mixing them in one location makes NBR reconciliation impossible later.
+- Agree how LC data is stored (custom fields, a small add-on, or a separate commercial tool) and who owns the data entry.
+- Configure fiscal positions for export (zero-rated) and local sales (15 percent VAT, Mushak 6.3) and set VDS and TDS on vendor bills.
+- Load the chart of accounts with cost centres per unit if the group has knitting, dyeing and garments under separate licences.
+- Pilot one line and one buyer for a month before switching all lines. See the [implementation guide](/implementation-guide#uat) for how to run acceptance testing.
+- Plan the payroll decision early: Odoo Payroll with Labour Act rules, or a local payroll tool with summary journal entries. See the [HR training track](/training/functional/hr).
+- Budget for custom reports: bond register, UD summary, line efficiency, and Bangla-language worker payslips.
+- Host locally or on a regional cloud and document the data-residency position for buyers who ask.
+
+For a broader view of how garments compares with other platforms, the [Odoo vs ERPNext comparison](/comparisons/odoo-vs-erpnext) covers the two most common open-source options for Bangladeshi factories, and the [garments landing page](/odoo-for-garments-industry) collects the cost and partner questions.
+
+## Frequently asked questions
+
+### Does Odoo handle a garments style and size matrix out of the box?
+
+Partly. Odoo product variants give you style, colour and size combinations, and Odoo 17 to 19 can build bills of materials per variant. A matrix order-entry grid is available in Odoo Community through the product variant grid (the sale_product_matrix and purchase_product_matrix modules), so that part needs neither an Enterprise licence nor custom code.
+
+### Can Odoo track bonded warehouse stock for NBR reporting?
+
+Odoo can hold bonded stock in a separate warehouse or location and report movements, but the NBR bond register formats and the utilisation declaration (UD) are not built in. Expect a report customisation or a partner-built module.
+
+### How do garment factories record LC and back-to-back LC in Odoo?
+
+Most teams record the master LC on the sales order and the back-to-back LC on the purchase order as reference fields, then track margins in Accounting. There is no native LC module, so a custom field set or an OCA-style add-on is normal.
+
+### What does an Odoo rollout cost for a garments factory in Bangladesh?
+
+Community-observed ranges for manufacturing or garments with MRP, quality and integrations run from BDT 25 lakh to over BDT 1 crore, depending on users, custom reports and the number of factories. Treat this as a range, not a quote. Licence cost on Enterprise is roughly USD 24.90 to 37.40 per user per month at Odoo's US list price with yearly billing (up to about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD). Odoo prices by region and buyers visiting odoo.com/pricing from Bangladesh usually see a lower regional USD price, so treat the BDT figure as an upper bound and confirm there. Prices also change yearly.
+
+### Can Odoo payroll handle the Labour Act and buyer compliance rules?
+
+Odoo Payroll can be configured for overtime at double rate, festival bonus and provident fund, but the minimum wage grades and attendance rules need setup. Many factories keep a local payroll tool and post summary entries to Odoo instead.
+
+## Next step
+
+Before you talk to any partner, work through the [ERP readiness checklist](/resources/erp-checklist). It asks the questions a garments factory needs answered first: which unit is the pilot, who owns the LC data, and whether bond reporting is in scope for release one. Odoo ships a new major version every October, so check the current release before you fix your version.
