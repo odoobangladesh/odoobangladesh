@@ -8,3 +8,5 @@ export { default as Magnet } from "./Magnet/Magnet";
 export { default as SpotlightCard } from "./SpotlightCard/SpotlightCard";
 export { default as AnimatedContent } from "./AnimatedContent/AnimatedContent";
 export { default as WarmTooltip, WarmTooltipGroup } from "./WarmTooltip/WarmTooltip";
+export { default as Aurora } from "./Aurora/Aurora";
+export type { AuroraProps } from "./Aurora/Aurora";
