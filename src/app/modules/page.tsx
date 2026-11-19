@@ -1,5 +1,9 @@
-import Link from "next/link";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import { ContinueExploring } from "@/components/continue-exploring";
+import { MetricStrip } from "@/components/metric-strip";
+import { ProcessDiagram } from "@/components/process-diagram";
+import { ScrollReveal } from "@/components/scroll-reveal";
+import { LinkTiles, PageIntro } from "@/components/visual-ui";
 import { listDocs } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -9,41 +13,118 @@ export const metadata: Metadata = {
   alternates: { canonical: "/modules" },
 };
 
+const moduleIcons: Record<
+  string,
+  "clipboard" | "boxes" | "users" | "target" | "layers" | "plug" | "rocket" | "settings"
+> = {
+  accounting: "clipboard",
+  inventory: "boxes",
+  sales: "target",
+  purchase: "layers",
+  crm: "users",
+  manufacturing: "settings",
+  pos: "plug",
+  hr: "users",
+  payroll: "clipboard",
+  project: "rocket",
+};
+
 export default async function ModulesIndexPage() {
   const modules = await listDocs("modules");
 
-  return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight">
-          Odoo Modules Directory
-        </h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600">
-          Neutral module overviews for businesses and learners in Bangladesh,
-          with implementation considerations and learning pathways.
-        </p>
-      </div>
+  const core = modules.filter((m) =>
+    ["accounting", "sales", "purchase", "inventory"].includes(m.slug),
+  );
+  const ops = modules.filter((m) =>
+    ["manufacturing", "pos", "project"].includes(m.slug),
+  );
+  const people = modules.filter((m) => ["hr", "payroll", "crm"].includes(m.slug));
 
-      <div className="mt-8 grid gap-4 md:grid-cols-2">
-        {modules.map((m) => (
-          <Link
-            key={m.slug}
-            href={`/modules/${m.slug}`}
-            className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300"
-          >
-            <div className="text-sm font-semibold">{m.title}</div>
-            <p className="mt-2 text-sm text-zinc-600">
-              {m.description}
-            </p>
-          </Link>
-        ))}
-        {modules.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-zinc-300 p-6 text-sm text-zinc-600">
-            Add MDX files in <code>content/modules</code>.
+  return (
+    <div>
+      <ScrollReveal />
+      <section className="site-container section-y">
+        <div data-reveal>
+          <PageIntro
+            eyebrow="Module directory"
+            title="Odoo modules for Bangladesh"
+            description="Neutral module overviews with local use cases. Counts below are published guides on this site."
+          />
+          <div className="mt-8">
+            <MetricStrip
+              items={[
+                { value: modules.length, label: "Module guides" },
+                { value: core.length, label: "Finance & trade core" },
+                { value: ops.length, label: "Operations apps" },
+                { value: people.length, label: "People & pipeline" },
+              ]}
+            />
           </div>
-        ) : null}
-      </div>
+        </div>
+
+        <div data-reveal className="mt-12">
+          <h2 className="font-display text-[length:var(--text-h2)] font-semibold tracking-[var(--tracking-h2)] text-ink">
+            Typical adoption order
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-muted">
+            A common sequence for Bangladesh SMEs. Your industry page may reorder
+            this.
+          </p>
+          <div className="mt-6">
+            <ProcessDiagram
+              nodes={[
+                {
+                  id: "acc",
+                  label: "Accounting",
+                  detail: "Books + VAT patterns",
+                  href: "/modules/accounting",
+                  icon: "clipboard",
+                },
+                {
+                  id: "sales",
+                  label: "Sales / CRM",
+                  detail: "Quotes to invoice",
+                  href: "/modules/sales",
+                  icon: "target",
+                },
+                {
+                  id: "stock",
+                  label: "Inventory",
+                  detail: "Warehouses & lots",
+                  href: "/modules/inventory",
+                  icon: "boxes",
+                },
+                {
+                  id: "ops",
+                  label: "Ops apps",
+                  detail: "MRP, POS, Project",
+                  href: "/modules/manufacturing",
+                  icon: "settings",
+                },
+              ]}
+            />
+          </div>
+        </div>
+
+        <div data-reveal className="mt-12">
+          <h2 className="font-display text-[length:var(--text-h2)] font-semibold tracking-[var(--tracking-h2)] text-ink">
+            All modules
+          </h2>
+          <div className="mt-4">
+            <LinkTiles
+              ariaLabel="All module guides"
+              items={modules.map((m) => ({
+                href: `/modules/${m.slug}`,
+                title: m.title,
+                description: m.description,
+                icon: moduleIcons[m.slug] ?? "layers",
+              }))}
+            />
+          </div>
+        </div>
+
+        <ContinueExploring excludeHref="/modules" />
+      </section>
     </div>
   );
 }
-

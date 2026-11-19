@@ -29,8 +29,8 @@ related:
   - label: "POS training"
     href: "/training/functional/pos"
 faq:
-  - q: "Does Odoo POS keep working during load-shedding or an internet cut?"
-    a: "Odoo POS runs in the browser and keeps selling offline once the session is loaded, then syncs when the connection returns. You still need a UPS or battery for the terminal and printer, and a session must have been opened while online."
+  - q: "How should a multi-branch chain prepare for load-shedding at the till?"
+    a: "Plan UPS or inverter cover for the till, printer and local router at every branch, and open the POS session while online so offline selling can continue. Module-level offline behaviour is covered on the Point of Sale guide; the retail risk is losing a whole branch when power drops without backup."
   - q: "Can Odoo POS accept bKash, Nagad and Rocket?"
     a: "Out of the box you record them as separate payment methods and reconcile against the MFS statement. Live integration with the bKash or Nagad merchant API is a partner-built connector, not a standard Odoo feature."
   - q: "How do we show VAT-inclusive prices on the shelf and still report 15 percent VAT?"
@@ -106,9 +106,9 @@ If the choice is between Odoo and another open-source platform, the [Odoo vs ERP
 
 ## Frequently asked questions
 
-### Does Odoo POS keep working during load-shedding or an internet cut?
+### How should a multi-branch chain prepare for load-shedding at the till?
 
-Odoo POS runs in the browser and keeps selling offline once the session is loaded, then syncs when the connection returns. You still need a UPS or battery for the terminal and printer, and a session must have been opened while online.
+Plan UPS or inverter cover for the till, printer and local router at every branch, and open the POS session while online so offline selling can continue. Module-level offline behaviour is covered on the [Point of Sale guide](/modules/pos); the retail risk is losing a whole branch when power drops without backup.
 
 ### Can Odoo POS accept bKash, Nagad and Rocket?
 

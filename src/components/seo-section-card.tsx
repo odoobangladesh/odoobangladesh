@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import GlareHover from "@/components/react-bits/GlareHover/GlareHover";
 
 export function SeoSectionCard({
   title,
@@ -8,20 +11,36 @@ export function SeoSectionCard({
   title: string;
   description: string;
   href: string;
+  variant?: "standard" | "feature";
 }) {
   return (
-    <Link
-      href={href}
-      className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:border-zinc-300"
+    <GlareHover
+      width="100%"
+      height="auto"
+      background="transparent"
+      borderRadius="var(--radius-control)"
+      borderColor="transparent"
+      glareColor="#ffffff"
+      glareOpacity={0.18}
+      glareSize={34}
+      softness={0.7}
+      variant="sheen"
+      blendMode="soft-light"
+      rimGlint={false}
+      mode="hover"
+      transitionDuration={500}
+      className="!block w-full !place-items-stretch"
+      style={{ display: "block" }}
     >
-      <div className="text-sm font-semibold tracking-tight">{title}</div>
-      <p className="mt-2 text-sm text-zinc-600">
-        {description}
-      </p>
-      <div className="mt-3 text-sm font-medium text-zinc-900 underline underline-offset-4 group-hover:text-black">
-        Explore
-      </div>
-    </Link>
+      <Link href={href} className="directory-row group w-full">
+        <span className="directory-row-copy min-w-0">
+          <span className="directory-row-title">{title}</span>
+          <span className="directory-row-desc">{description}</span>
+        </span>
+        <span className="directory-row-chevron" aria-hidden="true">
+          →
+        </span>
+      </Link>
+    </GlareHover>
   );
 }
-

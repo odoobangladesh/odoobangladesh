@@ -25,14 +25,20 @@ const staticRoutes: { path: string; priority: number; changeFrequency: "weekly" 
   { path: "/modules", priority: 0.8, changeFrequency: "weekly" },
   { path: "/industries", priority: 0.8, changeFrequency: "weekly" },
   { path: "/comparisons", priority: 0.8, changeFrequency: "weekly" },
+  { path: "/packages", priority: 0.95, changeFrequency: "weekly" },
+  { path: "/packages/starter", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/packages/business", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/packages/growth", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/packages/enterprise", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/packages/care-plan", priority: 0.9, changeFrequency: "monthly" },
   { path: "/blog", priority: 0.8, changeFrequency: "weekly" },
   { path: "/developer-resources", priority: 0.6, changeFrequency: "monthly" },
   { path: "/partners", priority: 0.6, changeFrequency: "monthly" },
   { path: "/events", priority: 0.7, changeFrequency: "weekly" },
   { path: "/forum", priority: 0.5, changeFrequency: "monthly" },
   { path: "/faq", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/about", priority: 0.5, changeFrequency: "monthly" },
-  { path: "/contact", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/about", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/contact", priority: 0.9, changeFrequency: "monthly" },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

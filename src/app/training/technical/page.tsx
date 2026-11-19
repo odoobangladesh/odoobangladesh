@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { FeatureRows, PageIntro } from "@/components/visual-ui";
 import { listDocs } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -15,69 +16,87 @@ export default async function TechnicalTrainingPage() {
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
+    <div className="site-container section-y">
       <div className="grid gap-8 md:grid-cols-12">
         <div className="md:col-span-7">
-          <h1 className="text-3xl font-semibold tracking-tight">
-            Odoo Technical Training
-          </h1>
-          <p className="mt-2 text-sm leading-6 text-zinc-600">
-            For developers, software engineers, CS students, freelancers, and
-            technical consultants.
-          </p>
+          <PageIntro
+            title="Odoo Technical Training"
+            description="For developers, software engineers, CS students, freelancers, and technical consultants."
+          />
 
-          <div className="mt-6 rounded-2xl border border-zinc-200 p-6">
-            <div className="text-sm font-semibold">What you’ll learn</div>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
-              <li>Python for Odoo + PostgreSQL fundamentals</li>
-              <li>Odoo ORM, models, security, and module architecture</li>
-              <li>Views: XML, QWeb, reports, website basics</li>
-              <li>Integrations: REST APIs, webhooks, third-party services</li>
-              <li>OWL + modern frontend patterns in Odoo</li>
-              <li>Deployment, Docker, monitoring, performance optimization</li>
-            </ul>
+          <div className="mt-6 card-standard p-6">
+            <div className="text-sm font-semibold text-ink">What you’ll learn</div>
+            <div className="mt-3">
+              <FeatureRows
+                ariaLabel="What you’ll learn"
+                items={[
+                  {
+                    icon: "book",
+                    title: "Python for Odoo + PostgreSQL fundamentals",
+                  },
+                  {
+                    icon: "database",
+                    title: "Odoo ORM, models, security, and module architecture",
+                  },
+                  {
+                    icon: "layers",
+                    title: "Views: XML, QWeb, reports, website basics",
+                  },
+                  {
+                    icon: "plug",
+                    title: "Integrations: REST APIs, webhooks, third-party services",
+                  },
+                  {
+                    icon: "wrench",
+                    title: "OWL + modern frontend patterns in Odoo",
+                  },
+                  {
+                    icon: "rocket",
+                    title:
+                      "Deployment, Docker, monitoring, performance optimization",
+                  },
+                ]}
+              />
+            </div>
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800"
-            >
+            <Link href="/contact" className="btn-primary">
               Join next training batch
             </Link>
-            <Link
-              href="/resources/technical-syllabus"
-              className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium hover:bg-zinc-50"
-            >
+            <Link href="/resources/technical-syllabus" className="btn-secondary">
               Download syllabus
             </Link>
-            <Link
-              href="/events"
-              className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium hover:bg-zinc-50"
-            >
+            <Link href="/events" className="btn-secondary">
               Register workshop
             </Link>
           </div>
         </div>
 
         <aside className="md:col-span-5">
-          <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-            <div className="text-sm font-semibold">Technical topics</div>
-            <p className="mt-1 text-sm text-zinc-600">
+          <div className="card-standard p-6">
+            <div className="text-sm font-semibold text-ink">Technical topics</div>
+            <p className="mt-1 text-sm text-ink-muted">
               Study one development area at a time.
             </p>
-            <div className="mt-4 grid gap-2">
+            <div className="mt-4 grid gap-0">
               {topics.map((t) => (
                 <Link
                   key={t.slug}
-                  className="rounded-xl border border-zinc-200 px-3 py-2 text-sm hover:bg-zinc-50"
+                  className="group flex items-center justify-between border-b border-line py-3 text-sm text-ink last:border-b-0 hover:text-brand"
                   href={`/training/technical/${t.slug}`}
                 >
-                  {t.title}
+                  <span>{t.title}</span>
+                  <span
+                    className="card-arrow text-ink-muted transition-transform duration-[var(--dur-fast)] group-hover:translate-x-[3px]"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
                 </Link>
               ))}
               {topics.length === 0 ? (
-                <div className="text-sm text-zinc-600">
+                <div className="text-sm text-ink-muted">
                   Add MDX in <code>content/training-technical</code>.
                 </div>
               ) : null}
@@ -88,4 +107,3 @@ export default async function TechnicalTrainingPage() {
     </div>
   );
 }
-

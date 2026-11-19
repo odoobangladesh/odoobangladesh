@@ -6,6 +6,7 @@ Community-driven, SEO-first Odoo portal for Bangladesh.
 - **Stack**: Next.js App Router + Tailwind + MDX content collections
 - **Publishing model**: programmatic SEO via `content/*` collections
 
+See `docs/WEBSITE_OBJECTIVE_AND_REMAINING_WORK.md` for the site objective and remaining work checklist.  
 See `docs/PROJECT_BLUEPRINT.md` for wireframe, SEO silos, schema recommendations, CMS/course architecture, and scaling plan.
 
 ## Getting Started

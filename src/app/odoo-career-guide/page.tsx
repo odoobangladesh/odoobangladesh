@@ -10,17 +10,18 @@ export const metadata: Metadata = {
 
 export default function CareerGuidePage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">
+    <div className="site-container section-y">
+      <div className="mx-auto max-w-[var(--reading)]">
+      <h1 className="font-display text-[length:var(--text-h1)] font-bold tracking-[var(--tracking-h1)] text-ink">
         Odoo career path guide (Bangladesh)
       </h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600">
+      <p className="mt-2 text-sm leading-6 text-ink-muted">
         A community roadmap for people learning Odoo in Bangladesh. It is a
         study plan, not a placement service, and this portal is not affiliated
         with Odoo S.A.
       </p>
 
-      <div className="prose prose-zinc mt-8 max-w-none [&_h2]:scroll-mt-24">
+      <div className="prose prose-obd mt-8 max-w-none [&_h2]:scroll-mt-24">
         <h2>Pick a track before collecting certificates</h2>
         <p>
           Functional work is explaining a business flow and configuring it.
@@ -140,22 +141,40 @@ export default function CareerGuidePage() {
         </ul>
       </div>
 
-      <div className="mt-10 grid gap-3 rounded-2xl border border-zinc-200 bg-white p-6 text-sm shadow-sm">
-        <div className="font-medium">Choose a pathway</div>
-        <div className="grid gap-2">
-          <Link className="underline underline-offset-4" href="/training/functional">
-            Functional training pathway
-          </Link>
-          <Link className="underline underline-offset-4" href="/training/technical">
-            Technical training pathway
-          </Link>
-          <Link className="underline underline-offset-4" href="/learning-center">
-            Learning Center
-          </Link>
-          <Link className="underline underline-offset-4" href="/contact">
-            Book a free career consultation
-          </Link>
+      <div className="mt-10 card-standard grid gap-3 p-6 text-sm">
+        <div className="font-medium text-ink">Choose a pathway</div>
+        <div className="grid gap-0">
+          {[
+            {
+              href: "/training/functional",
+              label: "Functional training pathway",
+            },
+            {
+              href: "/training/technical",
+              label: "Technical training pathway",
+            },
+            { href: "/learning-center", label: "Learning Center" },
+            {
+              href: "/contact",
+              label: "Book a free career consultation",
+            },
+          ].map((link) => (
+            <Link
+              key={link.href}
+              className="group flex items-center justify-between border-b border-line py-3 text-ink last:border-b-0 hover:text-brand"
+              href={link.href}
+            >
+              <span>{link.label}</span>
+              <span
+                className="card-arrow text-ink-muted transition-transform duration-[var(--dur-fast)] group-hover:translate-x-[3px]"
+                aria-hidden="true"
+              >
+                →
+              </span>
+            </Link>
+          ))}
         </div>
+      </div>
       </div>
     </div>
   );

@@ -1,46 +1,173 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { SiteLogo } from "@/components/site-logo";
+import { FeatureRows, PageIntro } from "@/components/visual-ui";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About the Community",
+  title: "About / Who runs Odoo Bangladesh",
   description:
-    "Odoo Bangladesh is an independent community portal for Odoo learners, professionals, and organizations in Bangladesh.",
+    "Odoo Bangladesh is an independent educational portal for Odoo ERP in Bangladesh, operated by Binary Quest Limited. Learn how the site relates to Binary Quest and ERP Bangladesh.",
   alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">About the community</h1>
-      <p className="mt-3 text-sm leading-6 text-zinc-600">
-        Odoo Bangladesh is a community-driven, educational platform for people
-        exploring Odoo ERP in Bangladesh, including businesses planning ERP
-        adoption, functional consultants, developers, students, and career
-        switchers.
-      </p>
+    <div className="site-container section-y">
+      <div className="mx-auto max-w-[var(--reading)]">
+        <div className="mb-8">
+          <SiteLogo variant="stacked" className="h-20 w-auto sm:h-24" />
+        </div>
+        <PageIntro
+          eyebrow="Operator disclosure"
+          title="Who runs this portal"
+          description={
+            <>
+              Odoo Bangladesh is a community-style educational site for people
+              and businesses exploring Odoo ERP in Bangladesh. It is operated by{" "}
+              <a
+                className="btn-tertiary"
+                href={siteConfig.operator.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {siteConfig.operator.name}
+              </a>
+              , an Odoo implementation partner. We keep an educational tone for
+              trust; commercial delivery is handled by Binary Quest, not
+              presented as a different company.
+            </>
+          }
+        />
 
-      <div className="prose prose-zinc mt-8 max-w-none">
-        <h2>What this portal is</h2>
-        <ul>
-          <li>A neutral knowledge hub for Odoo ERP concepts and workflows</li>
-          <li>A learning platform with functional and technical pathways</li>
-          <li>A connector to the Odoo ecosystem in Bangladesh</li>
-        </ul>
+        <div className="mt-10 grid gap-6">
+          <section className="card-standard p-6">
+            <h2 className="font-display text-lg font-semibold text-ink">
+              What this portal is
+            </h2>
+            <div className="mt-4">
+              <FeatureRows
+                items={[
+                  {
+                    icon: "book",
+                    title:
+                      "Guides, industry pages, module explainers, and comparisons",
+                  },
+                  {
+                    icon: "graduation",
+                    title:
+                      "Training pathways for professionals and company teams",
+                  },
+                  {
+                    icon: "boxes",
+                    title:
+                      "Package overviews and consultation forms for business buyers",
+                  },
+                  {
+                    icon: "users",
+                    title: "Events, webinars, and newsletter nurture",
+                  },
+                ]}
+              />
+            </div>
+          </section>
 
-        <h2>What this portal is not</h2>
-        <ul>
-          <li>Not an agency-style “hire us” website</li>
-          <li>Not affiliated with Odoo S.A.</li>
-        </ul>
+          <section className="card-standard p-6">
+            <h2 className="font-display text-lg font-semibold text-ink">
+              What this portal is not
+            </h2>
+            <div className="mt-4">
+              <FeatureRows
+                items={[
+                  { icon: "shield", title: "Not affiliated with Odoo S.A." },
+                  {
+                    icon: "alert",
+                    title: "Not a substitute for Binary Quest’s corporate site",
+                  },
+                  {
+                    icon: "alert",
+                    title:
+                      "Not the place for broad “what is ERP” education (that is ERP Bangladesh)",
+                  },
+                ]}
+              />
+            </div>
+          </section>
 
-        <h2>How to use it</h2>
-        <ol>
-          <li>Start from the Learning Center to pick a pathway.</li>
-          <li>Use Modules + Industries pages to map Odoo to your needs.</li>
-          <li>Use Comparisons to shortlist ERP options.</li>
-          <li>Use Training pages to plan skills and certification prep.</li>
-        </ol>
+          <section className="card-standard p-6">
+            <h2 className="font-display text-lg font-semibold text-ink">
+              How the three domains work together
+            </h2>
+            <div className="mt-4">
+              <FeatureRows
+                items={[
+                  {
+                    icon: "layers",
+                    title: "odoobangladesh.com",
+                    description:
+                      "Odoo education, SEO, packages, training, and consultation MQLs",
+                  },
+                  {
+                    icon: "link",
+                    title: (
+                      <a
+                        href={siteConfig.sisterSites.binaryquest.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-tertiary"
+                      >
+                        binaryquest.com
+                      </a>
+                    ),
+                    description:
+                      "Company credibility, full case studies, careers",
+                  },
+                  {
+                    icon: "link",
+                    title: (
+                      <a
+                        href={siteConfig.sisterSites.erpbangladesh.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-tertiary"
+                      >
+                        erpbangladesh.com
+                      </a>
+                    ),
+                    description:
+                      "Early-stage ERP research before Odoo is chosen",
+                  },
+                ]}
+              />
+            </div>
+          </section>
+
+          <section className="card-standard p-6">
+            <h2 className="font-display text-lg font-semibold text-ink">
+              Contact
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-ink-muted">
+              For ERP consultation and implementation:{" "}
+              <a
+                className="btn-tertiary"
+                href={`mailto:${siteConfig.operator.email}`}
+              >
+                {siteConfig.operator.email}
+              </a>
+              , {siteConfig.operator.phone}, or WhatsApp via the site button.
+            </p>
+          </section>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Link href="/packages" className="btn-primary">
+            View packages
+          </Link>
+          <Link href="/contact" className="btn-secondary">
+            Request consultation
+          </Link>
+        </div>
       </div>
     </div>
   );
 }
-

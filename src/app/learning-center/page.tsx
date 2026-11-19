@@ -1,5 +1,11 @@
-import Link from "next/link";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import { MetricStrip } from "@/components/metric-strip";
+import { PortalIndex } from "@/components/portal-index";
+import { ProcessDiagram } from "@/components/process-diagram";
+import { ScrollReveal } from "@/components/scroll-reveal";
+import { LinkTiles, PageIntro } from "@/components/visual-ui";
+import { listDocs } from "@/lib/content";
+import { LEARNING_PORTAL_DESTINATIONS } from "@/lib/portal-destinations";
 
 export const metadata: Metadata = {
   title: "Odoo Learning Center (Bangladesh)",
@@ -8,90 +14,169 @@ export const metadata: Metadata = {
   alternates: { canonical: "/learning-center" },
 };
 
-export default function LearningCenterPage() {
+export default async function LearningCenterPage() {
+  const [functional, technical, resources] = await Promise.all([
+    listDocs("training-functional"),
+    listDocs("training-technical"),
+    listDocs("resources"),
+  ]);
+
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight">Learning Center</h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600">
-          A structured starting point for learning Odoo ERP in Bangladesh: for
-          businesses, professionals, students, and developers.
-        </p>
-      </div>
+    <div>
+      <ScrollReveal />
+      <section className="site-container section-y">
+        <div data-reveal>
+          <PageIntro
+            eyebrow="Learning hub"
+            title="Learning Center"
+            description="A structured starting point for learning Odoo ERP in Bangladesh: for businesses, professionals, students, and developers."
+          />
+          <div className="mt-8">
+            <MetricStrip
+              items={[
+                {
+                  value: functional.length,
+                  label: "Functional topics",
+                  href: "/training/functional",
+                },
+                {
+                  value: technical.length,
+                  label: "Technical topics",
+                  href: "/training/technical",
+                },
+                {
+                  value: resources.length,
+                  label: "Resource assets",
+                  href: "/resources/erp-checklist",
+                },
+              ]}
+            />
+          </div>
+        </div>
 
-      <section className="mt-8 grid gap-4 md:grid-cols-2">
-        <Link
-          href="/training/functional"
-          className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300"
-        >
-          <div className="text-sm font-semibold">Functional pathway</div>
-          <p className="mt-2 text-sm text-zinc-600">
-            Learn business process analysis, ERP implementation concepts, and
-            core modules like Sales, Inventory, and Accounting.
+        <div data-reveal className="mt-12">
+          <h2 className="font-display text-[length:var(--text-h2)] font-semibold tracking-[var(--tracking-h2)] text-ink">
+            Training pathways
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-muted">
+            Pathway detail lives on the training hub so it is not repeated here.
+            Counts below match published topics.
           </p>
-        </Link>
+          <div className="mt-6">
+            <LinkTiles
+              ariaLabel="Training pathways"
+              items={[
+                {
+                  href: "/training/functional",
+                  title: "Functional pathway",
+                  description: `${functional.length} published topics covering processes and core modules.`,
+                  icon: "clipboard",
+                },
+                {
+                  href: "/training/technical",
+                  title: "Technical pathway",
+                  description: `${technical.length} published topics covering development and deployment.`,
+                  icon: "wrench",
+                },
+                {
+                  href: "/training",
+                  title: "Training hub",
+                  description:
+                    "Syllabus links, workshops, and career consultation next steps.",
+                  icon: "graduation",
+                  featured: true,
+                },
+              ]}
+            />
+          </div>
+        </div>
 
-        <Link
-          href="/training/technical"
-          className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300"
-        >
-          <div className="text-sm font-semibold">Technical pathway</div>
-          <p className="mt-2 text-sm text-zinc-600">
-            Learn Odoo development: Python, ORM, module development, XML/QWeb,
-            OWL, deployment, and performance.
+        <div data-reveal className="mt-12">
+          <h2 className="font-display text-[length:var(--text-h2)] font-semibold tracking-[var(--tracking-h2)] text-ink">
+            Learning sequence
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-muted">
+            Diagram of how most learners move through the portal.
           </p>
-        </Link>
-      </section>
+          <div className="mt-6">
+            <ProcessDiagram
+              nodes={[
+                {
+                  id: "path",
+                  label: "Pick a path",
+                  detail: "Functional or technical",
+                  href: "/training",
+                  icon: "graduation",
+                },
+                {
+                  id: "guide",
+                  label: "Read a guide",
+                  detail: "Implementation or pricing",
+                  href: "/implementation-guide",
+                  icon: "book",
+                },
+                {
+                  id: "practice",
+                  label: "Practice",
+                  detail: "Syllabus exercises",
+                  href: "/resources/functional-syllabus",
+                  icon: "listChecks",
+                },
+                {
+                  id: "career",
+                  label: "Career map",
+                  detail: "Roles & next skills",
+                  href: "/odoo-career-guide",
+                  icon: "users",
+                },
+              ]}
+            />
+          </div>
+        </div>
 
-      <section className="mt-10 grid gap-4 md:grid-cols-3">
-        <Link
-          href="/implementation-guide"
-          className="rounded-2xl border border-zinc-200 p-6 text-sm hover:bg-zinc-50"
-        >
-          <div className="font-medium">Implementation Guide</div>
-          <p className="mt-1 text-zinc-600">
-            Scope, timeline, data, UAT, training, go-live, and common mistakes.
-          </p>
-        </Link>
-        <Link
-          href="/pricing-guide"
-          className="rounded-2xl border border-zinc-200 p-6 text-sm hover:bg-zinc-50"
-        >
-          <div className="font-medium">Pricing Guide</div>
-          <p className="mt-1 text-zinc-600">
-            Understand cost components: licenses, implementation, customization,
-            hosting, and training.
-          </p>
-        </Link>
-        <Link
-          href="/odoo-career-guide"
-          className="rounded-2xl border border-zinc-200 p-6 text-sm hover:bg-zinc-50"
-        >
-          <div className="font-medium">Career Path Guide</div>
-          <p className="mt-1 text-zinc-600">
-            Role map, skills checklist, portfolio ideas, and interview prep.
-          </p>
-        </Link>
-      </section>
+        <div data-reveal className="mt-12">
+          <h2 className="font-display text-[length:var(--text-h2)] font-semibold tracking-[var(--tracking-h2)] text-ink">
+            Core guides
+          </h2>
+          <div className="mt-6">
+            <PortalIndex
+              ariaLabel="Core guides"
+              items={LEARNING_PORTAL_DESTINATIONS}
+            />
+          </div>
+        </div>
 
-      <section className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-        <div className="text-sm font-semibold">Explore by topic</div>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          <Link className="underline underline-offset-4" href="/modules">
-            Odoo modules directory
-          </Link>
-          <Link className="underline underline-offset-4" href="/industries">
-            Odoo for industries (Bangladesh)
-          </Link>
-          <Link className="underline underline-offset-4" href="/comparisons">
-            Odoo vs other ERP comparisons
-          </Link>
-          <Link className="underline underline-offset-4" href="/resources/erp-checklist">
-            Free ERP checklist (Bangladesh)
-          </Link>
+        <div data-reveal className="mt-12">
+          <h2 className="font-display text-lg font-semibold text-ink">
+            Explore by topic
+          </h2>
+          <div className="mt-4">
+            <LinkTiles
+              ariaLabel="Topic directories"
+              items={[
+                {
+                  href: "/modules",
+                  title: "Odoo modules directory",
+                  description: "App-by-app Bangladesh notes.",
+                  icon: "boxes",
+                },
+                {
+                  href: "/industries",
+                  title: "Odoo for industries",
+                  description: "Sector playbooks for local operations.",
+                  icon: "layers",
+                },
+                {
+                  href: "/comparisons",
+                  title: "ERP comparisons",
+                  description: "Neutral shortlists for decision meetings.",
+                  icon: "scale",
+                },
+              ]}
+            />
+          </div>
         </div>
       </section>
     </div>
   );
 }
-
