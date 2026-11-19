@@ -8,8 +8,8 @@ import FadeContent from "@/components/react-bits/FadeContent/FadeContent";
 import { CtaSpark } from "@/components/cta-spark";
 import { DecisionOrb } from "@/components/decision-orb";
 
-const LightRays = dynamic(
-  () => import("@/components/react-bits/LightRays/LightRays"),
+const Aurora = dynamic(
+  () => import("@/components/react-bits/Aurora/Aurora"),
   { ssr: false },
 );
 
@@ -70,23 +70,21 @@ export function LandingHero({
     <section id="hero" className="landing-hero">
       {!reduced ? (
         <div className="landing-hero-fx" aria-hidden="true">
-          <LightRays
-            raysOrigin="top-right"
-            raysColor="#0A6B4F"
+          <Aurora
+            colorStops={["#064634", "#0A6B4F", "#1A8F6E", "#0A6B4F"]}
+            direction="top"
             lightMode
-            raysSpeed={0.45}
-            lightSpread={1.2}
-            rayLength={1.25}
-            rayDensity={0.85}
-            intensity={0.65}
-            glow={0.4}
-            haze={0.3}
-            atmosphere={0.35}
-            followMouse
-            mouseInfluence={0.1}
-            cursorShadow={false}
-            clickPulse={false}
-            opacity={0.5}
+            mouseInteraction
+            intro
+            layers={2}
+            amplitude={1.15}
+            blend={0.62}
+            speed={0.7}
+            height={0.52}
+            scale={1.05}
+            glow={0.75}
+            brightness={1.15}
+            opacity={0.9}
             className="h-full w-full"
           />
         </div>
