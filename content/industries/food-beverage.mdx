@@ -1,0 +1,133 @@
+---
+title: "Odoo for Food & Beverage in Bangladesh"
+description: "How F&B producers, distributors, and multi-outlet brands in Bangladesh run Odoo 17 to 19 for recipes, lots, expiry, dealer credit, POS, and VAT-ready accounting."
+date: "2026-11-12"
+updated: "2026-11-17"
+author: "Odoo Bangladesh Community"
+odooVersion: "17 to 19"
+keywords:
+  - Odoo food and beverage Bangladesh
+  - Odoo for F&B
+  - Odoo manufacturing Bangladesh
+  - batch expiry tracking Odoo
+  - F&B ERP Bangladesh
+  - Odoo quality control food
+  - multi-outlet beverage ERP
+related:
+  - label: "Manufacturing module"
+    href: "/modules/manufacturing"
+  - label: "Inventory module"
+    href: "/modules/inventory"
+  - label: "Purchase module"
+    href: "/modules/purchase"
+  - label: "Sales module"
+    href: "/modules/sales"
+  - label: "Accounting module"
+    href: "/modules/accounting"
+  - label: "Point of Sale module"
+    href: "/modules/pos"
+  - label: "Odoo vs ERPNext"
+    href: "/comparisons/odoo-vs-erpnext"
+  - label: "ERP readiness checklist"
+    href: "/resources/erp-checklist"
+  - label: "Growth package"
+    href: "/packages/growth"
+faq:
+  - q: "Where should an F&B company start in Odoo?"
+    a: "Most Bangladesh F&B teams start with Inventory, Purchase, Sales, and Accounting so stock, supplier bills, dealer invoices, and VAT sit in one place. Add Manufacturing and Quality when recipes, batches, and shop-floor checks become mandatory."
+  - q: "Can Odoo handle batch and expiry tracking?"
+    a: "Yes. Lots and serials are standard in Inventory on Odoo 17 to 19. You can enforce FEFO picking, block expired lots, and add Quality checks on receipt or before release. Exact Mushak and BSTI label layouts usually need partner templates."
+  - q: "Does Odoo work for beverage plants and snack producers?"
+    a: "Yes for multi-level BOMs, work orders, by-products, and quality points. Bonded warehouse, utility cost allocation, and specialised lab certificates are project work, not out-of-the-box Bangladesh features."
+  - q: "Can multi-outlet F&B brands share one stock truth?"
+    a: "Yes. Use one product master, warehouses per plant or depot, and POS or Sales per outlet. Inter-warehouse transfers keep cold-store and shop stock aligned. Offline POS helps when load-shedding hits a counter."
+  - q: "What does a first F&B Odoo phase cost in Bangladesh?"
+    a: "Community-observed ranges, not quotes: trading-heavy distributors with 5 to 15 users often land near BDT 8 to 25 lakh; producers adding MRP and quality often sit at BDT 25 lakh to 1 crore plus. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month (up to about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD). Confirm the regional price on odoo.com/pricing."
+---
+
+Odoo 17 to 19 fit Bangladeshi food and beverage companies that need one system for raw materials, recipes or BOMs, lot and expiry control, dealer pricing, multi-outlet stock, and VAT-ready invoicing. Inventory, Purchase, Sales, and Accounting cover trading-heavy distributors. Manufacturing and Quality join when you produce beverages, snacks, dairy, bakery, or packaged foods and must prove batch history. Mushak 6.3 layouts, Bangla labels, and BSTI-facing paperwork are usually partner customisation on top of the standard apps.
+
+## Industry context in Bangladesh
+
+Food and beverage in Bangladesh stretches from Narayanganj and Gazipur snack plants to Chattogram importers, Dhaka cold-chain distributors, and multi-outlet tea, bakery, and QSR brands. Many firms still run production in Excel, stock in a standalone inventory tool, and books in Tally. That split breaks when a retailer returns near-expiry stock, a dealer disputes a batch, or finance cannot reconcile VAT with warehouse movements.
+
+Regulatory and operating pressure is specific. Standard VAT is 15 percent for many categories, with reduced or exempt rates on selected staples. Mushak 6.3 tax invoices, Mushak 6.1 and 6.2 registers, and Mushak 9.1 returns (monthly or, since Finance Act 2026, quarterly covering three tax periods, due within 15 days of period end) sit beside VDS and TDS on supplier bills. The fiscal year is July to June. Importers face landed cost, LC documentation, and cold-chain breakage. Producers track recipes, yield loss, and sometimes by-products. Outlets need shelf prices that already include VAT, plus bKash, Nagad, Rocket, and card methods at the counter.
+
+Infrastructure is uneven. Plants and shops lose power, fibre drops, and printers jam. Any design that assumes always-online shop-floor terminals will fail during a summer load-shedding week.
+
+## Pain points Odoo is usually asked to solve
+
+- Recipes and BOMs live in a technologist's spreadsheet while costing lives in accounts.
+- Lot and expiry data are incomplete, so FEFO picking and recall drills are manual.
+- Dealer credit limits and promotions are WhatsApp messages, not enforced rules.
+- Depot and outlet stock disagree, especially for chilled SKUs.
+- Purchase landed costs on imports are reconstructed at month end.
+- VAT and Mushak reporting are rebuilt from invoice printouts rather than system registers.
+- Quality checks exist on paper and never block a bad receipt or release.
+
+## Module map
+
+| Module | Why it matters for Bangladesh F&B |
+|---|---|
+| [Inventory](/modules/inventory) | Lots, expiry, multi-warehouse depots, FEFO routes, internal transfers to outlets, barcode receipts. |
+| [Purchase](/modules/purchase) | Supplier price lists in BDT, VDS/TDS patterns, landed costs on imported ingredients and packaging. |
+| [Manufacturing](/modules/manufacturing) | Multi-level BOMs, work orders, by-products, scrap, and shop-floor consumption. Pair with Quality checks on receipt and release (Enterprise quality apps are deeper; Community often uses custom checks). |
+| [Sales](/modules/sales) | Dealer pricelists, credit limits, promotions around Ramadan and Eid, delivery orders tied to lots. |
+| [Accounting](/modules/accounting) | l10n_bd chart of accounts, 15 percent VAT configuration, receivables by dealer, analytic costing by brand or plant. |
+| [Point of Sale](/modules/pos) | Own outlets and cafe counters with offline selling, MFS payment methods, and shared product master. |
+
+Trading-first F&B firms often go live with Inventory, Purchase, Sales, and Accounting. Producers add Manufacturing once the masters are clean. POS is the usual next step for brand-owned outlets.
+
+## A worked example: a Gazipur beverage plant with Dhaka depots
+
+Consider a hypothetical beverage company with a plant in Gazipur, two depots in Dhaka, about 40 system users across production, warehouse, sales, and finance, and a dealer network across Dhaka and Chattogram. Management wants batch traceability, dealer invoices that match dispatched lots, and a VAT return that finance trusts.
+
+**Setup.** One company, warehouses for plant raw materials, plant finished goods, and each depot. Products use lots with expiry. BOMs define concentrate, sugar, CO2 or water, and packaging. Each depot has delivery routes. Sales pricelists cover modern trade and traditional dealers. Accounting installs `l10n_bd`, then sets default sale and purchase tax to 15 percent (the template default is 10 percent).
+
+**Inflow.** Packaging and concentrate arrive with supplier lots. Quality checks on receipt record Brix or visual inspection results. Landed costs allocate freight and duty onto stock value in BDT.
+
+**Produce.** A work order consumes BOM components by lot, records yield loss, and creates finished lots with expiry. A release check blocks dispatch if a quality point fails.
+
+**Sell and deliver.** Sales confirms a dealer order against credit limit, reserves FEFO lots at the depot, and delivers. The customer invoice carries the VAT breakdown. If modern trade returns near-expiry stock, the return lands in a quarantine location for quality review.
+
+**Close the month.** Finance reconciles bank and MFS receipts, reviews VDS/TDS on supplier bills, and builds Mushak registers from invoice data rather than from spreadsheets. This is a plausible flow, not a case study claim.
+
+## Implementation checklist
+
+1. Decide first scope: trading only, or trading plus MRP in phase one.
+2. Clean product masters: UoM, shelf life, lot policy, and tax categories before go-live.
+3. Map warehouses and routes for plant, cold store, and outlets.
+4. Configure `l10n_bd`, force 15 percent default VAT where required, and agree Mushak document templates with your partner.
+5. Set dealer pricelists, credit limits, and approval rules before migrating open invoices.
+6. Pilot FEFO picking and one recall drill on test lots.
+7. Train warehouse, production, and finance in Bangla and English before cutover.
+8. Plan July to June fiscal periods and lock rules so NBR filings stay tidy.
+9. Only then add POS outlets or advanced quality automation.
+
+Community-observed cost bands for Bangladesh (not quotes): small trading F&B with 3 to 6 apps and 5 to 15 users often falls in BDT 8 to 25 lakh; manufacturing with MRP, quality, and integrations often sits at BDT 25 lakh to 1 crore plus. Consultant or partner day rates commonly run BDT 8,000 to 15,000 per person-day. Cloud hosting for an SME footprint is often BDT 5,000 to 20,000 per month (BDT 60,000 to 2.4 lakh per year).
+
+## Frequently asked questions
+
+### Where should an F&B company start in Odoo?
+
+Most Bangladesh F&B teams start with Inventory, Purchase, Sales, and Accounting so stock, supplier bills, dealer invoices, and VAT sit in one place. Add Manufacturing and Quality when recipes, batches, and shop-floor checks become mandatory.
+
+### Can Odoo handle batch and expiry tracking?
+
+Yes. Lots and serials are standard in Inventory on Odoo 17 to 19. You can enforce FEFO picking, block expired lots, and add Quality checks on receipt or before release. Exact Mushak and BSTI label layouts usually need partner templates.
+
+### Does Odoo work for beverage plants and snack producers?
+
+Yes for multi-level BOMs, work orders, by-products, and quality points. Bonded warehouse, utility cost allocation, and specialised lab certificates are project work, not out-of-the-box Bangladesh features.
+
+### Can multi-outlet F&B brands share one stock truth?
+
+Yes. Use one product master, warehouses per plant or depot, and POS or Sales per outlet. Inter-warehouse transfers keep cold-store and shop stock aligned. Offline POS helps when load-shedding hits a counter.
+
+### What does a first F&B Odoo phase cost in Bangladesh?
+
+Community-observed ranges, not quotes: trading-heavy distributors with 5 to 15 users often land near BDT 8 to 25 lakh; producers adding MRP and quality often sit at BDT 25 lakh to 1 crore plus. Enterprise licences at Odoo's US list price with yearly billing are about USD 24.90 to 37.40 per user per month (up to about BDT 3,000 to 4,700 assuming BDT 120 to 125 per USD). Confirm the regional price on odoo.com/pricing.
+
+## Next step
+
+Work through the [ERP readiness checklist](/resources/erp-checklist), then compare a fixed first scope on the [Growth package](/packages/growth) if production is in play, or [request an ERP consultation](/contact) when you want a specialist to pressure-test warehouses, lots, and VAT templates before you buy licences.

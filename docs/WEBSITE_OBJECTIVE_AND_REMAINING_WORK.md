@@ -1,0 +1,245 @@
+# Odoo Bangladesh — Website objective and remaining work
+
+Last updated: 18 November 2026  
+Audience: product, marketing, and engineering  
+Sources: `Binary_Quest_Domain_Strategy_odoobangladesh_com.docx`, `PROJECT_BLUEPRINT.md`, current codebase
+
+---
+
+## 1. What is the objective of this website?
+
+**odoobangladesh.com** is Binary Quest Limited’s primary **Odoo demand and SEO engine** for Bangladesh.
+
+It is an **educational community portal** first (guides, training, modules, industries, comparisons, events). It is **not** Binary Quest’s corporate brochure site. Commercial paths still exist: packages, consultation forms, webinars, and care-plan CTAs route qualified interest into Binary Quest’s CRM with lead source tagged as `odoobangladesh.com`.
+
+### One-sentence objective
+
+Attract people and businesses searching for Odoo in Bangladesh, teach them enough to trust the portal, convert serious interest into marketing-qualified leads, and hand those leads to Binary Quest so sales can turn them into proposals and customers.
+
+### Shared 2027 practice goal (all three domains)
+
+These targets are shared across the practice, not owned only by this site:
+
+| Stage | 2027 target |
+| --- | --- |
+| Marketing Qualified Leads (MQLs) | 208 (~17 / month) |
+| Sales Qualified Leads (SQLs) | 73 |
+| Proposals | 40 |
+| Wins | 14 |
+| Programme budget | Tk 12 lakh |
+
+### This domain’s contribution
+
+| Role | Target |
+| --- | --- |
+| Direct MQLs from odoobangladesh.com | **90–110** (~45–50% of 208) |
+| How | Organic SEO, newsletter, training → consult, consultation forms, webinar registrations |
+| Assisted | Google / LinkedIn ads for Odoo keywords land on industry or package pages here (not on binaryquest.com homepage) |
+
+### How success is measured (domain KPIs)
+
+| KPI | 2027 target |
+| --- | --- |
+| Direct MQLs | 90–110 |
+| Organic sessions | +100% vs Q1 baseline by Dec 2027 |
+| Consultation form conversion (session → submit on commercial pages) | ≥ 1.5% |
+| SQL acceptance of MQLs from this domain | ≥ 35% |
+| Programme-assisted cost per MQL | Contribute to ≤ Tk 5,800 overall |
+| Package + top industry/comparison pages indexed | Live by Mar 2027 |
+
+### Three-domain system
+
+| Domain | Job |
+| --- | --- |
+| **odoobangladesh.com** | Odoo education, SEO, packages, training, consultation MQLs |
+| **binaryquest.com** | Company credibility, full case studies, careers |
+| **erpbangladesh.com** | Early-stage “any ERP” research before the buyer chooses Odoo |
+
+They split discovery and trust. They do **not** each chase a separate revenue target.
+
+### Positioning rules (still binding)
+
+- Keep an educational / community tone for trust.
+- Disclose that Binary Quest operates the portal and delivers implementation.
+- Do not pretend to be a different company, and do not present as official Odoo S.A.
+- Light theme only; no official Odoo brand assets.
+- Student-only training interest is marked `learner`, not forced into sales as SQL.
+- Company-training / buyer consultation with budget becomes commercial pipeline.
+
+---
+
+## 2. What is already in place
+
+The product shell for the objective is largely built.
+
+### Product and IA
+
+- Next.js App Router site with MDX content collections (blog, landings, modules, industries, comparisons, training, resources)
+- Pillar pages: learning center, implementation guide, pricing guide, career guide, training hubs
+- Commercial packaging: Starter, Business, Growth, Enterprise, Care Plan (`/packages`)
+- About / operator disclosure and sister-site links
+- Events page with registration interest form
+- Quiet Premium design system applied (tokens, typography, chrome, forms, docs)
+
+### Conversion and attribution
+
+- Consultation form with company, package, interest, UTM, page path, honeypot
+- Lead source forced to `odoobangladesh.com`
+- Learner vs commercial lead typing
+- Newsletter subscribe + ERP checklist email gate (exit-intent and resource page)
+- Path-aware sticky CTA
+- Local lead audit log (`.data/leads.jsonl`) and optional `CRM_WEBHOOK_URL`
+
+### SEO plumbing
+
+- Canonical short-slug model for money landings
+- Sitemap, robots, metadata, JSON-LD helpers (Organization, WebSite, Article/BlogPosting, Course, Breadcrumb, FAQ, ItemList)
+- Internal related-links block on content pages
+- `npm run content:check` quality gate script
+
+---
+
+## 3. What still remains to achieve the objective
+
+Ordered by impact on the 2027 MQL / SEO goals.
+
+### P0 — Must do to hit the objective
+
+#### A. Content depth and publishing cadence (main SEO / MQL engine)
+
+**Why:** Thin pages will not rank for “Odoo Bangladesh”, “Odoo implementation Bangladesh”, or industry queries. The strategy assumes topical authority plus ~4 long-form articles per month.
+
+**Remaining work:**
+
+- [ ] Run `npm run content:check` and fix every depth / frontmatter / linking failure
+- [ ] Bring all existing MDX pages to blueprint minimums (modules 900, industries 1000, comparisons 1800, landings 1200, training 700, blog 1200, resources 500)
+- [ ] Prioritise deepen order: landings → comparisons → pillars → modules → industries → training → resources
+- [ ] Operate editorial cadence: **4 long-form articles / month** mapped to strategy clusters (vs Tally/Excel, Mushak/Accounting, industry, implementation, comparisons, short proof → binaryquest.com)
+- [ ] Bangla-first or bilingual pieces where search intent is local (especially accounting / Tally / SME topics); keep human review for NBR, Mushak, VAT, and pricing claims
+- [ ] Fill high-value backlog pages, for example:
+  - Comparisons: Odoo vs QuickBooks, Odoo vs Zoho
+  - Modules: website, ecommerce, helpdesk, fleet
+  - Industries: pharma, logistics, hospital, NGO, real estate
+  - Landings: Community vs Enterprise, hosting Bangladesh, course Dhaka
+
+**Done when:** Content check passes in CI; package + top 8 industry/comparison pages are live and indexable; monthly article cadence is running.
+
+#### B. Live CRM and lead routing
+
+**Why:** Forms that only write a local JSONL file do not feed the 90–110 MQL target into sales.
+
+**Remaining work:**
+
+- [ ] Set production `CRM_WEBHOOK_URL` / token (or push directly into Odoo CRM as `crm.lead` with source `odoobangladesh.com`)
+- [ ] Notify practice on every commercial inquiry (email / Slack / WhatsApp)
+- [ ] Prefer durable storage (e.g. Postgres) so leads are not tied to one server disk
+- [ ] Confirm UTM + `source_path` appear on every CRM record
+- [ ] Keep learner leads tagged and out of SQL pressure
+- [ ] Newsletter double opt-in into a real ESP (Brevo / Listmonk / equivalent)
+
+**Done when:** A test submission appears in CRM and notification channel within ~60 seconds; no commercial lead is “ok: true” without persistence.
+
+#### C. Measurement against KPIs
+
+**Why:** Without analytics and Search Console, organic growth, form conversion, and CPL cannot be managed.
+
+**Remaining work:**
+
+- [ ] Install privacy-friendly analytics (Plausible or Umami) with events: inquiry submitted, newsletter subscribed, checklist unlocked, WhatsApp click, CTA click
+- [ ] Verify Google Search Console + Bing; submit sitemap
+- [ ] Baseline Q1 organic sessions and head-term rankings
+- [ ] Monthly review: top pages, queries, leads by source page, pages to improve
+
+**Done when:** Team can report MQL count, organic sessions, and commercial-page conversion monthly.
+
+---
+
+### P1 — Strongly supports the objective
+
+#### D. Homepage conversion focus
+
+Engagement plan called for a thinner home (hero → journey → audience → newsletter → Package CTA). The current home still stacks coverage dashboard, portal index, compare matrix, and popular tiles.
+
+**Remaining work:**
+
+- [ ] Thin homepage to the agreed conversion composition
+- [ ] Keep secondary destinations reachable via nav / learning center
+
+#### E. SEO and shareability polish
+
+**Remaining work:**
+
+- [ ] Dynamic Open Graph images per route
+- [ ] Bangla routes and `hreflang` after English pillars are at depth
+- [ ] Fix weak social `sameAs` values (e.g. bare YouTube URL)
+- [ ] Email-gate functional and technical syllabi (same pattern as checklist)
+- [ ] Stronger spam protection: rate limit + Turnstile (honeypot already exists)
+- [ ] Enforce `content:check` + lint + typecheck + build in CI
+
+#### F. Ad landing readiness
+
+**Remaining work:**
+
+- [ ] Confirm every Odoo paid keyword lands on a relevant industry or package page on this domain
+- [ ] Stop homepage landings on binaryquest.com for Odoo ads
+- [ ] Tune commercial pages toward ≥ 1.5% session → consultation submit
+
+---
+
+### P2 — Community layer (supports trust and nurture)
+
+Strategy and blueprint both want a living community, not only static pages.
+
+**Remaining work:**
+
+- [ ] Real events calendar, registration confirmation flow, and Event schema
+- [ ] Recordings / newsletter archive
+- [ ] Forum or public Q&A (`/forum` is still a stub)
+- [ ] Contribution path (submit a resource / ask a question with public answer)
+- [ ] Sustained monthly webinar cadence (6 consecutive months)
+
+---
+
+## 4. Suggested execution order
+
+```text
+1. Thin homepage + wire production CRM/notifications
+2. Analytics + Search Console baseline
+3. Content-check failures → deepen money landings and comparisons
+4. Start 4 articles / month cadence
+5. OG images, syllabus gates, CI, anti-abuse
+6. Bangla / hreflang
+7. Forum, events depth, recordings
+```
+
+---
+
+## 5. Out of scope for this document
+
+- Exact package pricing (quoted after discovery; not published as a discount list)
+- Full Binary Quest corporate site work (`binaryquest.com`)
+- Broad non-Odoo ERP education (`erpbangladesh.com`)
+- Detailed API / database design for CRM (see blueprint WS-D when implementing)
+
+---
+
+## 6. Related documents
+
+| Document | Use |
+| --- | --- |
+| `docs/Binary_Quest_Domain_Strategy_odoobangladesh_com.docx` | Domain role, MQL share, 90-day actions, budget share |
+| `docs/PROJECT_BLUEPRINT.md` | Engineering workstreams, content minima, definition of done |
+| `docs/CONTENT_GUIDE.md` | Writer rules for MDX rewrites |
+| `docs/Branding_Guidline.md` | Quiet Premium visual system |
+| `.cursor/plans/engagement_conversion_pass_849c1c4a.plan.md` | Homepage thin-pass and checklist gate |
+| `.cursor/plans/quiet_premium_design_00a2d2f2.plan.md` | Design system rollout |
+
+---
+
+## 7. Bottom line
+
+**Objective:** Make odoobangladesh.com the default Odoo learning and investigation site in Bangladesh, and the practice’s main machine for ~100 MQLs in 2027.
+
+**Already done:** Site structure, design, packages, disclosure, forms with attribution, checklist gate, SEO plumbing.
+
+**Still required to achieve the objective:** deep publishable content at cadence, live CRM routing, analytics against KPIs, then homepage/SEO polish and community depth.

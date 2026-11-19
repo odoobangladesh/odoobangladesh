@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendor React Bits sources (upstream patterns trip React Compiler lint rules)
+    "src/components/react-bits/**",
   ]),
 ]);
 

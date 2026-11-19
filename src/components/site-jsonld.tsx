@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/site";
 
 function jsonLd(data: unknown) {
   return {
-    __html: JSON.stringify(data),
+    __html: JSON.stringify(data).replace(/</g, "\\u003c"),
   };
 }
 
@@ -17,7 +17,21 @@ export function SiteJsonLd() {
     name: siteConfig.name,
     url: base,
     email: siteConfig.contactEmail,
-    sameAs: Object.values(siteConfig.social),
+    logo: `${base}/icons/ob-horizontal.svg`,
+    image: `${base}/icons/ob-og.png`,
+    sameAs: [
+      siteConfig.social.linkedin,
+      siteConfig.social.facebook,
+      siteConfig.operator.url,
+    ],
+    parentOrganization: {
+      "@type": "Organization",
+      name: siteConfig.operator.name,
+      url: siteConfig.operator.url,
+      email: siteConfig.operator.email,
+      telephone: siteConfig.operator.phone,
+      address: siteConfig.operator.address,
+    },
   };
 
   const website = {

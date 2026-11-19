@@ -30,8 +30,8 @@ related:
 faq:
   - q: "Does Odoo have an official Bangladesh localisation?"
     a: "Odoo 17 to 19 ship a Bangladesh chart of accounts and a 15 percent VAT tax template as a localisation package. Mushak 6.3 and Mushak 9.1 layouts are not produced out of the box, so most local setups add a small custom report module or a community module for those."
-  - q: "Can Odoo print a Mushak 6.3 tax invoice?"
-    a: "Not in the standard invoice layout. A partner or freelancer usually builds a QWeb report that follows the NBR Mushak 6.3 format, which is typically a few days of work. Ask for it explicitly during scoping."
+  - q: "Who usually builds Mushak 6.3 and 9.1 outputs for a Bangladesh go-live?"
+    a: "A local partner or freelancer. The core l10n_bd package covers the chart of accounts and VAT rates, while Mushak layouts are scoped as report work. See the Accounting module guide for the technical options (custom QWeb vs community Mushak apps)."
   - q: "How does Odoo handle the July to June fiscal year?"
     a: "Set the fiscal year end to 30 June in Accounting settings. Odoo then locks periods, closes the year and reports on the Bangladesh fiscal year without any customisation."
   - q: "What does Odoo Accounting cost for a Bangladesh company?"
@@ -154,9 +154,9 @@ Enterprise includes full Accounting out of the box, plus the audit trail, the ne
 
 Odoo 17 to 19 ship a Bangladesh chart of accounts and a 15 percent VAT tax template as a localisation package. Mushak 6.3 and Mushak 9.1 layouts are not produced out of the box, so most local setups add a small custom report module or a community module for those.
 
-### Can Odoo print a Mushak 6.3 tax invoice?
+### Who usually builds Mushak 6.3 and 9.1 outputs for a Bangladesh go-live?
 
-Not in the standard invoice layout. A partner or freelancer usually builds a QWeb report that follows the NBR Mushak 6.3 format, which is typically a few days of work. Ask for it explicitly during scoping.
+A local partner or freelancer. The core l10n_bd package covers the chart of accounts and VAT rates, while Mushak layouts are scoped as report work. See the [Accounting module guide](/modules/accounting) for the technical options (custom QWeb vs community Mushak apps).
 
 ### How does Odoo handle the July to June fiscal year?
 

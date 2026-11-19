@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { PageIntro } from "@/components/visual-ui";
 import { listDocs } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -15,38 +16,37 @@ export default async function BlogIndexPage() {
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight">Odoo Blog</h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600">
-          Neutral, Bangladesh-focused guides to help you learn Odoo, plan ERP
-          implementations, and build your career.
-        </p>
-      </div>
+    <div className="site-container section-y">
+      <PageIntro
+        title="Odoo Blog"
+        description="Neutral, Bangladesh-focused guides to help you learn Odoo, plan ERP implementations, and build your career."
+      />
 
-      <div className="mt-8 grid gap-4 md:grid-cols-2">
+      <ul className="directory-list directory-list-1 mt-8">
         {posts.map((p) => (
-          <Link
-            key={p.slug}
-            href={`/blog/${p.slug}`}
-            className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300"
-          >
-            <div className="text-sm font-semibold">{p.title}</div>
-            <p className="mt-2 text-sm text-zinc-600">
-              {p.description}
-            </p>
-            {p.date ? (
-              <div className="mt-4 text-xs text-zinc-500">{p.date}</div>
-            ) : null}
-          </Link>
+          <li key={p.slug}>
+            <Link href={`/blog/${p.slug}`} className="directory-row group">
+              <span className="directory-row-copy min-w-0">
+                <span className="directory-row-title">
+                  {p.title}
+                  {p.date ? (
+                    <span className="directory-row-meta">{p.date}</span>
+                  ) : null}
+                </span>
+                <span className="directory-row-desc">{p.description}</span>
+              </span>
+              <span className="directory-row-chevron" aria-hidden="true">
+                →
+              </span>
+            </Link>
+          </li>
         ))}
-        {posts.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-zinc-300 p-6 text-sm text-zinc-600">
-            No posts yet. Add MDX files in <code>content/blog</code>.
-          </div>
-        ) : null}
-      </div>
+      </ul>
+      {posts.length === 0 ? (
+        <div className="mt-8 border border-dashed border-line px-4 py-6 text-sm text-ink-muted">
+          No posts yet. Add MDX files in <code>content/blog</code>.
+        </div>
+      ) : null}
     </div>
   );
 }
-

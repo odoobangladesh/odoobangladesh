@@ -73,6 +73,8 @@ export type ContentDoc = {
   keywords?: string[];
   canonical?: string;
   image?: string;
+  /** Optional embed or media URL; when set, DocPage shows a video block. */
+  video?: string;
   draft?: boolean;
   related: RelatedLink[];
   faq: FaqItem[];
@@ -126,6 +128,7 @@ export async function getDoc(
     keywords: readStringArray(data.keywords),
     canonical,
     image: typeof data.image === "string" ? data.image : undefined,
+    video: typeof data.video === "string" && data.video.trim() ? data.video.trim() : undefined,
     draft: data.draft === true,
     related: readRelated(data.related),
     faq: readFaq(data.faq),

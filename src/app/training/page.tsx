@@ -1,5 +1,11 @@
-import Link from "next/link";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import { ContinueExploring } from "@/components/continue-exploring";
+import { DualTrack } from "@/components/compare-matrix";
+import { MetricStrip } from "@/components/metric-strip";
+import { ProcessDiagram } from "@/components/process-diagram";
+import { ScrollReveal } from "@/components/scroll-reveal";
+import { LinkTiles, PageIntro } from "@/components/visual-ui";
+import { listDocs } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Odoo Training Bangladesh",
@@ -8,79 +14,150 @@ export const metadata: Metadata = {
   alternates: { canonical: "/training" },
 };
 
-export default function TrainingIndexPage() {
+export default async function TrainingIndexPage() {
+  const [functional, technical] = await Promise.all([
+    listDocs("training-functional"),
+    listDocs("training-technical"),
+  ]);
+
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight">
-          Odoo Training (Bangladesh)
-        </h1>
-        <p className="mt-2 text-sm leading-6 text-zinc-600">
-          Choose a pathway: Functional (business processes + modules) or
-          Technical (development + customization). This portal focuses on
-          learning outcomes, roadmaps, and community support.
-        </p>
-      </div>
-
-      <div className="mt-8 grid gap-4 md:grid-cols-2">
-        <Link
-          href="/training/functional"
-          className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300"
-        >
-          <div className="text-sm font-semibold">Functional Training</div>
-          <p className="mt-2 text-sm text-zinc-600">
-            Sales, CRM, Purchase, Inventory, Accounting, Manufacturing, HR, POS,
-            Project, plus business process analysis and consulting skills.
-          </p>
-          <div className="mt-4 text-sm font-medium underline underline-offset-4">
-            Explore functional pathway
+    <div>
+      <ScrollReveal />
+      <section className="site-container section-y">
+        <div data-reveal>
+          <PageIntro
+            eyebrow="Training hub"
+            title="Odoo Training (Bangladesh)"
+            description="Choose a pathway: Functional (business processes + modules) or Technical (development + customization). This portal focuses on learning outcomes, roadmaps, and community support."
+          />
+          <div className="mt-8">
+            <MetricStrip
+              items={[
+                {
+                  value: functional.length,
+                  label: "Functional topics",
+                  href: "/training/functional",
+                },
+                {
+                  value: technical.length,
+                  label: "Technical topics",
+                  href: "/training/technical",
+                },
+                {
+                  value: functional.length + technical.length,
+                  label: "Total published topics",
+                  href: "/learning-center",
+                },
+              ]}
+            />
           </div>
-        </Link>
-        <Link
-          href="/training/technical"
-          className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm hover:border-zinc-300"
-        >
-          <div className="text-sm font-semibold">Technical Training</div>
-          <p className="mt-2 text-sm text-zinc-600">
-            Python for Odoo, ORM, module development, XML/QWeb, API integrations,
-            OWL, deployment, Docker, and performance optimization.
-          </p>
-          <div className="mt-4 text-sm font-medium underline underline-offset-4">
-            Explore technical pathway
-          </div>
-        </Link>
-      </div>
+        </div>
 
-      <div className="mt-10 grid gap-4 md:grid-cols-3">
-        <Link
-          href="/resources/erp-checklist"
-          className="rounded-2xl border border-zinc-200 p-6 text-sm hover:bg-zinc-50"
-        >
-          <div className="font-medium">Download ERP checklist</div>
-          <p className="mt-1 text-zinc-600">
-            A planning checklist for implementations and learning.
-          </p>
-        </Link>
-        <Link
-          href="/contact"
-          className="rounded-2xl border border-zinc-200 p-6 text-sm hover:bg-zinc-50"
-        >
-          <div className="font-medium">Book a free career consultation</div>
-          <p className="mt-1 text-zinc-600">
-            Get a roadmap based on your background and goals.
-          </p>
-        </Link>
-        <Link
-          href="/events"
-          className="rounded-2xl border border-zinc-200 p-6 text-sm hover:bg-zinc-50"
-        >
-          <div className="font-medium">Workshops & webinars</div>
-          <p className="mt-1 text-zinc-600">
-            Register for free sessions and community learning events.
-          </p>
-        </Link>
-      </div>
+        <div data-reveal className="mt-12">
+          <DualTrack
+            left={{
+              title: "Functional Training",
+              href: "/training/functional",
+              body: (
+                <>
+                  Sales, CRM, Purchase, Inventory, Accounting, Manufacturing, HR,
+                  POS, Project, plus business process analysis and consulting
+                  skills.{" "}
+                  <strong className="font-semibold text-ink">
+                    {functional.length} topics
+                  </strong>
+                  .
+                </>
+              ),
+            }}
+            right={{
+              title: "Technical Training",
+              href: "/training/technical",
+              body: (
+                <>
+                  Python for Odoo, ORM, module development, XML/QWeb, API
+                  integrations, OWL, deployment, Docker, and performance.{" "}
+                  <strong className="font-semibold text-ink">
+                    {technical.length} topics
+                  </strong>
+                  .
+                </>
+              ),
+            }}
+          />
+        </div>
+
+        <div data-reveal className="mt-12">
+          <h2 className="font-display text-[length:var(--text-h2)] font-semibold tracking-[var(--tracking-h2)] text-ink">
+            From syllabus to practice
+          </h2>
+          <div className="mt-6">
+            <ProcessDiagram
+              nodes={[
+                {
+                  id: "syllabus",
+                  label: "Syllabus",
+                  detail: "Session outline",
+                  href: "/resources/functional-syllabus",
+                  icon: "listChecks",
+                },
+                {
+                  id: "topics",
+                  label: "Topics",
+                  detail: "Module deep-dives",
+                  href: "/training/functional",
+                  icon: "book",
+                },
+                {
+                  id: "events",
+                  label: "Workshops",
+                  detail: "Community sessions",
+                  href: "/events",
+                  icon: "graduation",
+                },
+                {
+                  id: "consult",
+                  label: "Career talk",
+                  detail: "Personal roadmap",
+                  href: "/contact",
+                  icon: "users",
+                },
+              ]}
+            />
+          </div>
+        </div>
+
+        <div data-reveal className="mt-12">
+          <LinkTiles
+            ariaLabel="Training next steps"
+            items={[
+              {
+                href: "/resources/erp-checklist",
+                title: "Download ERP checklist",
+                description:
+                  "A planning checklist for implementations and learning.",
+                icon: "listChecks",
+              },
+              {
+                href: "/contact",
+                title: "Book a free career consultation",
+                description:
+                  "Get a roadmap based on your background and goals.",
+                icon: "users",
+              },
+              {
+                href: "/events",
+                title: "Workshops & webinars",
+                description:
+                  "Register for free sessions and community learning events.",
+                icon: "graduation",
+              },
+            ]}
+          />
+        </div>
+
+        <ContinueExploring excludeHref="/training" />
+      </section>
     </div>
   );
 }
-

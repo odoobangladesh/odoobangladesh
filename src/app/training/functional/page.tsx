@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { FeatureRows, PageIntro } from "@/components/visual-ui";
 import { listDocs } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -15,67 +16,80 @@ export default async function FunctionalTrainingPage() {
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
+    <div className="site-container section-y">
       <div className="grid gap-8 md:grid-cols-12">
         <div className="md:col-span-7">
-          <h1 className="text-3xl font-semibold tracking-tight">
-            Odoo Functional Training
-          </h1>
-          <p className="mt-2 text-sm leading-6 text-zinc-600">
-            For fresh graduates, ERP professionals, business analysts,
-            accountants, entrepreneurs, and career switchers.
-          </p>
+          <PageIntro
+            title="Odoo Functional Training"
+            description="For fresh graduates, ERP professionals, business analysts, accountants, entrepreneurs, and career switchers."
+          />
 
-          <div className="mt-6 rounded-2xl border border-zinc-200 p-6">
-            <div className="text-sm font-semibold">What you’ll learn</div>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
-              <li>Business process analysis and requirement discovery</li>
-              <li>Core modules: Sales, CRM, Purchase, Inventory, Accounting</li>
-              <li>Operations: Manufacturing, HR, Payroll, POS, Project</li>
-              <li>Consulting skills: scope, UAT, training, change management</li>
-            </ul>
+          <div className="mt-6 card-standard p-6">
+            <div className="text-sm font-semibold text-ink">What you’ll learn</div>
+            <div className="mt-3">
+              <FeatureRows
+                ariaLabel="What you’ll learn"
+                items={[
+                  {
+                    icon: "search",
+                    title: "Business process analysis and requirement discovery",
+                  },
+                  {
+                    icon: "boxes",
+                    title:
+                      "Core modules: Sales, CRM, Purchase, Inventory, Accounting",
+                  },
+                  {
+                    icon: "settings",
+                    title: "Operations: Manufacturing, HR, Payroll, POS, Project",
+                  },
+                  {
+                    icon: "users",
+                    title:
+                      "Consulting skills: scope, UAT, training, change management",
+                  },
+                ]}
+              />
+            </div>
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800"
-            >
+            <Link href="/contact" className="btn-primary">
               Join next training batch
             </Link>
-            <Link
-              href="/resources/functional-syllabus"
-              className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium hover:bg-zinc-50"
-            >
+            <Link href="/resources/functional-syllabus" className="btn-secondary">
               Download syllabus
             </Link>
-            <Link
-              href="/events"
-              className="inline-flex items-center justify-center rounded-xl border border-zinc-200 px-5 py-3 text-sm font-medium hover:bg-zinc-50"
-            >
+            <Link href="/events" className="btn-secondary">
               Register workshop
             </Link>
           </div>
         </div>
 
         <aside className="md:col-span-5">
-          <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-            <div className="text-sm font-semibold">Functional topics</div>
-            <p className="mt-1 text-sm text-zinc-600">
+          <div className="card-standard p-6">
+            <div className="text-sm font-semibold text-ink">Functional topics</div>
+            <p className="mt-1 text-sm text-ink-muted">
               Study one module area at a time.
             </p>
-            <div className="mt-4 grid gap-2">
+            <div className="mt-4 grid gap-0">
               {topics.map((t) => (
                 <Link
                   key={t.slug}
-                  className="rounded-xl border border-zinc-200 px-3 py-2 text-sm hover:bg-zinc-50"
+                  className="group flex items-center justify-between border-b border-line py-3 text-sm text-ink last:border-b-0 hover:text-brand"
                   href={`/training/functional/${t.slug}`}
                 >
-                  {t.title}
+                  <span>{t.title}</span>
+                  <span
+                    className="card-arrow text-ink-muted transition-transform duration-[var(--dur-fast)] group-hover:translate-x-[3px]"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
                 </Link>
               ))}
               {topics.length === 0 ? (
-                <div className="text-sm text-zinc-600">
+                <div className="text-sm text-ink-muted">
                   Add MDX in <code>content/training-functional</code>.
                 </div>
               ) : null}
@@ -86,4 +100,3 @@ export default async function FunctionalTrainingPage() {
     </div>
   );
 }
-

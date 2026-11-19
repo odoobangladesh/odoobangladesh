@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { PageIntro } from "@/components/visual-ui";
 
 export const metadata: Metadata = {
   title: "FAQ",
@@ -35,7 +36,7 @@ const faqs = [
 ] as const;
 
 function jsonLd(data: unknown) {
-  return { __html: JSON.stringify(data) };
+  return { __html: JSON.stringify(data).replace(/</g, "\\u003c") };
 }
 
 export default function FaqPage() {
@@ -50,31 +51,29 @@ export default function FaqPage() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(faqJsonLd)} />
+    <div className="site-container section-y">
+      <div className="mx-auto max-w-[var(--reading)]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(faqJsonLd)}
+        />
 
-      <h1 className="text-3xl font-semibold tracking-tight">FAQ</h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600">
-        Common questions about Odoo ERP in Bangladesh, training pathways, and
-        career planning.
-      </p>
+        <PageIntro
+          title="FAQ"
+          description="Common questions about Odoo ERP in Bangladesh, training pathways, and career planning."
+        />
 
-      <div className="mt-8 grid gap-3">
-        {faqs.map((f) => (
-          <details
-            key={f.q}
-            className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm"
-          >
-            <summary className="cursor-pointer text-sm font-semibold">
-              {f.q}
-            </summary>
-            <p className="mt-3 text-sm leading-6 text-zinc-600">
-              {f.a}
-            </p>
-          </details>
-        ))}
+        <div className="mt-8 grid gap-3">
+          {faqs.map((f) => (
+            <details key={f.q} className="card-standard p-5">
+              <summary className="cursor-pointer text-sm font-semibold text-ink">
+                {f.q}
+              </summary>
+              <p className="mt-3 text-sm leading-6 text-ink-muted">{f.a}</p>
+            </details>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
-
