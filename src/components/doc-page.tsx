@@ -10,6 +10,34 @@ import {
   ERP_CHECKLIST_UNLOCK_KEY,
   ResourceEmailGate,
 } from "@/components/resource-email-gate";
+
+const GATED_RESOURCES: Record<
+  string,
+  { asset: string; storageKey: string; submitLabel: string; teaser: string }
+> = {
+  "erp-checklist": {
+    asset: "erp-checklist",
+    storageKey: ERP_CHECKLIST_UNLOCK_KEY,
+    submitLabel: "Unlock checklist",
+    teaser:
+      "Title and summary stay open. Enter your email once to unlock the full checklist on this device.",
+  },
+  "functional-syllabus": {
+    asset: "functional-syllabus",
+    storageKey: "obd_unlocked_functional-syllabus_v1",
+    submitLabel: "Unlock functional syllabus",
+    teaser:
+      "Title and summary stay open. Enter your email once to unlock the functional syllabus on this device.",
+  },
+  "technical-syllabus": {
+    asset: "technical-syllabus",
+    storageKey: "obd_unlocked_technical-syllabus_v1",
+    submitLabel: "Unlock technical syllabus",
+    teaser:
+      "Title and summary stay open. Enter your email once to unlock the technical syllabus on this device.",
+  },
+};
+import { ConsultationBand } from "@/components/consultation-band";
 import { DocVideo } from "@/components/doc-video";
 import { RelatedLinks } from "@/components/related-links";
 import {
@@ -21,7 +49,25 @@ import {
 } from "@/lib/content";
 import { renderMdx } from "@/lib/mdx";
 import { docSchemas } from "@/lib/schema";
+import { bnMirrorForEnglishPath, languageAlternates } from "@/lib/i18n";
+import { ogImagePath } from "@/lib/og";
+import { siteConfig } from "@/lib/site";
 import { extractToc } from "@/lib/toc";
+
+const COMMERCIAL_COLLECTIONS = new Set<Collection>([
+  "industries",
+  "comparisons",
+  "landings",
+]);
+
+function commercialInterest(
+  collection: Collection,
+): "erp-assessment" | "talk-to-specialist" {
+  if (collection === "comparisons" || collection === "landings") {
+    return "talk-to-specialist";
+  }
+  return "erp-assessment";
+}
 
 /**
  * Shared renderer for every MDX-backed detail page. Route files stay tiny and
@@ -64,19 +110,43 @@ export function docMetadata(doc: ContentDoc): Metadata {
   const isCourse =
     doc.collection === "training-functional" ||
     doc.collection === "training-technical";
+  const meta = COLLECTION_META[doc.collection];
+  const image = ogImagePath(doc.title, meta.label);
+  const bnPair = bnMirrorForEnglishPath(doc.path);
+  const languages = bnPair
+    ? languageAlternates(bnPair.enPath, bnPair.bnSlug)
+    : null;
   return {
     title: doc.title,
     description: doc.description,
-    alternates: { canonical: doc.path },
+    alternates: {
+      canonical: doc.path,
+      ...(languages
+        ? {
+            languages: {
+              en: languages.en,
+              bn: languages.bn,
+              "x-default": languages.en,
+            },
+          }
+        : {}),
+    },
     keywords: doc.keywords,
     openGraph: {
       title: doc.title,
       description: doc.description,
       url: doc.path,
       type: isCourse ? "website" : "article",
+      images: [{ url: image, width: 1200, height: 630, alt: doc.title }],
       ...(doc.date && !isCourse
         ? { publishedTime: doc.date, modifiedTime: doc.updated ?? doc.date }
         : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: doc.title,
+      description: doc.description,
+      images: [image],
     },
   };
 }
@@ -141,8 +211,11 @@ export async function DocPage({ doc }: { doc: ContentDoc }) {
     doc.collection === "landings" ? "Learning Center" : meta.label;
   const isArticle = doc.collection === "blog";
   const Wrapper = isArticle ? "article" : "div";
-  const gateChecklist =
-    doc.collection === "resources" && doc.slug === "erp-checklist";
+  const gatedResource =
+    doc.collection === "resources"
+      ? GATED_RESOURCES[doc.slug]
+      : undefined;
+  const showConsultation = COMMERCIAL_COLLECTIONS.has(doc.collection);
 
   const body = (
     <>
@@ -151,6 +224,13 @@ export async function DocPage({ doc }: { doc: ContentDoc }) {
         <RelatedLinks
           title={RELATED_TITLE[doc.collection] ?? "Related"}
           links={doc.related}
+        />
+      ) : null}
+      {showConsultation ? (
+        <ConsultationBand
+          title="Request a consultation"
+          description={`Educational first. When you need scoped implementation help, ${siteConfig.operator.name} follows up with source tagged as ${siteConfig.leadSource}.`}
+          defaultInterest={commercialInterest(doc.collection)}
         />
       ) : null}
     </>
@@ -204,15 +284,14 @@ export async function DocPage({ doc }: { doc: ContentDoc }) {
             </p>
           </header>
           {isArticle ? <DocVideo src={doc.video} title={doc.title} /> : null}
-          {gateChecklist ? (
+          {gatedResource ? (
             <ResourceEmailGate
-              asset="erp-checklist"
-              storageKey={ERP_CHECKLIST_UNLOCK_KEY}
-              submitLabel="Unlock checklist"
+              asset={gatedResource.asset}
+              storageKey={gatedResource.storageKey}
+              submitLabel={gatedResource.submitLabel}
               teaser={
                 <p className="mt-8 text-sm leading-6 text-ink-muted">
-                  Title and summary stay open. Enter your email once to unlock
-                  the full checklist on this device.
+                  {gatedResource.teaser}
                 </p>
               }
             >

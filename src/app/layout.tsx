@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import "./landing.css";
+import { AttributionCapture } from "@/components/attribution-capture";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { StickyCta } from "@/components/sticky-cta";
@@ -78,6 +79,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <SiteJsonLd />
+        <AttributionCapture />
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}

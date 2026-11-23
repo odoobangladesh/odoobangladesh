@@ -1,10 +1,27 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { mergeAttribution } from "@/lib/utm";
 
 type Status = "idle" | "loading" | "success" | "error";
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        el: HTMLElement,
+        options: {
+          sitekey: string;
+          callback: (token: string) => void;
+          "expired-callback"?: () => void;
+          "error-callback"?: () => void;
+        },
+      ) => string;
+      reset: (widgetId?: string) => void;
+    };
+  }
+}
 
 type Role =
   | "business"
@@ -45,9 +62,11 @@ function resolveInterest(
 function InquiryFormFields({
   defaultInterest,
   defaultPackage,
+  defaultMessage,
 }: {
   defaultInterest?: Interest;
   defaultPackage?: string;
+  defaultMessage?: string;
 }) {
   const searchParams = useSearchParams();
   const initialInterest = resolveInterest(
@@ -57,6 +76,10 @@ function InquiryFormFields({
   const initialPackage =
     searchParams.get("package")?.trim() || defaultPackage || "";
 
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || undefined;
+  const turnstileRef = useRef<HTMLDivElement | null>(null);
+  const widgetIdRef = useRef<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [form, setForm] = useState({
     name: "",
@@ -66,9 +89,48 @@ function InquiryFormFields({
     role: "business" as Role,
     interest: initialInterest,
     package: initialPackage,
-    message: "",
+    message: defaultMessage ?? "",
     website: "",
   });
+
+  useEffect(() => {
+    if (!siteKey || !turnstileRef.current) return;
+
+    let cancelled = false;
+
+    function mountWidget() {
+      if (cancelled || !turnstileRef.current || !window.turnstile || !siteKey) {
+        return;
+      }
+      if (widgetIdRef.current) return;
+      widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: siteKey,
+        callback: (token) => setTurnstileToken(token),
+        "expired-callback": () => setTurnstileToken(""),
+        "error-callback": () => setTurnstileToken(""),
+      });
+    }
+
+    const existing = document.querySelector<HTMLScriptElement>(
+      'script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]',
+    );
+    if (existing) {
+      if (window.turnstile) mountWidget();
+      else existing.addEventListener("load", mountWidget);
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.onload = () => mountWidget();
+    document.head.appendChild(script);
+    return () => {
+      cancelled = true;
+    };
+  }, [siteKey]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -90,6 +152,7 @@ function InquiryFormFields({
           package: form.package || undefined,
           message: form.message,
           honeypot: form.website,
+          turnstileToken: turnstileToken || undefined,
           ...attribution,
         }),
       });
@@ -103,9 +166,13 @@ function InquiryFormFields({
         role: "business",
         interest: defaultInterest ?? "erp-assessment",
         package: defaultPackage ?? "",
-        message: "",
+        message: defaultMessage ?? "",
         website: "",
       });
+      setTurnstileToken("");
+      if (widgetIdRef.current && window.turnstile) {
+        window.turnstile.reset(widgetIdRef.current);
+      }
     } catch {
       setStatus("error");
     }
@@ -253,11 +320,15 @@ function InquiryFormFields({
             value={form.website}
             onChange={(e) => setForm((v) => ({ ...v, website: e.target.value }))}
           />
+
+          {siteKey ? (
+            <div ref={turnstileRef} className="min-h-[65px]" />
+          ) : null}
         </div>
 
         <button
           className="btn-primary mt-5 w-full disabled:cursor-not-allowed disabled:opacity-60"
-          disabled={status === "loading"}
+          disabled={status === "loading" || (Boolean(siteKey) && !turnstileToken)}
           type="submit"
         >
           {status === "loading" ? "Sending…" : "Submit consultation request"}
@@ -307,9 +378,11 @@ function InquiryFormFields({
 export function InquiryForm({
   defaultInterest,
   defaultPackage,
+  defaultMessage,
 }: {
   defaultInterest?: Interest;
   defaultPackage?: string;
+  defaultMessage?: string;
 } = {}) {
   return (
     <Suspense
@@ -327,6 +400,7 @@ export function InquiryForm({
       <InquiryFormFields
         defaultInterest={defaultInterest}
         defaultPackage={defaultPackage}
+        defaultMessage={defaultMessage}
       />
     </Suspense>
   );

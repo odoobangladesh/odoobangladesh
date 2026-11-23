@@ -1,8 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { InquiryForm } from "@/components/inquiry-form";
 import { PackageCta } from "@/components/package-cta";
 import { FeatureRows, PageIntro } from "@/components/visual-ui";
+import { ogImagePath } from "@/lib/og";
 import { getPackage, packagePaths, packages } from "@/lib/packages";
 import { siteConfig } from "@/lib/site";
 
@@ -18,10 +20,24 @@ export async function generateMetadata({
   const { slug } = await params;
   const pkg = getPackage(slug);
   if (!pkg) return {};
+  const title = `${pkg.name} Odoo Package Bangladesh`;
+  const image = ogImagePath(title, "Packages");
   return {
-    title: `${pkg.name} Odoo Package Bangladesh`,
+    title,
     description: pkg.summary,
     alternates: { canonical: `/packages/${pkg.slug}` },
+    openGraph: {
+      title,
+      description: pkg.summary,
+      url: `/packages/${pkg.slug}`,
+      images: [{ url: image, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: pkg.summary,
+      images: [image],
+    },
   };
 }
 
@@ -97,6 +113,12 @@ export default async function PackageDetailPage({
 
         <aside className="space-y-4 lg:col-span-5">
           <PackageCta packageSlug={pkg.slug} label={pkg.ctaLabel} />
+          <InquiryForm
+            defaultInterest={
+              pkg.slug === "care-plan" ? "care-plan" : "talk-to-specialist"
+            }
+            defaultPackage={pkg.slug}
+          />
 
           {pkg.relatedIndustries.length > 0 ? (
             <div className="card-standard p-6">

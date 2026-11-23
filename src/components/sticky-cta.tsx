@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CtaSpark } from "@/components/cta-spark";
+import { withStoredUtms } from "@/lib/utm";
 
 type StickyIntent = {
   title: string;
@@ -17,11 +18,32 @@ const COST_LANDINGS = [
   "/odoo-pricing-bangladesh",
 ];
 
+const COMMERCIAL_PREFIXES = [
+  "/packages",
+  "/industries",
+  "/comparisons",
+  "/pricing-guide",
+  ...COST_LANDINGS,
+  "/odoo-partners-bangladesh",
+  "/odoo-for-garments-industry",
+  "/odoo-accounting-bangladesh",
+  "/open-source-erp-bangladesh",
+  "/odoo-vs-erpnext",
+];
+
+function isCommercialPath(pathname: string): boolean {
+  return COMMERCIAL_PREFIXES.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
+}
+
 function intentForPath(pathname: string | null): StickyIntent {
   const path = pathname ?? "/";
 
   if (
     path.startsWith("/training") ||
+    path.startsWith("/learning-center") ||
+    path.startsWith("/knowledge-hub") ||
     path.startsWith("/odoo-career-guide") ||
     path.startsWith("/developer-resources")
   ) {
@@ -78,7 +100,13 @@ function intentForPath(pathname: string | null): StickyIntent {
 export function StickyCta() {
   const pathname = usePathname();
   const intent = intentForPath(pathname);
+  const commercial = isCommercialPath(pathname ?? "/");
   const [visible, setVisible] = useState(false);
+  const [href, setHref] = useState(intent.href);
+
+  useEffect(() => {
+    setHref(withStoredUtms(intent.href));
+  }, [intent.href]);
 
   useEffect(() => {
     const hero = document.getElementById("hero");
@@ -112,7 +140,9 @@ export function StickyCta() {
   return (
     <div
       data-sticky-cta={visible ? "visible" : "hidden"}
-      className={`fixed bottom-0 left-0 right-0 z-40 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:hidden transition-transform duration-[var(--dur-base)] ease-[var(--ease-out)] ${
+      className={`fixed bottom-0 left-0 right-0 z-40 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] transition-transform duration-[var(--dur-base)] ease-[var(--ease-out)] ${
+        commercial ? "" : "md:hidden"
+      } ${
         visible ? "translate-y-0" : "pointer-events-none translate-y-[120%]"
       }`}
       aria-hidden={!visible}
@@ -127,10 +157,7 @@ export function StickyCta() {
           </div>
         </div>
         <CtaSpark magnet={false}>
-          <Link
-            href={intent.href}
-            className="btn-primary h-10 shrink-0 px-4 text-xs"
-          >
+          <Link href={href} className="btn-primary h-10 shrink-0 px-4 text-xs">
             {intent.button}
           </Link>
         </CtaSpark>

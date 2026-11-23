@@ -36,6 +36,5 @@ export const siteConfig = {
     whatsapp: "https://wa.me/8801937091332",
     linkedin: "https://www.linkedin.com/company/binaryquest",
     facebook: "https://www.facebook.com/binaryquest",
-    youtube: "https://www.youtube.com/",
   },
 } as const;

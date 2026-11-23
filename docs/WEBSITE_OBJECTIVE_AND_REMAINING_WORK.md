@@ -1,8 +1,8 @@
 # Odoo Bangladesh — Website objective and remaining work
 
-Last updated: 18 November 2026  
+Last updated: 22 November 2026  
 Audience: product, marketing, and engineering  
-Sources: `Binary_Quest_Domain_Strategy_odoobangladesh_com.docx`, `PROJECT_BLUEPRINT.md`, current codebase
+Sources: `Binary_Quest_Domain_Strategy_odoobangladesh_com.docx`, `PROJECT_BLUEPRINT.md`, `.cursor/plans/p1_objective_support_29750cb2.plan.md`, `.cursor/plans/p2_community_layer_ea42a94e.plan.md`, current codebase
 
 ---
 
@@ -70,32 +70,44 @@ They split discovery and trust. They do **not** each chase a separate revenue ta
 
 ## 2. What is already in place
 
-The product shell for the objective is largely built.
+The product shell for the objective is largely built. **P1 product work is shipped** (homepage conversion composition, commercial embeds/attribution, OG/CI/anti-abuse, first Bangla mirrors).
 
 ### Product and IA
 
 - Next.js App Router site with MDX content collections (blog, landings, modules, industries, comparisons, training, resources)
 - Pillar pages: learning center, implementation guide, pricing guide, career guide, training hubs
+- Learning Center as knowledge hub: audience switcher, learning sequence, searchable catalog (`HubCatalog`), `/resources` index, `/knowledge-hub` → `/learning-center`
 - Commercial packaging: Starter, Business, Growth, Enterprise, Care Plan (`/packages`)
 - About / operator disclosure and sister-site links
-- Events page with registration interest form
+- Events calendar: upcoming/past split, `/events/[slug]` detail, per-event registration interest, Event JSON-LD
+- Trust teasers (workshop highlights + Binary Quest operator proof) on learning center and packages (home trust band removed in P1 thin-pass)
+- Homepage conversion composition: hero → LiveCoverage → ProcessDiagram → AudienceSwitcher → newsletter/principles → PackageCta (portal index / compare matrix / popular tiles removed from `/`)
 - Quiet Premium design system applied (tokens, typography, chrome, forms, docs)
+- First Bangla money-page mirrors under `/bn` with `hreflang` pairs (pricing, implementation cost, accounting, garments, vs Tally)
 
 ### Conversion and attribution
 
 - Consultation form with company, package, interest, UTM, page path, honeypot
+- Embedded consultation on package pages and commercial MDX surfaces (industries, comparisons, landings) via `ConsultationBand` / sidebar form
+- First-touch UTMs + `landing_path` persisted in `sessionStorage`; sticky CTA and PackageCta preserve UTMs on `/contact` links
 - Lead source forced to `odoobangladesh.com`
 - Learner vs commercial lead typing
-- Newsletter subscribe + ERP checklist email gate (exit-intent and resource page)
-- Path-aware sticky CTA
+- Newsletter subscribe with explicit consent + `consentAt`, attribution fields, and `/unsubscribe` (manual until ESP)
+- ERP checklist + functional/technical syllabus email gates
+- Path-aware sticky CTA (mobile everywhere; desktop on commercial paths including packages / industries / comparisons / cost landings)
 - Local lead audit log (`.data/leads.jsonl`) and optional `CRM_WEBHOOK_URL`
+- Ad keyword → URL matrix: `docs/AD_LANDING_KEYWORD_MAP.md`
 
 ### SEO plumbing
 
 - Canonical short-slug model for money landings
-- Sitemap, robots, metadata, JSON-LD helpers (Organization, WebSite, Article/BlogPosting, Course, Breadcrumb, FAQ, ItemList)
+- Sitemap (includes `/bn` mirrors), robots, metadata, JSON-LD helpers (Organization, WebSite, Article/BlogPosting, Course, Breadcrumb, FAQ, ItemList, Event)
+- Dynamic Open Graph images via `/og?title=&label=` on docs, packages, events
+- Organization `sameAs` limited to verified LinkedIn + Facebook (bare YouTube removed; Binary Quest as `parentOrganization` only)
 - Internal related-links block on content pages
 - `npm run content:check` quality gate script
+- GitHub CI: `content:check` → lint → typecheck → build (`.github/workflows/ci.yml`)
+- Inquiry/newsletter rate limiting (Upstash when configured; in-memory fallback) + Cloudflare Turnstile on inquiry (env-gated for local)
 
 ---
 
@@ -115,7 +127,7 @@ Ordered by impact on the 2027 MQL / SEO goals.
 - [ ] Bring all existing MDX pages to blueprint minimums (modules 900, industries 1000, comparisons 1800, landings 1200, training 700, blog 1200, resources 500)
 - [ ] Prioritise deepen order: landings → comparisons → pillars → modules → industries → training → resources
 - [ ] Operate editorial cadence: **4 long-form articles / month** mapped to strategy clusters (vs Tally/Excel, Mushak/Accounting, industry, implementation, comparisons, short proof → binaryquest.com)
-- [ ] Bangla-first or bilingual pieces where search intent is local (especially accounting / Tally / SME topics); keep human review for NBR, Mushak, VAT, and pricing claims
+- [ ] Deepen Bangla mirrors and add Bangla-first pieces where search intent is local (especially accounting / Tally / SME topics); keep human review for NBR, Mushak, VAT, and pricing claims
 - [ ] Fill high-value backlog pages, for example:
   - Comparisons: Odoo vs QuickBooks, Odoo vs Zoho
   - Modules: website, ecommerce, helpdesk, fleet
@@ -133,7 +145,7 @@ Ordered by impact on the 2027 MQL / SEO goals.
 - [ ] Set production `CRM_WEBHOOK_URL` / token (or push directly into Odoo CRM as `crm.lead` with source `odoobangladesh.com`)
 - [ ] Notify practice on every commercial inquiry (email / Slack / WhatsApp)
 - [ ] Prefer durable storage (e.g. Postgres) so leads are not tied to one server disk
-- [ ] Confirm UTM + `source_path` appear on every CRM record
+- [ ] Confirm UTM + `source_path` appear on every CRM record (first-touch capture is already in the site; verify end-to-end in CRM)
 - [ ] Keep learner leads tagged and out of SQL pressure
 - [ ] Newsletter double opt-in into a real ESP (Brevo / Listmonk / equivalent)
 
@@ -154,62 +166,75 @@ Ordered by impact on the 2027 MQL / SEO goals.
 
 ---
 
-### P1 — Strongly supports the objective
+### P1 — Strongly supports the objective (shipped)
+
+Product implementation detail: `.cursor/plans/p1_objective_support_29750cb2.plan.md`.
 
 #### D. Homepage conversion focus
 
-Engagement plan called for a thinner home (hero → journey → audience → newsletter → Package CTA). The current home still stacks coverage dashboard, portal index, compare matrix, and popular tiles.
+**Shipped:**
 
-**Remaining work:**
-
-- [ ] Thin homepage to the agreed conversion composition
-- [ ] Keep secondary destinations reachable via nav / learning center
+- [x] Homepage thinned to conversion composition: hero → LiveCoverage → ProcessDiagram → AudienceSwitcher → newsletter/principles → PackageCta (LiveCoverage kept by UI preference)
+- [x] Secondary destinations remain via nav / learning center (portal index, compare matrix, popular tiles removed from `/`)
 
 #### E. SEO and shareability polish
 
-**Remaining work:**
+**Shipped:**
 
-- [ ] Dynamic Open Graph images per route
-- [ ] Bangla routes and `hreflang` after English pillars are at depth
-- [ ] Fix weak social `sameAs` values (e.g. bare YouTube URL)
-- [ ] Email-gate functional and technical syllabi (same pattern as checklist)
-- [ ] Stronger spam protection: rate limit + Turnstile (honeypot already exists)
-- [ ] Enforce `content:check` + lint + typecheck + build in CI
+- [x] Dynamic Open Graph images per route (`/og` + metadata wiring)
+- [x] Bangla routes + `hreflang` for first money-page mirrors (`/bn`, five paired pages in sitemap)
+- [x] Weak social `sameAs` fixed (bare YouTube removed; LinkedIn/Facebook only)
+- [x] Email-gate functional and technical syllabi (same pattern as checklist)
+- [x] Stronger spam protection: rate limit + Turnstile (honeypot retained; set production env keys)
+- [x] Enforce `content:check` + lint + typecheck + build in CI
+
+**Ops remaining (not blocking P1 product):** deepen Bangla copy with specialist review; set Turnstile + Upstash env in production.
 
 #### F. Ad landing readiness
 
-**Remaining work:**
+**Shipped (engineering):**
 
-- [ ] Confirm every Odoo paid keyword lands on a relevant industry or package page on this domain
+- [x] Keyword → URL matrix in `docs/AD_LANDING_KEYWORD_MAP.md` (packages, industries, comparisons, money landings)
+- [x] Commercial pages embed consultation + stronger next-step CTAs; desktop sticky CTA on commercial paths; first-touch UTM/`source_path` persistence
+
+**Ops remaining (media buying):**
+
+- [ ] Confirm live campaigns use the keyword map URLs on this domain
 - [ ] Stop homepage landings on binaryquest.com for Odoo ads
-- [ ] Tune commercial pages toward ≥ 1.5% session → consultation submit
+- [ ] Measure and tune toward ≥ 1.5% session → consultation submit (needs P0 analytics)
 
 ---
 
 ### P2 — Community layer (supports trust and nurture)
 
-Strategy and blueprint both want a living community, not only static pages.
+Strategy and blueprint both want a living community, not only static pages. The **product foundation** for this layer is shipped; what remains is ops cadence, media, and deeper participation. Detail: `.cursor/plans/p2_community_layer_ea42a94e.plan.md`.
+
+**Shipped (do not rebuild):**
+
+- [x] Learning Center hub catalog + filter, `/resources` index, knowledge-hub redirect, audience-first engagement pass
+- [x] Trust teasers linking only to honest workshop paths / Binary Quest proof
+- [x] Newsletter consent + attribution + unsubscribe messaging (ESP double opt-in still P0)
+- [x] Events model, detail routes, upcoming/past split, Event schema, per-event registration into lead pipeline
+- [x] `/forum` stub copy states a moderated forum is planned (full forum deferred)
 
 **Remaining work:**
 
-- [ ] Real events calendar, registration confirmation flow, and Event schema
-- [ ] Recordings / newsletter archive
-- [ ] Forum or public Q&A (`/forum` is still a stub)
+- [ ] Automated event registration confirmation (depends on P0 CRM / email notifications)
+- [ ] Recordings / newsletter archive — only with real assets; no fake media links
+- [ ] Forum or public Q&A beyond the contact stub (evaluate Discourse vs moderated `/questions` when volume justifies)
 - [ ] Contribution path (submit a resource / ask a question with public answer)
-- [ ] Sustained monthly webinar cadence (6 consecutive months)
+- [ ] Sustained monthly webinar cadence (6 consecutive months) and honest past-session updates
 
 ---
 
 ## 4. Suggested execution order
 
 ```text
-1. Thin homepage + wire production CRM/notifications
-2. Analytics + Search Console baseline
+1. Wire production CRM/notifications + ESP double opt-in + Turnstile/Upstash env
+2. Analytics + Search Console baseline; verify ad campaigns use AD_LANDING_KEYWORD_MAP
 3. Content-check failures → deepen money landings and comparisons
-4. Start 4 articles / month cadence
-5. OG images, syllabus gates, CI, anti-abuse
-6. Bangla / hreflang
-7. Forum, events depth, recordings
+4. Start 4 articles / month cadence; deepen Bangla mirrors with human review
+5. Community depth: recordings/archive, contribution path, forum when volume justifies; keep webinar cadence running
 ```
 
 ---
@@ -231,8 +256,11 @@ Strategy and blueprint both want a living community, not only static pages.
 | `docs/PROJECT_BLUEPRINT.md` | Engineering workstreams, content minima, definition of done |
 | `docs/CONTENT_GUIDE.md` | Writer rules for MDX rewrites |
 | `docs/Branding_Guidline.md` | Quiet Premium visual system |
+| `docs/AD_LANDING_KEYWORD_MAP.md` | Paid Odoo keyword → odoobangladesh.com URL matrix |
 | `.cursor/plans/engagement_conversion_pass_849c1c4a.plan.md` | Homepage thin-pass and checklist gate |
+| `.cursor/plans/p1_objective_support_29750cb2.plan.md` | P1 homepage / SEO polish / ad landing (shipped) |
 | `.cursor/plans/quiet_premium_design_00a2d2f2.plan.md` | Design system rollout |
+| `.cursor/plans/p2_community_layer_ea42a94e.plan.md` | Community layer foundation + follow-on depth |
 
 ---
 
@@ -240,6 +268,6 @@ Strategy and blueprint both want a living community, not only static pages.
 
 **Objective:** Make odoobangladesh.com the default Odoo learning and investigation site in Bangladesh, and the practice’s main machine for ~100 MQLs in 2027.
 
-**Already done:** Site structure, design, packages, disclosure, forms with attribution, checklist gate, SEO plumbing.
+**Already done:** Site structure, design, packages, disclosure, forms with attribution, checklist + syllabus gates, SEO plumbing (including dynamic OG, CI, anti-abuse scaffolding), P1 conversion/ad-landing product layer, first Bangla/`hreflang` mirrors, and the P2 community **product** layer (learning hub, trust teasers, consent-ready newsletter, events + schema).
 
-**Still required to achieve the objective:** deep publishable content at cadence, live CRM routing, analytics against KPIs, then homepage/SEO polish and community depth.
+**Still required to achieve the objective:** deep publishable content at cadence, live CRM/ESP routing, analytics against KPIs, production anti-abuse env + media-buying discipline on the keyword map, then community **ops** depth (recordings, contribution, forum when justified, webinar cadence).
