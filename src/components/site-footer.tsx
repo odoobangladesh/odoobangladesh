@@ -36,6 +36,12 @@ export function SiteFooter() {
           </Link>
           <Link
             className="text-brand-tint hover:text-on-brand hover:underline"
+            href="/resources"
+          >
+            Resources
+          </Link>
+          <Link
+            className="text-brand-tint hover:text-on-brand hover:underline"
             href="/implementation-guide"
           >
             Implementation Guide

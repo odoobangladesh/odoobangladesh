@@ -19,11 +19,7 @@ export function SiteJsonLd() {
     email: siteConfig.contactEmail,
     logo: `${base}/icons/ob-horizontal.svg`,
     image: `${base}/icons/ob-og.png`,
-    sameAs: [
-      siteConfig.social.linkedin,
-      siteConfig.social.facebook,
-      siteConfig.operator.url,
-    ],
+    sameAs: [siteConfig.social.linkedin, siteConfig.social.facebook],
     parentOrganization: {
       "@type": "Organization",
       name: siteConfig.operator.name,

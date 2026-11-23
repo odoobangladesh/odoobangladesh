@@ -35,6 +35,8 @@ export type NewsletterLead = {
   source: string;
   /** Optional unlock asset tag, e.g. "erp-checklist". */
   asset?: string;
+  /** ISO timestamp when the visitor gave marketing-email consent. */
+  consentAt?: string;
   source_path?: string;
   referrer?: string;
   utm_source?: string;
@@ -83,6 +85,9 @@ async function appendLocalLog(record: Record<string, unknown>) {
  * - Always tags source = odoobangladesh.com
  * - Optionally POSTs to CRM_WEBHOOK_URL when configured
  * - Always appends a local JSONL audit log so submissions are never silent
+ *
+ * ESP hook (P0): when Brevo/Listmonk (or equivalent) is configured, subscribe
+ * newsletter leads here after local append — using consentAt for double opt-in.
  */
 export async function captureLead(payload: LeadPayload) {
   if (payload.honeypot) {

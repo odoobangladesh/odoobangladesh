@@ -1,7 +1,4 @@
-import Link from "next/link";
 import { AudienceSwitcher } from "@/components/audience-switcher";
-import { CompareMatrix } from "@/components/compare-matrix";
-import { PortalIndex } from "@/components/portal-index";
 import { LandingAtmosphere } from "@/components/landing-atmosphere";
 import { LandingHero } from "@/components/landing-hero";
 import { LiveCoverage } from "@/components/live-coverage";
@@ -9,13 +6,9 @@ import { NewsletterCard } from "@/components/newsletter-card";
 import { PackageCta } from "@/components/package-cta";
 import { ProcessDiagram } from "@/components/process-diagram";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { FeatureRows, LinkTiles } from "@/components/visual-ui";
+import { FeatureRows } from "@/components/visual-ui";
 import { listDocs } from "@/lib/content";
 import { packages } from "@/lib/packages";
-import {
-  HOME_PORTAL_DESTINATIONS,
-  withPortalMetrics,
-} from "@/lib/portal-destinations";
 
 export default async function Home() {
   const [modules, industries, comparisons, trainingFunctional, trainingTechnical] =
@@ -36,13 +29,6 @@ export default async function Home() {
     comparisons.length +
     trainingCount +
     resourceCount;
-  const portalItems = withPortalMetrics(HOME_PORTAL_DESTINATIONS, {
-    "/modules": modules.length,
-    "/industries": industries.length,
-    "/comparisons": comparisons.length,
-    "/training": trainingCount,
-    "/resources/erp-checklist": resourceCount,
-  });
 
   return (
     <div className="landing-page">
@@ -88,7 +74,7 @@ export default async function Home() {
               {
                 value: resourceCount,
                 label: "Resources",
-                href: "/resources/erp-checklist",
+                href: "/resources",
               },
             ]}
             trackTitle="Training track split"
@@ -162,86 +148,6 @@ export default async function Home() {
       </LandingAtmosphere>
 
       <section className="site-container section-y">
-        <div data-reveal>
-          <p className="landing-kicker">Portal index</p>
-          <h2 className="landing-section-title">Choose a destination</h2>
-          <p className="landing-section-lead">
-            One path at a time—guides first, consultation when you need it.
-          </p>
-          <div className="mt-8">
-            <PortalIndex
-              ariaLabel="Portal destinations"
-              items={portalItems}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="landing-panel section-y">
-        <div data-reveal className="site-container">
-          <p className="landing-kicker">Quick shortlist</p>
-          <h2 className="landing-section-title">
-            Odoo vs common alternatives
-          </h2>
-          <p className="landing-section-lead">
-            Visual matrix of themes covered in the comparison guides. Open a
-            full page for detail.
-          </p>
-          <div className="mt-8 overflow-x-auto">
-            <CompareMatrix
-              columns={["Odoo", "ERPNext", "Tally"]}
-              rows={[
-                {
-                  dimension: "Best when",
-                  cells: [
-                    { label: "Ops + finance together", tone: "good" },
-                    { label: "One free edition", tone: "neutral" },
-                    { label: "Books only", tone: "warn" },
-                  ],
-                },
-                {
-                  dimension: "Inventory",
-                  cells: [
-                    { label: "Native modules", tone: "good" },
-                    { label: "Native modules", tone: "good" },
-                    { label: "Usually external", tone: "warn" },
-                  ],
-                },
-                {
-                  dimension: "BD localisation",
-                  cells: [
-                    { label: "l10n_bd + add-ons", tone: "good" },
-                    { label: "Per project", tone: "neutral" },
-                    { label: "Familiar books", tone: "neutral" },
-                  ],
-                },
-                {
-                  dimension: "Growth path",
-                  cells: [
-                    { label: "Add modules", tone: "good" },
-                    { label: "Extend Frappe", tone: "neutral" },
-                    { label: "More workarounds", tone: "warn" },
-                  ],
-                },
-              ]}
-              footnote="Summary only. See full guides for licensing, BDT ranges, and Mushak notes."
-            />
-          </div>
-          <div className="shortlist-links">
-            <Link href="/odoo-vs-erpnext" className="btn-secondary">
-              Odoo vs ERPNext
-            </Link>
-            <Link href="/comparisons/odoo-vs-tally" className="btn-secondary">
-              Odoo vs Tally
-            </Link>
-            <Link href="/comparisons" className="btn-tertiary">
-              All comparisons
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* <section className="site-container section-y">
         <div data-reveal>
           <p className="landing-kicker">Start where you are</p>
           <h2 className="landing-section-title">Paths by audience</h2>
@@ -332,7 +238,7 @@ export default async function Home() {
             />
           </div>
         </div>
-      </section> */}
+      </section>
 
       <section className="landing-panel section-y">
         <div
@@ -380,51 +286,6 @@ export default async function Home() {
                 ]}
               />
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="site-container section-y">
-        <div data-reveal>
-          <p className="landing-kicker">High-intent</p>
-          <h2 className="landing-section-title">Popular Odoo pages</h2>
-          <p className="landing-section-lead">
-            High-intent landings, listed for quick scanning.
-          </p>
-          <div className="mt-6">
-            <LinkTiles
-              ariaLabel="Popular Odoo pages"
-              items={[
-                {
-                  href: "/odoo-accounting-bangladesh",
-                  title: "Odoo Accounting in Bangladesh",
-                  description:
-                    "VAT, chart of accounts, and Mushak-aware patterns.",
-                  icon: "clipboard",
-                },
-                {
-                  href: "/odoo-for-garments-industry",
-                  title: "Odoo for Garments Industry",
-                  description:
-                    "MRP, quality, and bonded-warehouse context for RMG.",
-                  icon: "layers",
-                },
-                {
-                  href: "/odoo-vs-erpnext",
-                  title: "Odoo vs ERPNext",
-                  description:
-                    "Open-source shortlist with Bangladesh localisation notes.",
-                  icon: "scale",
-                },
-                {
-                  href: "/comparisons/odoo-vs-tally",
-                  title: "Odoo vs Tally",
-                  description:
-                    "When bookkeeping tools stop scaling and ERP becomes the next step.",
-                  icon: "target",
-                },
-              ]}
-            />
           </div>
         </div>
       </section>

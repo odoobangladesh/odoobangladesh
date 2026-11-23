@@ -120,6 +120,57 @@ export function itemList(
   };
 }
 
+export function event(input: {
+  slug: string;
+  title: string;
+  description: string;
+  startsAt: string;
+  endsAt?: string;
+  location: string;
+  format: string;
+  status: "upcoming" | "past";
+  recordingUrl?: string;
+}): JsonLdObject {
+  const path = `/events/${input.slug}`;
+  const startIso = `${input.startsAt}T10:00:00+06:00`;
+  const endIso = `${input.endsAt ?? input.startsAt}T11:30:00+06:00`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: input.title,
+    description: input.description,
+    url: abs(path),
+    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+    eventStatus:
+      input.status === "past"
+        ? "https://schema.org/EventScheduled"
+        : "https://schema.org/EventScheduled",
+    startDate: startIso,
+    endDate: endIso,
+    location: {
+      "@type": "VirtualLocation",
+      url: abs(path),
+      name: input.location,
+    },
+    organizer: organization(),
+    isAccessibleForFree: true,
+    inLanguage: "en",
+    audience: {
+      "@type": "Audience",
+      audienceType: input.format,
+    },
+    ...(input.recordingUrl
+      ? {
+          recordedIn: {
+            "@type": "VideoObject",
+            name: `${input.title} recording`,
+            url: input.recordingUrl,
+          },
+        }
+      : {}),
+  };
+}
+
 /** Breadcrumb trail for a content document: Home, collection hub, page. */
 export function docBreadcrumbs(doc: ContentDoc): JsonLdObject {
   const meta = COLLECTION_META[doc.collection];

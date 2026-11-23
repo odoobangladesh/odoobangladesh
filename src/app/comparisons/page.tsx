@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContinueExploring } from "@/components/continue-exploring";
 import { MetricStrip } from "@/components/metric-strip";
+import { PackageCta } from "@/components/package-cta";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { LinkTiles, PageIntro } from "@/components/visual-ui";
 import { listDocs } from "@/lib/content";
@@ -67,6 +68,10 @@ export default async function ComparisonsIndexPage() {
               featured: c.slug === "odoo-vs-tally" || c.slug === "odoo-vs-erpnext",
             }))}
           />
+        </div>
+
+        <div data-reveal className="mt-12">
+          <PackageCta label="Talk through your shortlist" />
         </div>
 
         <ContinueExploring excludeHref="/comparisons" />

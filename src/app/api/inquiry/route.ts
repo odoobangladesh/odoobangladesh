@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { captureLead, withDefaults } from "@/lib/leads";
+import { rateLimitRequest } from "@/lib/rate-limit";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 const schema = z.object({
   name: z.string().min(1).max(120),
@@ -30,6 +32,7 @@ const schema = z.object({
     .or(z.literal("")),
   message: z.string().max(5000).optional().or(z.literal("")),
   honeypot: z.string().max(200).optional().or(z.literal("")),
+  turnstileToken: z.string().max(2048).optional().or(z.literal("")),
   source_path: z.string().max(500).optional().or(z.literal("")),
   referrer: z.string().max(1000).optional().or(z.literal("")),
   utm_source: z.string().max(200).optional().or(z.literal("")),
@@ -40,6 +43,14 @@ const schema = z.object({
 });
 
 export async function POST(req: Request) {
+  const limited = await rateLimitRequest(req, "inquiry");
+  if (!limited.success) {
+    return NextResponse.json(
+      { ok: false, error: "Too many requests" },
+      { status: 429 },
+    );
+  }
+
   const json = await req.json().catch(() => null);
   const parsed = schema.safeParse(json);
   if (!parsed.success) {
@@ -50,6 +61,15 @@ export async function POST(req: Request) {
   }
 
   const data = parsed.data;
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || undefined;
+  const turnstileOk = await verifyTurnstile(data.turnstileToken, ip);
+  if (!turnstileOk) {
+    return NextResponse.json(
+      { ok: false, error: "Captcha failed" },
+      { status: 400 },
+    );
+  }
 
   try {
     const result = await captureLead(

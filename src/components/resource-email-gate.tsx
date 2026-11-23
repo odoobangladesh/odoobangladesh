@@ -55,6 +55,7 @@ export function ResourceEmailGate({
         body: JSON.stringify({
           email,
           asset,
+          consent: true,
           honeypot,
           ...attribution,
         }),

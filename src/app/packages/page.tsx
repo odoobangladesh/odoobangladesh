@@ -1,7 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { GroupedBars } from "@/components/charts";
+import { ConsultationBand } from "@/components/consultation-band";
 import { PackageCta } from "@/components/package-cta";
+import { TrustHighlights } from "@/components/trust-highlights";
 import { PageIntro } from "@/components/visual-ui";
 import { packages } from "@/lib/packages";
 import { siteConfig } from "@/lib/site";
@@ -113,6 +115,19 @@ export default function PackagesPage() {
 
       <div className="mt-10">
         <PackageCta label="Request ERP consultation" />
+      </div>
+
+      <ConsultationBand
+        title="Request ERP consultation"
+        description="Tell us your industry and timeline. Business enquiries go to Binary Quest; learners get training guidance."
+        defaultInterest="talk-to-specialist"
+      />
+
+      <div className="mt-12">
+        <TrustHighlights
+          title="Proof before you purchase"
+          description="Educational workshop patterns here; full case studies and company background on Binary Quest."
+        />
       </div>
 
       <p className="mt-8 text-sm text-ink-muted">

@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { CtaSpark } from "@/components/cta-spark";
 import SpotlightCard from "@/components/react-bits/SpotlightCard/SpotlightCard";
+import { withStoredUtms } from "@/lib/utm";
 
 export function PackageCta({
   packageSlug,
@@ -11,9 +13,14 @@ export function PackageCta({
   packageSlug?: string;
   label?: string;
 }) {
-  const href = packageSlug
+  const baseHref = packageSlug
     ? `/contact?interest=talk-to-specialist&package=${packageSlug}`
     : "/contact?interest=erp-assessment";
+  const [href, setHref] = useState(baseHref);
+
+  useEffect(() => {
+    setHref(withStoredUtms(baseHref));
+  }, [baseHref]);
 
   return (
     <SpotlightCard

@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
+import { listBnDocs } from "@/lib/bn-content";
 import { COLLECTION_META, listAllDocs } from "@/lib/content";
+import { communityEvents } from "@/lib/events";
 import { siteConfig } from "@/lib/site";
 
 /**
@@ -32,6 +34,7 @@ const staticRoutes: { path: string; priority: number; changeFrequency: "weekly" 
   { path: "/packages/enterprise", priority: 0.9, changeFrequency: "monthly" },
   { path: "/packages/care-plan", priority: 0.9, changeFrequency: "monthly" },
   { path: "/blog", priority: 0.8, changeFrequency: "weekly" },
+  { path: "/resources", priority: 0.7, changeFrequency: "monthly" },
   { path: "/developer-resources", priority: 0.6, changeFrequency: "monthly" },
   { path: "/partners", priority: 0.6, changeFrequency: "monthly" },
   { path: "/events", priority: 0.7, changeFrequency: "weekly" },
@@ -39,11 +42,12 @@ const staticRoutes: { path: string; priority: number; changeFrequency: "weekly" 
   { path: "/faq", priority: 0.7, changeFrequency: "monthly" },
   { path: "/about", priority: 0.7, changeFrequency: "monthly" },
   { path: "/contact", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/bn", priority: 0.7, changeFrequency: "monthly" },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.siteUrl.replace(/\/$/, "");
-  const docs = await listAllDocs();
+  const [docs, bnDocs] = await Promise.all([listAllDocs(), listBnDocs()]);
 
   const statics: MetadataRoute.Sitemap = staticRoutes.map((r) => ({
     url: `${base}${r.path}`,
@@ -62,5 +66,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  return [...statics, ...content];
+  const bangla: MetadataRoute.Sitemap = bnDocs.map((doc) => ({
+    url: `${base}${doc.path}`,
+    lastModified: doc.updated
+      ? new Date(`${doc.updated}T00:00:00Z`)
+      : STATIC_REVIEWED,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const events: MetadataRoute.Sitemap = communityEvents.map((event) => ({
+    url: `${base}/events/${event.slug}`,
+    lastModified: new Date(`${event.startsAt}T00:00:00Z`),
+    changeFrequency: "weekly" as const,
+    priority: 0.65,
+  }));
+
+  return [...statics, ...content, ...bangla, ...events];
 }
