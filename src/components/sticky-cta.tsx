@@ -140,14 +140,14 @@ export function StickyCta() {
   return (
     <div
       data-sticky-cta={visible ? "visible" : "hidden"}
-      className={`fixed bottom-0 left-0 right-0 z-40 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] transition-transform duration-[var(--dur-base)] ease-[var(--ease-out)] ${
+      className={`fixed bottom-0 left-0 right-0 z-40 px-[var(--gutter)] pb-[max(var(--gutter),env(safe-area-inset-bottom))] transition-transform duration-[var(--dur-base)] ease-[var(--ease-out)] ${
         commercial ? "" : "md:hidden"
       } ${
         visible ? "translate-y-0" : "pointer-events-none translate-y-[120%]"
       }`}
       aria-hidden={!visible}
     >
-      <div className="glass-surface mx-auto flex max-w-xl items-center justify-between gap-3 rounded-[var(--radius-card)] border border-line p-3 shadow-3">
+      <div className="glass-surface mx-auto flex w-full max-w-xl items-center justify-between gap-3 rounded-[var(--radius-card)] border border-line p-3 shadow-3">
         <div className="min-w-0">
           <div className="truncate text-sm font-medium text-ink">
             {intent.title}
