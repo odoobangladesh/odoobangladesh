@@ -290,7 +290,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="site-container pb-[var(--section-y)]">
+      <section className="site-container section-y">
         <div data-reveal>
           <PackageCta />
         </div>

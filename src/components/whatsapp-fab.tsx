@@ -33,15 +33,15 @@ export function WhatsAppFab() {
       href={siteConfig.social.whatsapp}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group fixed right-4 z-40 flex items-center ${
+      className={`group fixed right-[var(--gutter)] z-40 ${
         offsetForSticky
-          ? "bottom-[calc(5.5rem+env(safe-area-inset-bottom))] md:bottom-[max(1.25rem,env(safe-area-inset-bottom))]"
-          : "bottom-[max(1.25rem,env(safe-area-inset-bottom))]"
+          ? "bottom-[calc(var(--gutter)+5.25rem+env(safe-area-inset-bottom))]"
+          : "bottom-[max(var(--gutter),env(safe-area-inset-bottom))]"
       }`}
       aria-label="Chat on WhatsApp"
     >
       <span
-        className="pointer-events-none mr-2 translate-x-2 rounded-[var(--radius-pill)] bg-brand px-3 py-2 text-sm font-medium text-on-brand opacity-0 shadow-2 transition-[opacity,transform] duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
+        className="pointer-events-none absolute right-full top-1/2 mr-2 -translate-y-1/2 translate-x-2 whitespace-nowrap rounded-[var(--radius-pill)] bg-brand px-3 py-2 text-sm font-medium text-on-brand opacity-0 shadow-2 transition-[opacity,transform] duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
         aria-hidden="true"
       >
         WhatsApp
